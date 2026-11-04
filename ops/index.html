@@ -73,7 +73,7 @@ a{color:var(--blue)}
 .day.other{opacity:.45}.day.is-today{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
 .day .num{font:500 12px var(--mono);color:var(--muted)}
 .ev{display:block;margin-top:3px;padding:1px 5px;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;line-height:1.5}
-.ev.deadline{background:var(--badbg);color:var(--bad)}.ev.event{background:var(--goldsoft);color:var(--warn)}.ev.task{background:var(--okbg);color:var(--ok)}.ev.key{background:var(--idle);color:var(--ink)}
+.ev.deadline{background:var(--badbg);color:var(--bad)}.ev.event{background:var(--goldsoft);color:var(--warn)}.ev.task{background:var(--okbg);color:var(--ok)}.ev.key{background:var(--idle);color:var(--ink)}.ev.portal{background:#e6efff;color:#1f4fa8}
 .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 .daylist li{margin:6px 0}
@@ -142,7 +142,7 @@ a{color:var(--blue)}
 <div class="calhead"><h2 id="calTitle">Calendar</h2>
 <div style="display:flex;gap:6px;align-items:center"><button class="ghost" id="prevM" aria-label="Previous month">‹ Prev</button><button class="ghost" id="todayM">Today</button><button class="ghost" id="nextM" aria-label="Next month">Next ›</button></div></div>
 <div class="chips" id="cfilter"></div>
-<div class="legend" style="margin-bottom:8px"><span><i style="background:var(--badbg);border:1px solid var(--bad)"></i>Bid deadline</span><span><i style="background:var(--idle)"></i>Key date (clarifications, registration open or close)</span><span><i style="background:var(--goldsoft);border:1px solid var(--gold)"></i>Industry event or meeting</span><span><i style="background:var(--okbg);border:1px solid var(--ok)"></i>To-do due</span></div>
+<div class="legend" style="margin-bottom:8px"><span><i style="background:var(--badbg);border:1px solid var(--bad)"></i>Bid deadline</span><span><i style="background:var(--idle)"></i>Key date (clarifications, registration open or close)</span><span><i style="background:var(--goldsoft);border:1px solid var(--gold)"></i>Industry event or meeting</span><span><i style="background:var(--okbg);border:1px solid var(--ok)"></i>To-do due</span><span><i style="background:#e6efff;border:1px solid #1f4fa8"></i>Portal tender (Portal tracker)</span></div>
 <div class="cal" id="cal"></div>
 <div class="panel" style="margin-top:14px"><h3 style="margin-top:0" id="dayTitle">Select a day</h3><ul class="daylist" id="dayList" style="padding-left:18px;margin:0"></ul></div>
 </section>
@@ -340,18 +340,20 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-pf]");if(b
 document.addEventListener("input",e=>{if(e.target.id==="pq"){pq=e.target.value;renderProposals()}});
 document.addEventListener("change",async e=>{const s=e.target.closest(".asel");if(!s)return;const id=s.dataset.p,f=s.dataset.f;ASSIGN[id]=Object.assign({},ASSIGN[id],{[f]:s.value});renderAll();await save("assign/"+id,ASSIGN[id])});
 // ---------- calendar ----------
-let cm=new Date(today.getFullYear(),today.getMonth(),1),cf={deadline:true,key:true,event:true,task:true},selDay=null;
+let cm=new Date(today.getFullYear(),today.getMonth(),1),cf={deadline:true,key:true,event:true,task:true,portal:true},creg="all",selDay=null;
 function items(){const out=[];
 P.forEach(p=>{if(st(p)!=="hold")out.push({date:p.due,type:"deadline",title:`${p.name} due${p.time?" "+p.time+" PT":""}`,sub:p.buyer})});
 KEY.forEach(([d,t])=>out.push({date:d,type:"key",title:t}));
 EVENTS.forEach(e=>{const s=d8(e.date),en=e.end?d8(e.end):s;for(let d=new Date(s);d<=en;d.setDate(d.getDate()+1)){out.push({date:d.toISOString().slice(0,10),type:"event",title:e.title+(e.confirmed===false?" (TBC)":""),sub:e.location+(e.category?" · "+e.category:""),url:e.url,why:e.why,note:e.reg_note})}});
 EVENTS.forEach(e=>{if(e.reg_open)out.push({date:e.reg_open,type:"key",title:"Registration opens: "+e.title,url:e.url});if(e.reg_close)out.push({date:e.reg_close,type:"key",title:"Last day to register: "+e.title,url:e.url})});
+const pn=new Set(P.map(p=>p.name.toLowerCase()));
+REG.forEach(r=>{if(!r.next_open||pn.has(String(r.next_title).toLowerCase()))return;if(creg==="pri"?!r.priority:(creg!=="all"&&r.region!==creg))return;out.push({date:r.next_open,type:"portal",title:`${r.name}: ${r.next_title||"open tender"} closes`,sub:`${r.portal} · ${RST[rst(r)][0]}${RASG[r.id]?" · "+RASG[r.id]:""}`,url:r.next_url||r.url})});
 TASKS.forEach(t=>{if(t.due&&t.status!=="done")out.push({date:t.due,type:"task",title:t.title,sub:t.lead?"Lead: "+t.lead:""})});
 return out.filter(i=>cf[i.type])}
 function iso(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
 function renderCalendar(){
 $("calTitle").textContent=cm.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
-$("cfilter").innerHTML=[["deadline","Bid deadlines"],["key","Key dates"],["event","Events and meetings"],["task","To-dos"]].map(([k,l])=>`<button class="ghost" aria-pressed="${cf[k]}" data-cf="${k}">${l}</button>`).join("");
+$("cfilter").innerHTML=[["deadline","Bid deadlines"],["key","Key dates"],["event","Events and meetings"],["task","To-dos"],["portal","Portal tenders (from Portal tracker)"]].map(([k,l])=>`<button class="ghost" aria-pressed="${cf[k]}" data-cf="${k}">${l}</button>`).join("")+`<select id="creg" aria-label="Portal tenders region" style="margin-left:4px"><option value="all">All portal regions</option><option value="pri">Priority portals only</option>${[...new Set(REG.map(r=>r.region))].sort().map(x=>`<option ${creg===x?"selected":""}>${esc(x)}</option>`).join("")}</select>`;if(creg==="pri")$("creg").value="pri";
 const all=items();const by={};all.forEach(i=>(by[i.date]=by[i.date]||[]).push(i));
 const first=new Date(cm);const off=(first.getDay()+6)%7;const startD=new Date(first);startD.setDate(1-off);
 let h=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>`<div class="dow">${d}</div>`).join("");
@@ -359,8 +361,9 @@ for(let i=0;i<42;i++){const d=new Date(startD);d.setDate(startD.getDate()+i);con
 h+=`<button class="day ${d.getMonth()!==cm.getMonth()?"other":""} ${+d===+today?"is-today":""}" data-day="${k}" aria-label="${d.toDateString()}, ${its.length} items"><span class="num">${d.getDate()}</span>${its.slice(0,3).map(x=>`<span class="ev ${x.type}">${esc(x.title)}</span>`).join("")}${its.length>3?`<span class="small muted">+${its.length-3} more</span>`:""}${its.length?`<span class="cnt">${its.length}</span>`:""}</button>`}
 $("cal").innerHTML=h;showDay(selDay||iso(today))}
 function showDay(k){selDay=k;const its=items().filter(i=>i.date===k);$("dayTitle").textContent=fmtD(k);
-$("dayList").innerHTML=its.length?its.map(i=>{const g=gcal(i);return `<li><span class="ev ${i.type}" style="display:inline-block">${{deadline:"Deadline",key:"Key date",event:"Event",task:"To-do"}[i.type]}</span> ${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.title)}</a>`:esc(i.title)} <span class="small muted">${esc(i.sub||"")}</span>${i.why?`<div class="small muted">${esc(i.why)}</div>`:""}${i.note?`<div class="small muted">Registration: ${esc(i.note)}</div>`:""} <a class="small" href="${g}" target="_blank" rel="noopener">Add to Google Calendar</a></li>`}).join(""):`<li class="muted" style="list-style:none">Nothing scheduled.</li>`}
+$("dayList").innerHTML=its.length?its.map(i=>{const g=gcal(i);return `<li><span class="ev ${i.type}" style="display:inline-block">${{deadline:"Deadline",key:"Key date",event:"Event",task:"To-do",portal:"Portal tender"}[i.type]}</span> ${i.url?`<a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.title)}</a>`:esc(i.title)} <span class="small muted">${esc(i.sub||"")}</span>${i.why?`<div class="small muted">${esc(i.why)}</div>`:""}${i.note?`<div class="small muted">Registration: ${esc(i.note)}</div>`:""} <a class="small" href="${g}" target="_blank" rel="noopener">Add to Google Calendar</a></li>`}).join(""):`<li class="muted" style="list-style:none">Nothing scheduled.</li>`}
 function gcal(i){const d=i.date.replace(/-/g,"");const n=iso(new Date(d8(i.date).getTime()+864e5)).replace(/-/g,"");return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Agentic Rx: "+i.title)+"&dates="+d+"/"+n+"&details="+encodeURIComponent((i.sub||"")+(i.url?"\n"+i.url:""))}
+document.addEventListener("change",e=>{if(e.target.id==="creg"){creg=e.target.value;renderCalendar();if(selDay)showDay(selDay)}});
 document.addEventListener("click",e=>{const d=e.target.closest("[data-day]");if(d){showDay(d.dataset.day)}const c=e.target.closest("[data-cf]");if(c){cf[c.dataset.cf]=!cf[c.dataset.cf];renderCalendar()}});
 $("prevM").onclick=()=>{cm=new Date(cm.getFullYear(),cm.getMonth()-1,1);renderCalendar()};$("nextM").onclick=()=>{cm=new Date(cm.getFullYear(),cm.getMonth()+1,1);renderCalendar()};$("todayM").onclick=()=>{cm=new Date(today.getFullYear(),today.getMonth(),1);selDay=iso(today);renderCalendar()};
 // ---------- artifacts ----------
