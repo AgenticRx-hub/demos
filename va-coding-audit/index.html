@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coding Audit Console</title>
+<style>
+:root{--bg:#f4f2ec;--card:#fff;--fg:#17212c;--muted:#5d6874;--line:#e2ddd2;--navy:#0F2A47;--gold:#B8914A;--blue:#3d6fb0;--ok:#2f7a4b;--okbg:#e2f0e6;--warn:#9a6a10;--warnbg:#f7edd4;--bad:#a3392f;--badbg:#f6dfdb;--idle:#d9d5cc;--paper:#fdfbf6;--ink:#2a2f36;--mark:#fff0a6;--markon:#ffd45c;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--blue:#7fa8de;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#e9e4d8;--ink:#23272d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--blue:#7fa8de;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#e9e4d8;--ink:#23272d;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14.5px/1.5 var(--sans);padding:0 16px 40px;margin:0}
+header{background:var(--navy);color:#fff;margin:0 -16px;padding:18px 16px 0;border-bottom:3px solid var(--gold)}
+header .in,main{max-width:1200px;margin:0 auto}
+header h1{margin:0;font:600 22px var(--serif)}header p{margin:4px 0 12px;color:#d6c290;font-size:12px;letter-spacing:.08em}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav button{font:600 14px var(--sans);background:transparent;color:#c9d3df;border:0;padding:9px 14px;border-radius:6px 6px 0 0;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
+nav button .ct{font:600 11px var(--mono);background:var(--gold);color:#1a1a1a;border-radius:999px;padding:0 6px;margin-left:6px}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;margin:14px 0;font-size:14px}
+h2{font:600 17px var(--serif);margin:0 0 8px}h3{font:600 14px var(--sans);margin:12px 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}.kpi b{display:block;font:600 22px var(--mono);font-variant-numeric:tabular-nums}.kpi span{color:var(--muted);font-size:13px}
+.kpi.g b{color:var(--ok)}.kpi.r b{color:var(--bad)}.kpi.w b{color:var(--warn)}
+.hb{display:grid;grid-template-columns:minmax(120px,190px) 1fr 70px;gap:8px;align-items:center;font-size:14px;margin:6px 0}
+.hb .t{height:14px;background:var(--idle);border-radius:3px;overflow:hidden}.hb .t>div{height:100%;background:var(--navy)}
+:root[data-theme="dark"] .hb .t>div{background:var(--blue)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hb .t>div{background:var(--blue)}}
+.hb .v{font:600 13px var(--mono);text-align:right}
+.hb .l small{color:var(--muted);display:block;font-size:12px}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:14px}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input,select{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg);width:100%}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:top}th{color:var(--muted);font-weight:600;font-size:13px}
+th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--fg)}th.sort[data-dir]::after{content:attr(data-dir);margin-left:4px;color:var(--gold)}
+td.n{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:13px}
+tbody tr.click{cursor:pointer}tbody tr.click:hover{background:var(--bg)}
+.pill{font-size:12px;padding:1px 8px;border-radius:999px;white-space:nowrap;display:inline-block;margin:1px 3px 1px 0}
+.p-ok{background:var(--okbg);color:var(--ok)}.p-w{background:var(--warnbg);color:var(--warn)}.p-b{background:var(--badbg);color:var(--bad)}.p-n{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.c-mis{background:#e8eefb;color:#2d4f8f}.c-ncci{background:var(--badbg);color:var(--bad)}.c-doc{background:var(--warnbg);color:var(--warn)}.c-drg{background:var(--okbg);color:var(--ok)}.c-bill{background:#efe6f7;color:#6b3f93}
+:root[data-theme="dark"] .c-mis{background:#1b2b47;color:#9fc0f2}:root[data-theme="dark"] .c-bill{background:#2c1f3a;color:#d2b2f0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .c-mis{background:#1b2b47;color:#9fc0f2}:root:not([data-theme="light"]) .c-bill{background:#2c1f3a;color:#d2b2f0}}
+button.btn{font:600 14px var(--sans);background:var(--navy);color:#fff;border:1px solid var(--navy);border-radius:5px;padding:7px 12px;cursor:pointer}
+button.btn.ok{background:var(--ok);border-color:var(--ok)}button.btn.no{background:var(--card);color:var(--bad);border-color:var(--bad)}
+:root[data-theme="dark"] button.btn.ok{color:#0e1621}
+button.ghost{font:500 13.5px var(--sans);background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;margin:0 6px 6px 0}
+button.ghost:hover{border-color:var(--gold)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.detail{font-size:14px;margin-top:8px;color:var(--muted)}
+.tab{display:none}.tab.on{display:block}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.card{border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:6px;padding:12px;margin:0 0 10px;background:var(--card)}
+.card.acc{border-left-color:var(--ok)}.card.rej{border-left-color:var(--muted);opacity:.8}
+.card .hd{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.card .chg{font:600 14px var(--mono);margin:6px 0}.card .chg s{color:var(--bad)}.card .chg ins{text-decoration:none;color:var(--ok)}
+.card .act{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.card .act select{width:auto}
+a.ev{color:var(--blue);cursor:pointer;text-decoration:underline;font-size:14px}
+.viewer{display:grid;grid-template-columns:240px 1fr 300px;gap:12px}
+.elist{max-height:640px;overflow:auto}
+.elist a{display:block;padding:6px 8px;border-radius:4px;color:var(--fg);text-decoration:none;cursor:pointer;font-size:14px}.elist a:hover,.elist a.on{background:var(--bg)}.elist a small{color:var(--muted);display:block;font-size:12px}
+.page{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:24px 28px;min-height:460px;box-shadow:0 1px 3px rgba(0,0,0,.08);font:14.5px/1.65 Georgia,serif}
+.page h4{font:700 14px Georgia,serif;letter-spacing:.06em;margin:0 0 2px;text-transform:uppercase}.page .crest{font-size:12px;color:#6b6457;margin-bottom:12px;border-bottom:1px solid #d8d0bf;padding-bottom:8px}
+.page mark{background:var(--mark);color:inherit;padding:0 2px;border-radius:2px;cursor:pointer}
+.page mark.on{background:var(--markon);box-shadow:0 0 0 2px #b8914a}
+.page p{margin:0 0 8px}.page .small{font-size:12.5px;color:#6b6457}
+.pgnav{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:14px;color:var(--muted)}
+.codes td{white-space:normal}
+.chat{display:flex;flex-direction:column;gap:10px;max-height:560px;overflow:auto;padding:4px}
+.msg{max-width:90%;padding:10px 12px;border-radius:8px;font-size:14px}
+.msg.u{align-self:flex-end;background:var(--navy);color:#fff}
+.msg.a{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.msg.a ul{margin:4px 0;padding-left:18px}
+.cite{display:inline-block;font:600 12px var(--mono);background:var(--card);border:1px solid var(--gold);color:var(--fg);border-radius:4px;padding:1px 6px;margin:4px 4px 0 0;cursor:pointer}
+.ask{display:flex;gap:8px;margin-top:10px}
+.log{font-size:13px;max-height:260px;overflow:auto}.log div{padding:4px 0;border-bottom:1px dashed var(--line)}.log code{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.theme{position:absolute;right:16px;top:16px;background:transparent;border:1px solid #415a78;color:#c9d3df;border-radius:999px;padding:3px 10px;font-size:12.5px;cursor:pointer}
+header{position:relative}
+@media (max-width:980px){.viewer{grid-template-columns:1fr}.elist{max-height:220px}.filters{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.grid{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.hb{grid-template-columns:110px 1fr 60px}.theme{position:static;margin-bottom:8px}.page{padding:16px}}
+</style></head><body>
+<header><div class="in"><button class="theme" id="theme" aria-label="Toggle color theme">Theme</button><h1>Coding and Billing Audit Console</h1><p>AGENTIC RX LLC · DEMONSTRATION FOR VA RFI 36C10B27Q0073 · ILLUSTRATIVE DATA</p>
+<nav role="tablist">
+<button role="tab" data-t="dash" aria-selected="true">Dashboard</button>
+<button role="tab" data-t="work" aria-selected="false">Worklist</button>
+<button role="tab" data-t="queue" aria-selected="false">Auditor review <span class="ct" id="qct">0</span></button>
+<button role="tab" data-t="view" aria-selected="false">Document viewer</button>
+<button role="tab" data-t="ai" aria-selected="false">AI coding assistant</button>
+</nav></div></header>
+<main>
+<div class="note">Illustrative sample data only. No real PHI. Veterans, clinicians, facilities, notes and dollar amounts are invented for demonstration. Dollar figures are illustrative charges, not VA reasonable charges or payer rates. Code edits shown are examples of rule types, not a complete or current edit table.</div>
+
+<section class="tab on" id="t-dash">
+<div class="kpis" id="kpis"></div>
+<div class="grid">
+<section class="panel"><h2>Dollars at risk by flag category</h2><div id="byCat"></div><p class="detail">Open flags only. Under-coding and unbilled care are revenue opportunities; over-coding is compliance exposure; documentation holds stop a claim until fixed.</p></section>
+<section class="panel"><h2>Denial reasons prevented (CARC)</h2><div id="denials"></div><p class="detail">Claim adjustment reason code each open flag would otherwise trigger, weighted by dollars.</p></section>
+</div>
+<div class="grid" style="margin-top:14px">
+<section class="panel"><h2>Coding accuracy</h2><div id="acc"></div></section>
+<section class="panel"><h2>Audit trail (latest)</h2><div class="log" id="log"></div><p class="detail">Append-only event log. Every accept, reject and note is time-stamped with the user and the rule version.</p></section>
+</div>
+</section>
+
+<section class="tab" id="t-work">
+<section class="panel"><h2>Claims and encounter worklist</h2>
+<div class="filters">
+<div><label for="wq">Search (encounter, code, Veteran pseudonym, service)</label><input id="wq" placeholder="e.g. 43239, ENC-24102, cardiology"></div>
+<div><label for="wset">Setting</label><select id="wset"><option value="">All</option><option>Inpatient</option><option>Outpatient</option><option>Emergency</option><option>Telehealth</option><option>Professional</option></select></div>
+<div><label for="wcat">Flag category</label><select id="wcat"><option value="">All</option></select></div>
+<div><label for="wst">Status</label><select id="wst"><option value="">All</option><option value="open">Has open flags</option><option value="clean">Clean</option><option value="done">All flags reviewed</option></select></div>
+</div>
+<div class="wrap"><table id="wt"><thead><tr>
+<th class="sort" data-k="id">Encounter</th><th class="sort" data-k="date">Date</th><th class="sort" data-k="setting">Setting</th><th class="sort" data-k="svc">Service</th><th>Codes</th><th class="sort" data-k="payer">Payer</th><th class="sort" data-k="charge">Charge</th><th class="sort" data-k="risk">At risk</th><th class="sort" data-k="nflags">Flags</th></tr></thead><tbody id="wb"></tbody></table></div>
+<div class="detail" id="wcount"></div>
+</section></section>
+
+<section class="tab" id="t-queue">
+<div class="grid" style="grid-template-columns:minmax(0,2fr) minmax(0,1fr)">
+<section class="panel"><h2>Auditor review queue</h2>
+<div class="filters" style="grid-template-columns:1fr 1fr 1fr"><div><label for="qcat">Category</label><select id="qcat"><option value="">All</option></select></div><div><label for="qst">Status</label><select id="qst"><option value="open">Open</option><option value="">All</option><option value="accepted">Accepted</option><option value="rejected">Rejected</option></select></div><div><label for="qsort">Order</label><select id="qsort"><option value="risk">Highest dollars first</option><option value="enc">By encounter</option></select></div></div>
+<div id="qlist"></div></section>
+<section class="panel"><h2>How a flag is made</h2><ol style="padding-left:18px;margin:0;font-size:14px">
+<li>Claim and encounter data arrive from VistA through FHIR or HL7 v2 interfaces.</li>
+<li>Rules run: code-pair edits, units, ICD-10 to CPT consistency, documentation completeness, grouping and billing eligibility.</li>
+<li>Natural-language extraction finds evidence in the note and links each finding to a page and passage.</li>
+<li>The auditor accepts or rejects. Nothing changes a claim without a human decision.</li>
+<li>Every decision is logged and feeds accuracy reporting and coder education.</li></ol>
+<button class="btn" style="margin-top:12px" id="reset">Reset demo decisions</button></section>
+</div></section>
+
+<section class="tab" id="t-view">
+<div class="viewer">
+<section class="panel"><h2>Encounters</h2><div class="elist" id="elist"></div></section>
+<section class="panel"><div class="row" style="margin-bottom:8px;flex-wrap:wrap"><b id="dtitle"></b><span id="dlink"></span></div><div class="page" id="page" tabindex="0"></div>
+<div class="pgnav"><button class="ghost" id="prev">Previous page</button><span id="pgi"></span><button class="ghost" id="next">Next page</button></div></section>
+<section class="panel"><h2 id="vname">Codes and flags</h2><div class="detail" id="vsub" style="margin-top:0"></div><div id="vcodes"></div><div id="vflags"></div></section>
+</div></section>
+
+<section class="tab" id="t-ai">
+<div class="grid" style="grid-template-columns:minmax(0,2fr) minmax(0,1fr)">
+<section class="panel"><h2>AI coding assistant</h2>
+<div id="chips"></div>
+<div class="chat" id="chat" aria-live="polite"></div>
+<div class="ask"><input id="aq" placeholder="Ask about an encounter, a code or a rule, e.g. Does ENC-24105 support 90837?" aria-label="Question"><button class="btn" id="go">Ask</button></div>
+</section>
+<section class="panel"><h2>Guardrails</h2><ul style="padding-left:18px;margin:0;font-size:14px">
+<li>Answers come only from the encounter record, the note and the rule library. Every claim of fact carries a citation to the note and page.</li>
+<li>If the note does not support an answer, the assistant says so and suggests a provider query instead of guessing.</li>
+<li>The assistant suggests; the certified coder or auditor decides. It cannot change a claim.</li>
+<li>Prompts and answers are logged with the rule and model version for audit.</li>
+<li>In this demo the assistant is rule-based and runs in your browser. No data leaves the page.</li></ul></section>
+</div></section>
+</main>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const money=n=>"$"+Math.round(n).toLocaleString("en-US");
+const CAT={mis:"Code mismatch",ncci:"NCCI edit",doc:"Missing documentation",drg:"DRG/HCC opportunity",bill:"VA billing gap"};
+const DIR={under:"Revenue opportunity",over:"Compliance exposure",hold:"Claim on hold",gap:"Unbilled care"};
+const CARC={"CO-97":"Bundled into another service","CO-11":"Diagnosis inconsistent with procedure","CO-16":"Missing or incomplete information","CO-50":"Not medically necessary","CO-27":"Coverage terminated","CO-151":"Units or frequency not supported","N/A":"Under-payment, no denial"};
+// ---------- illustrative encounters ----------
+const E=[
+{id:"ENC-24101",date:"2026-09-14",setting:"Outpatient",svc:"Primary care",vet:"Veteran V-0412",sc:"SC 30% (tinnitus); visit not SC-related",payer:"Third-party: Sample Commercial Plan A",coder:"Coder C-07",charge:412,
+ dx:["M17.9 Osteoarthritis of knee, unspecified","I10 Essential hypertension"],px:["99214 Office visit, established, moderate","20610 Arthrocentesis/injection, major joint","J3301 Triamcinolone acetonide, per 10 mg x4"],
+ pages:[{t:"Primary care progress note",b:`<p><b>Chief complaint:</b> Right knee pain for 6 months; blood pressure follow-up.</p><p><b>HPI:</b> 67-year-old Veteran with worsening medial right knee pain on stairs. No trauma. Home BP readings 150s/90s on lisinopril 10 mg.</p><p><b>Imaging:</b> {{e1:X-ray 08/2026: moderate medial joint space narrowing, right knee, with osteophytes, consistent with primary osteoarthritis.}}</p><p><b>Assessment and plan:</b><br>1. {{e2:Primary osteoarthritis, right knee.}} Discussed options; patient elects corticosteroid injection today (see procedure note).<br>2. {{e3:Essential hypertension, above goal. Lisinopril increased from 10 mg to 20 mg daily. BMP in 2 weeks. Reviewed home log and diet.}}</p>`},
+ {t:"Procedure note",b:`<p><b>Procedure:</b> {{e4:Right knee intra-articular injection, triamcinolone 40 mg with 1% lidocaine 3 mL, landmark guided, lateral approach.}}</p><p>Consent obtained. Time-out performed. Tolerated well, no complications.</p><p><b>Attestation:</b> {{e5:A significant, separately identifiable evaluation and management service was performed for hypertension management with a prescription change, documented in the progress note.}}</p><p>Electronically signed: Sample Physician A, MD, 09/14/2026 15:12</p>`}],
+ flags:[{id:"F01",cat:"mis",title:"ICD-10 specificity: laterality and type documented",from:"M17.9",to:"M17.11",rule:"ICD-10-CM: code to highest documented specificity (laterality, primary OA)",ev:[[0,"e1"],[0,"e2"]],amt:0,dir:"under",carc:"N/A",why:"The note documents primary osteoarthritis of the right knee, which supports M17.11 rather than the unspecified M17.9."},
+ {id:"F02",cat:"ncci",title:"E/M with joint injection on same day without modifier 25",from:"99214",to:"99214-25",rule:"NCCI procedure-to-procedure edit: E/M is bundled into 20610 unless a separately identifiable service is documented",ev:[[0,"e3"],[1,"e5"]],amt:131,dir:"under",carc:"CO-97",why:"The hypertension work (medication change, labs ordered) is separate from the decision to inject, so modifier 25 is supported. Without it the E/M line would deny as bundled."}]},
+{id:"ENC-24102",date:"2026-09-02",setting:"Inpatient",svc:"Medicine, heart failure",vet:"Veteran V-1187",sc:"NSC care",payer:"Third-party: Sample Medicare Supplement",coder:"Coder C-02",charge:18640,drg:"293 Heart failure and shock without CC/MCC",
+ dx:["I50.23 Acute on chronic systolic heart failure (principal)","I10 Essential hypertension"],px:["DRG 293"],
+ pages:[{t:"History and physical",b:`<p><b>Reason for admission:</b> {{e1:Acute on chronic systolic heart failure, EF 30% on echo 2025,}} with 3 days of dyspnea and 4 kg weight gain.</p><p><b>History:</b> {{e2:Long-standing hypertension}}, prior MI 2019, type 2 diabetes diet-controlled.</p><p><b>Admission labs:</b> {{e3:Creatinine 2.0 mg/dL (baseline 1.1 in June 2026).}} {{e4:Sodium 128 mmol/L.}} BNP 1,840.</p><p><b>Plan:</b> IV furosemide, daily weights, strict input and output, cardiology consult.</p>`},
+ {t:"Discharge summary",b:`<p><b>Hospital course:</b> Diuresed 5 L. Transitioned to oral torsemide.</p><p><b>Discharge diagnoses:</b><br>1. Acute on chronic systolic heart failure.<br>2. {{e5:Acute kidney injury, prerenal, improved with diuretic adjustment; creatinine 1.3 at discharge.}}<br>3. {{e6:Hyponatremia, treated with fluid restriction; sodium 134 at discharge.}}<br>4. {{e7:Hypertensive heart disease.}}</p><p>Signed: Sample Hospitalist B, MD, 09/06/2026</p>`}],
+ flags:[{id:"F03",cat:"mis",title:"Hypertension with heart failure must use combination code",from:"I50.23 principal + I10",to:"I11.0 principal + I50.23",rule:"ICD-10-CM guideline I.C.9.a: presumed causal link between hypertension and heart failure",ev:[[0,"e2"],[1,"e7"]],amt:0,dir:"under",carc:"CO-11",why:"Hypertension with heart failure is coded I11.0 with an additional I50.- code. I10 should not be reported with heart failure."},
+ {id:"F04",cat:"drg",title:"Documented and treated CCs not coded (AKI, hyponatremia)",from:"DRG 293",to:"DRG 292 (add N17.9, E87.1)",rule:"MS-DRG grouping: secondary diagnoses meeting UHDDS criteria (monitored, treated) that are CCs",ev:[[0,"e3"],[0,"e4"],[1,"e5"],[1,"e6"]],amt:2140,dir:"under",carc:"N/A",why:"The provider documented acute kidney injury and hyponatremia, each with clinical indicators and treatment. Both are CCs, which moves the case from DRG 293 to DRG 292."}]},
+{id:"ENC-24103",date:"2026-09-18",setting:"Outpatient",svc:"Gastroenterology",vet:"Veteran V-0733",sc:"NSC care",payer:"Third-party: Sample Commercial Plan B",coder:"Coder C-07",charge:1960,
+ dx:["K21.9 Gastro-esophageal reflux disease without esophagitis"],px:["43239 EGD with biopsy","43235 EGD, diagnostic"],
+ pages:[{t:"Procedure report: upper endoscopy",b:`<p><b>Indication:</b> Reflux symptoms not controlled on omeprazole.</p><p><b>Procedure:</b> {{e1:Esophagogastroduodenoscopy with cold forceps biopsy of the gastric antrum.}}</p><p><b>Findings:</b> {{e2:Los Angeles grade B esophagitis in the distal esophagus.}} Mild antral erythema, biopsied. Normal duodenum.</p><p>Signed: Sample Gastroenterologist C, MD</p>`},
+ {t:"Pathology",b:`<p><b>Specimen:</b> gastric antrum, biopsy.</p><p><b>Diagnosis:</b> Mild chronic gastritis. Helicobacter pylori immunostain negative.</p>`}],
+ flags:[{id:"F05",cat:"ncci",title:"Diagnostic EGD billed with EGD with biopsy",from:"43239 + 43235",to:"43239 only",rule:"NCCI procedure-to-procedure edit: 43235 is a column-two component of 43239",ev:[[0,"e1"]],amt:310,dir:"over",carc:"CO-97",why:"A diagnostic EGD is included in the EGD with biopsy performed in the same session. Reporting both overstates the claim."},
+ {id:"F06",cat:"mis",title:"Diagnosis contradicts findings: esophagitis documented",from:"K21.9",to:"K21.00",rule:"ICD-10-CM: GERD with esophagitis, without bleeding",ev:[[0,"e2"]],amt:0,dir:"under",carc:"CO-11",why:"The report documents grade B esophagitis, so 'without esophagitis' (K21.9) is inconsistent with the findings."}]},
+{id:"ENC-24104",date:"2026-09-21",setting:"Emergency",svc:"Emergency department",vet:"Veteran V-2290",sc:"NSC care",payer:"Third-party: Sample Commercial Plan A",coder:"Coder C-04",charge:1180,
+ dx:["R07.9 Chest pain, unspecified"],px:["99285 ED visit, high complexity"],
+ pages:[{t:"ED note (resident)",b:`<p><b>HPI:</b> 58-year-old with substernal chest pressure for 2 hours, diaphoresis.</p><p><b>Work-up:</b> ECG with no acute ST changes; troponin x2 negative; chest X-ray clear. CT angiogram negative for pulmonary embolism.</p><p><b>MDM:</b> High risk presentation; serial troponins; considered ACS, PE and dissection.</p><p><b>Disposition:</b> Discharged with cardiology follow-up in 72 hours.</p>`},
+ {t:"Signatures",b:`<p>Electronically signed: Sample Resident D, MD (PGY-2), 09/21/2026 23:40</p><p>{{e1:Teaching physician attestation: PENDING. No cosignature on file.}}</p>`}],
+ flags:[{id:"F07",cat:"doc",title:"Teaching physician attestation missing",from:"Claim ready",to:"Hold: obtain attestation",rule:"Resident supervision and teaching-physician documentation required before professional billing",ev:[[1,"e1"]],amt:612,dir:"hold",carc:"CO-16",why:"The note is signed by the resident only. The claim should hold until the supervising physician documents presence and agreement."}]},
+{id:"ENC-24105",date:"2026-09-22",setting:"Outpatient",svc:"Mental health",vet:"Veteran V-0918",sc:"SC 10% (hearing loss); visit not SC-related",payer:"Third-party: Sample Commercial Plan C",coder:"Coder C-04",charge:236,
+ dx:["F32.9 Major depressive disorder, single episode, unspecified"],px:["90837 Psychotherapy, 60 minutes"],
+ pages:[{t:"Psychotherapy note",b:`<p><b>Session:</b> Individual psychotherapy, CBT. {{e1:Psychotherapy time: 42 minutes (14:05 to 14:47).}}</p><p><b>Interval history:</b> Low mood returned after job loss; similar episode in 2022 that remitted with treatment.</p><p><b>PHQ-9:</b> 15.</p><p><b>Assessment:</b> {{e2:Major depressive disorder, recurrent episode, moderate.}}</p><p>Signed: Sample Psychologist E, PhD</p>`}],
+ flags:[{id:"F08",cat:"mis",title:"Psychotherapy time does not support 90837",from:"90837",to:"90834",rule:"CPT time thresholds: 90834 is 38 to 52 minutes; 90837 is 53 minutes or more",ev:[[0,"e1"]],amt:58,dir:"over",carc:"CO-151",why:"Documented face-to-face time is 42 minutes, which supports 90834."},
+ {id:"F09",cat:"drg",title:"HCC/risk-adjustment specificity: recurrent, moderate",from:"F32.9",to:"F33.1",rule:"ICD-10-CM specificity; recurrent MDD maps to a risk-adjusting condition category",ev:[[0,"e2"]],amt:0,dir:"under",carc:"N/A",why:"The clinician documents a recurrent, moderate episode. F32.9 loses both the recurrence and severity that drive risk models."}]},
+{id:"ENC-24106",date:"2026-09-24",setting:"Outpatient",svc:"Cardiology",vet:"Veteran V-1544",sc:"SC 50% (PTSD); visit not SC-related",payer:"No claim generated (insurance on file)",coder:"Coder C-02",charge:486,
+ dx:["I48.91 Atrial fibrillation, unspecified"],px:["99213 Office visit, established, low","93000 ECG with interpretation","93010 ECG interpretation only"],
+ pages:[{t:"Cardiology clinic note",b:`<p><b>Reason:</b> Follow-up of {{e1:persistent atrial fibrillation, present since March, failed cardioversion in May.}}</p><p><b>ECG today:</b> {{e2:12-lead ECG performed and interpreted in clinic: atrial fibrillation, rate 84.}}</p><p><b>Plan:</b> Continue apixaban and metoprolol. Return in 3 months.</p>`},
+ {t:"Registration and eligibility",b:`<p><b>Insurance on file:</b> {{e3:Sample Commercial Plan A, verified 08/30/2026, active.}}</p><p><b>Service connection:</b> {{e4:PTSD 50%. Treating clinician marked this visit as not related to the service-connected condition.}}</p><p><b>Claim status:</b> {{e5:No third-party claim created: encounter carried a service-connected indicator from a prior template.}}</p>`}],
+ flags:[{id:"F10",cat:"ncci",title:"ECG global and interpretation billed together",from:"93000 + 93010",to:"93000 only",rule:"NCCI: 93010 (interpretation) is a component of 93000 (global)",ev:[[0,"e2"]],amt:24,dir:"over",carc:"CO-97",why:"The clinic both performed and interpreted the ECG, which is the global service 93000."},
+ {id:"F11",cat:"mis",title:"Atrial fibrillation type documented",from:"I48.91",to:"I48.19",rule:"ICD-10-CM specificity: other persistent atrial fibrillation",ev:[[0,"e1"]],amt:0,dir:"under",carc:"N/A",why:"Persistent AF is documented, so the unspecified code should not be used."},
+ {id:"F12",cat:"bill",title:"Billable non-service-connected care not claimed",from:"No claim",to:"Create third-party claim",rule:"VA third-party billing: non-service-connected care for an insured Veteran is billable",ev:[[1,"e3"],[1,"e4"],[1,"e5"]],amt:486,dir:"gap",carc:"N/A",why:"The visit is for atrial fibrillation, not the service-connected PTSD, and active insurance is on file. A stale SC indicator stopped the claim."}]},
+{id:"ENC-24107",date:"2026-09-25",setting:"Outpatient",svc:"Primary care",vet:"Veteran V-3307",sc:"NSC; Priority Group 8",payer:"First-party copay (no insurance on file)",coder:"Coder C-07",charge:268,
+ dx:["E11.9 Type 2 diabetes without complications"],px:["99214 Office visit, established, moderate"],
+ pages:[{t:"Primary care progress note",b:`<p><b>Follow-up:</b> Diabetes and kidney function.</p><p><b>Labs:</b> A1c 7.9%. {{e2:eGFR 22 mL/min/1.73 m2, stable over 6 months; CKD stage 4.}}</p><p><b>Assessment:</b> {{e1:Type 2 diabetes with diabetic chronic kidney disease.}} Nephrology referral placed. Metformin stopped; started glipizide.</p>`},
+ {t:"Means test and copay",b:`<p><b>Enrollment:</b> {{e3:Priority Group 8. Non-service-connected care. Not copay-exempt.}}</p><p><b>Copay status:</b> {{e4:No first-party copay charge generated for this visit.}}</p>`}],
+ flags:[{id:"F13",cat:"drg",title:"HCC capture: diabetes with CKD stage 4",from:"E11.9",to:"E11.22 + N18.4",rule:"ICD-10-CM 'with' convention links diabetes and CKD; both are risk-adjusting conditions",ev:[[0,"e1"],[0,"e2"]],amt:0,dir:"under",carc:"N/A",why:"The note documents diabetic CKD with stage 4 eGFR. E11.9 understates severity and loses two risk-adjusting conditions."},
+ {id:"F14",cat:"bill",title:"First-party copay not assessed",from:"No copay",to:"Assess primary care copay",rule:"VA first-party copay rules for non-exempt Priority Group 8 Veterans",ev:[[1,"e3"],[1,"e4"]],amt:15,dir:"gap",carc:"N/A",why:"The Veteran is not copay-exempt and the care is not service-connected, so a primary care copay should be assessed (illustrative amount)."}]},
+{id:"ENC-24108",date:"2026-09-08",setting:"Inpatient",svc:"Medicine, pneumonia",vet:"Veteran V-0651",sc:"NSC care",payer:"Third-party: Sample Commercial Plan B",coder:"Coder C-02",charge:14230,drg:"195 Simple pneumonia without CC/MCC",
+ dx:["J18.9 Pneumonia, unspecified organism (principal)"],px:["DRG 195"],
+ pages:[{t:"History and physical",b:`<p><b>Reason for admission:</b> Fever, cough and right lower lobe infiltrate. Coughing with meals for 2 months.</p><p><b>Impression:</b> Pneumonia, right lower lobe; possible aspiration.</p>`},
+ {t:"Discharge summary",b:`<p>{{e3:Speech-language pathology bedside swallow and modified barium swallow: moderate oropharyngeal dysphagia with silent aspiration of thin liquids.}}</p><p><b>Final diagnoses:</b> {{e2:Aspiration pneumonia, right lower lobe, secondary to oropharyngeal dysphagia.}}</p><p>Diet changed to mildly thick liquids. Ampicillin-sulbactam completed.</p>`}],
+ flags:[{id:"F15",cat:"drg",title:"Aspiration pneumonia documented at discharge",from:"J18.9, DRG 195",to:"J69.0 + R13.12, DRG 179",rule:"MS-DRG: J69.0 groups to respiratory infections (177-179); discharge summary resolves the uncertain admitting diagnosis",ev:[[1,"e2"],[1,"e3"]],amt:3050,dir:"under",carc:"N/A",why:"The discharge summary states aspiration pneumonia due to dysphagia, supported by the swallow study. No provider query is needed."}]},
+{id:"ENC-24109",date:"2026-09-29",setting:"Outpatient",svc:"Infusion clinic",vet:"Veteran V-2045",sc:"NSC care",payer:"Third-party: Sample Commercial Plan A",coder:"Coder C-04",charge:188,
+ dx:["M54.50 Low back pain, unspecified"],px:["96374 IV push, single drug","J1885 Ketorolac, per 15 mg x4"],
+ pages:[{t:"Medication administration record",b:`<p>{{e1:Ketorolac 30 mg IV push given 10:42 by Sample RN F.}}</p><p>Patient tolerated well. Pain score 7 to 3 at 11:30.</p>`}],
+ flags:[{id:"F16",cat:"mis",title:"HCPCS units exceed dose given",from:"J1885 x4",to:"J1885 x2",rule:"HCPCS unit definition (per 15 mg) and medically unlikely edit check",ev:[[0,"e1"]],amt:12,dir:"over",carc:"CO-151",why:"30 mg was given, which is 2 units of J1885, not 4."}]},
+{id:"ENC-24110",date:"2026-09-30",setting:"Outpatient",svc:"Orthopedics",vet:"Veteran V-1876",sc:"NSC care",payer:"Third-party: Sample Commercial Plan B",coder:"Coder C-07",charge:214,
+ dx:["M75.101 Rotator cuff tear, right shoulder, unspecified"],px:["99213 Office visit, established, low"],
+ pages:[{t:"Registration and eligibility",b:`<p><b>Insurance on file:</b> Sample Commercial Plan B.</p><p>{{e1:Last eligibility verification: 03/02/2026.}}</p><p>{{e2:Electronic eligibility response 09/30/2026: coverage terminated 06/30/2026.}}</p>`}],
+ flags:[{id:"F17",cat:"bill",title:"Coverage terminated before date of service",from:"Bill Plan B",to:"Re-verify; bill new coverage or assess first-party",rule:"Insurance verification within 90 days of service; coordination of benefits",ev:[[0,"e1"],[0,"e2"]],amt:214,dir:"hold",carc:"CO-27",why:"The policy ended three months before the visit. Billing it would deny; the Veteran should be contacted for current coverage."}]},
+{id:"ENC-24111",date:"2026-10-01",setting:"Telehealth",svc:"Primary care, video",vet:"Veteran V-0277",sc:"NSC care",payer:"Third-party: Sample Commercial Plan C",coder:"Coder C-04",charge:162,
+ dx:["E78.5 Hyperlipidemia, unspecified"],px:["99213-95 Office visit, synchronous telehealth"],
+ pages:[{t:"Telehealth progress note",b:`<p>{{e1:Video visit via VA Video Connect.}}</p><p>Patient location: {{e2:[not documented]}}</p><p>Consent to telehealth: {{e3:[not documented]}}</p><p>Lipids reviewed; atorvastatin continued.</p>`}],
+ flags:[{id:"F18",cat:"doc",title:"Telehealth location and consent not documented",from:"Claim ready",to:"Hold: amend note",rule:"Telehealth documentation: patient location, modality and consent",ev:[[0,"e2"],[0,"e3"]],amt:162,dir:"hold",carc:"CO-16",why:"Payers require the patient's location (place of service) and consent for telehealth. Both are blank."}]},
+{id:"ENC-24112",date:"2026-10-02",setting:"Professional",svc:"Orthopedic surgery",vet:"Veteran V-1421",sc:"NSC care",payer:"Third-party: Sample Commercial Plan A",coder:"Coder C-02",charge:1820,
+ dx:["M25.561 Pain in right knee"],px:["27447-RT Total knee arthroplasty"],
+ pages:[{t:"Operative report",b:`<p>{{e1:Preoperative diagnosis: end-stage primary osteoarthritis, right knee.}}</p><p>Postoperative diagnosis: same.</p><p><b>Procedure:</b> {{e2:Right total knee arthroplasty, cemented.}}</p><p>Failed 12 months of conservative care including injections and physical therapy.</p>`}],
+ flags:[{id:"F19",cat:"mis",title:"Symptom code does not support arthroplasty",from:"M25.561",to:"M17.11",rule:"ICD-10 to CPT consistency and payer medical-necessity policy for 27447",ev:[[0,"e1"],[0,"e2"]],amt:1820,dir:"under",carc:"CO-50",why:"Knee pain alone does not support a total knee replacement. The operative report documents end-stage primary OA of the right knee."}]}
+];
+// clean encounters
+[["ENC-24113","2026-09-15","Outpatient","Podiatry","I70.213 Atherosclerosis of native arteries, bilateral legs, with claudication","99213",196],
+ ["ENC-24114","2026-09-16","Outpatient","Optometry","H25.13 Age-related nuclear cataract, bilateral","92014",172],
+ ["ENC-24115","2026-09-17","Outpatient","Physical therapy","M54.16 Radiculopathy, lumbar region","97110 x2",138],
+ ["ENC-24116","2026-09-19","Outpatient","Audiology","H90.3 Sensorineural hearing loss, bilateral","92557",120],
+ ["ENC-24117","2026-09-23","Outpatient","Dermatology","L57.0 Actinic keratosis","17000",154],
+ ["ENC-24118","2026-09-26","Telehealth","Mental health, video","F43.10 Post-traumatic stress disorder, unspecified","90834-95",0],
+ ["ENC-24119","2026-09-27","Outpatient","Urology","N40.1 Benign prostatic hyperplasia with LUTS","99213",181],
+ ["ENC-24120","2026-09-28","Emergency","Emergency department","S61.411A Laceration without foreign body, right hand","12002",402],
+ ["ENC-24121","2026-10-03","Outpatient","Pulmonology","J44.9 Chronic obstructive pulmonary disease, unspecified","94010",142],
+ ["ENC-24122","2026-10-05","Outpatient","Primary care","Z00.00 General adult exam without abnormal findings","99397",232],
+ ["ENC-24123","2026-10-06","Inpatient","Medicine, cellulitis","L03.115 Cellulitis of right lower limb (principal)","DRG 603",9870],
+ ["ENC-24124","2026-10-07","Outpatient","Cardiology","I25.10 Atherosclerotic heart disease without angina","93306",640]
+].forEach(([id,date,setting,svc,dx,px,charge],i)=>{const scvisit=svc.includes("Mental health, video");
+ E.push({id,date,setting,svc,vet:"Veteran V-"+(3400+i*37),sc:scvisit?"SC 70% (PTSD); visit SC-related":"NSC care",payer:scvisit?"Not billable: service-connected care":"Third-party: Sample Commercial Plan "+"ABC"[i%3],coder:"Coder C-0"+[2,4,7][i%3],charge,dx:[dx],px:[px],drg:px.startsWith("DRG")?px:undefined,
+ pages:[{t:svc+" note",b:`<p><b>Visit:</b> ${svc}. Documentation reviewed by rules engine.</p><p><b>Assessment:</b> {{e1:${dx.replace(/^\S+ /,"")}.}}</p><p><b>Service:</b> ${px} documented with required elements. Signed and dated by the treating clinician.</p><p class="small">No flags raised. Sampled for random compliance review at 5%.</p>`}],flags:[]})});
+const FL=E.flatMap(e=>e.flags.map(f=>(f.enc=e.id,f)));
+// ---------- state ----------
+let D={};try{D=JSON.parse(localStorage.getItem("vaaudit")||"{}")}catch(_){}
+let LOG=[];try{LOG=JSON.parse(localStorage.getItem("vaauditlog")||"[]")}catch(_){}
+if(!LOG.length)LOG=[{t:"2026-10-08 06:00",u:"system",m:"Nightly batch: 24 encounters ingested, 19 flags raised (rule set 2026.10-demo)"}];
+const save=()=>{try{localStorage.setItem("vaaudit",JSON.stringify(D));localStorage.setItem("vaauditlog",JSON.stringify(LOG))}catch(_){}};
+const st=f=>D[f.id]?.s||"open";
+const now=()=>{const d=new Date();return d.toISOString().slice(0,16).replace("T"," ")};
+const risk=e=>e.flags.filter(f=>st(f)==="open").reduce((a,f)=>a+f.amt,0);
+const catPill=c=>`<span class="pill c-${c}">${CAT[c]}</span>`;
+const stPill=s=>s==="accepted"?'<span class="pill p-ok">Accepted</span>':s==="rejected"?'<span class="pill p-n">Rejected</span>':'<span class="pill p-w">Open</span>';
+// ---------- tabs ----------
+function tab(t){$$("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));$$(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t))}
+$$("nav button").forEach(b=>b.onclick=()=>{tab(b.dataset.t);if(b.dataset.t==="view")setHash()});
+// ---------- dashboard ----------
+function hbars(el,rows,max){el.innerHTML=rows.map(r=>`<div class="hb"><div class="l">${r[0]}${r[2]?`<small>${r[2]}</small>`:""}</div><div class="t"><div style="width:${max?Math.max(2,100*r[1]/max):0}%"></div></div><div class="v">${r[3]??money(r[1])}</div></div>`).join("")}
+function dash(){
+ const open=FL.filter(f=>st(f)==="open"),acc=FL.filter(f=>st(f)==="accepted");
+ const lines=E.reduce((a,e)=>a+e.dx.length+e.px.length,0);
+ const codingCats=["mis","ncci","drg"];
+ const confirmed=acc.filter(f=>codingCats.includes(f.cat)).length,potential=FL.filter(f=>codingCats.includes(f.cat)&&st(f)!=="rejected").length;
+ const atRisk=open.reduce((a,f)=>a+f.amt,0);
+ const rec=acc.filter(f=>f.dir==="under"||f.dir==="gap").reduce((a,f)=>a+f.amt,0);
+ const comp=acc.filter(f=>f.dir==="over").reduce((a,f)=>a+f.amt,0);
+ $("#kpis").innerHTML=[["Encounters audited",E.length,""],["Open flags",open.length,"w"],["Dollars at risk (open)",money(atRisk),"r"],["Recovered or protected",money(rec),"g"],["Over-coding corrected",money(comp),"g"],["Coding accuracy before audit",(100*(1-potential/lines)).toFixed(1)+"%",""]].map(k=>`<div class="kpi ${k[2]}"><b>${k[1]}</b><span>${k[0]}</span></div>`).join("");
+ const byc=Object.keys(CAT).map(c=>[CAT[c],open.filter(f=>f.cat===c).reduce((a,f)=>a+f.amt,0),open.filter(f=>f.cat===c).length+" open flags"]);
+ hbars($("#byCat"),byc,Math.max(1,...byc.map(r=>r[1])));
+ const dn={};open.filter(f=>f.carc!=="N/A").forEach(f=>dn[f.carc]=(dn[f.carc]||0)+f.amt);
+ const dr=Object.entries(dn).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,CARC[k]]);
+ dr.length?hbars($("#denials"),dr,dr[0][1]):($("#denials").innerHTML='<p class="detail">No open flags that would cause a denial.</p>');
+ const byCoder={};E.forEach(e=>{const c=byCoder[e.coder]||(byCoder[e.coder]={l:0,err:0});c.l+=e.dx.length+e.px.length;c.err+=e.flags.filter(f=>codingCats.includes(f.cat)&&st(f)==="accepted").length});
+ $("#acc").innerHTML=`<div class="row"><span>Coded lines reviewed</span><b>${lines}</b></div><div class="row"><span>Coding errors confirmed by auditor</span><b>${confirmed}</b></div><div class="row"><span>Accuracy after review (confirmed errors only)</span><b>${(100*(1-confirmed/lines)).toFixed(1)}%</b></div>
+ <h3>By coder (confirmed errors)</h3><div class="wrap"><table><thead><tr><th>Coder</th><th>Lines</th><th>Errors</th><th>Accuracy</th></tr></thead><tbody>${Object.entries(byCoder).sort().map(([k,v])=>`<tr><td>${k}</td><td class="n">${v.l}</td><td class="n">${v.err}</td><td class="n">${(100*(1-v.err/v.l)).toFixed(1)}%</td></tr>`).join("")}</tbody></table></div><p class="detail">Accept flags in the review queue to see accuracy and recovered dollars update.</p>`;
+ $("#log").innerHTML=LOG.slice(-12).reverse().map(l=>`<div><code>${l.t} · ${l.u}</code><br>${l.m}</div>`).join("");
+ $("#qct").textContent=open.length;
+}
+// ---------- worklist ----------
+const cats=Object.entries(CAT).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");$("#wcat").innerHTML+=cats;$("#qcat").innerHTML+=cats;
+let sk="risk",sd=-1;
+$$("#wt th.sort").forEach(th=>th.onclick=()=>{const k=th.dataset.k;sd=sk===k?-sd:(["risk","charge","nflags","date"].includes(k)?-1:1);sk=k;work()});
+function work(){
+ const q=$("#wq").value.toLowerCase(),s=$("#wset").value,c=$("#wcat").value,w=$("#wst").value;
+ let rows=E.map(e=>({...e,risk:risk(e),nflags:e.flags.filter(f=>st(f)==="open").length}));
+ rows=rows.filter(e=>(!q||[e.id,e.vet,e.svc,e.payer,...e.dx,...e.px].join(" ").toLowerCase().includes(q))&&(!s||e.setting===s)&&(!c||e.flags.some(f=>f.cat===c))&&(!w||(w==="open"?e.nflags>0:w==="clean"?!e.flags.length:e.flags.length&&!e.nflags)));
+ rows.sort((a,b)=>{const x=a[sk],y=b[sk];return (x>y?1:x<y?-1:0)*sd});
+ $$("#wt th.sort").forEach(th=>th.dataset.k===sk?th.setAttribute("data-dir",sd>0?"▲":"▼"):th.removeAttribute("data-dir"));
+ $("#wb").innerHTML=rows.map(e=>`<tr class="click" data-id="${e.id}" tabindex="0"><td class="n">${e.id}</td><td class="n">${e.date}</td><td>${e.setting}</td><td>${e.svc}</td><td class="n">${[...e.dx,...e.px].map(x=>x.split(" ")[0]).join(", ")}</td><td>${e.payer.replace("Third-party: ","")}</td><td class="n">${money(e.charge)}</td><td class="n">${e.risk?money(e.risk):"-"}</td><td>${e.flags.length?[...new Set(e.flags.filter(f=>st(f)==="open").map(f=>f.cat))].map(catPill).join("")||'<span class="pill p-ok">Reviewed</span>':'<span class="pill p-ok">Clean</span>'}</td></tr>`).join("");
+ $("#wcount").textContent=`${rows.length} of ${E.length} encounters. Click a row to open the note.`;
+ $$("#wb tr").forEach(tr=>{const go=()=>openDoc(tr.dataset.id,0);tr.onclick=go;tr.onkeydown=ev=>{if(ev.key==="Enter")go()}});
+}
+["#wq","#wset","#wcat","#wst"].forEach(s=>$(s).oninput=work);
+// ---------- review queue ----------
+function decide(fid,s,reason){const f=FL.find(x=>x.id===fid);if(s==="open"){delete D[fid]}else D[fid]={s,reason};
+ LOG.push({t:now(),u:"Auditor A-01 (demo)",m:`${f.enc} ${fid} ${s==="open"?"reopened":s}: ${f.title}${reason?" ("+reason+")":""}`});save();refresh()}
+function evLinks(f){return f.ev.map(([p,e])=>`<a class="ev" data-enc="${f.enc}" data-p="${p}" data-e="${e}">${E.find(x=>x.id===f.enc).pages[p].t}, p${p+1}</a>`).join(" · ")}
+function queue(){
+ const c=$("#qcat").value,s=$("#qst").value,o=$("#qsort").value;
+ let fs=FL.filter(f=>(!c||f.cat===c)&&(!s||st(f)===s));
+ fs.sort(o==="risk"?(a,b)=>b.amt-a.amt:(a,b)=>a.enc<b.enc?-1:1);
+ $("#qlist").innerHTML=fs.length?fs.map(f=>{const S=st(f);return `<div class="card ${S==="accepted"?"acc":S==="rejected"?"rej":""}"><div class="hd"><b>${f.enc} · ${f.title}</b><span>${catPill(f.cat)}${stPill(S)}</span></div>
+ <div class="chg"><s>${f.from}</s> → <ins>${f.to}</ins></div>
+ <div style="font-size:14px">${f.why}</div>
+ <div class="detail">Rule: ${f.rule}<br>Impact: <b>${f.amt?money(f.amt):"no direct dollar change"}</b> · ${DIR[f.dir]}${f.carc!=="N/A"?` · prevents ${f.carc} (${CARC[f.carc]})`:""}<br>Evidence: ${evLinks(f)}</div>
+ <div class="act">${S==="open"?`<button class="btn ok" data-a="accepted" data-f="${f.id}">Accept</button><select aria-label="Reject reason" id="r-${f.id}"><option>Documentation supports original code</option><option>Rule not applicable to payer</option><option>Provider query sent instead</option><option>Duplicate flag</option></select><button class="btn no" data-a="rejected" data-f="${f.id}">Reject</button>`:`<span class="detail" style="margin:0">${S==="rejected"?"Reason: "+D[f.id].reason:"Correction queued for coder and claim resubmission"}</span><button class="ghost" style="margin:0" data-a="open" data-f="${f.id}">Undo</button>`}</div></div>`}).join(""):'<p class="detail">No flags match.</p>';
+ $$("#qlist [data-a]").forEach(b=>b.onclick=()=>decide(b.dataset.f,b.dataset.a,b.dataset.a==="rejected"?$("#r-"+b.dataset.f).value:""));
+ bindEv($("#qlist"));
+}
+["#qcat","#qst","#qsort"].forEach(s=>$(s).oninput=queue);
+$("#reset").onclick=()=>{D={};LOG=[{t:now(),u:"Auditor A-01 (demo)",m:"Demo decisions reset"}];save();refresh()};
+function bindEv(root){root.querySelectorAll("a.ev,.cite").forEach(a=>a.onclick=()=>openDoc(a.dataset.enc,+a.dataset.p,a.dataset.e))}
+// ---------- viewer ----------
+let cur={enc:E[0].id,p:0,e:null};
+$("#elist").innerHTML=E.map(e=>`<a data-id="${e.id}">${e.id} · ${e.svc}<small>${e.date} · ${e.flags.length?e.flags.length+" flags":"clean"}</small></a>`).join("");
+$$("#elist a").forEach(a=>a.onclick=()=>openDoc(a.dataset.id,0));
+function openDoc(id,p=0,e=null){cur={enc:id,p,e};tab("view");renderDoc();setHash()}
+function setHash(){const h=`tab=view&enc=${cur.enc}&p=${cur.p+1}`+(cur.e?`&ev=${cur.e}`:"");if(location.hash.slice(1)!==h)history.replaceState(null,"","#"+h)}
+function renderDoc(){
+ const e=E.find(x=>x.id===cur.enc);const pg=e.pages[cur.p];
+ $$("#elist a").forEach(a=>a.classList.toggle("on",a.dataset.id===e.id));
+ $("#dtitle").textContent=`${e.id} · ${pg.t}`;
+ $("#dlink").innerHTML=`<button class="ghost" id="copy" style="margin:0">Copy deep link</button>`;
+ $("#copy").onclick=()=>{const u=location.href.split("#")[0]+"#"+`tab=view&enc=${cur.enc}&p=${cur.p+1}`+(cur.e?`&ev=${cur.e}`:"");try{navigator.clipboard.writeText(u);$("#copy").textContent="Link copied"}catch(_){$("#copy").textContent=u}};
+ const flagOf={};e.flags.forEach(f=>f.ev.forEach(([p,x])=>{if(p===cur.p)(flagOf[x]=flagOf[x]||[]).push(f.id)}));
+ $("#page").innerHTML=`<h4>${pg.t}</h4><div class="crest">Sample VA Medical Center (fictional) · ${e.vet} (synthetic) · Date of service ${e.date} · Page ${cur.p+1} of ${e.pages.length}</div>`+pg.b.replace(/\{\{(\w+):([\s\S]*?)\}\}/g,(m,k,t)=>`<mark id="ev-${k}" data-e="${k}" title="${flagOf[k]?"Evidence for "+flagOf[k].join(", "):"Extracted finding"}">${t}</mark>`);
+ $("#pgi").textContent=`Page ${cur.p+1} of ${e.pages.length}`;$("#prev").disabled=cur.p===0;$("#next").disabled=cur.p>=e.pages.length-1;
+ if(cur.e){const m=$("#ev-"+cur.e);if(m){m.classList.add("on");if($("#t-view").classList.contains("on"))m.scrollIntoView({block:"center",behavior:"smooth"})}}
+ $$("#page mark").forEach(m=>m.onclick=()=>{cur.e=m.dataset.e;renderDoc();setHash()});
+ $("#vname").textContent=e.id;
+ $("#vsub").innerHTML=`${e.setting} · ${e.svc}<br>${e.vet} · ${e.sc}<br>${e.payer}<br>Charge ${money(e.charge)}${e.drg?" · "+e.drg:""}`;
+ $("#vcodes").innerHTML=`<h3>Coded</h3><table class="codes"><tbody>${[...e.dx,...e.px].map(c=>`<tr><td class="n">${c.split(" ")[0]}</td><td>${c.split(" ").slice(1).join(" ")}</td></tr>`).join("")}</tbody></table>`;
+ $("#vflags").innerHTML=`<h3>Flags</h3>`+(e.flags.length?e.flags.map(f=>`<div class="card ${st(f)==="accepted"?"acc":st(f)==="rejected"?"rej":""}" style="padding:10px"><b style="font-size:14px">${f.title}</b><div>${catPill(f.cat)}${stPill(st(f))}</div><div class="chg"><s>${f.from}</s> → <ins>${f.to}</ins></div><div class="detail" style="margin-top:2px">${evLinks(f)}</div></div>`).join(""):'<p class="detail">No flags. Encounter passed all rules.</p>');
+ bindEv($("#vflags"));
+}
+$("#prev").onclick=()=>{cur.p--;cur.e=null;renderDoc();setHash()};$("#next").onclick=()=>{cur.p++;cur.e=null;renderDoc();setHash()};
+// ---------- AI assistant ----------
+const CHIPS=["Does ENC-24105 support 90837?","Is modifier 25 supported on ENC-24101?","Why should ENC-24102 group to DRG 292?","Which encounters have NCCI edit conflicts?","Can we bill ENC-24106 to insurance?","What HCC opportunities are open?","How many dollars are at risk?","Is ENC-24104 ready to bill?"];
+$("#chips").innerHTML=CHIPS.map(c=>`<button class="ghost">${c}</button>`).join("");
+$$("#chips button").forEach(b=>b.onclick=()=>{$("#aq").value=b.textContent;ask()});
+const cite=(f,i=0)=>{const [p,e]=f.ev[i];const en=E.find(x=>x.id===f.enc);return `<span class="cite" data-enc="${f.enc}" data-p="${p}" data-e="${e}">${f.enc} · ${en.pages[p].t} · p${p+1}</span>`};
+const quote=(f,i=0)=>{const [p,e]=f.ev[i];const en=E.find(x=>x.id===f.enc);const m=en.pages[p].b.match(new RegExp("\\{\\{"+e+":([\\s\\S]*?)\\}\\}"));return m?m[1].replace(/<[^>]+>/g,""):""};
+function answerFlag(f){return `<p><b>${f.title}.</b> ${f.why}</p><p>Suggested change: <b>${f.from} → ${f.to}</b>. Rule: ${f.rule}.</p><p>Evidence: ${f.ev.map((x,i)=>`"${quote(f,i)}" ${cite(f,i)}`).join("<br>")}</p><p class="detail" style="margin:4px 0 0">Status: ${st(f)}. The auditor makes the final decision in the review queue.</p>`}
+const KW=[["ncci",/ncci|bundl|modifier|\b25\b|93010|43235|column/],["drg",/drg|\bcc\b|mcc|hcc|risk|group/],["bill",/bill|insur|copay|third|first-party|claim|service.?connect|\bsc\b|eligib|coverage/],["doc",/sign|attest|consent|missing|ready|document|telehealth|location/],["mis",/support|time|units|90837|level|specific|laterality|icd|mismatch|dose|diagnos/]];
+function ask(){
+ const q=$("#aq").value.trim();if(!q)return;const ql=q.toLowerCase();let a="";
+ const m=ql.match(/enc-?(\d{5})|\b(241\d\d)\b/);const id=m?"ENC-"+(m[1]||m[2]):null;const en=id&&E.find(x=>x.id===id);
+ const cats=KW.filter(([c,r])=>r.test(ql)).map(([c])=>c);
+ if(/dollar|at risk|how much|total/.test(ql)&&!en){const open=FL.filter(f=>st(f)==="open");const t=open.reduce((s,f)=>s+f.amt,0);
+  a=`<p><b>${money(t)}</b> is at risk across ${open.length} open flags (illustrative charges). Largest items:</p><ul>${open.sort((x,y)=>y.amt-x.amt).slice(0,4).map(f=>`<li>${f.enc}: ${f.title}, ${money(f.amt)} ${cite(f)}</li>`).join("")}</ul>`}
+ else if(id&&!en){a=`<p>I cannot find ${id} in this worklist. Encounters run from ENC-24101 to ENC-24124.</p>`}
+ else if(en){let fs=en.flags.filter(f=>!cats.length||cats.includes(f.cat));
+  if(/ready to bill|ready/.test(ql))fs=en.flags.filter(f=>["doc","bill"].includes(f.cat)&&st(f)==="open");
+  if(!en.flags.length)a=`<p>${en.id} has no flags. The note supports the coded ${[...en.dx,...en.px].map(c=>c.split(" ")[0]).join(", ")}. <span class="cite" data-enc="${en.id}" data-p="0" data-e="e1">${en.id} · ${en.pages[0].t} · p1</span></p>`;
+  else if(/ready/.test(ql)&&!fs.length)a=`<p>Yes. ${en.id} has no open documentation or billing holds.</p>`;
+  else if(/ready/.test(ql))a=`<p><b>No.</b> ${en.id} should not be billed yet.</p>`+fs.map(answerFlag).join("");
+  else a=(fs.length?fs:en.flags).map(answerFlag).join("<hr style='border:0;border-top:1px solid var(--line)'>")}
+ else if(cats.length){const fs=FL.filter(f=>f.cat===cats[0]);
+  a=`<p>${fs.length} ${CAT[cats[0]]} flags in the current worklist:</p><ul>${fs.map(f=>`<li><b>${f.enc}</b>: ${f.from} → ${f.to} (${st(f)}) ${cite(f)}</li>`).join("")}</ul>`}
+ else a=`<p>I can answer questions about a specific encounter (for example "Does ENC-24105 support 90837?"), a type of issue (NCCI edits, DRG or HCC opportunities, billing gaps, missing documentation) or dollars at risk. If the note does not support an answer, I will say so and suggest a provider query.</p>`;
+ const c=$("#chat");c.insertAdjacentHTML("beforeend",`<div class="msg u">${q.replace(/</g,"&lt;")}</div><div class="msg a">${a}</div>`);bindEv(c);c.scrollTop=c.scrollHeight;$("#aq").value="";
+ LOG.push({t:now(),u:"Assistant (demo)",m:"Answered: "+q.slice(0,80)});save();dash();
+}
+$("#go").onclick=ask;$("#aq").onkeydown=e=>{if(e.key==="Enter")ask()};
+// ---------- theme, hash ----------
+$("#theme").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";try{localStorage.setItem("vaaudittheme",r.dataset.theme)}catch(_){}};
+try{const t=localStorage.getItem("vaaudittheme");if(t)document.documentElement.dataset.theme=t}catch(_){}
+function fromHash(){const h=new URLSearchParams(location.hash.slice(1));const t=h.get("tab");
+ if(h.get("enc")&&E.find(x=>x.id===h.get("enc"))){const e=E.find(x=>x.id===h.get("enc"));cur={enc:e.id,p:Math.min(e.pages.length-1,Math.max(0,(+h.get("p")||1)-1)),e:h.get("ev")};tab("view");renderDoc();return}
+ if(t&&$("#t-"+t))tab(t)}
+window.addEventListener("hashchange",fromHash);
+function refresh(){dash();work();queue();renderDoc()}
+refresh();fromHash();
+</script>
+</body></html>
