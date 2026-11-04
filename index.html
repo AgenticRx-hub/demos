@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agentic Rx Demonstrations</title>
+<style>
+:root{--bg:#f4f2ec;--card:#fff;--fg:#17212c;--muted:#5d6874;--line:#e2ddd2;--navy:#0F2A47;--gold:#B8914A}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:28px 16px 22px;border-bottom:3px solid var(--gold)}
+.in{max-width:1080px;margin:0 auto}h1{margin:0;font:600 26px Georgia,serif;letter-spacing:.04em}
+header p{margin:6px 0 0;color:#d6c290;font-size:12.5px;letter-spacing:.12em}
+main{padding:0 16px 40px}.note{color:var(--muted);font-size:14px;margin:18px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+a.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;text-decoration:none;color:inherit;border-top:3px solid var(--gold)}
+a.card:hover{border-color:var(--gold)}a.card h2{font:600 17px Georgia,serif;margin:0 0 4px;color:var(--fg)}
+.meta{font-size:12.5px;color:var(--muted)}.desc{font-size:14px;margin-top:8px}
+input{font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);width:100%;max-width:420px;margin-bottom:14px}
+footer{color:var(--muted);font-size:12.5px;text-align:center;padding:20px}
+</style></head><body>
+<header><div class="in"><h1>AGENTIC RX</h1><p>WORKING DEMONSTRATIONS FOR OUR PROPOSALS</p></div></header>
+<main><div class="in">
+<p class="note">Each proposal we submit comes with a working demonstration of the system we propose to build. All names, records and figures are illustrative sample data.</p>
+<input id="q" placeholder="Filter demonstrations" aria-label="Filter demonstrations">
+<div class="grid" id="g"></div>
+</div></main>
+<footer>Agentic Rx LLC (Tampa, Florida) · Agentic Rx Inc. (Christ Church, Barbados) · info@agentic-rx.com · agentic-rx.com</footer>
+<script>
+const D=[
+["medt-hr-records","MEdT HR Records Digitalisation Console","Ministry of Education Transformation, Barbados · SFTF II RfB 4.2.1","Production dashboard, workflow line, searchable repository of 9,580 personnel files, file viewer with bookmarks and deep links, AI records assistant with cited answers, and QA/QC."],
+["census-rfid-wims","RFID Warehouse Console","US Census Bureau · RFID Integration RFI","Floor map with dock portals, live tag reads, inventory, receiving and shipping reconciliation against WIMS, exceptions, and an AI assistant that finds assets with cited read events."]
+];
+const g=document.getElementById("g"),q=document.getElementById("q");
+function r(){const t=q.value.toLowerCase();g.innerHTML=D.filter(d=>d.join(" ").toLowerCase().includes(t)).map(d=>`<a class="card" href="${d[0]}/"><h2>${d[1]}</h2><div class="meta">${d[2]}</div><div class="desc">${d[3]}</div></a>`).join("")}
+q.oninput=r;r();
+</script></body></html>

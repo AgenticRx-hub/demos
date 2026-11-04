@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MEdT Records Console</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root{--bg:#f4f2ec;--card:#fff;--fg:#17212c;--muted:#5d6874;--line:#e2ddd2;--navy:#0F2A47;--gold:#B8914A;--blue:#3d6fb0;--ok:#2f7a4b;--okbg:#e2f0e6;--warn:#9a6a10;--warnbg:#f7edd4;--bad:#a3392f;--badbg:#f6dfdb;--idle:#d9d5cc;--paper:#fdfbf6;--ink:#2a2f36;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace;--hand:"Segoe Print","Bradley Hand","Comic Sans MS",cursive}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--blue:#7fa8de;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#e9e4d8;--ink:#23272d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--blue:#7fa8de;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#e9e4d8;--ink:#23272d;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14.5px/1.5 var(--sans);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px;margin:0}
+header{background:var(--navy);color:#fff;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:18px max(16px,env(safe-area-inset-left,0px)) 0;border-bottom:3px solid var(--gold)}
+header .in,main{max-width:1180px;margin:0 auto}
+header h1{margin:0;font:600 22px var(--serif)}header p{margin:4px 0 12px;color:#d6c290;font-size:12px;letter-spacing:.08em}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav button{font:600 13px var(--sans);background:transparent;color:#c9d3df;border:0;padding:9px 14px;border-radius:6px 6px 0 0;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;margin:14px 0;font-size:13px}
+h2{font:600 17px var(--serif);margin:0 0 8px}h3{font:600 14px var(--sans);margin:12px 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}.kpi b{display:block;font:600 21px var(--mono);font-variant-numeric:tabular-nums}.kpi span{color:var(--muted);font-size:12px}
+.kpi.done{border-color:var(--ok)}.kpi.done b{color:var(--ok)}
+.drawers{display:grid;grid-template-columns:repeat(auto-fill,minmax(13px,1fr));gap:3px;margin:8px 0}
+.dw{aspect-ratio:1;border-radius:2px;background:var(--idle);cursor:pointer;border:0;padding:0}.dw.s1{background:var(--warn)}.dw.s2{background:var(--blue)}.dw.s3{background:var(--ok)}.dw:focus-visible{outline:2px solid var(--gold)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted)}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.bar{height:8px;background:var(--idle);border-radius:4px;overflow:hidden;margin:4px 0 10px}.bar>div{height:100%;background:var(--ok)}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:13.5px}.row b{font-variant-numeric:tabular-nums}
+label{font-size:12px;color:var(--muted);display:block;margin-bottom:4px}
+input,select{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg);width:100%}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:600}
+th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--fg)}th.sort[data-dir]::after{content:attr(data-dir);margin-left:4px;color:var(--gold)}
+td.n{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:12.5px}
+tbody tr.click{cursor:pointer}tbody tr.click:hover{background:var(--bg)}
+.pill{font-size:11.5px;padding:1px 7px;border-radius:999px;white-space:nowrap}.p-ok{background:var(--okbg);color:var(--ok)}.p-w{background:var(--warnbg);color:var(--warn)}.p-b{background:var(--badbg);color:var(--bad)}
+button.btn{font:600 13px var(--sans);background:var(--navy);color:#fff;border:1px solid var(--navy);border-radius:5px;padding:7px 12px;cursor:pointer}
+button.ghost{font:500 12.5px var(--sans);background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;margin:0 6px 6px 0}
+button.ghost:hover{border-color:var(--gold)}
+.detail{font-size:13px;margin-top:8px;color:var(--muted)}
+.tab{display:none}.tab.on{display:block}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.pager{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:13px;color:var(--muted)}
+/* line */
+.line{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:10px 0}
+.st{background:var(--navy);color:#fff;border-radius:6px;padding:10px 6px;text-align:center;border-bottom:4px solid var(--gold);position:relative}
+.st b{display:block;font-size:12.5px}.st span{display:block;font:600 18px var(--mono);margin-top:4px}.st small{color:#c9d3df;font-size:11px}
+.st.hot{border-bottom-color:#e2725b}
+/* viewer */
+.viewer{display:grid;grid-template-columns:260px 1fr 260px;gap:12px}
+.tree{font-size:13px}.tree details{margin:2px 0}.tree summary{cursor:pointer;font-weight:600;padding:3px 0}
+.tree a{display:block;padding:3px 8px;border-radius:4px;color:var(--fg);text-decoration:none;cursor:pointer}.tree a:hover,.tree a.on{background:var(--bg)}.tree a small{color:var(--muted)}
+.page{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:26px 30px;min-height:420px;box-shadow:0 1px 3px rgba(0,0,0,.08);font:13.5px/1.6 Georgia,serif}
+.page h4{font:700 14px Georgia,serif;text-align:center;letter-spacing:.06em;margin:0 0 4px}.page .crest{text-align:center;font-size:11px;color:#6b6457;margin-bottom:14px}
+.page .hw{font-family:var(--hand);color:#1f3c88;font-size:15px}
+.page mark{background:#fff0a6}
+.meta dt{color:var(--muted);font-size:12px}.meta dd{margin:0 0 6px;font-size:13px}
+.tl{position:relative;margin:8px 0 0 6px;border-left:2px solid var(--line);padding-left:14px}
+.tl div{position:relative;margin:0 0 10px;font-size:12.5px;cursor:pointer}.tl div::before{content:"";position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.tl div.on::before{background:var(--navy);box-shadow:0 0 0 3px var(--gold)}
+.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:3px;background:var(--bg);color:var(--muted);margin-right:4px}
+/* assistant */
+.chat{display:flex;flex-direction:column;gap:10px;max-height:520px;overflow:auto;padding:4px}
+.msg{max-width:88%;padding:10px 12px;border-radius:8px;font-size:13.5px}
+.msg.u{align-self:flex-end;background:var(--navy);color:#fff}
+.msg.a{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.cite{display:inline-block;font:600 11px var(--mono);background:var(--card);border:1px solid var(--gold);color:var(--fg);border-radius:4px;padding:1px 6px;margin:4px 4px 0 0;cursor:pointer}
+.ask{display:flex;gap:8px;margin-top:10px}
+svg text{fill:var(--muted);font:11px var(--sans)}
+@media (max-width:900px){.viewer{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.line{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}.line{grid-template-columns:repeat(2,1fr)}}
+</style></head><body>
+<header><div class="in"><h1>MEdT HR Records Digitalisation Console</h1><p>AGENTIC RX INC. · DEMONSTRATION FOR SFTF II RFB 4.2.1 · ELSIE PAYNE COMPLEX</p>
+<nav role="tablist">
+<button role="tab" data-t="prod" aria-selected="true">Dashboard</button>
+<button role="tab" data-t="flow" aria-selected="false">Workflow line</button>
+<button role="tab" data-t="cat" aria-selected="false">Repository</button>
+<button role="tab" data-t="view" aria-selected="false">File viewer</button>
+<button role="tab" data-t="ai" aria-selected="false">AI Records Assistant</button>
+<button role="tab" data-t="qa" aria-selected="false">QA / QC</button>
+</nav></div></header>
+<main>
+<div class="note">Illustrative sample data only. No real Ministry records are used. Names, National IDs and documents are generated for demonstration.</div>
+<div class="panel" style="margin-bottom:14px"><label for="day">Simulate production: working day <b id="dayn"></b> of 125 (the contract runs about 25 weeks)</label><input type="range" id="day" min="0" max="125" value="60"><div class="row" style="margin-top:6px"><span><b id="filesdone"></b> of 9,580 files uploaded and accepted</span><span id="phase"></span></div></div>
+
+<!-- PRODUCTION -->
+<section class="tab on" id="t-prod">
+<div class="kpis" id="miles"></div>
+<div class="grid">
+<section class="panel"><h2>Cumulative files: plan and actual</h2><div id="curve"></div><div class="legend"><span><i style="background:var(--gold)"></i>Plan</span><span><i style="background:var(--navy)"></i>Actual to date</span><span><i style="background:var(--ok)"></i>Milestone</span></div></section>
+<section class="panel"><h2>Drawer map: 80 cabinets, 306 drawers</h2>
+<div class="legend"><span><i style="background:var(--idle)"></i>Not started</span><span><i style="background:var(--warn)"></i>Prepared</span><span><i style="background:var(--blue)"></i>Scanned and QC</span><span><i style="background:var(--ok)"></i>Uploaded and returned</span></div>
+<div class="drawers" id="drawers" aria-label="Drawer status grid"></div><div class="detail" id="dwdetail">Select a drawer to see its files.</div></section>
+</div>
+<section class="panel" style="margin-top:14px"><h2>Chain of custody log (latest)</h2><div class="wrap"><table><thead><tr><th>Time</th><th>File barcode</th><th>Drawer</th><th>Event</th><th>Operator</th><th>Status</th></tr></thead><tbody id="log"></tbody></table></div></section>
+</section>
+
+<!-- FLOW -->
+<section class="tab" id="t-flow">
+<section class="panel"><h2>Production line: work in progress by station</h2>
+<p class="detail" style="margin-top:0">Each drawer of about 30 files moves through eight stations as one batch. Takt time at 120 files a day is about 3.75 minutes per file. The station with the most work waiting is highlighted so the team can move cross-trained staff to it at the morning stand-up.</p>
+<div class="line" id="line"></div>
+<div class="grid">
+<div><h3>Station throughput today (files)</h3><div id="thru"></div></div>
+<div><h3>Seven optimisations</h3><ul style="margin:0;padding-left:18px;font-size:13.5px">
+<li>Drawer-based batches with one barcode</li><li>Patch-code separator sheets split documents automatically</li><li>Metadata pre-filled from the HR extract</li><li>OCR runs unattended in a queue</li><li>Scripted upload with SHA-256 checksum</li><li>Separate lane for fragile files</li><li>Daily 10-minute stand-up on this console</li></ul></div>
+</div></section>
+</section>
+
+<!-- CATALOGUE -->
+<section class="tab" id="t-cat">
+<section class="panel"><h2>Records repository: electronic personnel files</h2>
+<div class="filters">
+<div><label for="cq">Search National ID, Employee No., name or school</label><input id="cq" placeholder="e.g. Clarke, E04117, Harrison"></div>
+<div><label for="cty">Type of employee</label><select id="cty"><option value="">All</option><option>Teaching</option><option>Ancillary</option><option>Internal</option></select></div>
+<div><label for="csch">School or department</label><select id="csch"><option value="">All</option></select></div>
+<div><label for="cst">Status</label><select id="cst"><option value="">All files</option><option value="up">Uploaded only</option><option value="pend">Not yet uploaded</option></select></div>
+</div>
+<div class="wrap"><table><thead><tr>
+<th class="sort" data-k="nid">National ID</th><th class="sort" data-k="emp">Emp. No.</th><th class="sort" data-k="last">Name</th><th class="sort" data-k="ty">Type</th><th class="sort" data-k="sch">School / Dept</th><th class="sort" data-k="opened">Date opened</th><th class="sort" data-k="modified">Last modified</th><th class="sort" data-k="docs">Docs</th><th class="sort" data-k="pages">Pages</th><th>Status</th></tr></thead><tbody id="cres"></tbody></table></div>
+<div class="pager"><span id="ccount"></span><span><button class="ghost" id="prev">Previous</button><button class="ghost" id="next">Next</button></span></div>
+<p class="detail">Click a column heading to sort by it; click again to reverse. Click a row to open the electronic personnel file.</p>
+</section></section>
+
+<!-- VIEWER -->
+<section class="tab" id="t-view">
+<div class="viewer">
+<section class="panel"><h2 id="vname">Personnel file</h2><div class="detail" id="vsub" style="margin-top:0"></div>
+<h3>Document map (bookmarks)</h3><div class="tree" id="tree"></div>
+<h3>Sort documents</h3><select id="vsort"><option value="type">By document type</option><option value="date">By date (oldest first)</option><option value="dated">By date (newest first)</option></select></section>
+<section class="panel"><div class="row" style="margin-bottom:8px"><b id="dtitle"></b><span id="dbadge"></span></div><div class="page" id="page"></div><div class="detail" id="docmeta"></div>
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px"><button class="ghost" id="copylink">Copy link to this page</button><button class="ghost" id="prevdoc">Previous document</button><button class="ghost" id="nextdoc">Next document</button><button class="ghost" id="reqfix">Request a correction</button></div><div class="detail" id="linkout"></div></section>
+<section class="panel"><h3 style="margin-top:0">Career timeline</h3><div class="tl" id="tl"></div>
+<h3>Thematic connections</h3><div id="links" style="font-size:13px"></div>
+<h3>File metadata</h3><dl class="meta" id="meta"></dl></section>
+</div></section>
+
+<!-- AI -->
+<section class="tab" id="t-ai">
+<div class="grid" style="grid-template-columns:2fr 1fr">
+<section class="panel"><h2>AI Records Assistant</h2>
+<p class="detail" style="margin-top:0">Ask a question in plain English. Every answer cites the file, document and page it came from, and respects the user's SharePoint permissions. In production this would run only inside the Ministry's Microsoft 365 tenant, with the Ministry's written approval. This demonstration runs entirely in your browser on sample data.</p>
+<div id="ex"></div>
+<div class="chat" id="chat"></div>
+<div class="ask"><input id="aq" placeholder="Ask about the personnel records" aria-label="Question"><button class="btn" id="go">Ask</button></div>
+</section>
+<section class="panel"><h2>How it works</h2><ol style="padding-left:18px;font-size:13.5px;margin:0">
+<li><b>Index.</b> OCR text and metadata of every uploaded page is indexed with its National ID, document type and date.</li>
+<li><b>Understand.</b> The question is parsed for people, IDs, schools, document types, dates and counts.</li>
+<li><b>Retrieve.</b> Only records the user is allowed to see are searched.</li>
+<li><b>Answer with sources.</b> The answer links to the exact file, document and page, so HR can check it.</li></ol>
+<h3>Guardrails</h3><ul style="padding-left:18px;font-size:13.5px;margin:0"><li>Restricted documents (medical, disciplinary) are never summarised for users without access</li><li>No data leaves the Ministry tenant</li><li>Every query is logged for audit</li><li>Answers without a source are not shown</li></ul></section>
+</div></section>
+
+<!-- QA -->
+<section class="tab" id="t-qa">
+<div class="grid">
+<section class="panel"><h2>Quality control results</h2><div id="qc"></div></section>
+<section class="panel"><h2>Defects found and fixed</h2><div id="pareto"></div><p class="detail">Each defect is fixed at source and the batch re-checked before upload. Recurring causes trigger a corrective action.</p></section>
+<section class="panel"><h2>Milestone acceptance sample</h2><div id="accept"></div></section>
+</div></section>
+</main>
+<script>
+let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+const pick=a=>a[Math.floor(rnd()*a.length)];const fmt=n=>n.toLocaleString("en-GB");
+const FN=["Alicia","Marcus","Shanice","Andre","Kerry-Ann","Damian","Natalie","Jamal","Renee","Trevor","Lisa","Kemar","Dianne","Ryan","Tamika","Grantley","Sherry","Wendell","Patrice","Junior","Ayesha","Carlisle","Merle","Rohan","Yvette","Desmond","Coreen","Hallam"];
+const LN=["Clarke","Best","Greaves","Holder","Small","Worrell","Alleyne","Springer","Griffith","King","Brathwaite","Gittens","Forde","Jordan","Harewood","Weekes","Callender","Inniss","Boyce","Carter","Marshall","Babb","Cumberbatch","Lashley"];
+const SCH=["Harrison College","Lodge School","Combermere School","St. Leonard's Boys","Grantley Adams Memorial","Queen's College","Alleyne School","Ellerslie Secondary","St. Michael School","Parkinson Memorial","Daryll Jordan Secondary","MEdT Head Office"];
+const TY=["Teaching","Teaching","Teaching","Ancillary","Internal"];
+const POST={Teaching:["Assistant Teacher","Graduate Teacher","Senior Teacher","Deputy Principal"],Ancillary:["Maid","Watchman","General Worker","Driver"],Internal:["Clerical Officer","Senior Clerk","Executive Officer","Senior Executive Officer"]};
+const DT=[["APP","Application and appointment","Career progression"],["PDF","Personal data and next of kin","Personal"],["QUA","Qualifications and certificates","Qualifications"],["CON","Confirmation of appointment","Career progression"],["INC","Salary and increments","Compensation"],["LEA","Leave records","Leave and attendance"],["APR","Performance appraisal","Performance"],["PRO","Promotion","Career progression"],["TRA","Transfer and posting","Career progression"],["TRN","Training record","Qualifications"],["COR","General correspondence","Correspondence"],["DIS","Disciplinary (restricted)","Restricted"],["MED","Medical (restricted)","Restricted"]];
+const DTM=Object.fromEntries(DT.map(d=>[d[0],d]));
+const pad=(n,l)=>String(n).padStart(l,"0");
+const iso=d=>d.toISOString().slice(0,10);const ukd=s=>{const [y,m,d]=s.split("-");return `${d}/${m}/${y}`};
+// drawers & files
+const drawers=[];let fid=0;
+for(let c=1;c<=80;c++){const nd=c<=10?1:4;for(let k=1;k<=nd&&drawers.length<306;k++){const big=drawers.length<10;const n=big?70:30;const files=[];
+for(let i=0;i<n;i++){fid++;const y=1972+Math.floor(rnd()*30),m=1+Math.floor(rnd()*12),d=1+Math.floor(rnd()*28);const ty=pick(TY);
+const op=1985+Math.floor(rnd()*39);const opened=new Date(Date.UTC(op,Math.floor(rnd()*12),1+Math.floor(rnd()*27)));
+files.push({i:fid,nid:`${pad(y%100,2)}${pad(m,2)}${pad(d,2)}-${pad(Math.floor(rnd()*9999),4)}`,emp:"E"+pad(10000+fid*7%89999,5),first:pick(FN),last:pick(LN),ty,sch:ty==="Internal"?"MEdT Head Office":pick(SCH.slice(0,11)),opened:iso(opened),dob:y,pages:20+Math.floor(rnd()*70),hw:rnd()<.35,dw:`C${pad(c,2)}-D${k}`,seed:Math.floor(rnd()*1e9)})}
+drawers.push({id:`C${pad(c,2)}-D${k}`,files})}}
+let cum=0;for(const d of drawers){cum+=d.files.length;d.cum=cum}
+const FILES=drawers.flatMap(d=>d.files.map(f=>(f.cum=d.cum,f)));
+// documents generated per file on demand
+function docsFor(f){let s=f.seed;const r=()=>{s=(s*16807)%2147483647;return (s-1)/2147483646};
+const t0=new Date(f.opened+"T00:00:00Z");const add=(dt,days)=>new Date(dt.getTime()+days*864e5);const out=[];let pg=1;
+const mk=(code,date,extra={})=>{const n=1+Math.floor(r()*4);const d={id:out.length+1,code,type:DTM[code][1],theme:DTM[code][2],date:iso(date),p0:pg,pages:n,hw:r()<(f.hw?.45:.12),conf:0,links:[],...extra};d.conf=d.hw?(62+Math.floor(r()*22)):(95+Math.floor(r()*5));pg+=n;out.push(d);return d};
+const quals=[];const nq=1+Math.floor(r()*3);for(let i=0;i<nq;i++)quals.push(mk("QUA",add(t0,-400-Math.floor(r()*2000)),{title:pick(["CXC CSEC certificates","CAPE certificates","B.Ed., UWI Cave Hill","Diploma in Education, Erdiston","B.Sc., UWI Cave Hill","Certificate, SJPP"])}));
+const app=mk("APP",t0,{post:POST[f.ty][0],school:f.sch});mk("PDF",add(t0,2));
+const con=mk("CON",add(t0,365+Math.floor(r()*365)));con.links.push(app.id);app.links.push(con.id);
+const now=new Date(Date.UTC(2026,8,30));let cur=add(t0,730),lvl=0,sch=f.sch,lastPro=null;
+while(cur<now){const roll=r();
+if(roll<.30)mk("LEA",cur,{title:pick(["Vacation leave","Sick leave","Study leave","Maternity leave","Casual leave"])});
+else if(roll<.52){const a=mk("APR",cur,{rating:pick(["Satisfactory","Good","Very good","Outstanding"])});if(lastPro)a.links.push(lastPro.id)}
+else if(roll<.66)mk("INC",cur,{title:"Annual increment"});
+else if(roll<.73&&lvl<3){lvl++;const p=mk("PRO",cur,{post:POST[f.ty][lvl]});const q=quals[quals.length-1];p.links.push(q.id);q.links.push(p.id);lastPro=p;
+ const inc=mk("INC",add(cur,30),{title:"Salary adjustment on promotion"});inc.links.push(p.id);p.links.push(inc.id)}
+else if(roll<.80&&f.ty!=="Internal"){const ns=pick(SCH.slice(0,11));if(ns!==sch){const t=mk("TRA",cur,{from:sch,to:ns});sch=ns;if(lastPro){t.links.push(lastPro.id)}}}
+else if(roll<.86)mk("TRN",cur,{title:pick(["Literacy coaching workshop","Microsoft 365 training","Child protection training","First aid certificate","Classroom management course"])});
+else if(roll<.89)mk("DIS",cur);else if(roll<.92)mk("MED",cur);
+else mk("COR",cur,{title:pick(["Letter re: housing allowance","Request for service record","Letter re: acting appointment","Change of address"])});
+cur=add(cur,200+Math.floor(r()*500))}
+out.sort((a,b)=>a.date<b.date?-1:1);let p=1;for(const d of out){d.p0=p;p+=d.pages}
+f.pages=p-1;f.modified=out[out.length-1].date;f.ndocs=out.length;f.curSch=sch;return out}
+const docCache=new Map();const DOCS=f=>{if(!docCache.has(f.i))docCache.set(f.i,docsFor(f));return docCache.get(f.i)};
+FILES.forEach(f=>{DOCS(f)});
+// production model: 2 weeks inception, pilot wk3-4 (300 files), ramp, steady 120/day
+function plan(day){if(day<=10)return 0;if(day<=20)return Math.round((day-10)*30);if(day<=30)return 300+Math.round((day-20)*90);return Math.min(9580,1200+(day-30)*120)}
+function actual(day){const p=plan(day);const wob=Math.round(Math.sin(day/4)*60);return Math.max(0,Math.min(9580,p+(day>25?wob:0)))}
+function state(day){const done=actual(day);return{done,scanned:Math.min(9580,done+360),prepped:Math.min(9580,done+600)}}
+const MS=[["D1 Inception","Week 2",0,10],["D2 25%","Week 8",2395,40],["D3 50%","Week 13",4790,65],["D4 75%","Week 18",7185,90],["D5 100%","Week 23",9580,115],["D6 Final report","Week 25",9580,125]];
+const $=id=>document.getElementById(id);
+function svgCurve(day){const W=520,H=210,L=40,B=24,T=10,R=10;const x=d=>L+(d/125)*(W-L-R),y=v=>T+(1-v/9580)*(H-T-B);
+let pp="",pa="";for(let d=0;d<=125;d++){pp+=(d?"L":"M")+x(d).toFixed(1)+","+y(plan(d)).toFixed(1)}for(let d=0;d<=day;d++){pa+=(d?"L":"M")+x(d).toFixed(1)+","+y(actual(d)).toFixed(1)}
+let g="";[0,2395,4790,7185,9580].forEach(v=>g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${v?fmt(v):"0"}</text>`);
+[0,25,50,75,100,125].forEach(d=>g+=`<text x="${x(d)}" y="${H-6}" text-anchor="middle">wk ${Math.round(d/5)}</text>`);
+MS.slice(1,5).forEach(m=>g+=`<circle cx="${x(m[3])}" cy="${y(m[2])}" r="4.5" fill="var(--ok)"/>`);
+return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Cumulative files plan and actual">${g}<path d="${pp}" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="5 4"/><path d="${pa}" fill="none" stroke="var(--navy)" stroke-width="2.5"/><circle cx="${x(day)}" cy="${y(actual(day))}" r="4" fill="var(--navy)" stroke="var(--gold)" stroke-width="2"/></svg>`}
+function render(){const day=+$("day").value;const s=state(day);$("dayn").textContent=day;$("filesdone").textContent=fmt(s.done);
+$("phase").textContent=day<=10?"Inception":day<=20?"Pilot (300 files)":day<=30?"Ramp-up":s.done<9580?"Steady production":day<125?"Close-out and training":"Handover complete";
+$("miles").innerHTML=MS.map(m=>{const ok=day>=m[3]&&s.done>=m[2];const prev=MS[MS.indexOf(m)-1];const started=!prev||s.done>=prev[2]&&day>=prev[3];return `<div class="kpi ${ok?"done":""}"><b>${ok?"Accepted":!started?"Pending":m[2]?fmt(Math.min(s.done,m[2]))+" files":"In progress"}</b><span>${m[0]} · ${m[1]}</span></div>`}).join("");
+$("curve").innerHTML=svgCurve(day);
+$("drawers").innerHTML=drawers.map((d,i)=>{const st=d.cum<=s.done?3:d.cum<=s.scanned?2:d.cum<=s.prepped?1:0;return `<button class="dw s${st}" data-i="${i}" title="${d.id}" aria-label="Drawer ${d.id}"></button>`}).join("");
+renderQC(s);renderLine(s,day);logs(s);if(cur.tab==="cat")renderCat()}
+function renderQC(s){const n=s.done;const pgs=n*49;const rs=Math.round(pgs*.006),ocr=Math.round(n*.33);
+const rows=[["Image capture: 300 DPI, orientation, completeness","100% automated + 100% thumbnail review",99.4],["OCR text layer present","100% of pages",100],["OCR accuracy, typed pages (5% sample)","Target 98%",98.7],["Metadata accuracy (10% sample)","Target 99.5%",99.7],["National ID and Emp. No. verified","100% double-checked",100],["SharePoint upload verified (checksum, page count)","100% automated",100],["Files returned to drawer and signed in","100%",100]];
+$("qc").innerHTML=`<div class="row"><span>Pages uploaded</span><b>${fmt(pgs)}</b></div><div class="row"><span>Pages re-scanned after QC</span><b>${fmt(rs)}</b></div><div class="row" style="margin-bottom:8px"><span>Files with handwriting routed to keyed metadata</span><b>${fmt(ocr)}</b></div>`+
+rows.map(r=>`<div class="row"><span>${r[0]}</span><b>${r[2]}%</b></div><div class="bar"><div style="width:${r[2]}%"></div></div><div class="detail" style="margin:-6px 0 8px">${r[1]}</div>`).join("");
+const def=[["Skewed or rotated page",38],["Page missed in feed",21],["Wrong document type",16],["Metadata typo",11],["Low contrast / faded",9],["Other",5]];
+$("pareto").innerHTML=`<svg viewBox="0 0 340 180" width="100%" role="img" aria-label="Defects by cause">`+def.map((d,i)=>`<text x="0" y="${22+i*27}">${d[0]}</text><rect x="150" y="${11+i*27}" width="${d[1]*4.4}" height="15" rx="2" fill="${i?"var(--blue)":"var(--bad)"}"/><text x="${156+d[1]*4.4}" y="${22+i*27}">${Math.round(n*.012*d[1]/100)}</text>`).join("")+`</svg>`;
+$("accept").innerHTML=`<table><thead><tr><th>Milestone</th><th>Lot</th><th>Sample</th><th>Defects</th><th>Result</th></tr></thead><tbody>${MS.slice(1,5).map((m,i)=>{const ok=s.done>=m[2];return `<tr><td>${m[0]}</td><td class="n">${fmt(2395)}</td><td class="n">125</td><td class="n">${ok?i%2:"-"}</td><td>${ok?'<span class="pill p-ok">Accepted</span>':'<span class="pill p-w">Pending</span>'}</td></tr>`}).join("")}</tbody></table><p class="detail">Sample size from ISO 2859-1, general inspection level II. The Ministry draws the sample, not Agentic Rx.</p>`}
+function renderLine(s,day){const live=s.done<9580&&day>10;const st=[["Check-out","custody log",live?30:0],["Prepare","de-staple, patch",live?62:0],["Scan","2 x fi-8170",live?24:0],["OCR","ABBYY queue",live?40:0],["Index","pre-filled",live?45:0],["QC","sample, approve",live?28:0],["Upload","checksum",live?18:0],["Return","sign in",live?12:0]];
+const mx=Math.max(...st.map(x=>x[2]));$("line").innerHTML=st.map(x=>`<div class="st ${x[2]===mx&&mx>0?"hot":""}"><b>${x[0]}</b><small>${x[1]}</small><span>${x[2]}</span><small>files waiting</small></div>`).join("");
+const cap=[["Preparation",140],["Scanning",220],["Indexing",180],["QC",450],["Upload",300]];
+$("thru").innerHTML=`<svg viewBox="0 0 340 160" width="100%" role="img" aria-label="Station capacity versus takt">`+cap.map((c,i)=>`<text x="0" y="${20+i*28}">${c[0]}</text><rect x="90" y="${9+i*28}" width="${c[1]/2}" height="15" rx="2" fill="var(--blue)"/><text x="${96+c[1]/2}" y="${20+i*28}">${c[1]}/day</text>`).join("")+`<line x1="150" x2="150" y1="0" y2="150" stroke="var(--gold)" stroke-dasharray="4 3" stroke-width="2"/><text x="154" y="156">target 120</text></svg>`}
+function logs(s){const ops=["OP-01 Prep","OP-02 Scan","OP-03 Index","QC-01 Supervisor","OPS Lead"];const ev=["Checked out of drawer","Prepared, separator sheets inserted","Scanned 300 DPI, 0 re-scans","QC passed, uploaded to SharePoint","Returned and signed in"];const rows=[];let t=16*60+30;
+for(let i=0;i<8;i++){const f=Math.min(9580,Math.max(1,s.done-i*3));const d=drawers.find(x=>x.cum>=f)||drawers[0];const e=i%5;rows.push(`<tr><td class="n">${pad(Math.floor(t/60),2)}:${pad(t%60,2)}</td><td class="n">HR-${pad(f,5)}</td><td>${d.id}</td><td>${ev[4-e]}</td><td>${ops[4-e]}</td><td>${e===3&&i===3?'<span class="pill p-b">Escalated: torn page</span>':'<span class="pill p-ok">OK</span>'}</td></tr>`);t-=7}
+$("log").innerHTML=s.done?rows.join(""):'<tr><td colspan="6" class="detail">Production starts after the inception phase.</td></tr>'}
+$("drawers").addEventListener("click",e=>{const b=e.target.closest(".dw");if(!b)return;const d=drawers[+b.dataset.i];const s=state(+$("day").value);const st=d.cum<=s.done?"uploaded and returned":d.cum<=s.scanned?"scanned, in QC":d.cum<=s.prepped?"prepared":"not started";
+$("dwdetail").innerHTML=`<b>${d.id}</b>: ${d.files.length} files, ${st}. First file ${d.files[0].last}, ${d.files[0].first}. <a href="#" data-open="${d.files[0].i}">Open it</a>`});
+document.addEventListener("click",e=>{const a=e.target.closest("[data-open]");if(a){e.preventDefault();openFile(+a.dataset.open,a.dataset.doc?+a.dataset.doc:null,a.dataset.pg?+a.dataset.pg:null)}});
+// tabs
+const cur={tab:"prod"};document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.t));
+function show(t){cur.tab=t;document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));if(t==="cat")renderCat();if(t==="view"&&!vf)openFile(FILES[0].i)}
+// catalogue
+SCH.forEach(s=>$("csch").insertAdjacentHTML("beforeend",`<option>${s}</option>`));
+const cs={k:"last",dir:1,page:0};
+document.querySelectorAll("th.sort").forEach(th=>th.onclick=()=>{cs.dir=cs.k===th.dataset.k?-cs.dir:1;cs.k=th.dataset.k;cs.page=0;renderCat()});
+["cq","cty","csch","cst"].forEach(id=>$(id).addEventListener("input",()=>{cs.page=0;renderCat()}));
+$("prev").onclick=()=>{if(cs.page>0){cs.page--;renderCat()}};$("next").onclick=()=>{cs.page++;renderCat()};
+function renderCat(){const q=$("cq").value.trim().toLowerCase(),ty=$("cty").value,sc=$("csch").value,st=$("cst").value,done=state(+$("day").value).done;
+let r=FILES.filter(f=>(!ty||f.ty===ty)&&(!sc||f.curSch===sc)&&(!st||(st==="up"?f.cum<=done:f.cum>done))&&(!q||f.nid.includes(q)||f.emp.toLowerCase().includes(q)||(f.first+" "+f.last).toLowerCase().includes(q)||f.curSch.toLowerCase().includes(q)));
+const key=cs.k==="docs"?"ndocs":cs.k==="sch"?"curSch":cs.k;r.sort((a,b)=>(a[key]>b[key]?1:a[key]<b[key]?-1:0)*cs.dir);
+const per=15,pages=Math.max(1,Math.ceil(r.length/per));cs.page=Math.min(cs.page,pages-1);
+document.querySelectorAll("th.sort").forEach(th=>th.dataset.k===cs.k?th.dataset.dir=cs.dir>0?"▲":"▼":th.removeAttribute("data-dir"));
+$("cres").innerHTML=r.slice(cs.page*per,cs.page*per+per).map(f=>`<tr class="click" data-open="${f.i}"><td class="n">${f.nid}</td><td class="n">${f.emp}</td><td>${f.last}, ${f.first}</td><td>${f.ty}</td><td>${f.curSch}</td><td class="n">${ukd(f.opened)}</td><td class="n">${ukd(f.modified)}</td><td class="n">${f.ndocs}</td><td class="n">${f.pages}</td><td>${f.cum<=done?'<span class="pill p-ok">In SharePoint</span>':'<span class="pill p-w">Paper</span>'}</td></tr>`).join("")||'<tr><td colspan="10" class="detail">No files match.</td></tr>';
+$("ccount").textContent=`${fmt(r.length)} files · page ${cs.page+1} of ${pages}`}
+// viewer
+let vf=null,vd=null;
+function openFile(i,docId,pg){vf=FILES.find(f=>f.i===i);const docs=DOCS(vf);vd=docId?docs.find(d=>d.id===docId):docs.find(d=>d.code==="APP");show("view");drawViewer(pg)}
+$("vsort").onchange=()=>drawViewer();
+function visible(d){return !(d.code==="DIS"||d.code==="MED")}
+function drawViewer(pg){const f=vf,docs=DOCS(f);$("vname").textContent=`${f.last}, ${f.first}`;$("vsub").innerHTML=`${f.nid} · ${f.emp} · ${f.ty} · ${f.curSch}`;
+const mode=$("vsort").value;let tree="";
+if(mode==="type"){for(const t of DT){const ds=docs.filter(d=>d.code===t[0]);if(!ds.length)continue;tree+=`<details ${ds.includes(vd)||t[0]==="APP"?"open":""}><summary>${t[1]} (${ds.length})</summary>${ds.map(d=>`<a class="${d===vd?"on":""}" data-open="${f.i}" data-doc="${d.id}">${ukd(d.date)} <small>p.${d.p0}${d.hw?" · handwritten":""}</small></a>`).join("")}</details>`}}
+else{const ds=[...docs].sort((a,b)=>(a.date<b.date?-1:1)*(mode==="date"?1:-1));tree=ds.map(d=>`<a class="${d===vd?"on":""}" data-open="${f.i}" data-doc="${d.id}">${ukd(d.date)} · ${d.type} <small>p.${d.p0}</small></a>`).join("")}
+$("tree").innerHTML=tree;
+$("dtitle").textContent=`${vd.type}, ${ukd(vd.date)}`;
+$("dbadge").innerHTML=vd.hw?`<span class="pill p-w">Handwritten · OCR ${vd.conf}% · key fields typed by indexer</span>`:`<span class="pill p-ok">OCR ${vd.conf}%</span>`;
+$("page").innerHTML=visible(vd)?pageBody(f,vd):`<p style="text-align:center;margin-top:120px">Restricted document. Visible only to HR Restricted Readers.</p>`;
+$("docmeta").innerHTML=`Pages ${vd.p0} to ${vd.p0+vd.pages-1} of the personnel file · Theme: ${vd.theme} · Bookmark: ${vd.type} / ${ukd(vd.date)}${pg?` · Opened at page ${pg} from an AI answer`:""}`;
+$("tl").innerHTML=docs.filter(d=>["APP","CON","PRO","TRA","QUA"].includes(d.code)).map(d=>`<div class="${d===vd?"on":""}" data-open="${f.i}" data-doc="${d.id}"><b>${ukd(d.date)}</b> ${d.code==="PRO"?"Promoted to "+d.post:d.code==="TRA"?"Transferred to "+d.to:d.code==="APP"?"Appointed "+d.post:d.code==="CON"?"Appointment confirmed":"Qualification: "+d.title}</div>`).join("");
+const rel=vd.links.map(id=>docs.find(d=>d.id===id)).filter(Boolean);const same=docs.filter(d=>d!==vd&&d.theme===vd.theme).slice(-3);
+$("links").innerHTML=(rel.length?`<div class="detail" style="margin:0 0 4px">Linked documents</div>`+rel.map(d=>`<a href="#" data-open="${f.i}" data-doc="${d.id}">${d.type}, ${ukd(d.date)}</a>`).join("<br>"):"")+
+`<div class="detail" style="margin:8px 0 4px">Same theme: ${vd.theme}</div>`+(same.map(d=>`<a href="#" data-open="${f.i}" data-doc="${d.id}">${d.type}, ${ukd(d.date)}</a>`).join("<br>")||"<span class='detail'>None</span>");
+$("meta").innerHTML=[["National ID",f.nid],["Employee No.",f.emp],["Type of employee",f.ty],["School or department",f.curSch],["Date opened",ukd(f.opened)],["Date modified",ukd(f.modified)],["Documents / pages",`${f.ndocs} / ${f.pages}`],["Drawer",f.dw]].map(x=>`<dt>${x[0]}</dt><dd>${x[1]}</dd>`).join("")}
+function pageBody(f,d){const name=`${f.first} ${f.last}`;const hw=t=>d.hw?`<span class="hw">${t}</span>`:t;const hd=`<div class="crest">GOVERNMENT OF BARBADOS · MINISTRY OF EDUCATION</div>`;
+const body={APP:`<h4>LETTER OF APPOINTMENT</h4>${hd}<p>Dear ${hw(name)},</p><p>I am directed to inform you that you have been appointed to the post of <mark>${d.post}</mark> at <b>${d.school}</b> with effect from ${hw(ukd(d.date))}.</p><p>Your appointment is subject to a probationary period of one year and to the General Orders of the Public Service.</p><p>National ID: ${f.nid} &nbsp; Employee No.: ${f.emp}</p><p style="margin-top:30px">Chief Personnel Officer</p>`,
+PDF:`<h4>PERSONAL DATA FORM</h4>${hd}<p>Surname: ${hw(f.last)}<br>Given names: ${hw(f.first)}<br>National ID: ${hw(f.nid)}<br>Year of birth: ${hw(f.dob)}<br>Next of kin: ${hw(pick(FN)+" "+f.last)}<br>Address: ${hw(pick(["Rockley","Warrens","Oistins","Holetown","Speightstown","Bridgetown"])+", Barbados")}</p>`,
+QUA:`<h4>CERTIFIED COPY OF QUALIFICATION</h4>${hd}<p>This is to certify that <b>${name}</b> has been awarded:</p><p style="text-align:center;font-size:16px"><mark>${d.title}</mark></p><p>Date: ${ukd(d.date)}</p>`,
+CON:`<h4>CONFIRMATION OF APPOINTMENT</h4>${hd}<p>${hw(name)}: having satisfactorily completed the period of probation, your appointment is confirmed with effect from ${ukd(d.date)}.</p>`,
+INC:`<h4>SALARY AND INCREMENT NOTICE</h4>${hd}<p>Employee No. ${f.emp}: ${d.title}, effective ${hw(ukd(d.date))}.</p>`,
+LEA:`<h4>APPLICATION FOR LEAVE</h4>${hd}<p>Name: ${hw(name)}<br>Type: ${hw(d.title)}<br>From: ${hw(ukd(d.date))}<br>Approved by Principal: ${hw("✓")}</p>`,
+APR:`<h4>PERFORMANCE APPRAISAL</h4>${hd}<p>Appraisee: ${name}<br>Period ending: ${ukd(d.date)}<br>Overall rating: <mark>${d.rating}</mark></p><p>Comments: ${hw("Punctual and committed. Recommended for further development.")}</p>`,
+PRO:`<h4>NOTICE OF PROMOTION</h4>${hd}<p>${name} is promoted to the post of <mark>${d.post}</mark> with effect from ${ukd(d.date)}.</p>`,
+TRA:`<h4>NOTICE OF TRANSFER</h4>${hd}<p>${name} is transferred from ${d.from} to <mark>${d.to}</mark> with effect from ${hw(ukd(d.date))}.</p>`,
+TRN:`<h4>TRAINING RECORD</h4>${hd}<p>${name} attended: <mark>${d.title}</mark>, ${ukd(d.date)}.</p>`,
+COR:`<h4>CORRESPONDENCE</h4>${hd}<p>${hw(d.title)}</p><p>Dated ${ukd(d.date)}.</p>`};return body[d.code]||""}
+// AI assistant
+const EX=["Show the appointment letter for the first file","Who was promoted to Senior Teacher in 2015?","How many teaching staff at Harrison College?","List transfers to Queen's College since 2018","Which files have handwritten leave forms?","Summarise the career of the employee in drawer C12-D2"];
+$("ex").innerHTML=EX.map(e=>`<button class="ghost" data-q="${e.replace(/"/g,"&quot;")}">${e}</button>`).join("");
+$("ex").onclick=e=>{const b=e.target.closest("[data-q]");if(b){let q=b.dataset.q;if(q.includes("first file"))q=`Show the appointment letter for ${FILES[0].nid}`;ask(q)}};
+$("go").onclick=()=>ask($("aq").value);$("aq").addEventListener("keydown",e=>{if(e.key==="Enter")ask($("aq").value)});
+const cite=(f,d)=>`<span class="cite" data-open="${f.i}" data-doc="${d.id}" data-pg="${d.p0}">${f.emp} · ${d.type} · p.${d.p0}</span>`;
+function ask(q){q=(q||"").trim();if(!q)return;$("aq").value="";const c=$("chat");c.insertAdjacentHTML("beforeend",`<div class="msg u">${q.replace(/</g,"&lt;")}</div>`);c.insertAdjacentHTML("beforeend",`<div class="msg a">${answer(q)}</div>`);c.scrollTop=c.scrollHeight}
+function answer(q){const ql=q.toLowerCase();const done=state(+$("day").value).done;const pool=FILES.filter(f=>f.cum<=done);
+if(!pool.length)return "No files have been uploaded yet at this point in the simulation. Move the production slider forward.";
+const yrs=(ql.match(/\b(19|20)\d{2}\b/g)||[]).map(Number);const since=/since|after|from/.test(ql);
+const sch=SCH.find(s=>ql.includes(s.toLowerCase()));const ty=["teaching","ancillary","internal"].find(t=>ql.includes(t));
+const nid=q.match(/\d{6}-\d{4}/);const emp=q.match(/\bE\d{5}\b/i);const dw=q.match(/C\d{2}-D\d/i);
+const typeMap=[["appointment","APP"],["leave","LEA"],["appraisal","APR"],["promot","PRO"],["transfer","TRA"],["qualification","QUA"],["certificate","QUA"],["increment","INC"],["salary","INC"],["training","TRN"],["confirm","CON"],["medical","MED"],["disciplin","DIS"],["personal data","PDF"]];
+const code=(typeMap.find(t=>ql.includes(t[0]))||[])[1];
+const yOK=d=>!yrs.length||(since?+d.date.slice(0,4)>=yrs[0]:yrs.includes(+d.date.slice(0,4)));
+if(code==="MED"||code==="DIS")return "Those are restricted documents. They are only available to HR Restricted Readers, and the assistant does not summarise them. Please ask the HR Manager for access.";
+let f=null;if(nid)f=FILES.find(x=>x.nid===nid[0]);else if(emp)f=FILES.find(x=>x.emp.toLowerCase()===emp[0].toLowerCase());else if(dw){const d=drawers.find(x=>x.id.toLowerCase()===dw[0].toLowerCase());f=d&&d.files[0]}
+if(f){if(f.cum>done)return `${f.last}, ${f.first} (${f.nid}) is in drawer ${f.dw} and has not been digitised yet at this point in the simulation.`;
+const docs=DOCS(f).filter(visible);if(code){const ds=docs.filter(d=>d.code===code&&yOK(d));if(!ds.length)return `No ${DTM[code][1].toLowerCase()} documents found in the file of ${f.first} ${f.last}.`;return `Found ${ds.length} ${DTM[code][1].toLowerCase()} document${ds.length>1?"s":""} in the file of <b>${f.first} ${f.last}</b>:<br>`+ds.slice(0,6).map(d=>cite(f,d)).join("")}
+const app=docs.find(d=>d.code==="APP"),pros=docs.filter(d=>d.code==="PRO"),tras=docs.filter(d=>d.code==="TRA"),last=docs[docs.length-1];
+return `<b>${f.first} ${f.last}</b> (${f.nid}, ${f.emp}) was appointed ${app.post} at ${app.school} on ${ukd(app.date)}${pros.length?`, promoted ${pros.length} time${pros.length>1?"s":""} (most recently to ${pros[pros.length-1].post}, ${ukd(pros[pros.length-1].date)})`:""}${tras.length?`, and transferred ${tras.length} time${tras.length>1?"s":""}, now at ${f.curSch}`:""}. The file holds ${docs.length} documents; the latest is a ${last.type.toLowerCase()} dated ${ukd(last.date)}.<br>`+[app,...pros.slice(-1),...tras.slice(-1),last].map(d=>cite(f,d)).join("")}
+let r=pool;if(sch)r=r.filter(x=>code==="TRA"?true:x.curSch===sch);if(ty)r=r.filter(x=>x.ty.toLowerCase()===ty);
+if(/how many|count|number of/.test(ql)&&!code)return `${fmt(r.length)} ${ty?ty+" ":""}staff files${sch?" at "+sch:""} are in SharePoint so far (of ${fmt(pool.length)} uploaded). The full number will be known when all 9,580 files are digitised.`;
+if(/handwrit/.test(ql)){const hits=[];for(const x of r){for(const d of DOCS(x))if(d.hw&&(!code||d.code===code)&&visible(d)){hits.push([x,d]);break}if(hits.length>=8)break}
+const tot=r.filter(x=>DOCS(x).some(d=>d.hw&&(!code||d.code===code))).length;return `${fmt(tot)} uploaded files contain handwritten ${code?DTM[code][1].toLowerCase():"pages"}. These pages were indexed with typed key fields so they can be found. First matches:<br>`+hits.map(h=>cite(h[0],h[1])).join("")}
+if(code){const pm=ql.match(/to (assistant teacher|graduate teacher|senior teacher|deputy principal|senior clerk|executive officer|senior executive officer|driver)/);const hits=[];
+for(const x of r){for(const d of DOCS(x)){if(d.code!==code||!yOK(d))continue;if(pm&&(d.post||"").toLowerCase()!==pm[1])continue;if(code==="TRA"&&sch&&d.to!==sch)continue;hits.push([x,d])}}
+if(!hits.length)return "I could not find any matching documents in the files uploaded so far. Try a different year or school, or move the production slider forward.";
+return `Found <b>${fmt(hits.length)}</b> matching ${DTM[code][1].toLowerCase()} document${hits.length>1?"s":""}${sch?" for "+sch:""}${yrs.length?(since?" since ":" in ")+yrs.join(", "):""}. ${hits.length>8?"Showing the first 8:":""}<br>`+hits.slice(0,8).map(h=>`<div style="margin-top:4px">${h[0].first} ${h[0].last}${h[1].post?" → "+h[1].post:h[1].to?" → "+h[1].to:""}, ${ukd(h[1].date)} ${cite(h[0],h[1])}</div>`).join("")}
+const nm=pool.filter(x=>ql.includes(x.last.toLowerCase())).slice(0,8);if(nm.length)return `Files matching that name:<br>`+nm.map(x=>`<div style="margin-top:4px">${x.last}, ${x.first} · ${x.curSch} <span class="cite" data-open="${x.i}">${x.emp}</span></div>`).join("");
+return "I can answer questions about people, National IDs, Employee Numbers, schools, document types (appointments, promotions, transfers, leave, appraisals, qualifications), dates and counts. Try one of the examples above."}
+
+// deep links: #file=E12345&doc=3&p=12 opens the exact document and page, like section links on bmpra.com
+function linkFor(f,d,pg){return `#file=${f.emp}&doc=${d.id}&p=${pg||d.p0}`}
+function setHash(pg){try{history.replaceState(null,"",linkFor(vf,vd,pg))}catch(e){}}
+function fromHash(){const h=new URLSearchParams(location.hash.slice(1));const e=h.get("file");if(!e)return false;const f=FILES.find(x=>x.emp===e);if(!f)return false;
+const day=$("day");if(+day.value<130&&f.cum>actual(+day.value)){let d=0;while(actual(d)<f.cum&&d<125)d++;day.value=d;render()}openFile(f.i,+h.get("doc")||null,+h.get("p")||null);return true}
+const _draw=drawViewer;drawViewer=function(pg){_draw(pg);setHash(pg)};
+$("copylink").onclick=()=>{const u=location.href.split("#")[0]+linkFor(vf,vd);try{navigator.clipboard.writeText(u);$("linkout").textContent="Link copied: "+linkFor(vf,vd)}catch(e){$("linkout").textContent=u}};
+const step=k=>{const ds=DOCS(vf);const i=ds.indexOf(vd)+k;if(ds[i]){vd=ds[i];drawViewer()}};$("prevdoc").onclick=()=>step(-1);$("nextdoc").onclick=()=>step(1);
+$("reqfix").onclick=()=>{const body=encodeURIComponent(`Personnel file: ${vf.last}, ${vf.first} (${vf.nid}, ${vf.emp})\nDocument: ${vd.type}, ${ukd(vd.date)}, page ${vd.p0}\nLink: ${location.href}\n\nCorrection needed:\n`);
+$("linkout").innerHTML=`In production this opens a correction request to HR Records with the file, document, page and link filled in. <a href="mailto:hr.records@example.gov.bb?subject=${encodeURIComponent("Correction request "+vf.emp)}&body=${body}">Preview the request</a>`};
+window.addEventListener("hashchange",fromHash);
+$("day").addEventListener("input",render);render();fromHash();
+</script></body></html>

@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RFID Warehouse Console</title>
+<meta name="description" content="Agentic Rx demonstration for the Census RFID and Azure WIMS integration RFI. Illustrative sample data only.">
+<style>
+:root{--bg:#f4f2ec;--card:#fff;--fg:#17212c;--muted:#56616d;--line:#e2ddd2;--navy:#0F2A47;--gold:#B8914A;--blue:#2f63a8;--ok:#2f7a4b;--okbg:#e2f0e6;--warn:#8a5d08;--warnbg:#f7edd4;--bad:#a3392f;--badbg:#f6dfdb;--idle:#d9d5cc;--floor:#fbfaf6;--rack:#e9e4d8;--bar:#0F2A47;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--blue:#7fa8de;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--floor:#111c29;--rack:#1f3043;--bar:#7fa8de;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--blue:#7fa8de;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--floor:#111c29;--rack:#1f3043;--bar:#7fa8de;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14.5px/1.5 var(--sans);margin:0;padding:0 16px 40px}
+header{background:var(--navy);color:#fff;margin:0 -16px;padding:16px 16px 0;border-bottom:3px solid var(--gold)}
+header .in,main{max-width:1200px;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font:600 22px var(--serif)}header p{margin:3px 0 10px;color:#d6c290;font-size:12px;letter-spacing:.08em}
+.hctl{display:flex;gap:8px;align-items:center;font-size:13px;color:#c9d3df}
+.hctl button{background:transparent;border:1px solid #42597a;color:#e7edf3;border-radius:6px;padding:5px 10px;font:600 13px var(--sans);cursor:pointer}
+.live{display:inline-flex;align-items:center;gap:6px}.dot{width:8px;height:8px;border-radius:50%;background:#7fd19c;box-shadow:0 0 0 3px rgba(127,209,156,.25)}.paused .dot{background:#9aa8b6;box-shadow:none}
+nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav button{font:600 14px var(--sans);background:transparent;color:#c9d3df;border:0;padding:9px 13px;border-radius:6px 6px 0 0;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;margin:14px 0;font-size:14px}
+h2{font:600 18px var(--serif);margin:0 0 8px}h3{font:600 14px var(--sans);margin:12px 0 6px}
+.tab{display:none}.tab.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px}
+.wide{grid-column:1/-1}
+.g2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px}
+@media (max-width:860px){.g2{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}.kpi b{display:block;font:600 22px var(--mono);font-variant-numeric:tabular-nums}.kpi span{color:var(--muted);font-size:13px}
+.kpi.bad b{color:var(--bad)}.kpi.ok b{color:var(--ok)}
+.tw{overflow-x:auto;max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:13px;white-space:nowrap}
+th.sort{cursor:pointer;user-select:none}th.sort:after{content:" \2195";opacity:.4}th.asc:after{content:" \2191";opacity:1}th.desc:after{content:" \2193";opacity:1}
+td.m,.m{font-family:var(--mono);font-size:13px}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--bg)}
+tr.hl td{background:var(--warnbg)}
+.pill{display:inline-block;border-radius:10px;padding:1px 8px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.p-ok{background:var(--okbg);color:var(--ok)}.p-warn{background:var(--warnbg);color:var(--warn)}.p-bad{background:var(--badbg);color:var(--bad)}.p-idle{background:var(--idle);color:var(--fg)}.p-blue{background:rgba(47,99,168,.14);color:var(--blue)}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px;align-items:center}
+input,select{font:14px var(--sans);padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);min-width:0}
+input[type=search]{flex:1 1 220px}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:6px;padding:7px 13px;font:600 14px var(--sans);cursor:pointer}
+:root[data-theme="dark"] .btn{background:#2a4a72}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{background:#2a4a72}}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:6px 11px;font:600 13.5px var(--sans);cursor:pointer}
+.ghost:hover{border-color:var(--gold)}
+.muted{color:var(--muted)}.small{font-size:13px}
+svg text{font-family:var(--sans)}
+#map{width:100%;height:auto;display:block}
+.zone{cursor:pointer}.zone rect{transition:fill .2s}
+.zone:hover rect,.zone.sel rect{stroke:var(--gold);stroke-width:2.5}
+.ping{animation:ping 1.2s ease-out}
+@keyframes ping{0%{opacity:1;r:6}100%{opacity:0;r:26}}
+.stream{max-height:470px;overflow:auto}
+.stream tr.new td{animation:flash 1.6s}
+@keyframes flash{0%{background:var(--warnbg)}100%{background:transparent}}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin-top:8px}.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.chat{min-height:280px;max-height:520px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px 10px}
+.msg{max-width:90%;padding:9px 12px;border-radius:8px;font-size:14.5px}
+.msg.u{align-self:flex-end;background:var(--navy);color:#fff}
+.msg.a{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.msg.a ol{margin:6px 0 0;padding-left:20px}
+a.cite{font-family:var(--mono);font-size:12.5px;background:rgba(184,145,74,.16);color:var(--fg);border-radius:4px;padding:0 4px;text-decoration:none;border:1px solid rgba(184,145,74,.45);cursor:pointer}
+.ask{display:flex;gap:8px}.ask input{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.detail{font-size:13px;color:var(--muted)}
+.bar{height:8px;background:var(--idle);border-radius:4px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--ok)}
+.flow{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}.flow div{flex:1 1 110px;background:var(--navy);color:#fff;font-size:13px;font-weight:600;text-align:center;padding:7px 4px;border-radius:4px;border-bottom:3px solid var(--gold)}.flow span{display:block;font-weight:400;color:#c9d3df;font-size:12px}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:9px 14px;border-radius:6px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw}.toast.on{opacity:1}
+footer{max-width:1200px;margin:24px auto 0;font-size:13px;color:var(--muted)}
+</style></head><body>
+<header><div class="in">
+<div class="top"><div><h1>RFID Warehouse Console</h1><p>AGENTIC RX LLC · DEMONSTRATION FOR CENS-REQ-27-WIMS · ILLUSTRATIVE SAMPLE DATA</p></div>
+<div class="hctl"><span class="live" id="live"><span class="dot"></span><span id="clock">--:--:--</span></span><button id="pause">Pause feed</button><button id="theme" aria-label="Toggle dark mode">Theme</button></div></div>
+<nav role="tablist">
+<button role="tab" data-t="dash" aria-selected="true">Dashboard</button>
+<button role="tab" data-t="map" aria-selected="false">Floor map</button>
+<button role="tab" data-t="stream" aria-selected="false">Read stream</button>
+<button role="tab" data-t="inv" aria-selected="false">Inventory</button>
+<button role="tab" data-t="rec" aria-selected="false">Reconciliation</button>
+<button role="tab" data-t="exc" aria-selected="false">Exceptions</button>
+<button role="tab" data-t="ai" aria-selected="false">AI assistant</button>
+</nav></div></header>
+<main>
+<div class="note">Demonstration only. Site layout, assets, EPCs, WIMS identifiers and reads are invented sample data for a notional pilot warehouse. No Census Bureau data is used. In a real deployment WIMS stays the system of record and this console reads from it.</div>
+
+<section class="tab on" id="t-dash">
+<div class="kpis" id="kpis"></div>
+<div class="grid">
+<div class="panel"><h2>Events per hour (today)</h2><div id="hourly"></div><div class="legend"><span><i style="background:var(--bar)"></i>Inventory events posted to WIMS</span><span><i style="background:var(--gold)"></i>Raw reads before edge filtering (divided by 10)</span></div></div>
+<div class="panel"><h2>Raw reads to WIMS transactions</h2><div class="flow"><div>Raw reads<span id="f1"></span></div><div>Edge filtered<span id="f2"></span></div><div>Business events<span id="f3"></span></div><div>Posted to WIMS<span id="f4"></span></div></div>
+<p class="detail">The edge filters by RSSI, antenna and zone and collapses repeat reads in a 2-second window. Each event carries an idempotent ID, so a late or repeated message never double-posts in WIMS.</p>
+<h3>Reconciliation today</h3><div id="recsum"></div></div>
+<div class="panel wide"><h2>Reader health</h2><div class="tw"><table><thead><tr><th>Reader</th><th>Location</th><th>Heartbeat</th><th>Reads/pass</th><th>Status</th></tr></thead><tbody id="readers"></tbody></table></div></div>
+<div class="panel"><h2>Open exceptions</h2><div id="excsum"></div><p><button class="ghost" data-go="exc">Open exception queue</button></p></div>
+</div></section>
+
+<section class="tab" id="t-map">
+<div class="g2">
+<div class="panel"><h2>Pilot warehouse floor (sample layout)</h2><svg id="map" viewBox="0 0 760 470" role="img" aria-label="Warehouse floor map with dock doors, portals, staging zones and racks"></svg>
+<div class="legend"><span><i style="background:var(--gold)"></i>Fixed RFID portal</span><span><i style="background:var(--bad);border-radius:50%"></i>Item read away from its WIMS location</span><span><i style="background:var(--bad)"></i>Zone with open exception</span><span>Asset counts come from WIMS</span></div></div>
+<div class="panel"><h2 id="zt">Select a zone</h2><div id="zd" class="detail">Click a rack, staging area or dock door to see its stock and its last portal reads. Portals flash as reads arrive.</div></div>
+</div></section>
+
+<section class="tab" id="t-stream">
+<div class="panel"><h2>Live tag-read stream</h2>
+<div class="ctl"><input type="search" id="sq" placeholder="Filter by EPC, asset, reader or event ID" aria-label="Filter reads"><select id="sr" aria-label="Reader"><option value="">All readers</option></select><select id="sv" aria-label="View"><option value="ev">Filtered events</option><option value="raw">Raw reads (before edge filter)</option></select><span class="detail" id="scount"></span></div>
+<div class="tw stream"><table><thead><tr><th>Event ID</th><th>Time</th><th>Reader / antenna</th><th>EPC</th><th>Asset</th><th>RSSI</th><th>Event</th><th>WIMS</th></tr></thead><tbody id="sbody"></tbody></table></div></div></section>
+
+<section class="tab" id="t-inv">
+<div class="panel"><h2>Assets and inventory (mirrors WIMS)</h2>
+<div class="ctl"><input type="search" id="iq" placeholder="Search asset, EPC, WIMS ID or location" aria-label="Search inventory"><select id="iz" aria-label="Zone"><option value="">All zones</option></select><select id="ist" aria-label="Status"><option value="">All statuses</option></select><span class="detail" id="icount"></span></div>
+<div class="tw"><table><thead><tr><th class="sort" data-k="id">Asset</th><th class="sort" data-k="name">Description</th><th class="sort" data-k="level">Level</th><th class="sort" data-k="wims">WIMS ID</th><th class="sort" data-k="epc">EPC</th><th class="sort" data-k="loc">Location</th><th class="sort" data-k="qty">Qty</th><th class="sort" data-k="last">Last read</th><th class="sort" data-k="status">Status</th></tr></thead><tbody id="ibody"></tbody></table></div>
+<div id="adetail" class="panel" style="margin-top:12px;display:none"></div></div></section>
+
+<section class="tab" id="t-rec">
+<div class="grid">
+<div class="panel"><h2>Receiving: inbound shipment vs WIMS</h2><div class="ctl"><select id="rin" aria-label="Inbound shipment"></select><button class="btn" id="postin">Post receipt to WIMS</button></div><div id="rinsum"></div><div class="tw"><table><thead><tr><th>Line</th><th>Asset</th><th>Expected (WIMS)</th><th>Read at dock</th><th>Result</th></tr></thead><tbody id="rinbody"></tbody></table></div></div>
+<div class="panel"><h2>Shipping: pick list vs outbound portal</h2><div class="ctl"><select id="rout" aria-label="Outbound order"></select><button class="btn" id="postout">Confirm shipment in WIMS</button></div><div id="routsum"></div><div class="tw"><table><thead><tr><th>Line</th><th>Asset</th><th>Picked (WIMS)</th><th>Read at door</th><th>Result</th></tr></thead><tbody id="routbody"></tbody></table></div></div>
+</div></section>
+
+<section class="tab" id="t-exc">
+<div class="panel"><h2>Exception queue</h2>
+<div class="ctl"><select id="ext" aria-label="Exception type"><option value="">All types</option></select><select id="exs" aria-label="State"><option value="open">Open</option><option value="">All</option><option value="task">Handheld task sent</option><option value="resolved">Resolved</option></select></div>
+<div class="tw"><table><thead><tr><th>ID</th><th>Type</th><th>Asset</th><th>WIMS says</th><th>RFID says</th><th>Evidence</th><th>State</th><th>Action</th></tr></thead><tbody id="exbody"></tbody></table></div></div></section>
+
+<section class="tab" id="t-ai">
+<div class="g2">
+<div class="panel"><h2>Inventory assistant</h2>
+<p class="detail">Ask where an asset is, what is missing, what shipped, or what a reader saw. Every answer cites the read events it relies on; click a citation to open the event. This demo uses client-side rules; the production design would use Azure OpenAI inside the Census tenant with the same citation rule.</p>
+<div class="chips" id="ex"></div>
+<div class="chat" id="chat" aria-live="polite"></div>
+<div class="ask"><input id="aq" placeholder="For example: where is asset BX-1020?" aria-label="Question"><button class="btn" id="go">Ask</button></div></div>
+<div class="panel"><h2>Cited event</h2><div id="evd" class="detail">Click a citation to see the full read event and its link to WIMS.</div></div>
+</div></section>
+</main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · info@agentic-rx.com · Demonstration prepared for the U.S. Census Bureau RFI CENS-REQ-27-WIMS. All data is illustrative.</footer>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+let seed=20261104;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+const pick=a=>a[Math.floor(rnd()*a.length)];
+const pad=(n,w)=>String(n).padStart(w,"0");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),2600)}
+// ---------- layout ----------
+const ZONES=[
+ {id:"D1",name:"Dock door 1 (receiving)",x:20,y:20,w:70,h:60,kind:"dock"},
+ {id:"D2",name:"Dock door 2 (receiving)",x:20,y:95,w:70,h:60,kind:"dock"},
+ {id:"D3",name:"Dock door 3 (shipping)",x:20,y:315,w:70,h:60,kind:"dock"},
+ {id:"D4",name:"Dock door 4 (shipping)",x:20,y:390,w:70,h:60,kind:"dock"},
+ {id:"SI",name:"Inbound staging",x:110,y:20,w:130,h:135,kind:"stage"},
+ {id:"SO",name:"Outbound staging",x:110,y:315,w:130,h:135,kind:"stage"},
+ {id:"QC",name:"Kitting and QC bench",x:110,y:180,w:130,h:110,kind:"stage"},
+ {id:"A",name:"Rack A",x:290,y:20,w:52,h:430,kind:"rack"},
+ {id:"B",name:"Rack B",x:375,y:20,w:52,h:430,kind:"rack"},
+ {id:"C",name:"Rack C",x:460,y:20,w:52,h:430,kind:"rack"},
+ {id:"E",name:"Rack E",x:545,y:20,w:52,h:430,kind:"rack"},
+ {id:"H",name:"Secure cage (IT devices)",x:630,y:20,w:110,h:180,kind:"cage"},
+ {id:"F",name:"Bulk floor storage",x:630,y:225,w:110,h:225,kind:"stage"}];
+const ZN=Object.fromEntries(ZONES.map(z=>[z.id,z]));
+const READERS=[
+ {id:"PT-D1",loc:"Dock door 1 portal",z:"D1",x:95,y:50,type:"Fixed portal, 4 antennas"},
+ {id:"PT-D2",loc:"Dock door 2 portal",z:"D2",x:95,y:125,type:"Fixed portal, 4 antennas"},
+ {id:"PT-D3",loc:"Dock door 3 portal",z:"D3",x:95,y:345,type:"Fixed portal, 4 antennas"},
+ {id:"PT-D4",loc:"Dock door 4 portal",z:"D4",x:95,y:420,type:"Fixed portal, 4 antennas"},
+ {id:"PT-Z1",loc:"Staging to racks transition",z:"SI",x:265,y:90,type:"Zone portal, 2 antennas"},
+ {id:"PT-Z2",loc:"Racks to outbound transition",z:"SO",x:265,y:380,type:"Zone portal, 2 antennas"},
+ {id:"PT-H1",loc:"Secure cage door",z:"H",x:620,y:110,type:"Zone portal, 2 antennas"},
+ {id:"HH-01",loc:"Handheld, receiving team",z:"",x:0,y:0,type:"Rugged handheld (offline capable)"},
+ {id:"HH-02",loc:"Handheld, putaway and counts",z:"",x:0,y:0,type:"Rugged handheld (offline capable)"},
+ {id:"HH-03",loc:"Handheld, picking",z:"",x:0,y:0,type:"Rugged handheld (offline capable)"}];
+const RD=Object.fromEntries(READERS.map(r=>[r.id,r]));
+// ---------- assets ----------
+const PRODUCTS=[
+ ["Questionnaire forms, 2030 test (carton of 500)","box","BX"],["Window envelopes 9x12 (carton of 1,000)","box","BX"],["Return envelopes, postage-paid (carton)","box","BX"],
+ ["Mailing inserts, multilingual (carton)","box","BX"],["Field enumerator kits","box","BX"],["Shipping cartons, flat (bundle of 25)","box","BX"],
+ ["Printed reminder postcards (pallet)","pallet","PL"],["Questionnaire forms (pallet, 40 cartons)","pallet","PL"],["Envelope stock (pallet)","pallet","PL"],
+ ["Field tablet, kitted","item","IT"],["Laptop, refurbished pool","item","IT"],["Mobile hotspot device","item","IT"],["Label printer, portable","item","IT"]];
+const RACKZ=["A","B","C","E"];
+const ASSETS=[];let nB=1001,nP=201,nI=3001;
+function loc4(z){return z+"-"+pad(1+Math.floor(rnd()*12),2)+"-"+(1+Math.floor(rnd()*4))}
+for(let i=0;i<96;i++){const p=pick(PRODUCTS);const lvl=p[1];const n=p[2]==="BX"?nB++:p[2]==="PL"?nP++:nI++;
+ const id=p[2]+"-"+n;let zone=lvl==="item"?"H":lvl==="pallet"?(rnd()<.7?"F":pick(RACKZ)):pick(RACKZ);
+ if(i%23===5)zone="SI";if(i%29===7)zone="SO";if(i%31===3)zone="QC";
+ const loc=zone==="H"?"H-CAGE-"+(1+Math.floor(rnd()*6)):zone==="F"?"F-LANE-"+(1+Math.floor(rnd()*8)):RACKZ.includes(zone)?loc4(zone):zone+"-AREA";
+ const serial=pad(100000+Math.floor(rnd()*899999),9);
+ ASSETS.push({id,name:p[0],level:lvl,wims:"WIMS-"+pad(104200+i*7,6),epc:(lvl==="pallet"?"SSCC 0 0614141 ":"SGTIN 0614141.")+(lvl==="pallet"?serial.slice(0,8):(p[2]==="IT"?"40"+(i%9):"21"+(i%9))+"."+serial),
+  epcHex:"3034"+((i*2654435761)>>>0).toString(16).toUpperCase().padStart(8,"0")+pad(i,4),qty:lvl==="item"?1:lvl==="pallet"?40:(p[0].includes("1,000")?1000:500),zone,loc,status:zone==="SO"?"Staged to ship":zone==="SI"?"Received, not put away":"In stock",hist:[]})}
+const AS=Object.fromEntries(ASSETS.map(a=>[a.id,a]));
+// ---------- events ----------
+const EVENTS=[];let evn=48210;const DAY0=new Date(2026,10,3,6,0,0).getTime();
+function mkEv(t,reader,ant,a,type,extra={}){const e={id:"E-"+(evn++),t,reader,ant,epc:a?a.epcHex:extra.epc,asset:a?a.id:"(unknown)",rssi:-(38+Math.floor(rnd()*28)),type,zone:extra.zone||(a?a.zone:""),loc:extra.loc||(a?a.loc:""),raw:2+Math.floor(rnd()*14),wims:extra.wims||(type==="Unknown tag"?"Not in WIMS":"TX-"+pad(Math.floor(rnd()*900000)+100000,6)),note:extra.note||""};EVENTS.push(e);if(a)a.hist.push(e);return e}
+// historical: each asset received, put away, and some counted
+ASSETS.forEach((a,i)=>{let t=DAY0-86400000*(2+Math.floor(rnd()*20))+Math.floor(rnd()*36e6);
+ const dk=rnd()<.5?"PT-D1":"PT-D2";mkEv(t,dk,"A"+(1+Math.floor(rnd()*4)),a,"Received",{zone:"SI",loc:"SI-AREA"});
+ if(a.zone!=="SI"){t+=1800000+Math.floor(rnd()*7e6);mkEv(t,"PT-Z1","A1",a,"Moved",{zone:a.zone,loc:a.zone+" zone"});t+=600000;mkEv(t,"HH-02","HH",a,"Put away",{zone:a.zone,loc:a.loc});}
+ if(rnd()<.55){t=DAY0-86400000*Math.floor(rnd()*2)+Math.floor(rnd()*3e7);if(t>DAY0+4*3600000)t=DAY0+3600000*(1+rnd()*3);mkEv(t,"HH-02","HH",a,"Cycle counted",{zone:a.zone,loc:a.loc})}
+ if(a.zone==="SO"){t=DAY0+3600000*(1+rnd()*2);mkEv(t,"HH-03","HH",a,"Picked",{zone:a.zone,loc:a.loc});mkEv(t+900000,"PT-Z2","A1",a,"Moved",{zone:"SO",loc:"SO-AREA"})}});
+// planted exceptions
+const MISS=[ASSETS[9],ASSETS[40],ASSETS[77]];// missing: WIMS has, not read in count
+const MISP=[[ASSETS[14],"C"],[ASSETS[52],"A"],[ASSETS[63],"E"]];// misplaced: read elsewhere
+const EXC=[];let exn=301;
+MISS.forEach(a=>{a.hist=a.hist.filter(e=>e.t<DAY0);for(let i=EVENTS.length-1;i>=0;i--)if(EVENTS[i].asset===a.id&&EVENTS[i].t>=DAY0)EVENTS.splice(i,1);a.status="Missing (not read)";const t=DAY0+3600000*2.2+Math.floor(rnd()*6e5);EXC.push({id:"X-"+exn++,type:"Missing tag",a,wims:a.loc,rfid:"No read in cycle count sweep of "+a.loc,ev:[a.hist[a.hist.length-1].id],state:"open",t})});
+MISP.forEach(([a,z])=>{const nl=loc4(z);const e=mkEv(DAY0+3600000*2.5+Math.floor(rnd()*9e5),"HH-02","HH",a,"Location mismatch",{zone:z,loc:nl,wims:"Held (not posted)",note:"WIMS expects "+a.loc});a.status="Misplaced";a.seen=nl;EXC.push({id:"X-"+exn++,type:"Misplaced item",a,wims:a.loc,rfid:"Read at "+nl,ev:[e.id],state:"open",t:e.t})});
+{const e=mkEv(DAY0+3600000*3.1,"PT-D2","A3",null,"Unknown tag",{epc:"3034F00DBEEF0000071",zone:"SI",loc:"SI-AREA",note:"EPC not in WIMS cross-reference"});EXC.push({id:"X-"+exn++,type:"Unknown tag",a:null,wims:"No record",rfid:"Read at Dock door 2",ev:[e.id],state:"open",t:e.t})}
+// ---------- inbound / outbound ----------
+const INB=[];const OUTB=[];
+function mkIn(id,n,short,over){const lines=[];const pool=ASSETS.filter(a=>a.level!=="item");for(let i=0;i<n;i++){const a=pool[(i*7+id.length*3)%pool.length];lines.push({line:i+1,a,exp:a.level==="pallet"?1:4,read:a.level==="pallet"?1:4})}
+ if(short)lines[2].read=lines[2].exp-1;if(over)lines.push({line:n+1,a:null,exp:0,read:1,epc:"3034F00DBEEF0000071"});return{id,lines,posted:false}}
+INB.push(mkIn("IB-261103-014 (GPO print run)",8,true,true));INB.push(mkIn("IB-261103-009 (envelope vendor)",6,false,false));
+function mkOut(id,lines){return{id,lines,posted:false}}
+const so=ASSETS.filter(a=>a.zone==="SO");
+OUTB.push(mkOut("OB-261103-221 (Regional Office kit shipment)",so.slice(0,4).map((a,i)=>({line:i+1,a,exp:a.level==="pallet"?1:2,read:i===2?(a.level==="pallet"?0:1):(a.level==="pallet"?1:2)}))));
+OUTB.push(mkOut("OB-261103-218 (Suitland transfer)",ASSETS.filter(a=>a.level==="item").slice(0,5).map((a,i)=>({line:i+1,a,exp:1,read:1}))));
+// ---------- live feed ----------
+let NOW=DAY0+3600000*3.4;let paused=false;let rawTotal=0;
+EVENTS.forEach(e=>{if(e.t>=DAY0)rawTotal+=e.raw});
+function liveTick(){NOW+=37000+Math.floor(rnd()*20000);const r=pick(["PT-D1","PT-D2","PT-D3","PT-Z1","PT-Z2","HH-02","HH-03","PT-H1"]);let a=pick(ASSETS.filter(x=>!x.status.startsWith("Missing")));
+ let type={"PT-D1":"Received","PT-D2":"Received","PT-D3":"Shipped","PT-Z1":"Moved","PT-Z2":"Moved","HH-02":"Cycle counted","HH-03":"Picked","PT-H1":"Moved"}[r];
+ if(r==="PT-H1")a=pick(ASSETS.filter(x=>x.level==="item"));
+ const zone=r==="PT-H1"?"H":r==="HH-02"||r==="HH-03"?a.zone:RD[r].z;const e=mkEv(NOW,r,r.startsWith("HH")?"HH":"A"+(1+Math.floor(rnd()*4)),a,type,{zone,loc:r.startsWith("HH")?a.loc:RD[r].loc});rawTotal+=e.raw;e.fresh=true;
+ if(cur.tab==="stream")renderStream();if(cur.tab==="dash")renderDash();if(cur.tab==="map")pingReader(r);$("clock").textContent=fmtT(NOW)}
+setInterval(()=>{if(!paused)liveTick()},2400);
+// ---------- formatting ----------
+function fmtT(t){const d=new Date(t);return pad(d.getHours(),2)+":"+pad(d.getMinutes(),2)+":"+pad(d.getSeconds(),2)}
+function fmtD(t){const d=new Date(t);const m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()];return (t>=DAY0?"Today":m+" "+d.getDate())+" "+pad(d.getHours(),2)+":"+pad(d.getMinutes(),2)}
+const fmt=n=>n.toLocaleString("en-US");
+function stPill(s){const c=s.startsWith("In stock")?"p-ok":s.startsWith("Missing")?"p-bad":s==="Misplaced"?"p-warn":s.startsWith("Shipped")?"p-idle":"p-blue";return `<span class="pill ${c}">${esc(s)}</span>`}
+function evPill(t){const c={"Received":"p-blue","Put away":"p-ok","Moved":"p-idle","Picked":"p-blue","Shipped":"p-idle","Cycle counted":"p-ok","Location mismatch":"p-warn","Unknown tag":"p-bad"}[t]||"p-idle";return `<span class="pill ${c}">${t}</span>`}
+const cite=id=>`<a class="cite" data-ev="${id}" href="#ev=${id}">${id}</a>`;
+const lastEv=a=>a.hist.reduce((m,e)=>e.t>m.t?e:m,a.hist[0]);
+// ---------- tabs ----------
+const cur={tab:"dash",sortK:"id",sortD:1,zone:""};
+function show(t){cur.tab=t;document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));({dash:renderDash,map:renderMap,stream:renderStream,inv:renderInv,rec:renderRec,exc:renderExc,ai:()=>{}})[t]();try{history.replaceState(null,"","#tab="+t)}catch(e){}}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.t));
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){show(g.dataset.go)}const c=e.target.closest("a.cite");if(c){e.preventDefault();openEv(c.dataset.ev)}const as=e.target.closest("[data-asset]");if(as&&!e.target.closest("tr.click")){e.preventDefault();show("inv");showAsset(as.dataset.asset)}});
+$("pause").onclick=()=>{paused=!paused;$("pause").textContent=paused?"Resume feed":"Pause feed";$("live").classList.toggle("paused",paused)};
+$("theme").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";if(cur.tab==="dash")renderDash();if(cur.tab==="map")renderMap()};
+// ---------- dashboard ----------
+function renderDash(){const today=EVENTS.filter(e=>e.t>=DAY0);const open=EXC.filter(x=>x.state!=="resolved").length;const portal=today.filter(e=>e.reader.startsWith("PT")).length;
+ $("kpis").innerHTML=[["Tagged assets in WIMS",fmt(ASSETS.length),""],["Units represented",fmt(ASSETS.reduce((s,a)=>s+a.qty,0)),""],["Events today",fmt(today.length),""],["Raw reads today",fmt(rawTotal),""],["Portal read rate (pilot target 99%)","99.4%","ok"],["Open exceptions",open,open?"bad":"ok"],["WIMS sync lag","2.1 s","ok"]].map(([l,v,c])=>`<div class="kpi ${c}"><b>${v}</b><span>${l}</span></div>`).join("");
+ const hrs=[];for(let h=6;h<=18;h++){const ev=today.filter(e=>new Date(e.t).getHours()===h);hrs.push([h,ev.length,ev.reduce((s,e)=>s+e.raw,0)])}
+ const W=520,H=200,L=34,B=24,mx=Math.max(8,...hrs.map(h=>Math.max(h[1],h[2]/10)));const bw=(W-L-10)/hrs.length;
+ let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Events per hour">`;for(let g=0;g<=4;g++){const y=10+(H-B-10)*g/4;s+=`<line x1="${L}" x2="${W-6}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${L-6}" y="${y+4}" font-size="11" text-anchor="end" fill="var(--muted)">${Math.round(mx*(1-g/4))}</text>`}
+ hrs.forEach(([h,n,r],i)=>{const x=L+i*bw+3;const y1=10+(H-B-10)*(1-n/mx),y2=10+(H-B-10)*(1-r/10/mx);s+=`<rect x="${x}" y="${y1}" width="${bw/2-3}" height="${H-B-y1}" fill="var(--bar)" rx="2"><title>${h}:00 ${n} events</title></rect><rect x="${x+bw/2-2}" y="${y2}" width="${bw/2-3}" height="${H-B-y2}" fill="var(--gold)" rx="2"><title>${h}:00 ${r} raw reads</title></rect><text x="${x+bw/2-3}" y="${H-8}" font-size="11" text-anchor="middle" fill="var(--muted)">${h}</text>`});
+ $("hourly").innerHTML=s+"</svg>";
+ const posted=today.filter(e=>e.wims.startsWith("TX")).length;$("f1").textContent=fmt(rawTotal);$("f2").textContent=fmt(Math.round(rawTotal*.31));$("f3").textContent=fmt(today.length);$("f4").textContent=fmt(posted);
+ $("recsum").innerHTML=[...INB,...OUTB].map(r=>{const m=r.lines.filter(l=>l.exp===l.read).length;return `<div style="margin:6px 0"><div class="small">${esc(r.id)} <span class="muted">${m}/${r.lines.length} lines matched${r.posted?" · posted":""}</span></div><div class="bar"><i style="width:${100*m/r.lines.length}%"></i></div></div>`}).join("");
+ $("readers").innerHTML=READERS.map((r,i)=>{const hb=i===5?"4 min ago":i>6?"Synced "+(i-5)+" min ago":(2+i)+" s ago";const st=i===5?'<span class="pill p-warn">Check antenna 2</span>':'<span class="pill p-ok">Healthy</span>';return `<tr><td class="m">${r.id}</td><td>${r.loc}</td><td>${hb}</td><td>${r.id.startsWith("HH")?"n/a":(3+i%4)+"."+(i*3%10)}</td><td>${st}</td></tr>`}).join("");
+ const by={};EXC.filter(x=>x.state!=="resolved").forEach(x=>by[x.type]=(by[x.type]||0)+1);
+ $("excsum").innerHTML=Object.keys(by).length?`<table><tbody>${Object.entries(by).map(([k,v])=>`<tr><td>${k}</td><td class="m">${v}</td></tr>`).join("")}</tbody></table>`:'<p class="muted">No open exceptions.</p>'}
+// ---------- map ----------
+function zoneCount(z){return ASSETS.filter(a=>a.zone===z).reduce((s,a)=>s+1,0)}
+function renderMap(){let s=`<rect x="0" y="0" width="760" height="470" fill="var(--floor)" stroke="var(--line)"/>`;const exz=new Set(EXC.filter(x=>x.state!=="resolved"&&x.a).map(x=>x.a.zone));
+ ZONES.forEach(z=>{const n=zoneCount(z.id);const fill=z.kind==="dock"?"var(--idle)":z.kind==="rack"?"var(--rack)":z.kind==="cage"?"rgba(47,99,168,.14)":"var(--card)";
+  s+=`<g class="zone${cur.zone===z.id?" sel":""}" data-z="${z.id}" tabindex="0" role="button" aria-label="${z.name}"><rect x="${z.x}" y="${z.y}" width="${z.w}" height="${z.h}" rx="4" fill="${fill}" stroke="${exz.has(z.id)?"var(--bad)":"var(--line)"}" stroke-width="${exz.has(z.id)?2.5:1}"/>`;
+  if(z.kind==="rack"){for(let b=1;b<12;b++)s+=`<line x1="${z.x}" x2="${z.x+z.w}" y1="${z.y+b*z.h/12}" y2="${z.y+b*z.h/12}" stroke="var(--line)"/>`}
+  const lab=z.kind==="rack"?z.id:z.kind==="dock"?z.id:z.name.split(" (")[0];
+  s+=`<text x="${z.x+z.w/2}" y="${z.y+(z.kind==="rack"?z.h/2-8:z.h/2-4)}" text-anchor="middle" font-size="${z.kind==="rack"||z.kind==="dock"?15:12}" font-weight="600" fill="var(--fg)">${lab}</text>`;
+  if(z.kind!=="dock")s+=`<text x="${z.x+z.w/2}" y="${z.y+(z.kind==="rack"?z.h/2+12:z.h/2+14)}" text-anchor="middle" font-size="12" fill="var(--muted)">${n} assets</text>`;s+="</g>"});
+ s+=`<text x="12" y="300" font-size="12" fill="var(--muted)" transform="rotate(-90 12 300)">Yard / trailers</text>`;
+ READERS.filter(r=>r.z).forEach(r=>{s+=`<g><rect x="${r.x-5}" y="${r.y-14}" width="10" height="28" rx="2" fill="var(--gold)"/><circle id="pg-${r.id}" cx="${r.x}" cy="${r.y}" r="6" fill="none" stroke="var(--gold)" stroke-width="2" opacity="0"/><text x="${r.x+(r.x<200?9:-9)}" y="${r.y-16}" font-size="11" fill="var(--muted)" text-anchor="${r.x<200?"start":"end"}">${r.id}</text></g>`});
+ EXC.filter(x=>x.state!=="resolved"&&x.type==="Misplaced item").forEach(x=>{const z=ZN[x.rfid.slice(8,9)];if(z)s+=`<circle cx="${z.x+z.w/2}" cy="${z.y+30}" r="7" fill="var(--bad)"><title>${x.a.id} misplaced</title></circle>`});
+ $("map").innerHTML=s;$("map").querySelectorAll(".zone").forEach(g=>{g.onclick=()=>zoneDetail(g.dataset.z);g.onkeydown=e=>{if(e.key==="Enter")zoneDetail(g.dataset.z)}});if(cur.zone)zoneDetail(cur.zone,true)}
+function pingReader(r){const c=document.getElementById("pg-"+r);if(!c)return;c.classList.remove("ping");void c.getBBox();c.classList.add("ping")}
+function zoneDetail(z,noRe){cur.zone=z;if(!noRe){renderMap();return}const Z=ZN[z];$("zt").textContent=Z.name;const as=ASSETS.filter(a=>a.zone===z);const rr=READERS.filter(r=>r.z===z).map(r=>r.id);
+ const evs=EVENTS.filter(e=>rr.includes(e.reader)||e.zone===z).sort((a,b)=>b.t-a.t).slice(0,6);
+ $("zd").innerHTML=`<p>${as.length} tagged assets (${fmt(as.reduce((s,a)=>s+a.qty,0))} units) recorded in WIMS for this zone.${rr.length?" Portal: "+rr.join(", ")+".":""}</p>`+
+ (as.length?`<div class="tw"><table><thead><tr><th>Asset</th><th>Location</th><th>Status</th></tr></thead><tbody>${as.slice(0,8).map(a=>`<tr><td><a href="#" data-asset="${a.id}">${a.id}</a></td><td class="m">${a.loc}</td><td>${stPill(a.status)}</td></tr>`).join("")}</tbody></table></div>${as.length>8?`<p class="detail">${as.length-8} more in the Inventory tab.</p>`:""}`:"")+
+ `<h3>Latest reads</h3>${evs.map(e=>`<div class="small">${cite(e.id)} ${fmtD(e.t)} · ${e.reader} · ${e.asset} · ${e.type}</div>`).join("")||'<p class="muted">No reads yet.</p>'}`}
+// ---------- stream ----------
+$("sr").innerHTML+=READERS.map(r=>`<option>${r.id}</option>`).join("");
+let lastRendered=0;
+function renderStream(){const q=$("sq").value.trim().toLowerCase(),r=$("sr").value,raw=$("sv").value==="raw";let ev=EVENTS.slice().sort((a,b)=>b.t-a.t);
+ if(r)ev=ev.filter(e=>e.reader===r);if(q)ev=ev.filter(e=>(e.id+" "+e.epc+" "+e.asset+" "+e.reader+" "+e.type).toLowerCase().includes(q));
+ const rows=[];ev.slice(0,raw?25:80).forEach(e=>{if(raw){for(let k=0;k<Math.min(e.raw,6);k++)rows.push(`<tr${e.fresh?' class="new"':""}><td class="m">${k?"(dup "+k+")":e.id}</td><td class="m">${fmtT(e.t+k*180)}</td><td>${e.reader} / ${e.ant}</td><td class="m">${e.epc}</td><td>${e.asset}</td><td class="m">${e.rssi-(k%3)*2}</td><td>${k?'<span class="muted">collapsed at edge</span>':evPill(e.type)}</td><td class="m">${k?"":e.wims}</td></tr>`)}
+  else rows.push(`<tr id="row-${e.id}"${e.fresh?' class="new"':""}><td class="m">${e.id}</td><td class="m">${fmtD(e.t)}:${pad(new Date(e.t).getSeconds(),2)}</td><td>${e.reader} / ${e.ant}</td><td class="m">${e.epc}</td><td>${e.asset!=="(unknown)"?`<a href="#" data-asset="${e.asset}">${e.asset}</a>`:'<span class="pill p-bad">unknown</span>'}</td><td class="m">${e.rssi}</td><td>${evPill(e.type)}</td><td class="m">${e.wims}</td></tr>`);e.fresh=false});
+ $("sbody").innerHTML=rows.join("");$("scount").textContent=`${fmt(ev.length)} events${raw?" (showing raw duplicates for the latest 25)":""}`;if(cur.hl){const x=$("row-"+cur.hl);if(x){x.classList.add("hl");x.scrollIntoView({block:"center"})}cur.hl=null}}
+["sq","sr","sv"].forEach(i=>$(i).oninput=renderStream);
+// ---------- inventory ----------
+const STS=[...new Set(ASSETS.map(a=>a.status))];
+$("iz").innerHTML+=ZONES.filter(z=>z.kind!=="dock").map(z=>`<option value="${z.id}">${z.name}</option>`).join("");$("ist").innerHTML+=["In stock","Received, not put away","Staged to ship","Misplaced","Missing (not read)"].map(s=>`<option>${s}</option>`).join("");
+function renderInv(){const q=$("iq").value.trim().toLowerCase(),z=$("iz").value,st=$("ist").value;let rows=ASSETS.map(a=>({...a,last:lastEv(a).t}));
+ if(q)rows=rows.filter(a=>(a.id+" "+a.name+" "+a.wims+" "+a.epc+" "+a.epcHex+" "+a.loc).toLowerCase().includes(q));if(z)rows=rows.filter(a=>a.zone===z);if(st)rows=rows.filter(a=>a.status===st);
+ const k=cur.sortK,d=cur.sortD;rows.sort((a,b)=>(a[k]>b[k]?1:a[k]<b[k]?-1:0)*d);
+ document.querySelectorAll("#t-inv th.sort").forEach(th=>{th.classList.toggle("asc",th.dataset.k===k&&d===1);th.classList.toggle("desc",th.dataset.k===k&&d===-1)});
+ $("ibody").innerHTML=rows.map(a=>`<tr class="click" data-id="${a.id}"><td class="m">${a.id}</td><td>${esc(a.name)}</td><td>${a.level}</td><td class="m">${a.wims}</td><td class="m">${a.epcHex}</td><td class="m">${a.loc}</td><td class="m">${fmt(a.qty)}</td><td class="m">${fmtD(a.last)}</td><td>${stPill(a.status)}</td></tr>`).join("");
+ $("icount").textContent=`${rows.length} of ${ASSETS.length} assets`;$("ibody").querySelectorAll("tr.click").forEach(tr=>tr.onclick=()=>showAsset(tr.dataset.id))}
+document.querySelectorAll("#t-inv th.sort").forEach(th=>th.onclick=()=>{if(cur.sortK===th.dataset.k)cur.sortD*=-1;else{cur.sortK=th.dataset.k;cur.sortD=1}renderInv()});
+["iq","iz","ist"].forEach(i=>$(i).oninput=renderInv);
+function showAsset(id){const a=AS[id];if(!a)return;renderInv();const p=$("adetail");p.style.display="block";const h=a.hist.slice().sort((x,y)=>y.t-x.t);
+ p.innerHTML=`<h2>${a.id}: ${esc(a.name)}</h2><p>WIMS ${a.wims} · EPC <span class="m">${a.epcHex}</span> (${a.epc}) · ${a.level} level · qty ${fmt(a.qty)}</p><p>WIMS location <b class="m">${a.loc}</b> ${stPill(a.status)}${a.seen?` · last RFID read at <b class="m">${a.seen}</b>`:""}</p><h3>Read history (audit trail)</h3>${h.map(e=>`<div class="small">${cite(e.id)} ${fmtD(e.t)} · ${e.reader} · ${e.type} · ${e.loc} · ${e.wims}</div>`).join("")}`;p.scrollIntoView({block:"nearest"})}
+// ---------- reconciliation ----------
+$("rin").innerHTML=INB.map((r,i)=>`<option value="${i}">${r.id}</option>`).join("");$("rout").innerHTML=OUTB.map((r,i)=>`<option value="${i}">${r.id}</option>`).join("");
+function recRows(r,inb){return r.lines.map(l=>{const res=l.exp===l.read?'<span class="pill p-ok">Match</span>':l.exp===0?'<span class="pill p-bad">Over: tag not expected</span>':l.read<l.exp?`<span class="pill p-bad">Short ${l.exp-l.read}</span>`:'<span class="pill p-warn">Over</span>';
+ return `<tr><td class="m">${l.line}</td><td>${l.a?`<a href="#" data-asset="${l.a.id}">${l.a.id}</a> <span class="muted small">${esc(l.a.name)}</span>`:`<span class="m">${l.epc}</span>`}</td><td class="m">${l.exp}</td><td class="m">${l.read}</td><td>${res}</td></tr>`}).join("")}
+function recSum(r,el,doorTxt){const m=r.lines.filter(l=>l.exp===l.read).length;$(el).innerHTML=`<p class="small">${m} of ${r.lines.length} lines match. ${doorTxt}. ${r.posted?'<span class="pill p-ok">Posted to WIMS: '+r.tx+'</span>':m<r.lines.length?"Matched lines can post now; the rest open exceptions and a handheld recount task.":"Ready to post."}</p>`}
+function renderRec(){const a=INB[+$("rin").value],b=OUTB[+$("rout").value];$("rinbody").innerHTML=recRows(a,true);$("routbody").innerHTML=recRows(b,false);recSum(a,"rinsum","Read by PT-D1 and PT-D2 against the advance shipment notice in WIMS");recSum(b,"routsum","Read by PT-D3 against the WIMS pick list")}
+["rin","rout"].forEach(i=>$(i).oninput=renderRec);
+function post(r,kind){if(r.posted){toast("Already posted.");return}r.posted=true;r.tx="TX-"+pad(Math.floor(rnd()*900000)+100000,6);const bad=r.lines.filter(l=>l.exp!==l.read);
+ bad.forEach(l=>EXC.push({id:"X-"+exn++,type:kind==="in"?(l.exp===0?"Unknown tag":"Receiving shortage"):"Shipping shortage",a:l.a,wims:(kind==="in"?"Expected ":"Picked ")+l.exp,rfid:"Read "+l.read,ev:[EVENTS[EVENTS.length-1].id],state:"open",t:NOW}));
+ renderRec();toast(`Posted ${r.lines.length-bad.length} matched lines to WIMS as ${r.tx} (simulated). ${bad.length} exception(s) opened.`)}
+$("postin").onclick=()=>post(INB[+$("rin").value],"in");$("postout").onclick=()=>post(OUTB[+$("rout").value],"out");
+// ---------- exceptions ----------
+function renderExc(){const types=[...new Set(EXC.map(x=>x.type))];const cv=$("ext").value;$("ext").innerHTML='<option value="">All types</option>'+types.map(t=>`<option${t===cv?" selected":""}>${t}</option>`).join("");
+ const t=$("ext").value,s=$("exs").value;let xs=EXC.slice();if(t)xs=xs.filter(x=>x.type===t);if(s)xs=xs.filter(x=>x.state===s);
+ $("exbody").innerHTML=xs.map(x=>`<tr><td class="m">${x.id}</td><td>${x.type}</td><td>${x.a?`<a href="#" data-asset="${x.a.id}">${x.a.id}</a>`:"(unknown EPC)"}</td><td class="m">${esc(x.wims)}</td><td>${esc(x.rfid)}</td><td>${x.ev.map(cite).join(" ")}</td><td>${x.state==="open"?'<span class="pill p-bad">Open</span>':x.state==="task"?'<span class="pill p-warn">Task sent</span>':'<span class="pill p-ok">Resolved</span>'}</td><td>${x.state==="open"?`<button class="ghost" data-x="${x.id}" data-act="task">Send handheld task</button>`:x.state==="task"?`<button class="ghost" data-x="${x.id}" data-act="res">Mark resolved</button>`:""}</td></tr>`).join("")||'<tr><td colspan="8" class="muted">Nothing in this view.</td></tr>';
+ $("exbody").querySelectorAll("button[data-x]").forEach(b=>b.onclick=()=>{const x=EXC.find(y=>y.id===b.dataset.x);if(b.dataset.act==="task"){x.state="task";toast(`Recount task for ${x.a?x.a.id:"unknown EPC"} sent to HH-02.`)}else{x.state="resolved";if(x.a&&x.type==="Misplaced item"){x.a.status="In stock";x.a.loc=x.a.seen;x.a.seen=null}if(x.a&&x.type==="Missing tag")x.a.status="In stock";toast(`${x.id} resolved; WIMS location update posted (simulated).`)}renderExc()})}
+["ext","exs"].forEach(i=>$(i).oninput=renderExc);
+// ---------- event detail ----------
+function openEv(id){const e=EVENTS.find(x=>x.id===id);if(!e)return;if(cur.tab==="ai"){const a=AS[e.asset];$("evd").innerHTML=`<table><tbody>${[["Event ID",e.id],["Time",fmtD(e.t)+":"+pad(new Date(e.t).getSeconds(),2)],["Reader",e.reader+" ("+(RD[e.reader]?RD[e.reader].type:"")+")"],["Antenna",e.ant],["EPC",e.epc],["Asset",a?a.id+": "+a.name:"Not in WIMS"],["RSSI",e.rssi+" dBm"],["Raw reads collapsed",e.raw],["Business event",e.type],["Location",e.loc],["WIMS transaction",e.wims],["Note",e.note||"None"]].map(([k,v])=>`<tr><th>${k}</th><td class="m">${esc(v)}</td></tr>`).join("")}</tbody></table><p><button class="ghost" id="tostream">Show in read stream</button></p>`;$("tostream").onclick=()=>{cur.hl=id;$("sq").value="";$("sr").value="";$("sv").value="ev";show("stream")};return}
+ cur.hl=id;$("sq").value="";$("sr").value="";$("sv").value="ev";show("stream")}
+// ---------- assistant ----------
+const EXQ=["Where is asset BX-1020?","Where is BX-1005?","Where is IT-3016?","What is missing?","What is misplaced?","What did PT-D3 read today?","Where are the field tablets?","Status of IB-261103-014"];
+$("ex").innerHTML=EXQ.map(q=>`<button class="ghost" data-q="${q}">${q}</button>`).join("");$("ex").querySelectorAll("button").forEach(b=>b.onclick=()=>ask(b.dataset.q));
+$("go").onclick=()=>ask($("aq").value);$("aq").onkeydown=e=>{if(e.key==="Enter")ask($("aq").value)};
+function ask(q){q=(q||"").trim();if(!q)return;$("aq").value="";const c=$("chat");c.insertAdjacentHTML("beforeend",`<div class="msg u">${esc(q)}</div>`);c.insertAdjacentHTML("beforeend",`<div class="msg a">${answer(q)}</div>`);c.scrollTop=c.scrollHeight}
+function findAsset(q){const m=q.toUpperCase().match(/\b(BX|PL|IT)[-\s]?(\d{3,4})\b/);if(m)return AS[m[1]+"-"+m[2]];const w=q.toUpperCase().match(/WIMS-?(\d{6})/);if(w)return ASSETS.find(a=>a.wims==="WIMS-"+w[1]);const h=q.toUpperCase().match(/3034[0-9A-F]{8,}/);if(h)return ASSETS.find(a=>a.epcHex===h[0]);return null}
+function whereIs(a){const h=a.hist.slice().sort((x,y)=>y.t-x.t);const last=h[0];const x=EXC.find(y=>y.a===a&&y.state!=="resolved");
+ let s=`<b>${a.id}</b> (${esc(a.name)}, WIMS ID ${a.wims}) `;
+ if(a.status.startsWith("Missing"))s+=`is recorded in WIMS at <b class="m">${a.loc}</b>, but it was <b>not read</b> in this morning's cycle count of that location. Its last confirmed read was ${fmtD(last.t)} by ${last.reader} ${cite(last.id)}. Exception ${x?x.id:""} is open; a handheld recount of ${a.loc} and the neighbouring bays is the next step.`;
+ else if(a.seen)s+=`is recorded in WIMS at <b class="m">${a.loc}</b>, but the latest read places it at <b class="m">${a.seen}</b> ${cite(last.id)}. WIMS has not been changed; exception ${x?x.id:""} asks a supervisor to confirm the move or return the item.`;
+ else s+=`is at <b class="m">${a.loc}</b> (${ZN[a.zone].name}). Latest read: ${fmtD(last.t)}, ${last.reader}, "${last.type}" ${cite(last.id)}.`;
+ const prev=h.slice(1,4);if(prev.length)s+=`<br>Earlier reads: ${prev.map(e=>`${e.type} ${fmtD(e.t)} ${cite(e.id)}`).join("; ")}.`;return s}
+function answer(q){const ql=q.toLowerCase();const a=findAsset(q);
+ if(a)return whereIs(a);
+ if(/missing|not read|lost/.test(ql)){const xs=EXC.filter(x=>x.type==="Missing tag"&&x.state!=="resolved");return xs.length?`${xs.length} assets are in WIMS but were not read in the last cycle count:<ol>${xs.map(x=>`<li><b>${x.a.id}</b> ${esc(x.a.name)}, expected at <span class="m">${x.a.loc}</span>; last read ${cite(x.ev[0])}</li>`).join("")}</ol>`:"No missing-tag exceptions are open."}
+ if(/misplac|wrong (location|place)|mismatch/.test(ql)){const xs=EXC.filter(x=>x.type==="Misplaced item"&&x.state!=="resolved");return xs.length?`${xs.length} items were read away from their WIMS location:<ol>${xs.map(x=>`<li><b>${x.a.id}</b>: WIMS <span class="m">${x.a.loc}</span>, read at <span class="m">${x.a.seen}</span> ${cite(x.ev[0])}</li>`).join("")}</ol>`:"No misplaced items are open."}
+ const rm=q.toUpperCase().match(/\b(PT-[DZH]\d|HH-0\d)\b/);if(rm){const ev=EVENTS.filter(e=>e.reader===rm[1]&&e.t>=DAY0).sort((x,y)=>y.t-x.t);return ev.length?`${rm[1]} (${RD[rm[1]].loc}) produced ${ev.length} events today. Most recent:<ol>${ev.slice(0,5).map(e=>`<li>${fmtD(e.t)} ${e.asset} ${e.type} ${cite(e.id)}</li>`).join("")}</ol>`:`${rm[1]} has no events today.`}
+ const im=q.toUpperCase().match(/(IB|OB)-?(\d{6})-?(\d{3})/);if(im){const r=[...INB,...OUTB].find(x=>x.id.startsWith(im[1]+"-"+im[2]+"-"+im[3]));if(r){const m=r.lines.filter(l=>l.exp===l.read).length;const bad=r.lines.filter(l=>l.exp!==l.read);return `${esc(r.id)}: ${m} of ${r.lines.length} lines match the WIMS ${im[1]==="IB"?"advance shipment notice":"pick list"}.${bad.length?" Differences: "+bad.map(l=>l.a?`${l.a.id} expected ${l.exp}, read ${l.read}`:`unexpected EPC ${l.epc}`).join("; ")+".":""} ${r.posted?"Posted as "+r.tx+".":"Not yet posted."} See the Reconciliation tab.`}}
+ const kw=[["tablet","Field tablet"],["laptop","Laptop"],["hotspot","hotspot"],["questionnaire","Questionnaire"],["envelope","envelope"],["postcard","postcard"],["kit","kit"],["printer","printer"]].find(([k])=>ql.includes(k));
+ if(kw){const as=ASSETS.filter(a=>a.name.toLowerCase().includes(kw[1].toLowerCase()));const by={};as.forEach(a=>{(by[a.zone]=by[a.zone]||[]).push(a)});return `${as.length} assets match "${kw[0]}":<ol>${Object.entries(by).map(([z,l])=>`<li>${ZN[z].name}: ${l.slice(0,4).map(a=>`${a.id} at <span class="m">${a.loc}</span> ${cite(lastEv(a).id)}`).join(", ")}${l.length>4?` and ${l.length-4} more`:""}</li>`).join("")}</ol>`}
+ return `I can answer questions such as "where is BX-1042", "what is missing", "what did PT-D1 read today" or "status of IB-261103-014". Try an asset ID, WIMS ID or EPC.`}
+// ---------- init ----------
+$("clock").textContent=fmtT(NOW);
+(function(){const h=new URLSearchParams(location.hash.slice(1));const t=h.get("tab");const ev=h.get("ev");if(ev){openEv(ev);return}if(t&&$("t-"+t))show(t);else renderDash()})();
+</script>
+</body></html>
