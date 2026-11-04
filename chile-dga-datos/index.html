@@ -1,0 +1,260 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Consola de Datos Hídricos DGA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: banda azul marino con pestañas; paneles en cuadrícula; una columna en teléfono */
+:root{--bg:#f2f4f4;--card:#fff;--fg:#15212c;--muted:#55626e;--line:#dde3e4;--navy:#0F2A47;--gold:#B8914A;--water:#1f72a8;--ok:#2f7a4b;--okbg:#e2f0e6;--warn:#93650d;--warnbg:#f6edd5;--bad:#a3392f;--badbg:#f6dfdb;--idle:#d6dcdf;--paper:#fdfbf6;--ink:#2a2f36;--tint:#eaf2f8;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--water:#6fb3e3;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#e9e4d8;--ink:#23272d;--tint:#18293c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--water:#6fb3e3;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#e9e4d8;--ink:#23272d;--tint:#18293c;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14.5px/1.5 var(--sans);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px;margin:0}
+header{background:var(--navy);color:#fff;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:16px max(16px,env(safe-area-inset-left,0px)) 0;border-bottom:3px solid var(--gold)}
+header .in,main{max-width:1180px;margin:0 auto}
+header h1{margin:0;font:600 22px var(--serif);text-wrap:balance}header p{margin:4px 0 12px;color:#d6c290;font-size:12px;letter-spacing:.08em}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav button{font:600 13.5px var(--sans);background:transparent;color:#c9d3df;border:0;padding:9px 14px;border-radius:6px 6px 0 0;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;margin:14px 0;font-size:13.5px}
+h2{font:600 18px var(--serif);margin:0 0 8px;text-wrap:balance}h3{font:600 14.5px var(--sans);margin:12px 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.g3{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:0 0 14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}.kpi b{display:block;font:600 22px var(--mono);font-variant-numeric:tabular-nums}.kpi span{color:var(--muted);font-size:13px}
+.bar{height:8px;background:var(--idle);border-radius:4px;overflow:hidden;margin:4px 0 10px}.bar>div{height:100%;background:var(--water)}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:14px}.row b{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}.small{font-size:13px}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input,select{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg);width:100%}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:600}
+th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--fg)}th.sort[data-dir]::after{content:attr(data-dir);margin-left:4px;color:var(--gold)}
+td.n{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:13px}
+tbody tr.click{cursor:pointer}tbody tr.click:hover{background:var(--bg)}
+.pill{font-size:12px;padding:1px 8px;border-radius:999px;white-space:nowrap}.p-ok{background:var(--okbg);color:var(--ok)}.p-w{background:var(--warnbg);color:var(--warn)}.p-b{background:var(--badbg);color:var(--bad)}.p-i{background:var(--tint);color:var(--water)}
+button.btn{font:600 13.5px var(--sans);background:var(--navy);color:#fff;border:1px solid var(--navy);border-radius:5px;padding:7px 12px;cursor:pointer}
+button.ghost{font:500 13px var(--sans);background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;margin:0 6px 6px 0}
+button.ghost:hover{border-color:var(--gold)}
+.tab{display:none}.tab.on{display:block}
+.pager{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:13px;color:var(--muted);gap:8px;flex-wrap:wrap}
+/* estaciones */
+.reg{display:grid;grid-template-columns:170px 1fr;gap:8px;align-items:center;padding:3px 0;border-bottom:1px dashed var(--line)}
+.reg span{font-size:13px}
+.sts{display:flex;flex-wrap:wrap;gap:4px}
+.stn{width:18px;height:18px;border-radius:3px;border:0;padding:0;cursor:pointer;background:var(--ok)}
+.stn.t-pozo{border-radius:50%}.stn.t-met{clip-path:polygon(50% 0,100% 100%,0 100%);border-radius:0}.stn.t-cal{transform:rotate(45deg) scale(.82);border-radius:2px}
+.stn.s1{background:var(--gold)}.stn.s2{background:var(--bad)}.stn.s3{background:var(--idle)}
+.stn.on{outline:3px solid var(--water);outline-offset:1px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin:6px 0 10px}.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+/* visor */
+.viewer{display:grid;grid-template-columns:250px 1fr 250px;gap:12px}
+.tree{font-size:13.5px}.tree a{display:block;padding:4px 8px;border-radius:4px;color:var(--fg);text-decoration:none;cursor:pointer}.tree a:hover,.tree a.on{background:var(--bg)}.tree a small{color:var(--muted)}
+.tree .pg{padding-left:22px;font-size:13px}
+.page{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:26px 30px;min-height:440px;box-shadow:0 1px 3px rgba(0,0,0,.08);font:14px/1.6 Georgia,serif}
+.page h4{font:700 14px Georgia,serif;text-align:center;letter-spacing:.06em;margin:0 0 4px}.page .crest{text-align:center;font-size:12px;color:#6b6457;margin-bottom:14px}
+.page mark{background:#fff0a6;color:inherit}
+.meta dt{color:var(--muted);font-size:12.5px}.meta dd{margin:0 0 6px;font-size:13.5px}
+.tl{position:relative;margin:8px 0 0 6px;border-left:2px solid var(--line);padding-left:14px}
+.tl div{position:relative;margin:0 0 10px;font-size:13px;cursor:pointer}.tl div::before{content:"";position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.tl div.on::before{background:var(--water);box-shadow:0 0 0 3px var(--gold)}
+.link{font:12.5px var(--mono);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:6px 8px;word-break:break-all;margin-top:6px}
+/* asistente */
+.chat{display:flex;flex-direction:column;gap:10px;max-height:560px;overflow:auto;padding:4px}
+.msg{max-width:92%;padding:10px 12px;border-radius:8px;font-size:14px}
+.msg.u{align-self:flex-end;background:var(--navy);color:#fff}
+.msg.a{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.msg ul{margin:6px 0 0;padding-left:18px}
+.cite{display:inline-block;font:600 12px var(--mono);background:var(--card);border:1px solid var(--gold);color:var(--fg);border-radius:4px;padding:1px 6px;margin:3px 3px 0 0;cursor:pointer}
+.ask{display:flex;gap:8px;margin-top:10px}
+svg text{fill:var(--muted);font:12px var(--sans)}
+@media (max-width:900px){.viewer{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr}.reg{grid-template-columns:120px 1fr}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}.filters{grid-template-columns:1fr}}
+</style>
+<header><div class="in"><h1>Dirección General de Aguas: Consola Integrada de Datos</h1><p>AGENTIC RX LLC · DEMOSTRACIÓN PARA LA OPERACIÓN BID CH-T1370</p>
+<nav role="tablist">
+<button role="tab" data-t="panel" aria-selected="true">Panel</button>
+<button role="tab" data-t="red" aria-selected="false">Red hidrométrica</button>
+<button role="tab" data-t="derechos" aria-selected="false">Derechos de agua</button>
+<button role="tab" data-t="expediente" aria-selected="false">Expedientes</button>
+<button role="tab" data-t="calidad" aria-selected="false">Calidad de datos</button>
+<button role="tab" data-t="asistente" aria-selected="false">Asistente</button>
+</nav></div></header>
+<main>
+<div class="note">Solo datos ilustrativos. Titulares, expedientes, caudales, estaciones y mediciones son ficticios y se generaron para esta demostración; no provienen de la DGA.</div>
+
+<section class="tab on" id="t-panel"></section>
+<section class="tab" id="t-red"></section>
+<section class="tab" id="t-derechos">
+<div class="filters"><div><label for="q">Buscar expediente, titular, comuna o cuenca</label><input id="q" type="search" placeholder="p. ej. ND-0401 o Elqui"></div>
+<div><label for="fr">Región</label><select id="fr"></select></div>
+<div><label for="fn">Naturaleza</label><select id="fn"><option value="">Todas</option><option>Superficial</option><option>Subterránea</option></select></div>
+<div><label for="fe">Estado</label><select id="fe"><option value="">Todos</option><option>Vigente</option><option>En trámite</option><option>Con observaciones</option><option>Caducado</option></select></div></div>
+<div class="panel"><div class="wrap"><table><thead><tr>
+<th class="sort" data-k="exp">Expediente</th><th class="sort" data-k="tit">Titular</th><th class="sort" data-k="reg">Región</th><th class="sort" data-k="cue">Cuenca</th><th class="sort" data-k="nat">Naturaleza</th><th class="sort" data-k="uso">Tipo</th><th class="sort" data-k="q">Caudal (l/s)</th><th class="sort" data-k="res">Resolución</th><th class="sort" data-k="est">Estado</th></tr></thead><tbody id="rb"></tbody></table></div>
+<div class="pager"><span id="rn"></span><span>Haga clic en una fila para abrir el expediente</span></div></div>
+</section>
+<section class="tab" id="t-expediente"></section>
+<section class="tab" id="t-calidad"></section>
+<section class="tab" id="t-asistente">
+<div class="g3"><div class="panel"><h2>Asistente</h2><p class="small muted" style="margin-top:0">Responde con base en el registro, la red hidrométrica y los expedientes digitalizados. Cada respuesta cita la fuente exacta: expediente, documento y página, o código de estación.</p>
+<div class="chat" id="chat"></div>
+<form class="ask" id="af"><input id="aq" placeholder="Escriba su pregunta" aria-label="Pregunta"><button class="btn" id="go" type="submit">Preguntar</button></form>
+<div id="sg" style="margin-top:10px"></div></div>
+<div class="panel"><h3 style="margin-top:0">Fuentes consultadas</h3><ul class="small" style="padding-left:18px;margin:0">
+<li>Registro de derechos de agua (modelo relacional)</li><li>Expedientes digitalizados (repositorio documental, OCR e índice)</li><li>Series de la red hidrométrica</li><li>Reglas de calidad de datos</li></ul>
+<p class="small muted">El asistente no modifica datos ni emite pronunciamientos. Toda respuesta debe verificarse en el documento citado.</p></div></div>
+</section>
+</main>
+<script>
+let seed=11;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+const pick=a=>a[Math.floor(rnd()*a.length)];const nf=n=>n.toLocaleString("es-CL");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const REG=[["XV","Arica y Parinacota",["Lluta","San José"],["Arica","Putre"]],["I","Tarapacá",["Pampa del Tamarugal"],["Pozo Almonte","Pica"]],["II","Antofagasta",["Loa"],["Calama","San Pedro de Atacama"]],["III","Atacama",["Copiapó","Huasco"],["Copiapó","Tierra Amarilla","Vallenar"]],["IV","Coquimbo",["Elqui","Limarí","Choapa"],["Vicuña","Ovalle","Monte Patria","Illapel"]],["V","Valparaíso",["Aconcagua","Petorca","La Ligua"],["San Felipe","Los Andes","Petorca"]],["RM","Metropolitana",["Maipo"],["Talagante","Buin","Colina","Melipilla"]],["VI","O'Higgins",["Rapel"],["Rancagua","San Fernando"]],["VII","Maule",["Maule","Mataquito"],["Talca","Curicó","Linares"]],["XVI","Ñuble",["Itata"],["Chillán","San Carlos"]],["VIII","Biobío",["Biobío"],["Los Ángeles","Mulchén"]],["IX","La Araucanía",["Imperial","Toltén"],["Temuco","Villarrica"]],["XIV","Los Ríos",["Valdivia","Bueno"],["Valdivia","La Unión"]],["X","Los Lagos",["Bueno","Maullín"],["Osorno","Puerto Montt"]],["XI","Aysén",["Aysén","Baker"],["Coyhaique","Cochrane"]],["XII","Magallanes",["Serrano"],["Punta Arenas","Natales"]]];
+const RN=Object.fromEntries(REG.map((r,i)=>[r[0],i]));
+const RNUM={XV:15,I:1,II:2,III:3,IV:4,V:5,RM:13,VI:6,VII:7,XVI:16,VIII:8,IX:9,XIV:14,X:10,XI:11,XII:12};const rc=ri=>String(RNUM[REG[ri][0]]).padStart(2,"0");
+// estaciones
+const TIP=[["flu","Fluviométrica"],["met","Meteorológica"],["pozo","Pozo de observación"],["cal","Calidad de aguas"]];
+const SITE=["en Desembocadura","en Puente","antes junta","en Bocatoma","en Estación","en Angostura"];
+const ST=[];REG.forEach((r,ri)=>{const n=[5,4,5,7,11,9,10,7,9,5,8,7,5,6,5,4][ri];for(let i=0;i<n;i++){const ty=pick(TIP);const cu=pick(r[2]);const s=rnd()<.78?0:rnd()<.5?1:rnd()<.6?2:3;
+const cod=rc(ri)+String(100+i*7)+"00"+i%10+"-"+Math.floor(rnd()*9);
+const nm=ty[0]=="pozo"?`Pozo ${pick(r[3])} N.° ${i+1}`:ty[0]=="met"?`${pick(r[3])} (meteorológica)`:`Río ${cu} ${pick(SITE)}`;
+const base=ty[0]=="pozo"?20+rnd()*40:(ri<4?0.4+rnd()*3:ri<9?8+rnd()*60:40+rnd()*300);
+const ser=[];let v=base;for(let d=0;d<30;d++){v=Math.max(0.05,v*(0.93+rnd()*0.14));ser.push(+v.toFixed(2))}
+const gap=s==2?Math.floor(3+rnd()*12):s==1?1:0;
+ST.push({cod,nm,reg:r[0],cue:cu,ty:ty[0],tyn:ty[1],s,ser,gap,u:ty[0]=="pozo"?"m (prof. nivel)":ty[0]=="met"?"mm":"m³/s"})}});
+const SS=["Transmitiendo","Con retraso","Sin transmisión","En mantención"],SC=["p-ok","p-w","p-b","p-i"];
+// derechos
+const TIT=["Agrícola Los Aromos SpA","Comunidad de Aguas Canal El Molino","Comité APR Las Palmas","Sociedad Agrícola Santa Inés Ltda.","Viña Cerro Alto S.A.","Asociación de Canalistas del Valle","Inmobiliaria Vista Sur SpA","Comité APR El Romeral","Frutícola Del Valle S.A.","Municipalidad (servicio sanitario rural)","Hidroeléctrica Río Claro SpA","Juan Pérez Soto","María González Rojas","Agrícola Las Vertientes SpA","Cooperativa Lechera del Sur","Minera Quebrada Seca SpA","Comunidad Indígena Likan","Pedro Muñoz Araya","Exportadora Andina S.A.","Comité APR Los Robles"];
+const EST=["Vigente","Vigente","Vigente","Vigente","En trámite","Con observaciones","Caducado"];
+const D=[];for(let i=0;i<64;i++){const ri=i<32?i%16:Math.min(15,Math.floor(rnd()*16));const r=REG[ri];
+const nat=ri<=6?(rnd()<.6?"Subterránea":"Superficial"):(rnd()<.3?"Subterránea":"Superficial");
+const uso=rnd()<.82?"Consuntivo":"No consuntivo";const q=+(uso=="No consuntivo"?200+rnd()*3800:nat=="Subterránea"?2+rnd()*60:5+rnd()*400).toFixed(1);
+const yr=1985+Math.floor(rnd()*41);const est=yr>2024?"En trámite":pick(EST);
+const exp=`ND-${rc(ri)}0${1+Math.floor(rnd()*5)}-${1000+Math.floor(rnd()*8999)}`;
+const res=est=="En trámite"?"":`Res. DGA N.° ${100+Math.floor(rnd()*1800)}/${yr}`;
+const dat=rnd()<.18?"PSAD56":"WGS84";
+D.push({exp,tit:pick(TIT),reg:r[0],regn:r[1],com:pick(r[3]),cue:pick(r[2]),nat,uso,ej:rnd()<.8?"Permanente y continuo":"Eventual y discontinuo",q,res,yr,est,dat,este:Math.round(250000+rnd()*120000),norte:Math.round(7900000-ri*180000-rnd()*90000),cbr:est=="Vigente"?(rnd()<.85?"Inscrito":"Sin inscripción"):"No aplica",mee:nat=="Subterránea"&&uso=="Consuntivo"?(rnd()<.7?"Reporta":"No reporta"):"No exigible"})}
+// asegurar ejemplos conocidos
+Object.assign(D[0],{exp:"ND-0401-2317",tit:"Comité APR El Romeral",reg:"IV",regn:"Coquimbo",com:"Vicuña",cue:"Elqui",nat:"Subterránea",uso:"Consuntivo",ej:"Permanente y continuo",q:12.5,res:"Res. DGA N.° 842/2019",yr:2019,est:"Vigente",dat:"WGS84",cbr:"Inscrito",mee:"Reporta"});
+Object.assign(D[1],{exp:"ND-0502-1188",tit:"Agrícola Los Aromos SpA",reg:"V",regn:"Valparaíso",com:"Petorca",cue:"Petorca",nat:"Subterránea",uso:"Consuntivo",ej:"Permanente y continuo",q:35,res:"Res. DGA N.° 311/2008",yr:2008,est:"Con observaciones",dat:"PSAD56",cbr:"Inscrito",mee:"No reporta"});
+Object.assign(D[2],{exp:"ND-0403-4410",tit:"Frutícola Del Valle S.A.",reg:"IV",regn:"Coquimbo",com:"Ovalle",cue:"Limarí",nat:"Superficial",uso:"Consuntivo",ej:"Permanente y continuo",q:180,res:"Res. DGA N.° 1204/2014",yr:2014,est:"Vigente",dat:"WGS84",cbr:"Inscrito",mee:"No exigible"});
+// duplicado deliberado para el control de calidad
+D.push({...D[2],exp:"ND-0403-4410",tit:"Fruticola del Valle SA",dup:true});
+const byExp={};D.forEach(d=>{if(!byExp[d.exp])byExp[d.exp]=d});
+// documentos del expediente
+function docs(d){const L=[["sol","Solicitud de derecho de aprovechamiento",2],["pub","Publicaciones (Diario Oficial y radio)",1],["opo","Certificado de no oposición",1],["inf","Informe técnico",3],["res","Resolución DGA",2],["cbr","Inscripción Conservador de Bienes Raíces",1],["cpa","Registro en el Catastro Público de Aguas",1]];
+if(d.est=="En trámite")return L.slice(0,4);let p=1;return L.map(x=>({k:x[0],n:x[1],pages:Array.from({length:x[2]},()=>p++)}))}
+function docsP(d){let p=1;return docs(d).map(x=>x.pages?x:{k:x[0],n:x[1],pages:Array.from({length:x[2]},()=>p++)})}
+function pageText(d,k,i){const m=s=>`<mark>${esc(s)}</mark>`;const yr=d.yr;
+const head=`<h4>DIRECCIÓN GENERAL DE AGUAS</h4><div class="crest">Ministerio de Obras Públicas · Región de ${esc(d.regn)} · Expediente ${esc(d.exp)}</div>`;
+const T={sol:[`<p><b>SOLICITUD DE DERECHO DE APROVECHAMIENTO DE AGUAS</b></p><p>${m(d.tit)}, con domicilio en la comuna de ${m(d.com)}, solicita la constitución de un derecho de aprovechamiento de aguas ${m(d.nat.toLowerCase()+"s")}, de ejercicio ${m(d.ej.toLowerCase())}, de uso ${m(d.uso.toLowerCase())}, por un caudal de ${m(nf(d.q)+" l/s")}.</p><p>Fuente: ${d.nat=="Subterránea"?"acuífero de la cuenca del río "+esc(d.cue):"río "+esc(d.cue)}. Punto de captación en coordenadas UTM ${m("Este "+nf(d.este)+" m, Norte "+nf(d.norte)+" m")}, huso 19, datum ${m(d.dat)}.</p>`,`<p><b>ANTECEDENTES ACOMPAÑADOS</b></p><ul><li>Plano de ubicación del punto de captación</li><li>Prueba de bombeo${d.nat=="Subterránea"?"":" (no aplica)"}</li><li>Memoria explicativa del uso solicitado</li><li>Comprobante de pago de publicaciones</li></ul><p>Fecha de ingreso: ${m("14/03/"+(yr-1))}.</p>`],
+pub:[`<p><b>PUBLICACIONES</b></p><p>Extracto publicado en el Diario Oficial el ${m("01/04/"+(yr-1))} y en un diario de circulación regional, y difundido por radio, según el Código de Aguas.</p><p>Plazo de oposición: 30 días desde la última publicación.</p>`],
+opo:[`<p><b>CERTIFICADO</b></p><p>Se certifica que, vencido el plazo legal, ${m("no se presentaron oposiciones")} a la solicitud del expediente ${esc(d.exp)}.</p>`],
+inf:[`<p><b>INFORME TÉCNICO</b></p><p>Análisis de disponibilidad para la fuente solicitada en la cuenca del ${esc(d.cue)}. ${d.nat=="Subterránea"?"Sector hidrogeológico de aprovechamiento común evaluado con balance oferta y demanda.":"Caudal ecológico considerado según la normativa vigente."}</p>`,`<p><b>CONCLUSIONES</b></p><p>Se ${m("recomienda constituir")} el derecho por ${m(nf(d.q)+" l/s")}, ${esc(d.ej.toLowerCase())}. Se exige ${d.mee=="No exigible"?"sistema de medición de caudales":m("sistema de monitoreo de extracciones efectivas")}.</p>`,`<p><b>ANEXO</b></p><p>Coordenadas verificadas: Este ${nf(d.este)} m, Norte ${nf(d.norte)} m. Datum de origen ${m(d.dat)}${d.dat=="PSAD56"?" (requiere transformación a WGS84)":""}.</p>`],
+res:[`<p><b>RESOLUCIÓN ${esc(d.res.replace("Res. ",""))}</b></p><p>VISTOS: la solicitud, las publicaciones, el informe técnico y lo dispuesto en el Código de Aguas.</p><p>RESUELVO: 1. ${m("Constitúyese")} a favor de ${m(d.tit)} un derecho de aprovechamiento ${esc(d.uso.toLowerCase())} de aguas ${esc(d.nat.toLowerCase()+"s")}, de ejercicio ${esc(d.ej.toLowerCase())}, por ${m(nf(d.q)+" l/s")}.</p>`,`<p>2. El titular deberá instalar y mantener un sistema de medición y transmitir la información a la DGA.</p><p>3. Inscríbase en el Conservador de Bienes Raíces y en el Catastro Público de Aguas.</p><p>Anótese y comuníquese. Fecha: ${m("22/08/"+yr)}.</p>`],
+cbr:[`<p><b>CERTIFICADO DE INSCRIPCIÓN</b></p><p>Inscrito a fojas ${m(String(100+d.q%400|0))} N.° ${m(String(50+(d.este%300)))} del Registro de Propiedad de Aguas del año ${yr}. Estado: ${m(d.cbr)}.</p>`],
+cpa:[`<p><b>CATASTRO PÚBLICO DE AGUAS</b></p><p>Registrado con datum ${m(d.dat)}, naturaleza ${esc(d.nat)}, caudal ${nf(d.q)} l/s. Estado registral: ${m(d.est)}.</p>`]};
+return head+(T[k][i]||"")}
+const KN={sol:"Solicitud",pub:"Publicaciones",opo:"No oposición",inf:"Informe técnico",res:"Resolución",cbr:"Inscripción CBR",cpa:"Registro CPA"};
+// ---------- Panel
+function panel(){const vig=D.filter(d=>d.est=="Vigente");const qt=vig.filter(d=>d.uso=="Consuntivo").reduce((a,d)=>a+d.q,0);
+const on=ST.filter(s=>s.s==0).length;
+const cnt=REG.map(r=>D.filter(d=>d.reg==r[0]).length);const mx=Math.max(...cnt);
+const bars=REG.map((r,i)=>{const y=6+i*20,w=cnt[i]/mx*300;return `<text x="0" y="${y+13}">${esc(r[1])}</text><rect x="150" y="${y+2}" width="${Math.max(w,1)}" height="14" rx="2" fill="var(--water)"></rect><text x="${156+w}" y="${y+13}" style="fill:var(--fg)">${cnt[i]}</text>`}).join("");
+const al=ST.filter(s=>s.s==2).slice(0,5);
+document.getElementById("t-panel").innerHTML=`<div class="kpis"><div class="kpi"><b>${D.length}</b><span>Derechos en el registro de muestra</span></div><div class="kpi"><b>${nf(Math.round(qt))}</b><span>l/s consuntivos vigentes</span></div><div class="kpi"><b>${on}/${ST.length}</b><span>Estaciones transmitiendo</span></div><div class="kpi"><b>${D.filter(d=>d.est!="En trámite").length}</b><span>Expedientes digitalizados</span></div><div class="kpi"><b>91,4%</b><span>Índice de calidad de datos</span></div></div>
+<div class="grid"><div class="panel"><h3 style="margin-top:0">Derechos por región (norte a sur)</h3><div class="wrap"><svg viewBox="0 0 500 330" width="100%" role="img" aria-label="Derechos por región">${bars}</svg></div></div>
+<div class="panel"><h3 style="margin-top:0">Alertas operativas</h3>${al.map(s=>`<div class="row" style="padding:5px 0;border-bottom:1px solid var(--line)"><span>${esc(s.nm)}<br><span class="small muted">${s.cod} · ${esc(REG[RN[s.reg]][1])}</span></span><span class="pill p-b">${s.gap} días sin datos</span></div>`).join("")}
+<div class="row" style="padding:5px 0;border-bottom:1px solid var(--line)"><span>Derechos con datum PSAD56 sin transformar</span><span class="pill p-w">${D.filter(d=>d.dat=="PSAD56").length}</span></div>
+<div class="row" style="padding:5px 0"><span>Posible expediente duplicado</span><span class="pill p-w">1</span></div>
+<h3>Modelo integrado</h3><p class="small muted" style="margin:0">Registro relacional de derechos, repositorio documental de expedientes y series hidrométricas enlazados por código de expediente, código BNA de estación y cuenca.</p></div></div>`}
+// ---------- Red
+let selS=null;
+function red(){const c={0:0,1:0,2:0,3:0};ST.forEach(s=>c[s.s]++);
+document.getElementById("t-red").innerHTML=`<div class="g3"><div class="panel"><h2>Red hidrométrica por región</h2>
+<div class="legend"><span><i style="background:var(--ok)"></i>Transmitiendo (${c[0]})</span><span><i style="background:var(--gold)"></i>Con retraso (${c[1]})</span><span><i style="background:var(--bad)"></i>Sin transmisión (${c[2]})</span><span><i style="background:var(--idle)"></i>En mantención (${c[3]})</span><span>■ fluviométrica ● pozo ▲ meteorológica ◆ calidad</span></div>
+${REG.map(r=>`<div class="reg"><span><b>${r[0]}</b> ${esc(r[1])}</span><div class="sts">${ST.filter(s=>s.reg==r[0]).map(s=>`<button class="stn t-${s.ty} s${s.s}${selS==s.cod?" on":""}" data-c="${s.cod}" title="${esc(s.nm)} · ${SS[s.s]}" aria-label="${esc(s.nm)}, ${SS[s.s]}"></button>`).join("")}</div></div>`).join("")}</div>
+<div class="panel" id="sd"></div></div>`;
+document.querySelectorAll(".stn").forEach(b=>b.onclick=()=>{selS=b.dataset.c;red()});stDetail()}
+function stDetail(){const s=ST.find(x=>x.cod==selS)||ST.find(x=>x.reg=="IV"&&x.ty=="flu");selS=s.cod;
+const v=s.ser,mn=Math.min(...v),mx=Math.max(...v),X=i=>30+i*9.3,Y=x=>130-(x-mn)/((mx-mn)||1)*110;
+const pts=v.map((x,i)=>X(i)+","+Y(x)).join(" ");const n=s.gap?v.length-s.gap:v.length;
+const p1=v.slice(0,n).map((x,i)=>X(i)+","+Y(x)).join(" ");
+document.getElementById("sd").innerHTML=`<h3 style="margin-top:0">${esc(s.nm)}</h3><span class="pill ${SC[s.s]}">${SS[s.s]}</span>
+<dl class="meta" style="margin-top:10px"><dt>Código BNA (ilustrativo)</dt><dd>${s.cod}</dd><dt>Tipo</dt><dd>${s.tyn}</dd><dt>Región y cuenca</dt><dd>${esc(REG[RN[s.reg]][1])} · ${esc(s.cue)}</dd><dt>Último valor</dt><dd>${s.gap?"Sin datos en los últimos "+s.gap+" días":nf(v[29])+" "+s.u}</dd></dl>
+<div class="wrap"><svg viewBox="0 0 310 150" width="100%" role="img" aria-label="Serie de 30 días"><line x1="30" x2="300" y1="130" y2="130" stroke="var(--line)"></line><line x1="30" x2="300" y1="20" y2="20" stroke="var(--line)"></line><text x="0" y="24">${nf(+mx.toFixed(1))}</text><text x="0" y="134">${nf(+mn.toFixed(1))}</text><polyline points="${p1}" fill="none" stroke="var(--water)" stroke-width="2"></polyline>${s.gap?`<rect x="${X(n)}" y="18" width="${X(29)-X(n)}" height="114" fill="var(--bad)" opacity=".12"></rect><text x="${X(n)+3}" y="146" style="fill:var(--bad)">brecha</text>`:`<circle cx="${X(29)}" cy="${Y(v[29])}" r="4" fill="var(--gold)"></circle>`}<text x="30" y="146">hace 30 días</text></svg></div>
+<p class="small muted">Serie diaria de muestra en ${s.u}. Las brechas se marcan para la regla de calidad «continuidad de series».</p>`}
+// ---------- Derechos
+const fr=document.getElementById("fr");fr.innerHTML=`<option value="">Todas</option>`+REG.map(r=>`<option value="${r[0]}">${esc(r[1])}</option>`).join("");
+let sk="reg",sd=1;
+function derechos(){const q=document.getElementById("q").value.toLowerCase(),r=fr.value,n=document.getElementById("fn").value,e=document.getElementById("fe").value;
+let a=D.filter(d=>(!q||(d.exp+" "+d.tit+" "+d.com+" "+d.cue).toLowerCase().includes(q))&&(!r||d.reg==r)&&(!n||d.nat==n)&&(!e||d.est==e));
+const v=d=>sk=="reg"?RN[d.reg]:sk=="res"?d.yr:d[sk];a.sort((x,y)=>{const p=v(x),o=v(y);return (typeof p=="string"?p.localeCompare(o,"es"):p-o)*sd});
+document.querySelectorAll("#t-derechos th.sort").forEach(th=>{if(th.dataset.k==sk)th.dataset.dir=sd>0?"▲":"▼";else delete th.dataset.dir});
+const ec={"Vigente":"p-ok","En trámite":"p-i","Con observaciones":"p-w","Caducado":"p-b"};
+document.getElementById("rb").innerHTML=a.map(d=>`<tr class="click" data-e="${d.exp}"><td class="n">${d.exp}${d.dup?' <span class="pill p-w">dup.</span>':""}</td><td>${esc(d.tit)}</td><td>${esc(d.regn)}</td><td>${esc(d.cue)}</td><td>${d.nat}</td><td>${d.uso}</td><td class="n" style="text-align:right">${nf(d.q)}</td><td class="n">${d.res||"(pendiente)"}</td><td><span class="pill ${ec[d.est]}">${d.est}</span></td></tr>`).join("");
+document.getElementById("rn").textContent=`${a.length} de ${D.length} derechos`;
+document.querySelectorAll("#rb tr").forEach(tr=>tr.onclick=()=>openExp(tr.dataset.e))}
+["q","fr","fn","fe"].forEach(id=>document.getElementById(id).addEventListener("input",derechos));
+document.querySelectorAll("#t-derechos th.sort").forEach(th=>th.onclick=()=>{if(sk==th.dataset.k)sd=-sd;else{sk=th.dataset.k;sd=1}derechos()});
+// ---------- Visor
+let cur={e:"ND-0401-2317",k:"res",i:0};
+function openExp(e,k,i){const d=byExp[e];if(!d)return;const ds=docsP(d);const has=ds.find(x=>x.k==k);cur={e,k:has?k:ds[0].k,i:has&&i!=null?Math.min(i,has.pages.length-1):0};viewer();go("expediente",true)}
+function viewer(){const d=byExp[cur.e];const ds=docsP(d);const doc=ds.find(x=>x.k==cur.k);const pg=doc.pages[cur.i];
+const link=`#file=${d.exp}&doc=${cur.k}&p=${pg}`;
+document.getElementById("t-expediente").innerHTML=`<div class="panel" style="margin-bottom:12px"><div class="row" style="flex-wrap:wrap;align-items:center"><span><b class="n" style="font-family:var(--mono)">${d.exp}</b> · ${esc(d.tit)} · ${esc(d.regn)}</span><label style="margin:0;display:flex;gap:6px;align-items:center" for="xs">Otro expediente <select id="xs" style="width:auto">${Object.keys(byExp).sort().map(x=>`<option${x==d.exp?" selected":""}>${x}</option>`).join("")}</select></label></div></div>
+<div class="viewer"><div class="panel tree"><h3 style="margin-top:0">Mapa del expediente</h3>${ds.map(x=>`<a class="${x.k==cur.k?"on":""}" data-k="${x.k}" data-i="0">${esc(x.n)} <small>p. ${x.pages[0]}${x.pages.length>1?"–"+x.pages[x.pages.length-1]:""}</small></a>${x.k==cur.k&&x.pages.length>1?x.pages.map((p,j)=>`<a class="pg${j==cur.i?" on":""}" data-k="${x.k}" data-i="${j}">Página ${p}</a>`).join(""):""}`).join("")}</div>
+<div style="min-width:0"><div class="page">${pageText(d,cur.k,cur.i)}<p style="text-align:right;font-size:12px;color:#6b6457;margin-top:30px">Página ${pg} de ${ds[ds.length-1].pages.slice(-1)[0]}</p></div>
+<div class="row" style="margin-top:8px"><button class="ghost" id="pv">Página anterior</button><button class="ghost" id="nx">Página siguiente</button></div></div>
+<div class="panel"><h3 style="margin-top:0">Ficha</h3><dl class="meta"><dt>Naturaleza y tipo</dt><dd>${d.nat} · ${d.uso}</dd><dt>Ejercicio</dt><dd>${d.ej}</dd><dt>Caudal</dt><dd>${nf(d.q)} l/s</dd><dt>Coordenadas UTM (huso 19)</dt><dd>E ${nf(d.este)} · N ${nf(d.norte)} · ${d.dat}</dd><dt>CBR · Monitoreo de extracciones</dt><dd>${d.cbr} · ${d.mee}</dd></dl>
+<h3>Tramitación</h3><div class="tl">${ds.map(x=>`<div class="${x.k==cur.k?"on":""}" data-k="${x.k}">${KN[x.k]}</div>`).join("")}</div>
+<h3>Enlace directo a esta página</h3><div class="link" id="lk">${esc(link)}</div><button class="ghost" id="cp" style="margin-top:6px">Copiar enlace</button></div></div>`;
+document.querySelectorAll("#t-expediente [data-k]").forEach(a=>a.onclick=()=>{cur.k=a.dataset.k;cur.i=+(a.dataset.i||0);viewer();setHash()});
+document.getElementById("xs").onchange=e=>openExp(e.target.value,"sol",0);
+const flat=ds.flatMap(x=>x.pages.map((p,j)=>[x.k,j]));const ix=flat.findIndex(f=>f[0]==cur.k&&f[1]==cur.i);
+document.getElementById("pv").onclick=()=>{if(ix>0){[cur.k,cur.i]=flat[ix-1];viewer();setHash()}};
+document.getElementById("nx").onclick=()=>{if(ix<flat.length-1){[cur.k,cur.i]=flat[ix+1];viewer();setHash()}};
+document.getElementById("cp").onclick=e=>{const t=location.href.split("#")[0]+link;navigator.clipboard?.writeText(t).then(()=>e.target.textContent="Enlace copiado",()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("lk"));getSelection().removeAllRanges();getSelection().addRange(r)})};setHash()}
+function setHash(){if(!document.getElementById("t-expediente").classList.contains("on"))return;const d=byExp[cur.e];const p=docsP(d).find(x=>x.k==cur.k).pages[cur.i];history.replaceState(null,"",`#file=${cur.e}&doc=${cur.k}&p=${p}`)}
+// ---------- Calidad
+function calidad(){const fields=[["Titular",100],["Coordenadas UTM",97.1],["Datum declarado",100],["Caudal y unidad",98.6],["Inscripción CBR (vigentes)",86.0],["Resolución vinculada",94.2],["Documento digitalizado",92.8],["Código de cuenca",99.3]];
+const rules=[["Datum PSAD56 sin transformar a WGS84",D.filter(d=>d.dat=="PSAD56").length,"Media","Transformación automática y revisión"],["Expediente duplicado (mismo código, titular escrito distinto)",1,"Alta","Fusión con revisión humana"],["Derecho vigente sin inscripción en CBR",D.filter(d=>d.cbr=="Sin inscripción").length,"Media","Solicitud de antecedente al titular"],["Extracción subterránea sin reporte de monitoreo",D.filter(d=>d.mee=="No reporta").length,"Alta","Aviso a fiscalización"],["Estación con brecha mayor a 7 días",ST.filter(s=>s.gap>7).length,"Alta","Orden de mantención"],["Coordenada fuera de la comuna declarada",2,"Media","Verificación con plano del expediente"],["Caudal fuera de rango para la fuente",1,"Baja","Revisión del informe técnico"]];
+const sc={Alta:"p-b",Media:"p-w",Baja:"p-i"};
+document.getElementById("t-calidad").innerHTML=`<div class="kpis"><div class="kpi"><b>91,4%</b><span>Índice global de calidad</span></div><div class="kpi"><b>${rules.reduce((a,r)=>a+r[1],0)}</b><span>Hallazgos abiertos</span></div><div class="kpi"><b>7</b><span>Reglas automáticas activas</span></div><div class="kpi"><b>100%</b><span>Cambios con traza de auditoría</span></div></div>
+<div class="grid"><div class="panel"><h3 style="margin-top:0">Completitud por campo</h3>${fields.map(f=>`<div class="row"><span>${f[0]}</span><b>${String(f[1]).replace(".",",")}%</b></div><div class="bar"><div style="width:${f[1]}%;background:${f[1]<90?"var(--gold)":f[1]<97?"var(--water)":"var(--ok)"}"></div></div>`).join("")}</div>
+<div class="panel"><h3 style="margin-top:0">Reglas de validación</h3><div class="wrap"><table><thead><tr><th>Regla</th><th>Casos</th><th>Severidad</th><th>Acción</th></tr></thead><tbody>${rules.map(r=>`<tr><td style="white-space:normal;min-width:200px">${r[0]}</td><td class="n">${r[1]}</td><td><span class="pill ${sc[r[2]]}">${r[2]}</span></td><td style="white-space:normal;min-width:150px" class="small">${r[3]}</td></tr>`).join("")}</tbody></table></div></div></div>`}
+// ---------- Asistente
+const chat=[{a:"Hola. Puedo consultar derechos, expedientes, estaciones y reglas de calidad. Cada respuesta incluye la cita a su fuente."}];
+const SUG=["¿Cuál es el caudal otorgado en el expediente ND-0401-2317?","¿Qué derechos subterráneos vigentes hay en la cuenca del Elqui?","¿Qué estaciones de Coquimbo están sin transmisión?","¿Cuántos derechos tienen datum PSAD56?","Resume el expediente ND-0502-1188"];
+document.getElementById("sg").innerHTML=SUG.map(s=>`<button class="ghost" type="button">${esc(s)}</button>`).join("");
+document.querySelectorAll("#sg .ghost").forEach(b=>b.onclick=()=>ask(b.textContent));
+document.getElementById("af").onsubmit=e=>{e.preventDefault();const v=document.getElementById("aq").value.trim();if(v){ask(v);document.getElementById("aq").value=""}};
+const cite=(e,k,p)=>{const d=byExp[e];const ds=docsP(d);const doc=ds.find(x=>x.k==k)||ds[0];const i=p==null?0:p;return `<span class="cite" data-e="${e}" data-k="${doc.k}" data-i="${i}">${e} · ${KN[doc.k]} · p. ${doc.pages[i]}</span>`};
+const scite=s=>`<span class="cite" data-s="${s.cod}">Estación ${s.cod}</span>`;
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+function ask(q){chat.push({u:q});const s=norm(q);let a="";
+const m=q.toUpperCase().match(/ND-\d{4}-\d{4}/);const reg=REG.find(r=>s.includes(norm(r[1])));const cue=[...new Set(REG.flatMap(r=>r[2]))].find(c=>s.includes(norm(c)));
+if(m&&byExp[m[0]]){const d=byExp[m[0]];const fin=d.est!="En trámite";
+if(/caudal/.test(s))a=`El expediente ${d.exp} ${fin?"tiene otorgado":"solicita"} <b>${nf(d.q)} l/s</b> de aguas ${d.nat.toLowerCase()+"s"}, uso ${d.uso.toLowerCase()}, ejercicio ${d.ej.toLowerCase()}.<br>${fin?cite(d.exp,"res",0):""}${cite(d.exp,"sol",0)}`;
+else a=`<b>${d.exp}</b>: ${esc(d.tit)}, comuna de ${esc(d.com)} (${esc(d.regn)}). Derecho ${d.uso.toLowerCase()} de aguas ${d.nat.toLowerCase()+"s"} por ${nf(d.q)} l/s en la cuenca del ${esc(d.cue)}. Estado: <b>${d.est}</b>.<ul><li>${d.res||"Sin resolución"}${fin?" "+cite(d.exp,"res",0):""}</li><li>Coordenadas en datum ${d.dat}${d.dat=="PSAD56"?" (pendiente de transformar a WGS84)":""} ${cite(d.exp,"inf",2)}</li><li>CBR: ${d.cbr}; monitoreo de extracciones: ${d.mee}${fin?" "+cite(d.exp,"cbr",0):""}</li></ul>`}
+else if(/estacion|transmi|red/.test(s)){let L=ST.filter(x=>(!reg||x.reg==reg[0]));if(/sin trans|caid|fuera/.test(s))L=L.filter(x=>x.s==2);else if(/retraso/.test(s))L=L.filter(x=>x.s==1);
+a=L.length?`Encontré ${L.length} estación(es)${reg?" en "+esc(reg[1]):""}:<ul>${L.slice(0,6).map(x=>`<li>${esc(x.nm)}: ${SS[x.s]}${x.gap?", "+x.gap+" días sin datos":""} ${scite(x)}</li>`).join("")}</ul>`:`No hay estaciones con esa condición${reg?" en "+esc(reg[1]):""} en los datos de muestra.`}
+else if(/psad|datum/.test(s)){const L=D.filter(d=>d.dat=="PSAD56"&&!d.dup);a=`${L.length} derechos tienen coordenadas en datum PSAD56 y requieren transformación a WGS84 (regla de calidad «datum»):<ul>${L.slice(0,5).map(d=>`<li>${d.exp}, ${esc(d.regn)} ${cite(d.exp,d.est=="En trámite"?"sol":"inf",d.est=="En trámite"?0:2)}</li>`).join("")}</ul>`}
+else if(/duplic/.test(s)){a=`Hay 1 posible duplicado: ND-0403-4410 aparece con «Frutícola Del Valle S.A.» y «Fruticola del Valle SA». Se propone fusionar con revisión humana. ${cite("ND-0403-4410","res",0)}`}
+else if(/derecho|subterr|superfic|vigente|caudal/.test(s)||cue||reg){let L=D.filter(d=>!d.dup&&(!cue||d.cue==cue)&&(!reg||d.reg==reg[0]));if(/subterr/.test(s))L=L.filter(d=>d.nat=="Subterránea");if(/superfic/.test(s))L=L.filter(d=>d.nat=="Superficial");if(/vigente/.test(s))L=L.filter(d=>d.est=="Vigente");
+const tot=L.reduce((x,d)=>x+d.q,0);a=L.length?`Encontré ${L.length} derecho(s)${cue?" en la cuenca del "+esc(cue):""}${reg?" en "+esc(reg[1]):""}, con un total de ${nf(+tot.toFixed(1))} l/s:<ul>${L.slice(0,6).map(d=>`<li>${d.exp}, ${esc(d.tit)}: ${nf(d.q)} l/s, ${d.est.toLowerCase()} ${d.est=="En trámite"?cite(d.exp,"sol",0):cite(d.exp,"res",0)}</li>`).join("")}</ul>`:"No encontré derechos con esos criterios en los datos de muestra."}
+else a="No encontré una respuesta en las fuentes. Pruebe con un número de expediente (p. ej. ND-0401-2317), una cuenca, una región o «estaciones sin transmisión».";
+chat.push({a});drawChat()}
+function drawChat(){const el=document.getElementById("chat");el.innerHTML=chat.map(m=>m.u?`<div class="msg u">${esc(m.u)}</div>`:`<div class="msg a">${m.a}</div>`).join("");el.scrollTop=el.scrollHeight;
+el.querySelectorAll(".cite").forEach(c=>c.onclick=()=>{if(c.dataset.s){selS=c.dataset.s;red();go("red")}else openExp(c.dataset.e,c.dataset.k,+c.dataset.i)})}
+// ---------- navegación
+const TABS=["panel","red","derechos","expediente","calidad","asistente"];
+function go(k,keep){if(!TABS.includes(k))k="panel";document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t==k));document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id=="t-"+k));
+if(k=="expediente")setHash();else if(location.hash!="#"+k)history.replaceState(null,"","#"+k)}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.t));
+function route(){const h=location.hash.slice(1);if(h.startsWith("file=")){const p=Object.fromEntries(h.split("&").map(x=>x.split("=")));const d=byExp[decodeURIComponent(p.file)];if(d){const ds=docsP(d);const doc=ds.find(x=>x.k==p.doc)||ds[0];const i=Math.max(0,doc.pages.indexOf(+p.p));openExp(d.exp,doc.k,i);return}}go(h||"panel")}
+panel();red();derechos();viewer();calidad();drawChat();route();addEventListener("hashchange",route);
+</script>

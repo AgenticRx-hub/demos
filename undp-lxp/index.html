@@ -1,0 +1,277 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Global Learning LXP</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: navy header band with tabs; content grid of panels; one-column at phone width */
+:root{--bg:#f3f4f2;--card:#fff;--fg:#16212d;--muted:#566370;--line:#dfe3e2;--navy:#0F2A47;--gold:#B8914A;--accent:#1f6fb2;--ok:#2f7a4b;--okbg:#e2f0e6;--warn:#93650d;--warnbg:#f6edd5;--bad:#a3392f;--badbg:#f6dfdb;--idle:#dde2e4;--tint:#eef3f8;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--accent:#7fb3e6;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--tint:#1a2b3e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--accent:#7fb3e6;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--tint:#1a2b3e;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14.5px/1.5 var(--sans);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px;margin:0}
+header{background:var(--navy);color:#fff;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:16px max(16px,env(safe-area-inset-left,0px)) 0;border-bottom:3px solid var(--gold)}
+header .in,main{max-width:1180px;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font:600 22px var(--serif);text-wrap:balance}header p{margin:4px 0 12px;color:#d6c290;font-size:12px;letter-spacing:.08em}
+.lang{display:flex;gap:2px;background:rgba(255,255,255,.08);border-radius:6px;padding:3px}
+.lang button{font:600 13px var(--sans);background:transparent;color:#c9d3df;border:0;padding:5px 10px;border-radius:4px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--gold);color:#0F2A47}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav button{font:600 13.5px var(--sans);background:transparent;color:#c9d3df;border:0;padding:9px 14px;border-radius:6px 6px 0 0;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;margin:14px 0;font-size:13.5px}
+h2{font:600 18px var(--serif);margin:0 0 8px;text-wrap:balance}h3{font:600 14.5px var(--sans);margin:12px 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.g3{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}.kpi b{display:block;font:600 22px var(--mono);font-variant-numeric:tabular-nums}.kpi span{color:var(--muted);font-size:13px}
+.bar{height:8px;background:var(--idle);border-radius:4px;overflow:hidden;margin:4px 0 10px;position:relative}.bar>div{height:100%;background:var(--accent)}.bar>i{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--gold)}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:14px}.row b{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}.small{font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.course{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.course .thumb{height:54px;border-radius:4px;display:flex;align-items:flex-end;padding:6px 8px;color:#fff;font:600 12px var(--sans);letter-spacing:.06em}
+.course h4{margin:0;font:600 14.5px var(--sans)}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-size:12px;padding:1px 8px;border-radius:999px;background:var(--tint);color:var(--fg);white-space:nowrap}
+.chip.c{background:var(--warnbg);color:var(--warn)}.chip.ok{background:var(--okbg);color:var(--ok)}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input,select{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg);width:100%}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:600}
+td.wrapc{white-space:normal;min-width:220px}
+th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--fg)}th.sort[data-dir]::after{content:attr(data-dir);margin-left:4px;color:var(--gold)}
+td.n{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:13px}
+button.btn{font:600 13.5px var(--sans);background:var(--navy);color:#fff;border:1px solid var(--navy);border-radius:5px;padding:7px 12px;cursor:pointer}
+button.ghost{font:500 13px var(--sans);background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;margin:0 6px 6px 0}
+button.ghost:hover{border-color:var(--gold)}
+.tab{display:none}.tab.on{display:block}
+/* pathway */
+.path{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.step{border:1px solid var(--line);border-radius:6px;padding:10px;background:var(--bg);position:relative;font-size:13.5px}
+.step b{display:block;font-size:14px}.step.done{border-color:var(--ok)}.step.now{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+.step .st{font-size:12px;color:var(--muted)}
+.pl{display:flex;flex-direction:column;gap:6px}
+.pl button{text-align:left;font:600 14px var(--sans);background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:9px 11px;cursor:pointer}
+.pl button[aria-pressed="true"]{border-color:var(--gold);background:var(--tint)}
+.pl button small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.map{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:6px;margin-top:8px}
+.cmp{border-left:3px solid var(--gold);padding:4px 8px;font-size:13px;background:var(--bg);border-radius:0 4px 4px 0}
+/* heat */
+.heat td{text-align:center;font-family:var(--mono);font-size:12.5px}
+.heat td:first-child{text-align:left;font-family:var(--sans)}
+/* chat */
+.chat{display:flex;flex-direction:column;gap:10px;max-height:560px;overflow:auto;padding:4px}
+.msg{max-width:92%;padding:10px 12px;border-radius:8px;font-size:14px}
+.msg.u{align-self:flex-end;background:var(--navy);color:#fff}
+.msg.a{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.rec{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin-top:8px}
+.rec b{font-size:14px}.rec ul{margin:4px 0 0;padding-left:18px;font-size:13.5px}
+.ask{display:flex;gap:8px;margin-top:10px}
+svg text{fill:var(--muted);font:12px var(--sans)}
+@media (max-width:900px){.filters{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}.filters{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<header><div class="in"><div class="top"><div><h1 id="ttl">Global Learning Ecosystem: Learning Experience Platform</h1><p id="sub">AGENTIC RX LLC · DEMONSTRATION FOR UNDP-HQ-02334</p></div>
+<div class="lang" role="group" aria-label="Language"><button data-l="en" aria-pressed="true">EN</button><button data-l="fr" aria-pressed="false">FR</button><button data-l="es" aria-pressed="false">ES</button></div></div>
+<nav role="tablist">
+<button role="tab" data-t="home" aria-selected="true"></button>
+<button role="tab" data-t="paths" aria-selected="false"></button>
+<button role="tab" data-t="catalogue" aria-selected="false"></button>
+<button role="tab" data-t="analytics" aria-selected="false"></button>
+<button role="tab" data-t="assistant" aria-selected="false"></button>
+</nav></div></header>
+<main>
+<div class="note" id="note"></div>
+<section class="tab on" id="t-home"></section>
+<section class="tab" id="t-paths"></section>
+<section class="tab" id="t-catalogue"></section>
+<section class="tab" id="t-analytics"></section>
+<section class="tab" id="t-assistant"></section>
+</main>
+<script>
+let L="en";
+const I={
+en:{title:"Global Learning Ecosystem: Learning Experience Platform",sub:"AGENTIC RX LLC · DEMONSTRATION FOR UNDP-HQ-02334",note:"Illustrative sample data only. The learner, courses, figures and competency mapping are invented for demonstration and are not UNDP data.",
+tabs:["Learner home","Skills pathways","Course catalogue","Learning analytics","AI learning assistant"],
+hi:"Good morning, Amina",role:"Programme Analyst · Country Office, Nairobi · Grade NOB",
+k:["Hours this quarter","Courses completed","Pathway progress","Mandatory training"],cont:"Continue learning",gaps:"Skills profile against your role",target:"target",due:"Due",mand:"Mandatory courses",assigned:"Recommended for you",open:"Open",
+done:"Completed",now:"In progress",todo:"Not started",pathsH:"Skills-based pathways",pathsP:"Each pathway is a sequence of courses, practice tasks and peer activities. Every step is tagged to the UNDP competencies and technical skills it builds.",maps:"Competencies this pathway builds",steps:"steps",
+search:"Search title, skill or provider",all:"All",comp:"Competency",lang:"Language",fmt:"Format",lvl:"Level",sortby:"Sort by",cols:["Course","Competency","Format","Level","Duration","Rating","Languages","Updated"],shown:"courses shown",
+an:["Active learners (30 days)","Completions this quarter","Average rating","Courses in 3+ languages"],byReg:"Completions by region, this quarter",trend:"Monthly active learners",heat:"Skills coverage by region (% of staff at target level)",top:"Most completed courses",
+asH:"AI learning assistant",asP:"Ask in plain language. The assistant reads your skills profile, your role and the catalogue, and explains why it recommends each course. It never sees other learners' data.",ph:"e.g. I need to get better at data analysis for reporting",ask:"Ask",why:"Why this course",
+sugg:["I need to get better at data analysis for reporting","Something short on climate finance in French","Prepare me for a team leader role","What mandatory training do I still need?"],
+intro:"Hello Amina. I can suggest courses for a goal, find short options, or check your mandatory training. What would you like to work on?",
+gotit:"Here are courses that match your request, ranked for your profile:",none:"I could not match that to a skill in the catalogue. Try naming a skill, such as data analysis, gender, procurement, climate or leadership.",
+r_gap:"Closes your gap in {s} (you are at level {a}, your role needs {b})",r_lang:"Available in {l}",r_short:"Short: {d} min fits your 3 hours a week",r_rating:"Rated {r} by {n} colleagues",r_comp:"Builds the competency \"{c}\"",r_mand:"Mandatory for all personnel; due {d}",r_path:"Next step in your pathway \"{p}\"",
+mandA:"You have 2 mandatory courses still open:",min:"min",langs:{en:"English",fr:"French",es:"Spanish",ar:"Arabic"},fmts:{video:"Video",self:"Self-paced",cohort:"Cohort",micro:"Microlearning",webinar:"Live webinar"},lv:["Foundation","Intermediate","Advanced"]},
+fr:{title:"Écosystème mondial d'apprentissage : plateforme d'expérience d'apprentissage",sub:"AGENTIC RX LLC · DÉMONSTRATION POUR UNDP-HQ-02334",note:"Données d'exemple uniquement. L'apprenante, les cours, les chiffres et la correspondance des compétences sont fictifs et ne proviennent pas du PNUD.",
+tabs:["Accueil","Parcours de compétences","Catalogue","Analyses","Assistant IA"],
+hi:"Bonjour, Amina",role:"Analyste de programme · Bureau de pays, Nairobi · Classe NOB",
+k:["Heures ce trimestre","Cours terminés","Progression du parcours","Formations obligatoires"],cont:"Reprendre",gaps:"Profil de compétences par rapport au poste",target:"cible",due:"Échéance",mand:"Cours obligatoires",assigned:"Recommandés pour vous",open:"Ouvrir",
+done:"Terminé",now:"En cours",todo:"À commencer",pathsH:"Parcours fondés sur les compétences",pathsP:"Chaque parcours enchaîne des cours, des exercices pratiques et des activités entre pairs. Chaque étape est reliée aux compétences du PNUD qu'elle développe.",maps:"Compétences développées",steps:"étapes",
+search:"Rechercher un titre, une compétence ou un fournisseur",all:"Tous",comp:"Compétence",lang:"Langue",fmt:"Format",lvl:"Niveau",sortby:"Trier par",cols:["Cours","Compétence","Format","Niveau","Durée","Note","Langues","Mis à jour"],shown:"cours affichés",
+an:["Apprenants actifs (30 jours)","Cours terminés ce trimestre","Note moyenne","Cours en 3 langues ou plus"],byReg:"Cours terminés par région, ce trimestre",trend:"Apprenants actifs par mois",heat:"Couverture des compétences par région (% du personnel au niveau cible)",top:"Cours les plus suivis",
+asH:"Assistant d'apprentissage IA",asP:"Posez votre question en langage courant. L'assistant lit votre profil, votre poste et le catalogue, et explique chaque recommandation. Il ne voit jamais les données des autres apprenants.",ph:"ex. Je dois progresser en analyse de données",ask:"Demander",why:"Pourquoi ce cours",
+sugg:["Je dois progresser en analyse de données pour les rapports","Un cours court sur la finance climatique en français","Préparez-moi à un rôle de chef d'équipe","Quelles formations obligatoires me restent ?"],
+intro:"Bonjour Amina. Je peux proposer des cours pour un objectif, trouver des formats courts ou vérifier vos formations obligatoires. Sur quoi voulez-vous travailler ?",
+gotit:"Voici les cours qui correspondent à votre demande, classés selon votre profil :",none:"Je n'ai pas trouvé de compétence correspondante. Essayez par exemple : données, genre, achats, climat ou leadership.",
+r_gap:"Comble votre écart en {s} (niveau {a}, le poste exige {b})",r_lang:"Disponible en {l}",r_short:"Court : {d} min, compatible avec vos 3 heures par semaine",r_rating:"Noté {r} par {n} collègues",r_comp:"Développe la compétence « {c} »",r_mand:"Obligatoire pour tout le personnel ; échéance {d}",r_path:"Prochaine étape de votre parcours « {p} »",
+mandA:"Il vous reste 2 cours obligatoires :",min:"min",langs:{en:"anglais",fr:"français",es:"espagnol",ar:"arabe"},fmts:{video:"Vidéo",self:"Autoformation",cohort:"Cohorte",micro:"Micro-apprentissage",webinar:"Webinaire"},lv:["Fondamental","Intermédiaire","Avancé"]},
+es:{title:"Ecosistema mundial de aprendizaje: plataforma de experiencia de aprendizaje",sub:"AGENTIC RX LLC · DEMOSTRACIÓN PARA UNDP-HQ-02334",note:"Solo datos de ejemplo. La persona usuaria, los cursos, las cifras y el mapeo de competencias son ficticios y no son datos del PNUD.",
+tabs:["Inicio","Rutas de competencias","Catálogo","Analítica","Asistente IA"],
+hi:"Buenos días, Amina",role:"Analista de programas · Oficina de país, Nairobi · Grado NOB",
+k:["Horas este trimestre","Cursos completados","Avance de la ruta","Formación obligatoria"],cont:"Continuar",gaps:"Perfil de competencias frente al puesto",target:"meta",due:"Vence",mand:"Cursos obligatorios",assigned:"Recomendados para usted",open:"Abrir",
+done:"Completado",now:"En curso",todo:"Sin iniciar",pathsH:"Rutas basadas en competencias",pathsP:"Cada ruta combina cursos, tareas prácticas y actividades entre pares. Cada paso está vinculado a las competencias del PNUD que desarrolla.",maps:"Competencias que desarrolla",steps:"pasos",
+search:"Buscar título, competencia o proveedor",all:"Todos",comp:"Competencia",lang:"Idioma",fmt:"Formato",lvl:"Nivel",sortby:"Ordenar por",cols:["Curso","Competencia","Formato","Nivel","Duración","Valoración","Idiomas","Actualizado"],shown:"cursos mostrados",
+an:["Personas activas (30 días)","Cursos completados este trimestre","Valoración media","Cursos en 3 o más idiomas"],byReg:"Cursos completados por región, este trimestre",trend:"Personas activas por mes",heat:"Cobertura de competencias por región (% del personal en el nivel meta)",top:"Cursos más completados",
+asH:"Asistente de aprendizaje IA",asP:"Pregunte en lenguaje natural. El asistente lee su perfil, su puesto y el catálogo, y explica cada recomendación. Nunca ve datos de otras personas.",ph:"p. ej. Necesito mejorar en análisis de datos",ask:"Preguntar",why:"Por qué este curso",
+sugg:["Necesito mejorar en análisis de datos para informes","Algo corto sobre finanzas climáticas en francés","Prepárame para un rol de líder de equipo","¿Qué formación obligatoria me falta?"],
+intro:"Hola Amina. Puedo sugerir cursos para un objetivo, buscar opciones cortas o revisar su formación obligatoria. ¿En qué quiere trabajar?",
+gotit:"Estos cursos responden a su solicitud, ordenados según su perfil:",none:"No encontré una competencia que coincida. Pruebe con: datos, género, adquisiciones, clima o liderazgo.",
+r_gap:"Cierra su brecha en {s} (nivel {a}; el puesto requiere {b})",r_lang:"Disponible en {l}",r_short:"Corto: {d} min, encaja en sus 3 horas semanales",r_rating:"Valorado {r} por {n} colegas",r_comp:"Desarrolla la competencia «{c}»",r_mand:"Obligatorio para todo el personal; vence {d}",r_path:"Siguiente paso de su ruta «{p}»",
+mandA:"Le quedan 2 cursos obligatorios:",min:"min",langs:{en:"inglés",fr:"francés",es:"español",ar:"árabe"},fmts:{video:"Vídeo",self:"Autoaprendizaje",cohort:"Cohorte",micro:"Microaprendizaje",webinar:"Seminario web"},lv:["Básico","Intermedio","Avanzado"]}};
+const t=k=>I[L][k];
+// competencies (UNDP core competencies framework names used illustratively) + technical skills
+const C={ar:{en:"Achieve results",fr:"Obtenir des résultats",es:"Lograr resultados"},ti:{en:"Think innovatively",fr:"Penser de façon innovante",es:"Pensar de forma innovadora"},lc:{en:"Learn continuously",fr:"Apprendre en continu",es:"Aprender continuamente"},aa:{en:"Adapt with agility",fr:"S'adapter avec agilité",es:"Adaptarse con agilidad"},ep:{en:"Engage and partner",fr:"Mobiliser et collaborer",es:"Involucrar y asociarse"},di:{en:"Enable diversity and inclusion",fr:"Favoriser la diversité et l'inclusion",es:"Promover la diversidad y la inclusión"},ad:{en:"Act with determination",fr:"Agir avec détermination",es:"Actuar con determinación"}};
+const SK={data:{en:"data analysis",fr:"analyse de données",es:"análisis de datos",kw:["data","donn","dato","analy","analys","análisis","report","rapport","informe","statist"]},
+climate:{en:"climate finance",fr:"finance climatique",es:"finanzas climáticas",kw:["climat","clima","carbon","environment","environn"]},
+gender:{en:"gender equality",fr:"égalité des genres",es:"igualdad de género",kw:["gender","genre","género","women","femme","mujer","inclus"]},
+proc:{en:"procurement",fr:"achats",es:"adquisiciones",kw:["procure","achat","adquisi","contract","sourcing"]},
+lead:{en:"people leadership",fr:"leadership",es:"liderazgo",kw:["lead","manag","chef","líder","lider","équipe","equipo","team","supervis"]},
+digital:{en:"digital transformation",fr:"transformation numérique",es:"transformación digital",kw:["digital","numéri","ai ","ia ","artificial","tech"]},
+rbm:{en:"results-based management",fr:"gestion axée sur les résultats",es:"gestión basada en resultados",kw:["result","résultat","resultado","monitor","suivi","seguimiento","evaluat","m&e"]},
+ethics:{en:"ethics and integrity",fr:"éthique et intégrité",es:"ética e integridad",kw:["ethic","éthique","ética","integr","fraud","harass","harcè","acoso","mandatory","obligatoire","obligatori"]}};
+const ME={data:[1,3],climate:[1,2],gender:[2,3],proc:[2,2],lead:[1,2],digital:[2,3],rbm:[2,3],ethics:[3,3]};
+// courses: id, titles en/fr/es, skill, comp, fmt, level, minutes, rating, n, langs, provider, updated, mandatory
+const RAW=[
+["Data storytelling for development reports","Raconter les données dans les rapports de développement","Narrativa con datos para informes de desarrollo","data","ar","self",1,45,4.7,1240,["en","fr","es"],"UNDP Data Futures","2026-09-12"],
+["Introduction to statistics with spreadsheets","Introduction aux statistiques avec un tableur","Introducción a la estadística con hojas de cálculo","data","lc","micro",0,25,4.5,2210,["en","fr","es","ar"],"Partner MOOC","2026-06-02"],
+["Dashboards that decision-makers use","Des tableaux de bord utiles aux décideurs","Tableros que usan quienes deciden","data","ar","cohort",1,240,4.8,380,["en","es"],"UNDP Data Futures","2026-08-21"],
+["Survey design and sampling in the field","Conception d'enquêtes et échantillonnage","Diseño de encuestas y muestreo","data","ad","self",2,180,4.4,610,["en","fr"],"Partner university","2026-03-15"],
+["Climate finance in 20 minutes","La finance climatique en 20 minutes","Finanzas climáticas en 20 minutos","climate","lc","micro",0,20,4.6,1830,["en","fr","es","ar"],"UNDP Climate Hub","2026-10-01"],
+["Accessing vertical climate funds","Accéder aux fonds climatiques verticaux","Acceso a fondos climáticos verticales","climate","ep","self",1,120,4.5,720,["en","fr","es"],"UNDP Climate Hub","2026-07-19"],
+["Carbon markets and Article 6","Marchés du carbone et article 6","Mercados de carbono y artículo 6","climate","ti","webinar",2,90,4.3,290,["en","fr"],"Partner institute","2026-05-30"],
+["Gender equality seal for country offices","Le sceau égalité des genres pour les bureaux de pays","Sello de igualdad de género para oficinas de país","gender","di","self",1,60,4.6,980,["en","fr","es"],"UNDP Gender Team","2026-02-11"],
+["Gender analysis in programme design","Analyse de genre dans la conception de programmes","Análisis de género en el diseño de programas","gender","di","cohort",2,300,4.7,410,["en","es","ar"],"UNDP Gender Team","2026-09-03"],
+["Procurement essentials for programme staff","L'essentiel des achats pour le personnel de programme","Adquisiciones esenciales para personal de programas","proc","ar","self",0,90,4.2,2650,["en","fr","es"],"UNDP Procurement","2026-04-08"],
+["Sustainable procurement in practice","Achats durables en pratique","Adquisiciones sostenibles en la práctica","proc","ti","micro",1,30,4.4,540,["en","fr"],"UNDP Procurement","2026-08-30"],
+["Leading teams through change","Diriger une équipe dans le changement","Liderar equipos en el cambio","lead","aa","cohort",1,360,4.8,330,["en","fr","es"],"UNDP Leadership","2026-09-25"],
+["Feedback and coaching conversations","Conversations de feedback et de coaching","Conversaciones de retroalimentación y coaching","lead","ep","micro",0,15,4.6,1460,["en","fr","es","ar"],"UNDP Leadership","2026-06-17"],
+["First-time supervisor programme","Programme pour nouveaux superviseurs","Programa para nuevas jefaturas","lead","ad","cohort",1,600,4.7,220,["en","es"],"UNDP Leadership","2026-01-29"],
+["AI for development practitioners","L'IA pour les praticiens du développement","IA para profesionales del desarrollo","digital","ti","self",1,75,4.7,1720,["en","fr","es"],"UNDP Digital Office","2026-10-14"],
+["Digital public infrastructure basics","Bases de l'infrastructure publique numérique","Fundamentos de infraestructura pública digital","digital","ti","video",0,35,4.5,1190,["en","fr","es","ar"],"UNDP Digital Office","2026-07-07"],
+["Responsible use of generative AI","Utilisation responsable de l'IA générative","Uso responsable de la IA generativa","digital","lc","micro",0,20,4.6,3010,["en","fr","es","ar"],"UNDP Digital Office","2026-09-30"],
+["Theory of change workshop","Atelier sur la théorie du changement","Taller de teoría del cambio","rbm","ar","cohort",1,240,4.6,470,["en","fr","es"],"UNDP Strategy","2026-05-12"],
+["Monitoring and evaluation foundations","Fondamentaux du suivi et de l'évaluation","Fundamentos de seguimiento y evaluación","rbm","ar","self",0,120,4.4,1880,["en","fr","es"],"UNDP Strategy","2026-03-20"],
+["Ethics and integrity at UNDP","Éthique et intégrité au PNUD","Ética e integridad en el PNUD","ethics","ad","self",0,60,4.1,9100,["en","fr","es","ar"],"UNDP Ethics","2026-01-10","2026-11-30"],
+["Prevention of sexual exploitation and abuse","Prévention de l'exploitation et des abus sexuels","Prevención de la explotación y el abuso sexuales","ethics","di","self",0,45,4.3,8800,["en","fr","es","ar"],"UN system","2026-02-02","2026-12-15"],
+["Information security awareness","Sensibilisation à la sécurité de l'information","Concienciación sobre seguridad de la información","ethics","lc","micro",0,30,4.0,9400,["en","fr","es","ar"],"UNDP ITM","2026-06-01"]];
+const CO=RAW.map((r,i)=>({id:"C"+String(i+1).padStart(3,"0"),t:{en:r[0],fr:r[1],es:r[2]},sk:r[3],cp:r[4],fm:r[5],lv:r[6],min:r[7],rt:r[8],n:r[9],lg:r[10],pv:r[11],up:r[12],due:r[13]||null}));
+const byId=Object.fromEntries(CO.map(c=>[c.id,c]));
+const PATHS=[{id:"p1",t:{en:"Data for decisions",fr:"Les données au service des décisions",es:"Datos para decidir"},c:["C002","C001","C004","C003"],st:[2,1,0,0],cp:["ar","lc","ad"],sk:"data"},
+{id:"p2",t:{en:"Climate finance practitioner",fr:"Praticien de la finance climatique",es:"Profesional de finanzas climáticas"},c:["C005","C006","C007"],st:[2,0,0],cp:["lc","ep","ti"],sk:"climate"},
+{id:"p3",t:{en:"Emerging team leader",fr:"Futur chef d'équipe",es:"Líder de equipo emergente"},c:["C013","C012","C014","C018"],st:[0,0,0,0],cp:["ep","aa","ad","ar"],sk:"lead"},
+{id:"p4",t:{en:"Digital and AI fluency",fr:"Culture numérique et IA",es:"Fluidez digital y en IA"},c:["C017","C016","C015"],st:[2,2,1],cp:["lc","ti"],sk:"digital"}];
+const COL={data:"#1f6fb2",climate:"#2f7a4b",gender:"#8a4b9a",proc:"#9a6a10",lead:"#0F2A47",digital:"#2b7f8a",rbm:"#a3392f",ethics:"#5b6672"};
+const fmtMin=m=>m>=60?(Math.floor(m/60)+" h"+(m%60?" "+m%60:"")):m+" "+t("min");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fill=(s,o)=>s.replace(/\{(\w)\}/g,(m,k)=>o[k]);
+const lname=c=>c.lg.map(x=>x.toUpperCase()).join(" · ");
+function card(c){return `<div class="course"><div class="thumb" style="background:${COL[c.sk]}">${esc(SK[c.sk][L].toUpperCase())}</div><h4>${esc(c.t[L])}</h4><div class="small muted">${esc(c.pv)} · ${fmtMin(c.min)} · ${t("fmts")[c.fm]}</div><div class="chips"><span class="chip c">${esc(C[c.cp][L])}</span><span class="chip">${lname(c)}</span>${c.due?`<span class="chip" style="background:var(--badbg);color:var(--bad)">${t("due")} ${c.due}</span>`:""}</div></div>`}
+// HOME
+function home(){const pr=[["C001",62],["C015",35],["C006",10]];
+const gaps=Object.entries(ME).map(([k,[a,b]])=>`<div class="row"><span>${esc(SK[k][L])}</span><b>${a} / ${b}</b></div><div class="bar" title="${t("target")} ${b}"><div style="width:${a/3*100}%;background:${a<b?"var(--gold)":"var(--ok)"}"></div><i style="left:calc(${b/3*100}% - 2px)"></i></div>`).join("");
+document.getElementById("t-home").innerHTML=`<h2>${t("hi")}</h2><p class="muted" style="margin-top:-4px">${t("role")}</p>
+<div class="kpis">${[["14.5",0],["9",1],["38%",2],["4 / 6",3]].map(([v,i])=>`<div class="kpi"><b>${v}</b><span>${t("k")[i]}</span></div>`).join("")}</div>
+<div class="g3"><div class="panel"><h3 style="margin-top:0">${t("cont")}</h3>${pr.map(([id,p])=>{const c=byId[id];return `<div style="padding:8px 0;border-bottom:1px solid var(--line)"><div class="row"><b style="font-variant-numeric:normal">${esc(c.t[L])}</b><button class="ghost" data-open="${id}">${t("open")}</button></div><div class="small muted">${esc(SK[c.sk][L])} · ${esc(C[c.cp][L])}</div><div class="bar"><div style="width:${p}%"></div></div></div>`}).join("")}
+<h3>${t("mand")}</h3>${["C020","C021"].map(id=>{const c=byId[id];return `<div class="row" style="padding:4px 0"><span>${esc(c.t[L])}</span><span class="chip" style="background:var(--badbg);color:var(--bad)">${t("due")} ${c.due}</span></div>`}).join("")}</div>
+<div class="panel"><h3 style="margin-top:0">${t("gaps")}</h3><p class="small muted" style="margin-top:0">0 to 3 · <span style="color:var(--gold)">|</span> = ${t("target")}</p>${gaps}</div></div>
+<h3>${t("assigned")}</h3><div class="cards">${["C003","C015","C006","C013"].map(id=>card(byId[id])).join("")}</div>`;
+document.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{go("catalogue");document.getElementById("q").value=byId[b.dataset.open].t[L];cat()})}
+// PATHS
+let curP="p1";
+function paths(){const p=PATHS.find(x=>x.id==curP);const doneN=p.st.filter(x=>x==2).length;
+document.getElementById("t-paths").innerHTML=`<h2>${t("pathsH")}</h2><p class="muted" style="max-width:70ch">${t("pathsP")}</p>
+<div class="g3" style="grid-template-columns:1fr 2.4fr"><div class="pl">${PATHS.map(x=>`<button aria-pressed="${x.id==curP}" data-p="${x.id}">${esc(x.t[L])}<small>${x.c.length} ${t("steps")} · ${esc(SK[x.sk][L])}</small></button>`).join("")}</div>
+<div class="panel"><h3 style="margin-top:0">${esc(p.t[L])}</h3><div class="bar"><div style="width:${doneN/p.c.length*100}%;background:var(--ok)"></div></div>
+<div class="path">${p.c.map((id,i)=>{const c=byId[id];const s=p.st[i];return `<div class="step ${s==2?"done":s==1?"now":""}"><span class="st">${i+1} · ${[t("todo"),t("now"),t("done")][s]}</span><b>${esc(c.t[L])}</b><span class="small muted">${fmtMin(c.min)} · ${t("lv")[c.lv]}</span><div class="chips" style="margin-top:6px"><span class="chip c">${esc(C[c.cp][L])}</span></div></div>`}).join("")}</div>
+<h3>${t("maps")}</h3><div class="map">${p.cp.map(k=>`<div class="cmp"><b>${esc(C[k][L])}</b><br><span class="muted">${p.c.filter(id=>byId[id].cp==k).length} / ${p.c.length} ${t("steps")}</span></div>`).join("")}<div class="cmp" style="border-color:var(--accent)"><b>${esc(SK[p.sk][L])}</b><br><span class="muted">${ME[p.sk][0]} → ${ME[p.sk][1]}</span></div></div></div></div>`;
+document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{curP=b.dataset.p;paths()})}
+// CATALOGUE
+let sk="up",sd=-1;
+function catShell(){const o=(a,f)=>`<option value="">${t("all")}</option>`+a.map(x=>`<option value="${x}">${esc(f(x))}</option>`).join("");
+document.getElementById("t-catalogue").innerHTML=`<div class="filters"><div><label for="q">${t("search")}</label><input id="q" type="search"></div>
+<div><label for="fc">${t("comp")}</label><select id="fc">${o(Object.keys(C),k=>C[k][L])}</select></div>
+<div><label for="fl">${t("lang")}</label><select id="fl">${o(["en","fr","es","ar"],k=>t("langs")[k])}</select></div>
+<div><label for="ff">${t("fmt")}</label><select id="ff">${o(Object.keys(t("fmts")),k=>t("fmts")[k])}</select></div>
+<div><label for="fv">${t("lvl")}</label><select id="fv">${o([0,1,2],k=>t("lv")[k])}</select></div></div>
+<div class="panel"><div class="wrap"><table><thead><tr>${[["t",0],["cp",1],["fm",2],["lv",3],["min",4],["rt",5],["lg",6],["up",7]].map(([k,i])=>`<th class="sort" data-k="${k}">${t("cols")[i]}</th>`).join("")}</tr></thead><tbody id="cb"></tbody></table></div><p class="small muted" id="cn"></p></div>`;
+["q","fc","fl","ff","fv"].forEach(id=>document.getElementById(id).addEventListener("input",cat));
+document.querySelectorAll("th.sort").forEach(th=>th.onclick=()=>{if(sk==th.dataset.k)sd=-sd;else{sk=th.dataset.k;sd=1}cat()});cat()}
+function cat(){const q=document.getElementById("q").value.toLowerCase(),fc=fcv("fc"),fl=fcv("fl"),ff=fcv("ff"),fv=fcv("fv");
+let r=CO.filter(c=>(!q||(c.t[L]+" "+c.t.en+" "+c.pv+" "+SK[c.sk][L]).toLowerCase().includes(q))&&(!fc||c.cp==fc)&&(!fl||c.lg.includes(fl))&&(!ff||c.fm==ff)&&(fv===""||c.lv==fv));
+const v=c=>sk=="t"?c.t[L]:sk=="cp"?C[c.cp][L]:sk=="lg"?c.lg.length:c[sk];
+r.sort((a,b)=>{const x=v(a),y=v(b);return (typeof x=="string"?x.localeCompare(y):x-y)*sd});
+document.querySelectorAll("th.sort").forEach(th=>{if(th.dataset.k==sk)th.dataset.dir=sd>0?"▲":"▼";else delete th.dataset.dir});
+document.getElementById("cb").innerHTML=r.map(c=>`<tr><td class="wrapc"><b>${esc(c.t[L])}</b><br><span class="small muted">${esc(c.pv)} · ${esc(SK[c.sk][L])}</span></td><td>${esc(C[c.cp][L])}</td><td>${t("fmts")[c.fm]}</td><td>${t("lv")[c.lv]}</td><td class="n">${fmtMin(c.min)}</td><td class="n">${c.rt.toFixed(1)}</td><td class="n">${lname(c)}</td><td class="n">${c.up}</td></tr>`).join("");
+document.getElementById("cn").textContent=r.length+" / "+CO.length+" "+t("shown")}
+const fcv=id=>document.getElementById(id).value;
+// ANALYTICS
+const REG=[["Africa",4210,3120],["Arab States",1460,980],["Asia-Pacific",3380,2710],["Europe & CIS",1590,1240],["Latin America & Caribbean",2240,1880],["HQ & global units",2010,1530]];
+const RN={fr:["Afrique","États arabes","Asie-Pacifique","Europe et CEI","Amérique latine et Caraïbes","Siège et unités mondiales"],es:["África","Estados Árabes","Asia y el Pacífico","Europa y la CEI","América Latina y el Caribe","Sede y unidades globales"]};
+const rn=i=>L=="en"?REG[i][0]:RN[L][i];
+const HEAT=[[61,44,58,39,52,47],[48,31,55,42,63,58],[72,66,69,70,74,77],[57,39,62,55,59,49],[43,35,51,46,49,68],[64,58,67,61,66,73]];
+const HS=["data","climate","gender","proc","lead","digital"];
+function analytics(){const mx=Math.max(...REG.map(r=>r[2]));
+const bars=REG.map((r,i)=>{const y=12+i*34,w=r[2]/mx*300;return `<text x="0" y="${y+15}">${esc(rn(i))}</text><rect x="190" y="${y+3}" width="${w}" height="18" rx="2" fill="var(--accent)"></rect><text x="${196+w}" y="${y+16}" style="fill:var(--fg)">${r[2].toLocaleString("en-GB")}</text>`}).join("");
+const M=["Jun","Jul","Aug","Sep","Oct","Nov"],vals=[9100,9800,10400,11900,13600,14880];const X=i=>40+i*84,Y=v=>170-(v-8000)/8000*150;
+const ticks=[8000,10000,12000,14000,16000].map(v=>`<line x1="40" x2="470" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"></line><text x="0" y="${Y(v)+4}">${v/1000}k</text>`).join("");
+const pts=vals.map((v,i)=>X(i)+","+Y(v)).join(" ");
+const heat=`<table class="heat"><thead><tr><th></th>${REG.map((r,i)=>`<th style="white-space:normal;font-size:12px">${esc(rn(i))}</th>`).join("")}</tr></thead><tbody>${HS.map((s,j)=>`<tr><td>${esc(SK[s][L])}</td>${HEAT[j].map(v=>`<td style="background:color-mix(in srgb,var(--accent) ${Math.round((v-25)*1.3)}%,var(--card));color:${v>62?"#fff":"var(--fg)"}">${v}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+const top=[...CO].sort((a,b)=>b.n-a.n).slice(0,5);
+document.getElementById("t-analytics").innerHTML=`<div class="kpis">${[["14,880",0],["11,460",1],["4.5",2],["86%",3]].map(([v,i])=>`<div class="kpi"><b>${v}</b><span>${t("an")[i]}</span></div>`).join("")}</div>
+<div class="grid"><div class="panel"><h3 style="margin-top:0">${t("byReg")}</h3><div class="wrap"><svg viewBox="0 0 560 220" width="100%" role="img" aria-label="${t("byReg")}">${bars}</svg></div></div>
+<div class="panel"><h3 style="margin-top:0">${t("trend")}</h3><div class="wrap"><svg viewBox="0 0 480 200" width="100%" role="img" aria-label="${t("trend")}">${ticks}<polygon points="${X(0)},170 ${pts} ${X(5)},170" fill="var(--accent)" opacity=".12"></polygon><polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2.5"></polyline>${vals.map((v,i)=>`<circle cx="${X(i)}" cy="${Y(v)}" r="${i==5?5:3}" fill="${i==5?"var(--gold)":"var(--accent)"}"></circle><text x="${X(i)-10}" y="192">${M[i]}</text>`).join("")}</svg></div></div></div>
+<div class="panel" style="margin-top:14px"><h3 style="margin-top:0">${t("heat")}</h3><div class="wrap">${heat}</div></div>
+<div class="panel" style="margin-top:14px"><h3 style="margin-top:0">${t("top")}</h3>${top.map(c=>`<div class="row" style="padding:4px 0;border-bottom:1px solid var(--line)"><span>${esc(c.t[L])}</span><b>${c.n.toLocaleString("en-GB")}</b></div>`).join("")}</div>`}
+// ASSISTANT
+let chat=[];
+function assistant(){document.getElementById("t-assistant").innerHTML=`<div class="g3"><div class="panel"><h2>${t("asH")}</h2><p class="small muted" style="margin-top:0">${t("asP")}</p><div class="chat" id="chat"></div>
+<form class="ask" id="af"><input id="aq" placeholder="${esc(t("ph"))}" aria-label="${esc(t("ph"))}"><button class="btn" id="go" type="submit">${t("ask")}</button></form>
+<div style="margin-top:10px">${t("sugg").map(s=>`<button class="ghost" type="button">${esc(s)}</button>`).join("")}</div></div>
+<div class="panel"><h3 style="margin-top:0">${t("gaps")}</h3>${Object.entries(ME).map(([k,[a,b]])=>`<div class="row small"><span>${esc(SK[k][L])}</span><b>${a} / ${b}</b></div>`).join("")}<p class="small muted">${t("role")}</p></div></div>`;
+document.getElementById("af").onsubmit=e=>{e.preventDefault();const q=document.getElementById("aq").value.trim();if(q){answer(q);document.getElementById("aq").value=""}};
+document.querySelectorAll("#t-assistant .ghost").forEach(b=>b.onclick=()=>answer(b.textContent));
+if(!chat.length)chat.push({a:t("intro")});drawChat()}
+function drawChat(){const el=document.getElementById("chat");el.innerHTML=chat.map(m=>m.u?`<div class="msg u">${esc(m.u)}</div>`:`<div class="msg a">${m.a}</div>`).join("");el.scrollTop=el.scrollHeight}
+function answer(q){const s=" "+q.toLowerCase()+" ";chat.push({u:q});
+let langWant=/fran[cç]|french|francés/.test(s)?"fr":/espa[nñ]ol|spanish|espagnol/.test(s)?"es":/arab/.test(s)?"ar":null;
+const short=/short|court|corto|quick|rapide|r[aá]pid|20|minute/.test(s);
+if(/mandatory|obligatoire|obligatori/.test(s)){chat.push({a:t("mandA")+["C020","C021"].map(id=>recHtml(byId[id],["mand"])).join("")});drawChat();return}
+const skills=Object.keys(SK).filter(k=>SK[k].kw.some(w=>s.includes(w)));
+if(!skills.length){chat.push({a:t("none")});drawChat();return}
+let pool=CO.filter(c=>skills.includes(c.sk)&&!c.due);
+const score=c=>{let v=0;const [a,b]=ME[c.sk];v+=(b-a)*3;if(c.lv==Math.min(a,2))v+=3;if(langWant&&c.lg.includes(langWant))v+=4;if(langWant&&!c.lg.includes(langWant))v-=10;if(short)v+=c.min<=45?4:-3;v+=c.rt;const p=PATHS.find(p=>p.c.includes(c.id));if(p&&p.st[p.c.indexOf(c.id)]==2)v-=20;return v};
+pool.sort((x,y)=>score(y)-score(x));const pick=pool.slice(0,3);
+chat.push({a:t("gotit")+pick.map(c=>recHtml(c,["gap","comp",langWant?"lang":null,short||c.min<=45?"short":null,"path","rating"].filter(Boolean),langWant)).join("")});drawChat()}
+function recHtml(c,rs,lw){const [a,b]=ME[c.sk];const p=PATHS.find(p=>p.c.includes(c.id)&&p.st[p.c.indexOf(c.id)]<2);
+const R={gap:a<b?fill(t("r_gap"),{s:SK[c.sk][L],a,b}):null,comp:fill(t("r_comp"),{c:C[c.cp][L]}),lang:lw?fill(t("r_lang"),{l:t("langs")[lw]}):null,short:c.min<=45?fill(t("r_short"),{d:c.min}):null,path:p?fill(t("r_path"),{p:p.t[L]}):null,rating:fill(t("r_rating"),{r:c.rt.toFixed(1),n:c.n.toLocaleString("en-GB")}),mand:c.due?fill(t("r_mand"),{d:c.due}):null};
+const li=rs.map(k=>R[k]).filter(Boolean).slice(0,4);
+return `<div class="rec"><b>${esc(c.t[L])}</b> <span class="small muted">· ${fmtMin(c.min)} · ${lname(c)}</span><div class="small muted">${t("why")}:</div><ul>${li.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`}
+// shell
+const TABS=["home","paths","catalogue","analytics","assistant"];
+function go(k){if(!TABS.includes(k))k="home";document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t==k));document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id=="t-"+k));if(location.hash!="#"+k)history.replaceState(null,"","#"+k)}
+function render(){document.documentElement.lang=L;document.getElementById("ttl").textContent=t("title");document.getElementById("sub").textContent=t("sub");document.getElementById("note").textContent=t("note");
+document.querySelectorAll("nav button").forEach((b,i)=>b.textContent=t("tabs")[i]);
+document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l==L));
+home();paths();catShell();analytics();chat=[];assistant()}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.t));
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{L=b.dataset.l;try{localStorage.setItem("lxp-lang",L)}catch(e){}render()});
+try{const s=localStorage.getItem("lxp-lang");if(s&&I[s])L=s}catch(e){}
+render();go(location.hash.slice(1)||"home");addEventListener("hashchange",()=>go(location.hash.slice(1)));
+</script>
