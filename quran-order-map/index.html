@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Interactive map of the Quran's structure: mushaf and revelation order, Islahi's seven groups and surah pairs, al-Fatihah's stages, the rings of al-Baqarah and Ayat al-Kursi, Meccan and Medinan themes, and links between neighbouring surahs.">
+<style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}body{margin:0}[hidden]{display:none!important}</style>
+<title>Quran Order Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Sans+Condensed:wght@400;500;600&display=swap">
+<style>
+/* Layout: a single reading column; a 114-bar "spine" strip above, then the list in the chosen order */
+:root{
+  --bg:#f5f7f8; --panel:#ffffff; --ink:#18242c; --muted:#5b6b76; --line:#d9e1e6;
+  --mecca:#1f4f8f; --mecca-soft:#e3ecf7; --medina:#b5761a; --medina-soft:#f8ecd8; --accent:#1f4f8f;
+  --display:"Literata",Georgia,serif; --body:"Literata",Georgia,serif;
+  --label:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif; --arabic:"Amiri","Traditional Arabic",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f161b; --panel:#162028; --ink:#e4ebef; --muted:#97a7b2; --line:#2a3741;
+  --mecca:#7fa9e3; --mecca-soft:#1b2c42; --medina:#e2a856; --medina-soft:#3a2a12; --accent:#7fa9e3; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161b; --panel:#162028; --ink:#e4ebef; --muted:#97a7b2; --line:#2a3741;
+  --mecca:#7fa9e3; --mecca-soft:#1b2c42; --medina:#e2a856; --medina-soft:#3a2a12; --accent:#7fa9e3; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,40px);margin:0 0 6px;text-wrap:balance}
+.lede a{color:var(--accent)}
+.lede{color:var(--muted);max-width:68ch;margin:0 0 20px}
+.eyebrow{font-family:var(--label);text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:18px 0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}
+.seg button{font-family:var(--label);font-size:14px;border:0;background:transparent;color:var(--ink);padding:8px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.legend{display:flex;gap:14px;font-family:var(--label);font-size:13px;color:var(--muted)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.spine-box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 14px 10px;overflow-x:auto}
+.spine{display:flex;align-items:flex-end;gap:1px;height:90px;min-width:560px}
+.spine i{flex:1;border-radius:1px 1px 0 0;min-width:3px}
+.spine-top{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin-bottom:12px;min-width:0}
+.spine-groups{display:flex;gap:1px;min-width:560px;margin-top:3px}
+.spine-groups span{border-top:2px solid var(--ink);font-family:var(--label);font-size:11.5px;color:var(--muted);text-align:center;padding-top:2px;white-space:nowrap;overflow:hidden;margin:0 1px}
+.spine-groups span.k-run{border-top-color:var(--mecca)}
+.spine-groups span.d-run{border-top-color:var(--medina)}
+.spine-cap{display:flex;justify-content:space-between;font-family:var(--label);font-size:12px;color:var(--muted);margin-top:6px;min-width:560px}
+.note{font-size:14px;color:var(--muted);margin:10px 2px 0;max-width:72ch}
+.group{margin-top:34px}
+.ghead{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:8px}
+.ghead h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0}
+.ghead .theme{color:var(--muted);font-size:15px}
+.pair{border-left:3px solid var(--line);margin:8px 0;padding-left:10px;border-radius:0}
+.pair-lab{font-family:var(--label);font-size:12px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin:2px 0}
+.row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:4px 12px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
+.num{font-family:var(--label);font-variant-numeric:tabular-nums;font-size:15px;font-weight:600;color:var(--muted)}
+.name{min-width:0}
+.name b{font-weight:600}
+.ar{font-family:var(--arabic);font-size:19px;margin-left:8px}
+.mean{color:var(--muted);font-size:14px}
+.th{font-size:14.5px;color:var(--ink);opacity:.9;margin-top:2px}
+.meta{display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-family:var(--label);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip{font-family:var(--label);font-size:12px;font-weight:500;padding:1px 8px;border-radius:999px}
+.chip.k{background:var(--mecca-soft);color:var(--mecca)}
+.chip.d{background:var(--medina-soft);color:var(--medina)}
+.disp{border-bottom:1px dotted var(--muted);cursor:help}
+.period{margin-top:30px}
+.sect{margin-top:36px}
+.sect h2{font-family:var(--display);font-weight:600;font-size:24px;margin:2px 0 6px;text-wrap:balance}
+.sect>p{color:var(--muted);max-width:70ch;margin:0 0 14px}
+.blocks{display:flex;flex-direction:column;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.blk{display:grid;grid-template-columns:132px minmax(0,1fr);gap:4px 14px;align-items:center}
+.blk-l{font-family:var(--label);font-size:13px;color:var(--muted);line-height:1.3}
+.blk-l b{color:var(--ink);font-size:15px;font-weight:600}
+.bar{display:flex;gap:2px;height:30px;min-width:0}
+.seg-k,.seg-d,.seg-x{display:flex;align-items:center;justify-content:center;font-family:var(--label);font-size:12px;font-weight:500;min-width:40px;border-radius:3px;white-space:nowrap;overflow:hidden}
+.seg-k{background:var(--mecca);color:var(--bg)}
+.seg-d{background:var(--medina);color:var(--bg)}
+.seg-x{background:var(--mecca-soft);color:var(--mecca);border:1px dashed var(--mecca)}
+.bar button{border:0;cursor:pointer;padding:0 6px;transition:transform .12s, box-shadow .12s}
+.bar button:hover{transform:translateY(-2px)}
+.bar button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.bar button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--ink)}
+@media (prefers-reduced-motion:reduce){.bar button{transition:none}.bar button:hover{transform:none}}
+.detail{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.detail[data-t="k"]{border-top:4px solid var(--mecca)}
+.detail[data-t="d"],.detail[data-t="x"]{border-top:4px solid var(--medina)}
+.detail[data-t="x"]{border-top-color:var(--mecca)}
+.detail h3{font-family:var(--display);font-weight:600;font-size:19px;margin:4px 0 4px}
+.detail .frame{color:var(--muted);margin:0 0 10px;max-width:70ch}
+.ex{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ex li{display:grid;grid-template-columns:70px minmax(0,1fr);gap:10px;align-items:baseline}
+.ref{font-family:var(--label);font-weight:600;font-size:13px;font-variant-numeric:tabular-nums;color:var(--accent)}
+.ex b{font-weight:600}
+.contrast{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.cc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.cc.k{border-top:4px solid var(--mecca)}
+.cc.d{border-top:4px solid var(--medina)}
+.cc h3{font-family:var(--display);font-weight:600;font-size:20px;margin:2px 0 2px}
+.cc .when{font-family:var(--label);font-size:13px;color:var(--muted)}
+.cc dl{margin:12px 0 0;display:grid;grid-template-columns:96px minmax(0,1fr);gap:6px 10px;font-size:14.5px}
+.cc dt{font-family:var(--label);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:2px}
+.cc dd{margin:0}
+.cc.k h3{color:var(--mecca)} .cc.d h3{color:var(--medina)}
+.blk-t{grid-column:2;font-size:14px;color:var(--muted);margin-top:-2px}
+.flow{display:flex;justify-content:space-between;font-family:var(--label);font-size:12px;color:var(--muted);margin-left:146px}
+.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.lk{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.lk-h{font-family:var(--label);font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.03em}
+.lk-q{font-size:14.5px;margin:6px 0 0}
+.lk-q span{display:block;color:var(--muted);font-family:var(--label);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+.lk-n{font-size:14px;color:var(--muted);margin-top:8px;border-top:1px solid var(--line);padding-top:6px}
+.conn{font-size:13.5px;color:var(--accent);padding:6px 0 6px 56px;border-bottom:1px solid var(--line);background:var(--mecca-soft)}
+.conn b{font-family:var(--label);font-weight:600}
+.pair-note{font-size:14px;color:var(--muted);font-style:italic;margin:0 0 2px}
+@media (max-width:520px){.blk{grid-template-columns:1fr}.blk-t{grid-column:1}.flow{margin-left:0}.conn{padding-left:8px}}
+[data-src]{position:relative;cursor:help}
+[data-src]:focus{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.src-dot{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:7px;border-radius:50%;border:1px solid var(--muted);color:var(--muted);font-family:var(--label);font-size:10px;font-weight:600;vertical-align:3px;font-style:normal}
+[data-src]:hover>.src-dot,[data-src]:focus>.src-dot{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.srcpop{position:absolute;left:0;top:100%;z-index:30;display:none;width:min(360px,calc(100vw - 40px));margin-top:2px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:var(--label);font-size:13px;font-weight:400;font-style:normal;line-height:1.45;color:var(--ink);text-transform:none;letter-spacing:0;text-align:left;box-shadow:0 8px 24px color-mix(in srgb,var(--ink) 18%,transparent)}
+.srcpop b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:4px}
+.srcpop ul{margin:0;padding-left:16px}
+.srcpop li{margin:3px 0}
+.srcpop a{color:var(--accent)}
+[data-src]:hover>.srcpop,[data-src]:focus>.srcpop,[data-src]:focus-within>.srcpop{display:block}
+a.ref{text-decoration:none}
+a.ref:hover{text-decoration:underline}
+.jump{font-family:var(--label);font-size:14px;color:var(--accent);font-weight:500}
+.toolbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--navh));z-index:15;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px;margin-top:8px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:16;background:var(--bg)}
+.tgroup{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tlab{font-family:var(--label);font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.cnt{font-variant-numeric:tabular-nums;opacity:.7;margin-left:3px}
+.tstat{font-family:var(--label);font-size:13px;color:var(--muted)}
+#list-sect{scroll-margin-top:12px}
+.type-intro{color:var(--muted);font-size:14.5px;margin:-2px 0 8px;max-width:70ch}
+footer{margin-top:44px;font-size:14px;color:var(--muted);max-width:72ch}
+.mast{text-align:center;padding-block:clamp(22px,4vw,40px) clamp(18px,3vw,28px);border-bottom:1px solid var(--line)}
+.ar-b{font-family:var(--arabic);font-size:clamp(28px,5vw,40px);line-height:1.5;color:var(--accent);margin:0}
+.mast-bism-en{font-family:var(--label);font-size:13px;letter-spacing:.04em;color:var(--muted);margin:2px 0 14px}
+.mast h1{margin:0 0 16px}
+.mast-duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px 32px;max-width:820px;margin:0 auto}
+.mast-duas p{margin:0;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.ar-d{font-family:var(--arabic);font-size:clamp(20px,3.2vw,24px);line-height:1.6}
+.d-en{font-size:15px}
+.mast-duas .ref{font-family:var(--label);font-size:12px;color:var(--muted)}
+.mast-note{font-size:14.5px;color:var(--muted);font-style:italic;border-left:3px solid var(--line);padding-left:12px;border-radius:0}
+.sect>p a{color:var(--accent)}
+#orders-sect .spine-box{margin-top:6px}
+.brief-h{font-family:var(--display);font-weight:600;font-size:22px;margin:22px 0 10px}
+.brief{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.bcard{display:flex;flex-direction:column;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;color:var(--ink);text-decoration:none;min-width:0;transition:border-color .12s}
+.bcard:hover,.bcard:focus-visible{border-color:var(--accent);outline:none}
+.b-n{font-family:var(--display);font-weight:600;font-size:17px;color:var(--accent)}
+.b-n::after{content:" →";font-family:var(--label);font-size:14px}
+.b-what{font-size:14.5px}
+.b-why,.b-ex{font-size:14px;color:var(--muted)}
+.b-why b,.b-ex b{display:block;font-family:var(--label);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink);font-weight:600}
+.about-ex{font-size:14.5px;color:var(--muted);max-width:72ch;margin:14px 0 0}
+@media (prefers-reduced-motion:reduce){.bcard{transition:none}}
+.preface{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:clamp(18px,4vw,32px);margin-bottom:28px;text-align:center}
+.preface .bism{font-family:var(--arabic);font-size:clamp(26px,5vw,36px);line-height:1.6;margin:0}
+.preface .bism-en{color:var(--muted);font-size:15px;margin:2px 0 18px}
+.duas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:0 auto 20px;max-width:760px}
+.dua{border-top:2px solid var(--accent);padding-top:10px}
+.dua .d-ar{font-family:var(--arabic);font-size:clamp(20px,3.4vw,24px);line-height:1.7;margin:0}
+.dua .d-en{font-size:15px;margin:2px 0 0}
+.dua .d-ref{font-family:var(--label);font-size:12px;color:var(--muted)}
+.preface .note-body{max-width:64ch;margin:0 auto;text-align:left;font-size:16px}
+.preface .note-body p{margin:0 0 10px}
+.preface .note-body p:last-child{margin-bottom:0}
+:root{--navh:46px}
+.topnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.topnav ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;height:var(--navh);align-items:center;overflow-x:auto;scrollbar-width:none}
+.topnav ul::-webkit-scrollbar{display:none}
+.topnav a{display:block;font-family:var(--label);font-size:13.5px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px;white-space:nowrap}
+.topnav a:hover{color:var(--ink);background:var(--mecca-soft)}
+.topnav a[aria-current="true"]{color:var(--bg);background:var(--accent)}
+.topnav a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.sect,#overview{scroll-margin-top:calc(var(--navh) + 16px)}
+#list-sect{scroll-margin-top:calc(var(--navh) + 16px)}
+.anchor{font-family:var(--label);font-size:.7em;font-weight:500;color:var(--muted);text-decoration:none;margin-left:8px;opacity:.55}
+.anchor:hover,.anchor:focus-visible{opacity:1;color:var(--accent)}
+.copied{font-family:var(--label);font-size:12px;color:var(--accent);margin-left:6px}
+@media (min-width:1500px){.wrap{zoom:1.12}}
+@media (min-width:1900px){.wrap{zoom:1.25}}
+@media (min-width:2500px){.wrap{zoom:1.5}}
+@media (max-width:380px){body{font-size:15px}h1{font-size:26px}.sect h2{font-size:21px}}
+.fat{display:grid;grid-template-columns:110px minmax(0,1fr);gap:0 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.fat-band{grid-column:1;font-family:var(--label);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-right:3px solid var(--line);padding:10px 10px 10px 0;display:flex;align-items:center;justify-content:flex-end;text-align:right}
+.fat-band.a{border-right-color:var(--mecca);color:var(--mecca)}
+.fat-band.b{border-right-color:var(--ink);color:var(--ink)}
+.fat-band.c{border-right-color:var(--medina);color:var(--medina)}
+.fat-steps{grid-column:2;display:flex;flex-direction:column}
+.stage{padding:10px 0;border-bottom:1px solid var(--line);min-width:0}
+.stage:last-child{border-bottom:0}
+.stage .st-h{font-family:var(--label);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.stage .st-v{font-size:16px;margin:2px 0}
+.stage .st-v .ar{font-size:20px;margin-left:0;margin-right:8px}
+.stage .st-r{font-size:14.5px;color:var(--accent)}
+.stage .st-r::before{content:"Allah replies: ";font-family:var(--label);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.answer{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+.ans{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.ans .eyebrow{display:block;margin-bottom:4px}
+.ans.hi{border:2px solid var(--accent)}
+.ring{display:flex;flex-direction:column;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto}
+.ring button{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);background:var(--mecca-soft);color:var(--ink);font-family:var(--label);font-size:14px;padding:8px 14px;border-radius:6px;cursor:pointer;text-align:left;min-width:0;transition:background .12s,border-color .12s}
+.ring button .rv{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12.5px;white-space:nowrap}
+.ring button.ctr{background:var(--medina-soft);border-color:var(--medina);font-weight:600}
+.ring button.on{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.ring button.on .rv{color:var(--bg)}
+.ring button.ctr.on{background:var(--medina);border-color:var(--medina)}
+.ring button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.ring button{transition:none}}
+.rdetail{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
+.rcard{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:10px;padding:14px 16px;min-width:0}
+.rcard.ctr{border-top-color:var(--medina)}
+.rcard h3{font-family:var(--display);font-weight:600;font-size:18px;margin:2px 0 6px}
+.rlink{grid-column:1/-1;background:var(--mecca-soft);border-radius:10px;padding:12px 16px;font-size:15px}
+.rlink b{font-family:var(--label);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);display:block;margin-bottom:2px}
+@media (max-width:520px){.fat{grid-template-columns:1fr}.fat-band{grid-column:1;justify-content:flex-start;text-align:left;border-right:0;border-bottom:3px solid var(--line);padding:6px 0}.fat-band.a{border-bottom-color:var(--mecca)}.fat-band.b{border-bottom-color:var(--ink)}.fat-band.c{border-bottom-color:var(--medina)}.fat-steps{grid-column:1}}
+@media (max-width:520px){.row{grid-template-columns:36px minmax(0,1fr)}.meta{grid-column:2;flex-direction:row;align-items:center;justify-content:flex-start}}
+
+/* Unified scale: h1 page title, h2 section, h3 card/group, labels; every section = part label, heading, intro, content */
+:root{--fs-h1:clamp(34px,4.4vw,48px);--fs-h2:clamp(25px,2.8vw,31px);--fs-h3:19px;--fs-body:16px;--fs-small:14.5px;--fs-label:12px;--sect-gap:clamp(48px,6vw,76px)}
+h1,.sect h2,.ghead h3,.cc h3,.detail h3,.rcard h3,.lk-h{text-wrap:balance}
+.mast h1{font-family:var(--display);font-weight:600;font-size:var(--fs-h1);letter-spacing:-.01em;line-height:1.1}
+.sect{margin-top:var(--sect-gap);padding-top:clamp(24px,3vw,34px);border-top:1px solid var(--line)}
+#overview{margin-top:clamp(28px,4vw,44px);border-top:0;padding-top:0}
+.sect>.eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 8px}
+.part{font-weight:600;color:var(--bg);background:var(--accent);padding:2px 8px;border-radius:4px;letter-spacing:.06em}
+.sect>h2{font-family:var(--display);font-weight:600;font-size:var(--fs-h2);line-height:1.18;letter-spacing:-.005em;margin:0 0 10px}
+.sect>p{font-size:var(--fs-body);color:var(--muted);max-width:68ch;margin:0 0 18px;line-height:1.6}
+.sect>p:last-child{margin-bottom:0}
+#overview>p{color:var(--ink)}
+#overview>p.mast-note{color:var(--muted);font-size:var(--fs-small)}
+.ghead{border-bottom:1.5px solid var(--ink);padding-bottom:6px;margin-bottom:10px}
+.ghead h3{font-family:var(--display);font-weight:600;font-size:var(--fs-h3);margin:0;line-height:1.3}
+.group{margin-top:28px}
+.cc h3,.detail h3,.rcard h3{font-family:var(--display);font-weight:600;font-size:var(--fs-h3);line-height:1.3}
+.lk-h{font-size:13.5px}
+.eyebrow{font-size:var(--fs-label)}
+.blocks,.ring,.fat,.spine-box,.contrast,.links,.answer,.rdetail{margin-top:4px}
+.list-wrap .toolbar{margin-top:18px}
+@media (max-width:520px){.sect>h2{font-size:24px}.mast h1{font-size:32px}}
+
+/* Masthead band: full-bleed deep blue; overview spans the page in two columns */
+:root{--hero-bg:#0f2b4c;--hero-ink:#f3f6fa;--hero-muted:#b9c7d8;--hero-gold:#e6b866;--hero-line:rgba(255,255,255,.16)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--hero-bg:#0b1f38;--hero-line:rgba(255,255,255,.12)}}
+:root[data-theme="dark"]{--hero-bg:#0b1f38;--hero-line:rgba(255,255,255,.12)}
+html,body{overflow-x:clip}
+.mast{position:relative;isolation:isolate;text-align:center;color:var(--hero-ink);border-bottom:0;padding-block:clamp(26px,4vw,44px) clamp(24px,3.4vw,38px)}
+.mast::before{content:"";position:absolute;inset:0 calc(50% - 50vw);background:var(--hero-bg);z-index:-1}
+.mast-in{max-width:880px;margin:0 auto}
+.mast .ar-b{color:var(--hero-gold);font-size:clamp(28px,4.6vw,38px);margin:0}
+.mast .mast-bism-en{color:var(--hero-muted);margin:0 0 14px}
+.mast h1{color:var(--hero-ink);margin:0 0 6px}
+.mast-sub{color:var(--hero-muted);font-size:clamp(15px,1.6vw,17px);margin:0 auto 20px;max-width:56ch}
+.mast-duas{border-top:1px solid var(--hero-line);padding-top:16px;gap:10px 40px}
+.mast .ar-d{color:var(--hero-ink)}
+.mast .d-en{color:var(--hero-muted);font-size:14.5px}
+.mast .mast-duas .ref{color:var(--hero-gold)}
+.topnav{margin-bottom:0}
+#overview{margin-top:clamp(26px,3.4vw,40px)}
+.ov-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:start}
+.ov-main>p{color:var(--ink);margin:0 0 14px;max-width:none;line-height:1.6}
+.ov-parts{list-style:none;margin:0 0 14px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.ov-parts a{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--ink);text-decoration:none;font-family:var(--label);font-size:14px;font-weight:500;transition:border-color .12s}
+.ov-parts a:hover,.ov-parts a:focus-visible{border-color:var(--accent);outline:none}
+.ov-parts .part{font-size:11px;flex:none}
+.ov-ex{font-size:var(--fs-small)!important;color:var(--muted)!important}
+.ov-note{background:var(--mecca-soft);border-radius:10px;padding:16px 18px}
+.ov-note p{font-size:var(--fs-small);color:var(--ink);margin:6px 0 0;line-height:1.55}
+.ov-note .eyebrow{color:var(--accent);font-weight:600}
+@media (max-width:820px){.ov-grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.ov-parts a{transition:none}}
+.wrap{padding-block-start:0}
+.mast .ar-b{line-height:1.8}
+.mast .mast-bism-en{margin-top:6px}
+
+.kursi{display:flex;flex-direction:column;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:4px}
+.kursi button{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px 14px;border:1px solid var(--line);background:var(--mecca-soft);color:var(--ink);padding:8px 14px;border-radius:6px;cursor:pointer;text-align:left;min-width:0;transition:background .12s,border-color .12s}
+.kursi .k-tag{font-family:var(--label);font-weight:600;font-size:13px;color:var(--accent);min-width:22px}
+.kursi .k-en{font-size:14.5px;min-width:0}
+.kursi .k-ar{font-family:var(--arabic);font-size:clamp(18px,2.4vw,22px);line-height:1.6;text-align:right}
+.kursi button.ctr{background:var(--medina-soft);border-color:var(--medina)}
+.kursi button.ctr .k-tag{color:var(--medina)}
+.kursi button.on{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.kursi button.on .k-tag{color:var(--bg)}
+.kursi button.ctr.on{background:var(--medina);border-color:var(--medina)}
+.kursi button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.kdetail{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:10px;padding:14px 18px}
+.kdetail h3{font-family:var(--display);font-weight:600;font-size:var(--fs-h3);margin:2px 0 10px}
+.k-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px 24px}
+.k-pair .k-ar{font-family:var(--arabic);font-size:clamp(22px,3vw,27px);line-height:1.7;margin:0;text-align:right}
+.k-pair .k-en{margin:2px 0 0;font-size:15px}
+.k-why{margin:12px 0 0;color:var(--muted);font-size:var(--fs-small);max-width:72ch}
+@media (max-width:600px){.kursi button{grid-template-columns:auto minmax(0,1fr)}.kursi .k-ar{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.kursi button{transition:none}}
+.kursi button{font-family:var(--body)}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <nav class="topnav" aria-label="Sections"><ul id="navlist">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#orders-sect">Two orders</a></li>
+    <li><a href="#contrast-sect">Mecca &amp; Medina</a></li>
+    <li><a href="#blocks-sect">Seven blocks</a></li>
+    <li><a href="#list-sect">Full list</a></li>
+    <li><a href="#fatiha-sect">Al-Fatihah</a></li>
+    <li><a href="#ring-sect">Ring of al-Baqarah</a></li>
+    <li><a href="#kursi-sect">Ayat al-Kursi</a></li>
+    <li><a href="#links-sect">Neighbour links</a></li>
+  </ul></nav>
+  <header class="mast">
+    <div class="mast-in">
+      <p class="ar-b" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="mast-bism-en">In the name of Allah, the Most Merciful, the Ever-Merciful</p>
+      <h1>Quran Order Map</h1>
+      <p class="mast-sub">The structure of the Quran: its two orders, its groups, and the patterns within them</p>
+      <div class="mast-duas">
+        <p><span class="ar-d" lang="ar" dir="rtl">رَّبِّ زِدْنِي عِلْمًا</span><span class="d-en">My Lord, increase me in knowledge.</span><a class="ref" href="https://quran.com/20/114" target="_blank" rel="noopener">Ta-Ha 20:114</a></p>
+        <p><span class="ar-d" lang="ar" dir="rtl">رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا</span><span class="d-en">Our Lord, do not take us to task if we forget or make a mistake.</span><a class="ref" href="https://quran.com/2/286" target="_blank" rel="noopener">Al-Baqarah 2:286</a></p>
+      </div>
+    </div>
+  </header>
+
+  <section class="sect" id="overview">
+    <div class="eyebrow">Start here</div>
+    <h2>Overview</h2>
+    <div class="ov-grid">
+      <div class="ov-main">
+        <p>This page looks at how the Quran is put together: the order of its 114 surahs in the mushaf, the order in which they were revealed, and the patterns scholars have found in that arrangement. Blue marks Meccan surahs and gold marks Medinan ones throughout.</p>
+        <ol class="ov-parts">
+          <li><a href="#orders-sect"><span class="part">Part 1</span>The two orders</a></li>
+          <li><a href="#contrast-sect"><span class="part">Part 2</span>Mecca &amp; Medina</a></li>
+          <li><a href="#blocks-sect"><span class="part">Part 3</span>Seven blocks</a></li>
+          <li><a href="#list-sect"><span class="part">Part 4</span>Full list</a></li>
+          <li><a href="#fatiha-sect"><span class="part">Part 5</span>Al-Fatihah</a></li>
+          <li><a href="#ring-sect"><span class="part">Part 6</span>Ring of al-Baqarah</a></li>
+          <li><a href="#kursi-sect"><span class="part">Part 7</span>Ayat al-Kursi</a></li>
+          <li><a href="#links-sect"><span class="part">Part 8</span>Neighbour links</a></li>
+        </ol>
+        <p class="ov-ex"><b>These are general thematic summaries, not rules.</b> They describe broad tendencies that scholars have observed, and many surahs and verses cross these lines. The example verses in each part illustrate its point rather than summarise whole surahs; they are paraphrased, and each links to Quran.com for the Arabic and full translations.</p>
+      </div>
+      <aside class="ov-note" aria-label="A note from the author">
+        <span class="eyebrow">A note</span>
+        <p>This is not my own work. I gathered the research of classical and modern scholars, linked throughout, to put something useful in one place.</p>
+        <p>The Quran is a miracle, and I believe understanding its structure gives keys to understanding it.</p>
+        <p>I ask Allah for His guidance and His forgiveness for any mistake made here. Whatever is correct is from Allah, and any error is my own.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="sect" id="orders-sect">
+    <div class="eyebrow"><span class="part">Part 1</span>114 surahs · 6,236 verses</div>
+    <h2 data-src="tanzilmeta,tanzilorder,saleem">The Quran, in two orders</h2>
+    <p>The mushaf is not arranged in the order of revelation. Switch the chart between the mushaf order, a Meccan / Medinan split, and the order of revelation; hover over a bar to see which surah it is.</p>
+  <div class="spine-box" aria-label="Each bar is one surah; bar height shows its length">
+    <div class="spine-top">
+      <span class="tlab">Bar chart · 114 surahs</span>
+      <div class="seg" role="group" aria-label="Arrange the bar chart">
+        <button id="s-mushaf" aria-pressed="true">Mushaf order</button>
+        <button id="s-type" aria-pressed="false">Meccan / Medinan</button>
+        <button id="s-chron" aria-pressed="false">Revelation order</button>
+      </div>
+    </div>
+    <div class="spine" id="spine"></div>
+    <div class="spine-groups" id="spine-groups"></div>
+    <div class="spine-cap"><span id="cap-l">Al-Fatihah</span><span>bar height = number of verses (log scale)</span><span id="cap-r">An-Nas</span></div>
+  </div>
+  <p class="note" id="spine-note"></p>
+  </section>
+
+  <section class="sect" id="contrast-sect">
+    <div class="eyebrow"><span class="part">Part 2</span>Two phases of the mission</div>
+    <h2 data-src="itqan,tanzilorder">Mecca builds belief. Medina builds a community.</h2>
+    <p>In Mecca the Muslims were a persecuted minority with no state, so revelation shaped what they believed and who they were. In Medina they became a community with a city to run, so revelation added laws, institutions and rules for living together. These are strong tendencies, not rigid rules: Meccan surahs teach ethics, and Medinan surahs still teach belief.</p>
+    <div class="contrast">
+      <div class="cc k"><h3 data-src="itqan,tanzilorder,v:112:1-4,v:99:7-8,note">Meccan: belief</h3><div class="when">c. 610–622 CE · 86 surahs · about 13 years</div>
+        <dl>
+          <dt>Focus</dt><dd>Tawhid, the Hereafter, prophethood, and the moral character of the believer</dd>
+          <dt>Style</dt><dd>Short, rhythmic verses; oaths such as "By the dawn"; vivid scenes of the Day of Judgement</dd>
+          <dt>Address</dt><dd>Often "O mankind"; arguing with the idolaters of Quraysh</dd>
+          <dt>Example</dt><dd><b>112:1–4.</b> Say: He is Allah, One; Allah, the Eternal Refuge. He neither begets nor is born, and there is none comparable to Him.</dd>
+          <dt>Example</dt><dd><b>99:7–8.</b> Whoever does an atom's weight of good will see it, and whoever does an atom's weight of evil will see it.</dd>
+        </dl></div>
+      <div class="cc d"><h3 data-src="itqan,tanzilorder,v:2:183,v:49:10,note">Medinan: community</h3><div class="when">622–632 CE · 28 surahs · about 10 years</div>
+        <dl>
+          <dt>Focus</dt><dd>Worship as a community, family and inheritance law, money, war and treaties, the hypocrites</dd>
+          <dt>Style</dt><dd>Longer verses, detailed rulings, commentary on events such as Badr, Uhud and the Trench</dd>
+          <dt>Address</dt><dd>Often "O you who believe"; also the Jews and Christians of Medina</dd>
+          <dt>Example</dt><dd><b>2:183.</b> O you who believe, fasting is prescribed for you as it was for those before you, so that you may become mindful of Allah.</dd>
+          <dt>Example</dt><dd><b>49:10.</b> The believers are but brothers, so make peace between your brothers.</dd>
+        </dl></div>
+    </div>
+  </section>
+
+  <section class="sect" id="blocks-sect">
+    <div class="eyebrow"><span class="part">Part 3</span>Islahi's seven groups</div>
+    <h2 data-src="saleem,mir,wiki">Seven blocks, one repeated movement</h2>
+    <p>The groups follow the mushaf order: each one is a consecutive run of surahs exactly as they sit in the mushaf, from Group I (surahs 1–5) to Group VII (67–114). Each group opens with Meccan surahs that lay down belief and closes with Medinan surahs that build the community on it. The pattern runs seven times, each with a different central theme. Segment width shows the number of surahs; blue and gold here follow Islahi's own Meccan/Medinan reading of each group. <b>Tap any segment</b> to see verses from it.</p>
+    <div class="blocks" id="blocks"></div>
+    <div class="flow"><span>Belief (Mecca)</span><span>Community and law (Medina) →</span></div>
+    <div class="detail" id="detail" aria-live="polite"></div>
+  </section>
+
+  <div class="list-wrap">
+  <div class="sect" id="list-sect"><div class="eyebrow"><span class="part">Part 4</span>Every surah</div><h2 data-src="tanzilmeta,tanzilorder,saleem">The full list</h2><p>Every surah with its Arabic name, meaning, theme, verse count, type and place in the order of revelation. Arrange and filter it with the bar below, which stays on screen while you scroll.</p></div>
+  <div class="toolbar" id="toolbar">
+    <div class="tgroup"><span class="tlab">Arrange</span>
+      <div class="seg" role="group" aria-label="Arrange the list">
+        <button id="b-mushaf" aria-pressed="true">Mushaf order</button>
+        <button id="b-type" aria-pressed="false">Meccan / Medinan</button>
+        <button id="b-chron" aria-pressed="false">Revelation order</button>
+      </div></div>
+    <div class="tgroup"><span class="tlab">Show</span>
+      <div class="seg" role="group" aria-label="Show surahs">
+        <button id="f-all" aria-pressed="true">All <span class="cnt">114</span></button>
+        <button id="f-k" aria-pressed="false">Meccan <span class="cnt">86</span></button>
+        <button id="f-d" aria-pressed="false">Medinan <span class="cnt">28</span></button>
+      </div></div>
+    <span class="tstat" id="tstat" aria-live="polite"></span>
+  </div>
+
+  <div id="list"></div>
+  </div>
+
+  <section class="sect" id="fatiha-sect">
+    <div class="eyebrow"><span class="part">Part 5</span>The opening · Surah 1 · 7 verses</div>
+    <h2 data-src="muslim395,v:1:1-7,v:2:2-5,v:113:1,v:114:1,note">Al-Fatihah: five stages, five answers</h2>
+    <p>In a hadith qudsi, the Prophet ﷺ reported that Allah divided the prayer between Himself and His servant in two halves, and answers each verse of al-Fatihah as it is recited. The first half praises Allah, the middle verse is shared, and the last half is the servant's request. The hadith begins from "Praise be to Allah"; the basmalah (1:1) opens the surah before these stages.</p>
+    <div class="fat">
+      <div class="fat-band a">Allah's half</div>
+      <div class="fat-steps">
+        <div class="stage"><div class="st-h">Stage 1 · Praise · <a class="ref" href="https://quran.com/1/2" target="_blank" rel="noopener">1:2</a></div><div class="st-v"><span class="ar" lang="ar" dir="rtl">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</span> Praise be to Allah, Lord of the worlds.</div><div class="st-r">"My servant has praised Me."</div></div>
+        <div class="stage"><div class="st-h">Stage 2 · Mercy · <a class="ref" href="https://quran.com/1/3" target="_blank" rel="noopener">1:3</a></div><div class="st-v"><span class="ar" lang="ar" dir="rtl">الرَّحْمَٰنِ الرَّحِيمِ</span> The Most Merciful, the Ever-Merciful.</div><div class="st-r">"My servant has extolled Me."</div></div>
+        <div class="stage"><div class="st-h">Stage 3 · Sovereignty · <a class="ref" href="https://quran.com/1/4" target="_blank" rel="noopener">1:4</a></div><div class="st-v"><span class="ar" lang="ar" dir="rtl">مَالِكِ يَوْمِ الدِّينِ</span> Master of the Day of Judgement.</div><div class="st-r">"My servant has glorified Me."</div></div>
+      </div>
+      <div class="fat-band b">Between Allah and His servant</div>
+      <div class="fat-steps">
+        <div class="stage"><div class="st-h">Stage 4 · Commitment · <a class="ref" href="https://quran.com/1/5" target="_blank" rel="noopener">1:5</a></div><div class="st-v"><span class="ar" lang="ar" dir="rtl">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ</span> You alone we worship, and You alone we ask for help.</div><div class="st-r">"This is between Me and My servant, and My servant shall have what he asked for."</div></div>
+      </div>
+      <div class="fat-band c">The servant's half</div>
+      <div class="fat-steps">
+        <div class="stage"><div class="st-h">Stage 5 · Request · <a class="ref" href="https://quran.com/1/6-7" target="_blank" rel="noopener">1:6–7</a></div><div class="st-v"><span class="ar" lang="ar" dir="rtl">اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ</span> Guide us to the straight path: the path of those You have blessed, not of those who earned anger, nor of those who went astray.</div><div class="st-r">"This is for My servant, and My servant shall have what he asked for."</div></div>
+      </div>
+    </div>
+    <div class="answer">
+      <div class="ans hi"><span class="eyebrow">The answer, one verse later · <a class="ref" href="https://quran.com/2/2" target="_blank" rel="noopener">2:2</a></span>This is the Book, about which there is no doubt, guidance for the God-conscious. The request for guidance is answered by the Quran itself.</div>
+      <div class="ans"><span class="eyebrow">The path described · <a class="ref" href="https://quran.com/2/3-5" target="_blank" rel="noopener">2:3–5</a></span>Those who believe in the unseen, establish prayer and spend from what they are given. "They are upon guidance from their Lord": the blessed path, now with a description.</div>
+      <div class="ans"><span class="eyebrow">The close of the Quran · <a class="ref" href="https://quran.com/113" target="_blank" rel="noopener">113</a> &amp; <a class="ref" href="https://quran.com/114" target="_blank" rel="noopener">114</a></span>The Quran opens by asking for guidance and closes with two prayers for refuge: protection from whatever would pull the guided person off the path.</div>
+    </div>
+  </section>
+
+  <section class="sect" id="ring-sect">
+    <div class="eyebrow"><span class="part">Part 6</span>Ring composition · Surah 2 · 286 verses</div>
+    <h2 data-src="farrin,farrinapp,v:2:143,note">The ring of al-Baqarah</h2>
+    <p>Al-Baqarah was revealed over roughly nine years, yet its nine sections mirror one another around a centre: the first matches the last, the second matches the second-to-last, and so on. <b>Tap any section</b> to see it beside its mirror. Section boundaries follow Raymond Farrin's analysis and are approximate.</p>
+    <div class="ring" id="ring" role="group" aria-label="Sections of al-Baqarah"></div>
+    <div class="rdetail" id="rdetail" aria-live="polite"></div>
+  </section>
+
+  <section class="sect" id="kursi-sect">
+    <div class="eyebrow"><span class="part">Part 7</span>The greatest verse · Al-Baqarah 2:255</div>
+    <h2 data-src="tarteel,muslim810,v:2:255,note">Ayat al-Kursi: a ring within the ring</h2>
+    <p>The Prophet ﷺ called Ayat al-Kursi the greatest verse of the Book (Sahih Muslim 810). It sits in section B′ of al-Baqarah's ring, the section on Allah's creation and knowledge, and it has a mirror of its own: nine phrases around a centre that is also about His knowledge. <b>Tap any line</b> to see its pair. This mirror reading is a modern literary observation rather than classical tafsir.</p>
+    <div class="kursi" id="kursi" role="group" aria-label="Phrases of Ayat al-Kursi"></div>
+    <div class="kdetail" id="kdetail" aria-live="polite"></div>
+  </section>
+
+  <section class="sect" id="links-sect">
+    <div class="eyebrow"><span class="part">Part 8</span>Munasabat · links between neighbours</div>
+    <h2 data-src="biqai,tanasuq,quran">Where one surah hands off to the next</h2>
+    <p>Classical scholars such as al-Biqa'i (<i>Nazm al-Durar</i>) and as-Suyuti traced how the close of one surah connects to the opening of the next. A selection of the clearest examples, in paraphrased translation. Each also appears as a highlighted connector in the mushaf list below.</p>
+    <div class="links" id="links"></div>
+  </section>
+
+
+  <footer>
+    <p><b>Sources and caveats.</b> Group boundaries and themes follow Islahi's <i>Tadabbur-i-Qur'an</i> as summarised by Shehzad Saleem and Mustansir Mir (<i>Coherence in the Qur'an</i>). Pairs are shown in Islahi's sequential scheme; in a few places he treats a surah as a supplement to a pair rather than a pair member, so check his commentary for the exact pairing inside Groups III–VI. Meccan and Medinan labels and the revelation sequence follow the 1924 Cairo (Al-Azhar) mushaf; that sequence is a traditional reconstruction, and scholars differ on the classification of about a dozen surahs, marked with a dotted underline. Surah themes are short summaries for orientation, not tafsir.</p>
+  </footer>
+</div>
+
+<script>
+const AR="الفاتحة البقرة آل_عمران النساء المائدة الأنعام الأعراف الأنفال التوبة يونس هود يوسف الرعد إبراهيم الحجر النحل الإسراء الكهف مريم طه الأنبياء الحج المؤمنون النور الفرقان الشعراء النمل القصص العنكبوت الروم لقمان السجدة الأحزاب سبأ فاطر يس الصافات ص الزمر غافر فصلت الشورى الزخرف الدخان الجاثية الأحقاف محمد الفتح الحجرات ق الذاريات الطور النجم القمر الرحمن الواقعة الحديد المجادلة الحشر الممتحنة الصف الجمعة المنافقون التغابن الطلاق التحريم الملك القلم الحاقة المعارج نوح الجن المزمل المدثر القيامة الإنسان المرسلات النبأ النازعات عبس التكوير الانفطار المطففين الانشقاق البروج الطارق الأعلى الغاشية الفجر البلد الشمس الليل الضحى الشرح التين العلق القدر البينة الزلزلة العاديات القارعة التكاثر العصر الهمزة الفيل قريش الماعون الكوثر الكافرون النصر المسد الإخلاص الفلق الناس".split(" ").map(s=>s.replace("_"," "));
+const V=[7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
+const S=[
+["Al-Fatihah","The Opening","Praise, mercy, judgement, and the prayer for guidance"],
+["Al-Baqarah","The Cow","Founding law for the new ummah, heir to Bani Isra'il"],
+["Al Imran","Family of Imran","Steadfastness after Uhud; address to the Christians"],
+["An-Nisa","The Women","Family, inheritance, justice and the weak in society"],
+["Al-Ma'idah","The Table Spread","Fulfilling covenants; completion of the law"],
+["Al-An'am","The Cattle","Tawhid argued against Meccan idolatry"],
+["Al-A'raf","The Heights","History of prophets and the nations that rejected them"],
+["Al-Anfal","Spoils of War","Lessons of Badr; trust and discipline"],
+["At-Tawbah","Repentance","Dissolving treaties with idolaters; exposing hypocrites"],
+["Yunus","Jonah","Revelation, signs, and the possibility of repentance"],
+["Hud","Hud","Warnings through the destroyed nations"],
+["Yusuf","Joseph","Patience and trust through trial to triumph"],
+["Ar-Ra'd","The Thunder","Truth versus falsehood; signs in nature"],
+["Ibrahim","Abraham","Gratitude, Ibrahim's prayer for Mecca"],
+["Al-Hijr","The Rocky Tract","Preservation of the revelation; Iblis's pride"],
+["An-Nahl","The Bee","Blessings of Allah as proof of tawhid"],
+["Al-Isra","The Night Journey","The Isra; moral code; the Quran's authority"],
+["Al-Kahf","The Cave","Four stories of trial: faith, wealth, knowledge, power"],
+["Maryam","Mary","Mercy through the prophets; Maryam and 'Isa"],
+["Ta-Ha","Ta-Ha","Musa's mission as comfort to the Prophet"],
+["Al-Anbiya","The Prophets","The one message of all the prophets"],
+["Al-Hajj","The Pilgrimage","The Ka'bah, Hajj, and permission to fight"],
+["Al-Mu'minun","The Believers","Qualities of the successful believers"],
+["An-Nur","The Light","Laws of modesty and the Light verse"],
+["Al-Furqan","The Criterion","Objections to the Prophet answered; servants of the Most Merciful"],
+["Ash-Shu'ara","The Poets","Prophets rejected by their peoples; revelation is not poetry"],
+["An-Naml","The Ant","Sulayman, Bilqis, and signs of the Creator"],
+["Al-Qasas","The Stories","Musa's early life; Pharaoh's downfall"],
+["Al-'Ankabut","The Spider","Faith is tested; false protectors are a spider's web"],
+["Ar-Rum","The Romans","Prophecy of Roman victory; signs in creation"],
+["Luqman","Luqman","A father's wisdom to his son"],
+["As-Sajdah","The Prostration","Creation, resurrection, and humble believers"],
+["Al-Ahzab","The Confederates","Siege of Medina; the Prophet's household"],
+["Saba","Sheba","Gratitude and ingratitude: Dawud, Sulayman, Saba"],
+["Fatir","The Originator","Allah the Creator; the reciters of the Book"],
+["Ya-Sin","Ya-Sin","Heart of the Quran: messengers, signs, resurrection"],
+["As-Saffat","Those Ranged in Ranks","Angels, prophets, and Ibrahim's sacrifice"],
+["Sad","Sad","Dawud and Sulayman; the arrogance of Iblis"],
+["Az-Zumar","The Groups","Sincere worship; the people led in groups"],
+["Ghafir","The Forgiver","The believer in Pharaoh's court"],
+["Fussilat","Explained in Detail","The Quran's clarity; the senses testify"],
+["Ash-Shura","Consultation","One religion for all prophets; mutual consultation"],
+["Az-Zukhruf","Gold Ornaments","Worldly glitter versus truth"],
+["Ad-Dukhan","The Smoke","The night of revelation; warning of the smoke"],
+["Al-Jathiyah","The Kneeling","Signs ignored; every nation kneeling at judgement"],
+["Al-Ahqaf","The Sand Dunes","'Ad's fate; the jinn who listened"],
+["Muhammad","Muhammad","Fighting the aggressors; the hypocrites' hesitation"],
+["Al-Fath","The Victory","Hudaybiyyah as a clear victory"],
+["Al-Hujurat","The Rooms","Manners of the community and brotherhood"],
+["Qaf","Qaf","Resurrection and the record of deeds"],
+["Adh-Dhariyat","The Scattering Winds","Provision, Ibrahim's guests, purpose of creation"],
+["At-Tur","The Mount","Certainty of the punishment; delights of paradise"],
+["An-Najm","The Star","The Prophet's vision; false goddesses refuted"],
+["Al-Qamar","The Moon","Splitting of the moon; the Quran made easy to remember"],
+["Ar-Rahman","The Most Merciful","Which of your Lord's favours will you deny?"],
+["Al-Waqi'ah","The Inevitable","The three groups on the Day"],
+["Al-Hadid","Iron","Spending in Allah's way; the heart's humility"],
+["Al-Mujadilah","The Pleading Woman","Allah hears; secret counsels"],
+["Al-Hashr","The Exile","Banu Nadir's expulsion; Allah's beautiful names"],
+["Al-Mumtahanah","She Who Is Examined","Loyalty and relations with non-Muslims"],
+["As-Saff","The Ranks","Unity in striving; 'Isa's glad tidings"],
+["Al-Jumu'ah","Friday","The Friday prayer; carrying the Book"],
+["Al-Munafiqun","The Hypocrites","Traits of the hypocrites"],
+["At-Taghabun","Mutual Loss and Gain","The day of reckoning gains and losses"],
+["At-Talaq","Divorce","Laws of divorce; taqwa makes a way out"],
+["At-Tahrim","The Prohibition","The Prophet's household; sincere repentance"],
+["Al-Mulk","The Dominion","Allah's sovereignty; life as a test"],
+["Al-Qalam","The Pen","The Prophet's great character; the garden owners"],
+["Al-Haqqah","The Reality","The Day of Reality; the book in the right hand"],
+["Al-Ma'arij","The Ascending Stairways","Human impatience; traits of those who pray"],
+["Nuh","Noah","Nuh's long da'wah"],
+["Al-Jinn","The Jinn","Jinn who believed upon hearing the Quran"],
+["Al-Muzzammil","The Wrapped One","Night prayer and preparing for the mission"],
+["Al-Muddaththir","The Cloaked One","Arise and warn"],
+["Al-Qiyamah","The Resurrection","Resurrection and the self-reproaching soul"],
+["Al-Insan","Man","Human choice; the reward of the righteous"],
+["Al-Mursalat","Those Sent Forth","Woe that Day to the deniers"],
+["An-Naba","The Great News","Signs of creation and the Day"],
+["An-Nazi'at","Those Who Pull Out","Musa and Pharaoh; the Hour"],
+["'Abasa","He Frowned","The blind man; value of every seeker"],
+["At-Takwir","The Folding Up","Cosmic upheaval; the buried girl"],
+["Al-Infitar","The Cleaving","Recording angels; what deceived you?"],
+["Al-Mutaffifin","The Defrauders","Cheating in measure; 'Illiyyin and Sijjin"],
+["Al-Inshiqaq","The Splitting Open","Toiling toward the Lord"],
+["Al-Buruj","The Constellations","People of the ditch; patience in persecution"],
+["At-Tariq","The Night Comer","Every soul has a guardian"],
+["Al-A'la","The Most High","Purify and remember; the hereafter is better"],
+["Al-Ghashiyah","The Overwhelming","Faces on the Day; reflect on camels and sky"],
+["Al-Fajr","The Dawn","Fallen nations; the soul at peace"],
+["Al-Balad","The City","The steep path: freeing slaves, feeding the needy"],
+["Ash-Shams","The Sun","Purifying the soul; Thamud's she-camel"],
+["Al-Layl","The Night","Two paths: giving versus hoarding"],
+["Ad-Duha","The Morning Light","Your Lord has not forsaken you"],
+["Ash-Sharh","The Opening Up","With hardship comes ease"],
+["At-Tin","The Fig","Best of forms and the lowest of the low"],
+["Al-'Alaq","The Clinging Clot","Read! The first revelation"],
+["Al-Qadr","The Night of Decree","Better than a thousand months"],
+["Al-Bayyinah","The Clear Proof","Pure religion; best and worst of creation"],
+["Az-Zalzalah","The Earthquake","The earth reports every atom's weight"],
+["Al-'Adiyat","The Chargers","Human ingratitude"],
+["Al-Qari'ah","The Striking Calamity","The scales of deeds"],
+["At-Takathur","Competing for More","Rivalry in increase distracts you"],
+["Al-'Asr","Time","Faith, good deeds, truth and patience"],
+["Al-Humazah","The Slanderer","The backbiter and the hoarder"],
+["Al-Fil","The Elephant","Abrahah's army destroyed"],
+["Quraysh","Quraysh","Security of Quraysh; worship the Lord of this House"],
+["Al-Ma'un","Small Kindnesses","Neglect of the orphan and of prayer"],
+["Al-Kawthar","Abundance","Abundance given; pray and sacrifice"],
+["Al-Kafirun","The Disbelievers","To you your religion, to me mine"],
+["An-Nasr","The Help","Victory and people entering Islam in crowds"],
+["Al-Masad","The Palm Fibre","Abu Lahab's end"],
+["Al-Ikhlas","Sincerity","Pure tawhid"],
+["Al-Falaq","The Daybreak","Refuge from outward evils"],
+["An-Nas","Mankind","Refuge from the whisperer within"]];
+const CHRON=[96,68,73,74,1,111,81,87,92,89,93,94,103,100,108,102,107,109,105,113,114,112,53,80,97,91,85,95,106,101,75,104,77,50,90,86,54,38,7,72,36,25,35,19,20,56,26,27,28,17,10,11,12,15,6,37,31,34,39,40,41,42,43,44,45,46,51,88,18,16,71,14,21,23,32,52,67,69,70,78,79,82,84,30,29,83,2,8,3,33,60,4,99,57,47,13,55,76,65,98,59,24,22,63,58,49,66,64,61,62,48,5,9,110];
+const MED=new Set([2,3,4,5,8,9,13,22,24,33,47,48,49,55,57,58,59,60,61,62,63,64,65,66,76,98,99,110]);
+const DISPUTED=new Set([13,22,55,76,98,99,1,47,61,64,83,112,113,114]);
+const GROUPS=[[1,5,"I","Islamic law"],[6,9,"II","Consequences for the Meccan idolaters of denying the Prophet"],[10,24,"III","Glad tidings of the Prophet's victory"],[25,33,"IV","Proofs of the Prophethood and what faith in it requires"],[34,49,"V","Proofs of tawhid and what faith in it requires"],[50,66,"VI","Proofs of the Hereafter and what faith in it requires"],[67,114,"VII","Warning to Quraysh of their fate if they reject the Prophet"]];
+const SUPP=new Set([24,33,66]);
+const SRC={
+ tanzilmeta:["Tanzil, Quran Metadata: surah names and verse counts","https://tanzil.net/docs/quran_metadata"],
+ tanzilorder:["Tanzil, Revelation Order: traditional sequence with Meccan/Medinan type (after al-Zanjani, Tarikh al-Qur'an)","https://tanzil.net/docs/revelation_order"],
+ saleem:["Shehzad Saleem, “Tadabbur-i-Qur'an: An Outline of its Pattern of Nazm”, Renaissance","https://www.monthly-renaissance.com/issue/content.aspx?id=723"],
+ mir:["Mustansir Mir, Thematic and Structural Coherence in the Qur'an: A Study of Islahi's Concept of Nazm (PhD thesis, 1983)","https://deepblue.lib.umich.edu/items/62678978-2328-464f-b00d-06d6924869ea/full"],
+ wiki:["“Tadabbur-i-Quran”, Wikipedia","https://en.wikipedia.org/wiki/Tadabbur-i-Quran"],
+ islahi:["Amin Ahsan Islahi, Tadabbur-i-Qur'an (commentary, 9 vols)","https://amin-ahsan-islahi.org/urdu-books/"],
+ itqan:["Jalal al-Din as-Suyuti, al-Itqan fi 'Ulum al-Qur'an, chapter on Meccan and Medinan surahs",null],
+ biqai:["Burhan al-Din al-Biqa'i, Nazm al-Durar fi Tanasub al-Ayat wa al-Suwar",null],
+ tanasuq:["Jalal al-Din as-Suyuti, Tanasuq al-Durar fi Tanasub al-Suwar",null],
+ quran:["Verse references can be checked on Quran.com","https://quran.com"],
+ bukhari:["Sahih al-Bukhari 4970, Book of Tafsir: Ibn 'Abbas on Surat an-Nasr","https://sunnah.com/bukhari:4970"],
+ farrin:["Raymond Farrin, Structure and Qur'anic Interpretation (White Cloud Press, 2014)","https://www.goodreads.com/book/show/18668161-structure-and-qur-anic-interpretation"],
+ farrinapp:["“Teori Ring Structure Raimond Farrin dan Aplikasinya pada Q.S. Al-Baqarah”, Panangkaran journal, UIN Sunan Kalijaga","https://ejournal.uin-suka.ac.id/pusat/panangkaran/article/view/1405"],
+ muslim395:["Sahih Muslim 395: the hadith qudsi on dividing the prayer (al-Fatihah) between Allah and His servant","https://sunnah.com/muslim:395"],
+ tarteel:["“The Hidden Beauty of Ayatul Kursi's Mirror Structure”, Tarteel","https://tarteel.ai/blog/the-hidden-beauty-of-ayat-al-kursis-mirror-structure/"],
+ muslim810:["Sahih Muslim 810: Ubayy ibn Ka'b names Ayat al-Kursi as the greatest verse","https://sunnah.com/muslim:810"],
+ note:["Verse wording on this page is a paraphrase for illustration, not a formal translation",null]};
+function qurl(ref){const [s,a]=ref.replace(/–/g,"-").split(":");return `https://quran.com/${s}/${a}`}
+function resolve(k){if(k.startsWith("v:")){const r=k.slice(2);return [`Quran ${r} on Quran.com`,qurl(r)]}return SRC[k]}
+function attachSrc(root){
+  root.querySelectorAll("[data-src]:not([data-src-done])").forEach(el=>{
+    el.setAttribute("data-src-done","");el.tabIndex=0;
+    const items=el.dataset.src.split(",").map(resolve).filter(Boolean);
+    el.setAttribute("aria-label",el.textContent.trim()+". Sources available.");
+    el.insertAdjacentHTML("beforeend",`<span class="src-dot" aria-hidden="true">i</span><span class="srcpop" role="note"><b>Sources</b><ul>${items.map(([t,u])=>`<li>${u?`<a href="${u}" target="_blank" rel="noopener">${t}</a>`:t}</li>`).join("")}</ul></span>`);
+  });
+}
+const BLOCKS=[
+ ["I","1–5",[["k","1",1],["d","2–5",4]]],
+ ["II","6–9",[["k","6–7",2],["d","8–9",2]]],
+ ["III","10–24",[["k","10–23",14],["d","24",1]]],
+ ["IV","25–33",[["k","25–32",8],["d","33",1]]],
+ ["V","34–49",[["k","34–46",13],["d","47–49",3]]],
+ ["VI","50–66",[["k","50–56",7],["d","57–66",10]]],
+ ["VII","67–114",[["k","67–109",43],["d","110",1],["x","111–114",4]]]];
+const EX={
+ "0-0":["The foundation of belief in seven verses","Al-Fatihah sets out the core of faith that the rest of the group, and the Quran, builds on.",[
+  ["1:2–4","Praise belongs to Allah, Lord of the worlds, the Most Merciful, Master of the Day of Judgement."],
+  ["1:5","You alone we worship and You alone we ask for help."],
+  ["1:6","Guide us to the straight path."]]],
+ "0-1":["The law of a new community","The Medinan surahs of Group I lay down the core of Islamic law: worship, money, family and covenants.",[
+  ["2:183","Fasting is prescribed for you as it was prescribed for those before you."],
+  ["2:282","When you take on a debt for a fixed term, write it down, with witnesses."],
+  ["4:11","Allah instructs you concerning your children's shares of inheritance."],
+  ["5:3","Today I have perfected your religion for you and completed My favour upon you."]]],
+ "1-0":["Belief argued against idolatry","Al-An'am and al-A'raf make the case for tawhid and show what happened to nations that rejected their prophets.",[
+  ["6:162","Say: my prayer, my sacrifice, my living and my dying are for Allah, Lord of the worlds."],
+  ["7:172","Your Lord took from the children of Adam their testimony: 'Am I not your Lord?' They said, 'Yes.'"],
+  ["7:59–93","The stories of Nuh, Hud, Salih, Lut and Shu'ayb, each rejected by his people."]]],
+ "1-1":["War, peace and public money","After Badr, the community needed rules for fighting, treaties, and collecting and spending wealth.",[
+  ["8:61","If they incline to peace, incline to it too, and trust in Allah."],
+  ["9:60","Zakat is for the poor, the needy, those who administer it, debtors, travellers and freeing captives."],
+  ["9:122","Not all believers should go out together; a group should stay to gain understanding of the religion and teach the rest."]]],
+ "2-0":["Faith tested and vindicated","The long Meccan run of Group III is full of prophets who suffered and then prevailed, a promise to the Prophet and his followers.",[
+  ["12:90","Whoever is mindful of Allah and patient, Allah does not let the reward of the good go to waste. (Yusuf)"],
+  ["13:28","Surely in the remembrance of Allah do hearts find rest."],
+  ["17:23","Your Lord has decreed that you worship none but Him, and that you be good to your parents."],
+  ["23:1–2","Successful indeed are the believers, those who are humble in their prayer."]]],
+ "2-1":["Protecting the honour of the household","An-Nur turns belief into social rules about modesty, privacy and false accusation.",[
+  ["24:4","Those who accuse chaste women without four witnesses are to be punished, and their testimony never accepted."],
+  ["24:27","Do not enter houses other than your own until you have asked permission and greeted the people inside."],
+  ["24:30–31","Tell the believing men and women to lower their gaze and guard their modesty."]]],
+ "3-0":["The proof of prophethood and the character it produces","The Meccan surahs answer objections to the Prophet and portray the people his message forms.",[
+  ["25:63","The servants of the Most Merciful walk on the earth humbly, and when the ignorant address them, they say 'Peace.'"],
+  ["30:21","Among His signs is that He created spouses for you so you may find tranquillity, and placed love and mercy between you."],
+  ["31:13","Luqman told his son: do not associate anything with Allah; that is a great wrong."]]],
+ "3-1":["The Prophet at the head of the community","Al-Ahzab follows the Battle of the Trench and defines the Prophet's place in the community and his household.",[
+  ["33:9","Remember Allah's favour when armies came against you and He sent a wind against them."],
+  ["33:21","In the Messenger of Allah you have an excellent example."],
+  ["33:35","Believing men and women, devout men and women, truthful men and women… Allah has prepared forgiveness and a great reward for them."]]],
+ "4-0":["The case for tawhid","Group V's Meccan surahs argue for the oneness of Allah from creation, resurrection and human conscience.",[
+  ["36:78–79","He asks who will give life to bones when they have crumbled. Say: He who produced them the first time."],
+  ["39:53","O My servants who have wronged themselves, do not despair of Allah's mercy."],
+  ["41:34","Repel evil with what is better, and your enemy will become like a close friend."],
+  ["42:38","Those who conduct their affairs by mutual consultation. (A Meccan verse that already looks toward community.)"]]],
+ "4-1":["Victory and the manners of a society","The Medinan close of Group V moves from fighting the aggressors to the Treaty of Hudaybiyyah to rules for social conduct.",[
+  ["47:7","O you who believe, if you support Allah, He will support you and make your feet firm."],
+  ["48:1","We have given you a clear victory. (Revealed after Hudaybiyyah)"],
+  ["49:12","Avoid much suspicion, do not spy, and do not backbite one another."],
+  ["49:13","We made you nations and tribes so that you may know one another. The noblest of you is the most mindful of Allah."]]],
+ "5-0":["The certainty of the Hereafter","Group VI's Meccan surahs press home resurrection and judgement.",[
+  ["50:16","We created man and know what his soul whispers to him, and We are closer to him than his jugular vein."],
+  ["51:56","I did not create jinn and humans except to worship Me."],
+  ["55:13","So which of the favours of your Lord will you deny?"],
+  ["56:7","You will be three groups."]]],
+ "5-1":["Living for the Hereafter in society","The longest Medinan run in any group: spending, family law, the economy, relations with outsiders and Friday prayer.",[
+  ["57:7","Spend from what He has made you trustees over."],
+  ["59:7","So that wealth does not circulate only among the rich among you."],
+  ["60:8","Allah does not forbid you from being kind and just to those who have not fought you over religion."],
+  ["62:9","When the call is made for prayer on Friday, hurry to the remembrance of Allah and leave trade."],
+  ["65:1","When you divorce women, divorce them at their prescribed waiting period, and keep count of it."]]],
+ "6-0":["The final warning","Group VII contains the earliest revelations: short, urgent surahs warning Quraysh and building the believer's character.",[
+  ["96:1–5","Read in the name of your Lord who created… who taught by the pen. (The first revelation)"],
+  ["67:2","He created death and life to test which of you is best in deeds."],
+  ["103:1–3","By time, humanity is in loss, except those who believe, do good, and urge one another to truth and patience."],
+  ["107:1–3","Have you seen the one who denies the Judgement? He repels the orphan and does not encourage feeding the poor."]]],
+ "6-1":["The mission completed","An-Nasr marks the end point of the whole movement: the community established and people entering Islam in crowds.",[
+  ["110:1–2","When the help of Allah and the victory come, and you see people entering Allah's religion in crowds,"],
+  ["110:3","then glorify the praise of your Lord and seek His forgiveness. Ibn 'Abbas understood it as a sign that the Prophet's life was nearing its end (Bukhari)."]]],
+ "6-2":["The closing surahs","Four short Meccan surahs after An-Nasr: the end of the Prophet's fiercest opponent, pure tawhid, and two prayers for refuge.",[
+  ["111:1","May the hands of Abu Lahab perish, and may he perish."],
+  ["112:1","Say: He is Allah, One."],
+  ["113:1","Say: I seek refuge in the Lord of the daybreak."],
+  ["114:1","Say: I seek refuge in the Lord of mankind."]]]};
+let sel="0-1";
+function showDetail(){
+  const [g,s]=sel.split("-").map(Number);const e=EX[sel];const seg=BLOCKS[g][2][s];
+  const kind=seg[0]==="k"?"Meccan":seg[0]==="d"?"Medinan":"Meccan, after An-Nasr";
+  const el=document.getElementById("detail");el.dataset.t=seg[0];
+  el.innerHTML=`<div class="eyebrow">Group ${BLOCKS[g][0]} · surahs ${seg[1]} · ${kind}</div><h3 data-src="${["saleem","islahi"].concat(e[2].map(x=>"v:"+x[0].replace(/–/g,"-")),sel==="6-1"?["bukhari"]:[],["note"]).join(",")}">${e[0]}</h3><p class="frame">${e[1]}</p>
+   <ul class="ex">${e[2].map(x=>`<li><a class="ref" href="${qurl(x[0])}" target="_blank" rel="noopener" title="Read ${x[0]} on Quran.com">${x[0]}</a><span>${x[1]}</span></li>`).join("")}</ul>`;
+  document.querySelectorAll(".bar button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===sel));
+  attachSrc(el);
+}
+const RING=[
+ {k:"A",lvl:0,v:"1–20",t:"Faith and disbelief",d:"Three kinds of people: believers, open disbelievers and hypocrites.",ex:[["2:3-4","Those who believe in the unseen… and in what was revealed to you and what was revealed before you."]]},
+ {k:"B",lvl:1,v:"21–39",t:"Allah's creation and knowledge",d:"The call to worship the Creator; Adam made a successor on earth, taught the names; the angels' humility.",ex:[["2:21","O people, worship your Lord who created you and those before you."],["2:32","They said: Glory be to You, we have no knowledge except what You have taught us."]]},
+ {k:"C",lvl:2,v:"40–103",t:"A law given to Bani Isra'il",d:"Their covenant and blessings, the calf, the cow that names the surah, and repeated breaking of the covenant.",ex:[["2:40","O Children of Israel, remember My favour… and fulfil My covenant."],["2:67","Musa said to his people: Allah commands you to slaughter a cow."]]},
+ {k:"D",lvl:3,v:"104–141",t:"Ibrahim is tested",d:"Ibrahim fulfils his tests, raises the House with Isma'il, and prays for a messenger from among their descendants.",ex:[["2:124","His Lord tested Ibrahim with commands, and he fulfilled them."],["2:127","Ibrahim and Isma'il raised the foundations of the House."],["2:129","Our Lord, send among them a messenger from themselves."]]},
+ {k:"E",lvl:4,v:"142–152",t:"The centre: a new qibla",d:"The qibla turns to the Ka'bah. The community is named a middle nation and given its own direction of prayer.",ex:[["2:143","Thus We have made you a middle nation, so that you may be witnesses over the people."],["2:144","Turn your face toward al-Masjid al-Haram."],["2:152","So remember Me; I will remember you."]]},
+ {k:"D2",lvl:3,v:"153–177",t:"The believers are tested",d:"Patience under trial, the rites of Safa and Marwah, and what true righteousness is.",ex:[["2:155","We will certainly test you with some fear, hunger and loss."],["2:158","Safa and Marwah are among the symbols of Allah."],["2:177","Righteousness is not turning your faces east or west…"]]},
+ {k:"C2",lvl:2,v:"178–253",t:"A law given to the new community",d:"Legal retribution, fasting, Hajj, fighting, marriage and divorce; then Talut and Dawud as a lesson in obedience.",ex:[["2:178","Legal retribution is prescribed for you."],["2:183","Fasting is prescribed for you."],["2:246","The elders of the Children of Israel asked their prophet for a king."]]},
+ {k:"B2",lvl:1,v:"254–284",t:"Allah's creation and knowledge",d:"Ayat al-Kursi, Ibrahim and the king, the man revived after a hundred years, spending, and the law of debts.",ex:[["2:255","He knows what is before them and behind them, and they grasp nothing of His knowledge except what He wills."],["2:258","Ibrahim said: My Lord is the one who gives life and causes death."]]},
+ {k:"A2",lvl:0,v:"285–286",t:"Faith affirmed",d:"The believers declare the belief described at the start, and close with a prayer.",ex:[["2:285","The Messenger believes in what was revealed to him from his Lord, and so do the believers."],["2:286","Allah does not burden a soul beyond its capacity."]]}];
+const RLINK={
+ A:"The surah opens by describing believers who believe in what was revealed to the Prophet and before him (2:4). It closes with the believers declaring exactly that belief (2:285).",
+ B:"Both halves dwell on Allah as Creator and Knower. The angels admit they know only what He has taught them (2:32), and Ayat al-Kursi says people grasp of His knowledge only what He wills (2:255).",
+ C:"The first half shows a community receiving a law and often failing to keep it. The mirror gives the Muslims their own law, then closes with Talut's army, a lesson in obedience drawn from that same earlier community.",
+ D:"Ibrahim passes his test and builds the House. The believers are promised tests of their own, and the rites at Safa and Marwah tie them back to Ibrahim's family.",
+ E:"Verse 143 is the exact middle of the surah's 286 verses, and it calls the community a middle nation. Turning the qibla toward the Ka'bah that Ibrahim built marks the community's new identity: the hinge between the two halves."};
+let rsel="E";
+const pairOf=k=>k==="E"?"E":k.endsWith("2")?k.slice(0,1):k+"2";
+function renderRing(){
+  const el=document.getElementById("ring");
+  el.innerHTML=RING.map(r=>`<button type="button" data-r="${r.k}" class="${r.k==="E"?"ctr":""}" style="margin-inline:calc(${r.lvl} * clamp(8px,3.2vw,40px))" aria-label="Section ${r.k.replace("2","′")}, verses ${r.v}: ${r.t}"><span><b>${r.k.replace("2","′")}</b> · ${r.t}</span><span class="rv">2:${r.v}</span></button>`).join("");
+  el.addEventListener("click",e=>{const b=e.target.closest("button[data-r]");if(!b)return;rsel=b.dataset.r;showRing()});
+  showRing();
+}
+function rcard(r){return `<div class="rcard ${r.k==="E"?"ctr":""}"><div class="eyebrow">Section ${r.k.replace("2","′")} · verses ${r.v}</div><h3>${r.t}</h3><p style="margin:0 0 8px;color:var(--muted)">${r.d}</p><ul class="ex">${r.ex.map(x=>`<li><a class="ref" href="${qurl(x[0])}" target="_blank" rel="noopener">${x[0].replace("-","–")}</a><span>${x[1]}</span></li>`).join("")}</ul></div>`}
+function showRing(){
+  const a=RING.find(r=>r.k===rsel),b=RING.find(r=>r.k===pairOf(rsel));
+  const first=RING.indexOf(a)<=RING.indexOf(b)?[a,b]:[b,a];
+  const base=rsel.slice(0,1);
+  document.getElementById("rdetail").innerHTML=(a===b?rcard(a):first.map(rcard).join(""))+`<div class="rlink"><b>${a===b?"Why the centre matters":"How the mirror works"}</b>${RLINK[base]}</div>`;
+  document.querySelectorAll("#ring button").forEach(x=>{const on=x.dataset.r===a.k||x.dataset.r===b.k;x.classList.toggle("on",on);x.setAttribute("aria-pressed",on)});
+}
+function setupNav(){
+  document.querySelectorAll(".sect[id] > h2").forEach(h=>{
+    const id=h.closest("[id]").id;const a=document.createElement("a");
+    a.className="anchor";a.href="#"+id;a.textContent="#";a.setAttribute("aria-label","Link to this section");
+    a.addEventListener("click",()=>{try{const u=location.href.split("#")[0]+"#"+id;navigator.clipboard&&navigator.clipboard.writeText(u).then(()=>{const t=document.createElement("span");t.className="copied";t.textContent="Link copied";a.after(t);setTimeout(()=>t.remove(),1600)}).catch(()=>{})}catch(e){}});
+    h.appendChild(a);
+  });
+  const links=[...document.querySelectorAll("#navlist a")];
+  const targets=links.map(l=>document.querySelector(l.getAttribute("href"))).filter(Boolean);
+  if(!("IntersectionObserver" in window))return;
+  const vis=new Map();
+  const io=new IntersectionObserver(es=>{es.forEach(e=>vis.set(e.target.id,e.isIntersecting?e.boundingClientRect.top:null));
+    let best=null,bt=Infinity;targets.forEach(t=>{const v=vis.get(t.id);if(v!=null&&v<bt){bt=v;best=t.id}});
+    if(best)links.forEach(l=>{const on=l.getAttribute("href")==="#"+best;l.setAttribute("aria-current",on);if(on)l.scrollIntoView({block:"nearest",inline:"nearest"})})},{rootMargin:"-50px 0px -55% 0px"});
+  targets.forEach(t=>io.observe(t));
+}
+const KURSI=[
+ {k:"A",lvl:0,ar:"اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ",en:"Allah, there is no god but He, the Ever-Living, the Sustainer."},
+ {k:"B",lvl:1,ar:"لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ",en:"Neither drowsiness nor sleep overtakes Him."},
+ {k:"C",lvl:2,ar:"لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ",en:"To Him belongs whatever is in the heavens and the earth."},
+ {k:"D",lvl:3,ar:"مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ",en:"Who can intercede with Him except by His permission?"},
+ {k:"E",lvl:4,ar:"يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ",en:"He knows what is before them and what is behind them."},
+ {k:"D2",lvl:3,ar:"وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ",en:"And they encompass nothing of His knowledge except what He wills."},
+ {k:"C2",lvl:2,ar:"وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ",en:"His Kursi extends over the heavens and the earth."},
+ {k:"B2",lvl:1,ar:"وَلَا يَئُودُهُ حِفْظُهُمَا",en:"Preserving them does not tire Him."},
+ {k:"A2",lvl:0,ar:"وَهُوَ الْعَلِيُّ الْعَظِيمُ",en:"He is the Most High, the Magnificent."}];
+const KLINK={
+ A:["His names","The verse opens with two of Allah's names, the Ever-Living and the Sustainer, and closes with two more, the Most High and the Magnificent."],
+ B:["He never lapses","No drowsiness or sleep overtakes Him, and keeping the heavens and the earth never tires Him: no gap in His care, at the start or the end of the day."],
+ C:["His dominion","Everything in the heavens and the earth belongs to Him, and His Kursi extends over the heavens and the earth: the same two realms, named on both sides."],
+ D:["Only as He allows","No one can intercede with Him except by His permission, and no one grasps any of His knowledge except what He wills. Nothing passes in either direction without Him."],
+ E:["The centre: His knowledge","At the exact middle stands His complete knowledge of what is before them and what is behind them. The same theme sits at the centre of the section of al-Baqarah that contains this verse."]};
+let ksel="E";
+function renderKursi(){
+  const el=document.getElementById("kursi");
+  el.innerHTML=KURSI.map(r=>`<button type="button" data-q="${r.k}" class="${r.k==="E"?"ctr":""}" style="margin-inline:calc(${r.lvl} * clamp(6px,3vw,40px))" aria-label="${r.k.replace("2","′")}: ${r.en}"><span class="k-tag">${r.k.replace("2","′")}</span><span class="k-en">${r.en}</span><span class="k-ar" lang="ar" dir="rtl">${r.ar}</span></button>`).join("");
+  el.addEventListener("click",e=>{const b=e.target.closest("button[data-q]");if(!b)return;ksel=b.dataset.q;showKursi()});
+  showKursi();
+}
+function showKursi(){
+  const base=ksel.slice(0,1),pair=base==="E"?["E"]:[base,base+"2"];
+  const rows=pair.map(k=>KURSI.find(r=>r.k===k));
+  document.getElementById("kdetail").innerHTML=`<div class="eyebrow">${base==="E"?"Centre":pair.map(k=>k.replace("2","′")).join(" ↔ ")}</div><h3>${KLINK[base][0]}</h3>
+   <div class="k-pair">${rows.map(r=>`<div><p class="k-ar" lang="ar" dir="rtl">${r.ar}</p><p class="k-en">${r.en}</p></div>`).join("")}</div><p class="k-why">${KLINK[base][1]}</p>`;
+  document.querySelectorAll("#kursi button").forEach(x=>{const on=pair.includes(x.dataset.q);x.classList.toggle("on",on);x.setAttribute("aria-pressed",on)});
+}
+const LK_END={1:"6-7",2:"286",3:"200",15:"99",17:"111",52:"49",53:"57",56:"96",93:"11",96:"19",105:"5",107:"7",113:"5"};
+const LK_START={1:"2",2:"1-2",3:"1",15:"1",17:"1-4",52:"1",53:"1",56:"1",93:"1",96:"1",105:"1",107:"1-2",113:"1"};
+const LINKS={
+ 1:["Guide us to the straight path.","This is the Book, no doubt in it, guidance for the God-conscious.","The prayer at the end of al-Fatihah is answered in the second verse of al-Baqarah."],
+ 2:["Our Lord, do not burden us… grant us victory.","Alif Lam Mim. Allah, there is no god but He, the Ever-Living, the Sustainer.","Both open with Alif Lam Mim and the Book; 3:2 repeats the opening words of Ayat al-Kursi from al-Baqarah."],
+ 3:["Be patient, stand firm… and be mindful of Allah, so you may succeed.","O people, be mindful of your Lord who created you from a single soul.","Taqwa closes one surah and opens the next."],
+ 15:["Worship your Lord until the certainty comes to you.","Allah's command is coming, so do not seek to hasten it.","The certainty (death and judgement) at the close is announced as already on its way."],
+ 17:["Praise be to Allah, who has not taken a son.","Praise be to Allah, who sent down the Book… to warn those who say Allah has taken a son.","Same praise formula, same refutation, carried straight across the boundary."],
+ 52:["…and glorify Him at the setting of the stars.","By the star when it sets.","The last image of at-Tur becomes the oath that opens an-Najm."],
+ 53:["The approaching Hour has drawn near.","The Hour has drawn near, and the moon has split.","An-Najm ends and al-Qamar begins on the nearness of the Hour."],
+ 56:["So glorify the name of your Lord, the Magnificent.","Whatever is in the heavens and the earth glorifies Allah.","A command to glorify is followed by the whole universe doing it."],
+ 93:["And proclaim the favour of your Lord.","Did We not open your heart for you?","Ash-Sharh continues listing the favours that ad-Duha told him to proclaim."],
+ 96:["Prostrate and draw near.","We sent it down on the Night of Decree.","Al-'Alaq contains the first revelation; al-Qadr names the night it came."],
+ 105:["He made them like chewed-up straw.","For the security of Quraysh…","The destruction of Abrahah's army is the reason Quraysh could trade in safety."],
+ 107:["…who withhold small kindnesses.","We have given you abundance, so pray and sacrifice.","The neglect of prayer and charity in al-Ma'un is answered by prayer and generous sacrifice."],
+ 113:["…from the evil of the envier when he envies.","Say: I seek refuge in the Lord of mankind.","Refuge from evils outside us, then from the whisperer within."]};
+const PNOTE={
+ 2:"Called az-Zahrawan, 'the two radiant ones', in hadith. Al-Baqarah addresses the Jews, Al Imran the Christians.",
+ 6:"Al-An'am argues for tawhid; al-A'raf shows what happened to nations that rejected it.",
+ 8:"Badr and its aftermath. No basmalah stands between them, and early scholars discussed whether they were read almost as one.",
+ 18:"Stories of trial in al-Kahf, then stories of Allah's mercy to His prophets in Maryam.",
+ 93:"Two consolations to the Prophet in a hard period.",
+ 105:"Abrahah's defeat, then Quraysh's resulting security.",
+ 107:"A portrait of the stingy neglecter, then its opposite.",
+ 109:"Disassociation from idolatry, then the promised victory.",
+ 111:"The fate of Abu Lahab, then the pure tawhid he rejected.",
+ 113:"The two refuge prayers, al-Mu'awwidhatayn."};
+const rank={};CHRON.forEach((n,i)=>rank[n]=i+1);
+const D=S.map((s,i)=>({n:i+1,en:s[0],mean:s[1],theme:s[2],ar:AR[i],v:V[i],t:MED.has(i+1)?"d":"k",c:rank[i+1]}));
+let order="mushaf",filt="all";
+
+function rowHTML(d){
+  const cls=d.t==="k"?"Meccan":"Medinan";
+  const dis=DISPUTED.has(d.n)?` class="disp" title="Classification disputed among scholars"`:"";
+  const sub=order==="chron"?`surah ${d.n}`:`revealed #${d.c}`;
+  return `<div class="row" data-t="${d.t}"><div class="num">${order==="chron"?d.c:d.n}</div>
+  <div class="name"><b>${d.en}</b><span class="ar" lang="ar" dir="rtl">${d.ar}</span> <span class="mean">· ${d.mean}</span><div class="th">${d.theme}</div></div>
+  <div class="meta"><span class="chip ${d.t}"><span${dis}>${cls}</span></span><span>${d.v} verses · ${sub}</span></div></div>`+
+  (order==="mushaf"&&filt==="all"&&LINKS[d.n]?`<div class="conn"><b>↓ Link to ${D[d.n].en}:</b> ${LINKS[d.n][2]}</div>`:"");
+}
+function renderStatic(){
+  document.getElementById("blocks").innerHTML=BLOCKS.map((b,i)=>`<div class="blk"><div class="blk-l"><b>Group ${b[0]}</b><br>surahs ${b[1]}</div>
+   <div class="bar">${b[2].map((s,j)=>`<button type="button" class="seg-${s[0]}" data-k="${i}-${j}" style="flex:${s[2]}" aria-label="Group ${b[0]}, surahs ${s[1]}, ${s[0]==="d"?"Medinan":"Meccan"}: show examples">${s[1]}</button>`).join("")}</div>
+   <div class="blk-t">${GROUPS[i][3]}</div></div>`).join("")+
+   `<p class="note" style="margin:4px 0 0">Group VII closes with An-Nasr (110), the surah of the final victory. The four short surahs after it (111–114, dashed) are Meccan and stand after it; Islahi discusses how they fit the scheme in his commentary on those surahs.</p>`;
+  document.getElementById("links").innerHTML=Object.entries(LINKS).map(([n,l])=>{n=+n;return `<div class="lk"><div class="lk-h" data-src="biqai,tanasuq,v:${n}:${LK_END[n]},v:${n+1}:${LK_START[n]},note">${D[n-1].en} (${n}) → ${D[n].en} (${n+1})</div>
+   <p class="lk-q"><span>End of ${n}</span>${l[0]}</p><p class="lk-q"><span>Start of ${n+1}</span>${l[1]}</p><div class="lk-n">${l[2]}</div></div>`}).join("");
+}
+let sord="mushaf";
+function renderSpine(){
+  const seq=sord==="mushaf"?D:sord==="type"?D.filter(d=>d.t==="k").concat(D.filter(d=>d.t==="d")):[...D].sort((x,y)=>x.c-y.c);
+  const mx=Math.log(287);
+  document.getElementById("spine").innerHTML=seq.map(d=>`<i title="${d.en} (${d.n}) · ${d.t==="k"?"Meccan":"Medinan"} · ${d.v} verses · revealed #${d.c}" style="height:${Math.max(6,Math.log(d.v+1)/mx*100)}%;background:var(${d.t==="k"?"--mecca":"--medina"})"></i>`).join("");
+  const g=document.getElementById("spine-groups");
+  g.innerHTML=sord==="mushaf"?GROUPS.map(([a,b,rn])=>`<span style="flex:${b-a+1}" title="Group ${rn}: surahs ${a}–${b}">${b-a+1>2?"Group "+rn:rn}</span>`).join("")
+    :sord==="type"?`<span class="k-run" style="flex:86">Meccan · 86 surahs</span><span class="d-run" style="flex:28">Medinan · 28</span>`
+    :`<span class="k-run" style="flex:86">Meccan period · revelations 1–86</span><span class="d-run" style="flex:28">Medinan · 87–114</span>`;
+  document.getElementById("cap-l").textContent=sord==="mushaf"?"Al-Fatihah (1)":sord==="type"?"Al-Fatihah (1)":"Al-'Alaq (first revealed)";
+  document.getElementById("cap-r").textContent=sord==="mushaf"?"An-Nas (114)":sord==="type"?"An-Nasr (110)":"An-Nasr (last revealed)";
+  document.getElementById("spine-note").textContent=sord==="type"
+    ?"Split by type: 86 Meccan surahs (4,613 verses), mostly short, then 28 Medinan surahs (1,623 verses), mostly long."
+    :sord==="mushaf"
+    ?"In mushaf order the gold Medinan surahs come in clusters, and the lines underneath mark Islahi's seven groups, each a consecutive run in this order that ends with Medinan surahs: belief is laid down first, then the community it builds."
+    :"In revelation order the split is clean: 86 Meccan surahs, mostly short and early, then 28 Medinan surahs, mostly long. The mushaf reverses this, putting the long Medinan surahs first.";
+}
+function vis(d){return filt==="all"||filt===d.t}
+function render(){
+  const list=document.getElementById("list");let h="";
+  if(order==="mushaf"){
+    for(const [a,b,rn,th] of GROUPS){
+      const items=D.slice(a-1,b).filter(vis);if(!items.length)continue;
+      h+=`<section class="group"><div class="ghead"><span class="eyebrow">Group ${rn} · surahs ${a}–${b}</span><h3 data-src="saleem,mir,islahi">${th}</h3></div>`;
+      let n=a;
+      while(n<=b){
+        if(n===1){h+=filt!=="d"?`<div class="pair"><div class="pair-lab">Preface to the whole Quran</div>${rowHTML(D[0])}</div>`:"";n++;continue}
+        if(SUPP.has(n)||n===b){const d=D[n-1];if(vis(d))h+=`<div class="pair"><div class="pair-lab">Closes the group</div>${rowHTML(d)}</div>`;n++;continue}
+        const p=[D[n-1],D[n]].filter(vis);
+        if(p.length)h+=`<div class="pair"><div class="pair-lab">Pair ${n} & ${n+1}</div>${PNOTE[n]?`<p class="pair-note">${PNOTE[n]}</p>`:""}${p.map(rowHTML).join("")}</div>`;
+        n+=2;
+      }
+      h+=`</section>`;
+    }
+  }else if(order==="type"){
+    const parts=[["k","Meccan surahs","86 surahs · 4,613 verses · belief: tawhid, the Hereafter, prophethood, character","Listed in mushaf order. Mostly short and rhythmic; the number on the right is each surah's place in the order of revelation."],
+                 ["d","Medinan surahs","28 surahs · 1,623 verses · community: worship, law, family, war and treaties","Listed in mushaf order. Few in number but long: under a quarter of the surahs, about a quarter of the verses, and most of the Quran's legislation."]];
+    for(const [t,title,sub,intro] of parts){
+      const items=D.filter(d=>d.t===t&&vis(d));if(!items.length)continue;
+      h+=`<section class="group period"><div class="ghead"><span class="eyebrow">${sub}</span><h3 data-src="tanzilorder,itqan">${title}</h3></div><p class="type-intro">${intro}</p>${items.map(rowHTML).join("")}</section>`;
+    }
+  }else{
+    const byC=[...D].sort((x,y)=>x.c-y.c);
+    const parts=[["Meccan period","c. 610–622 CE · revelations 1–86",byC.slice(0,86)],["Medinan period","622–632 CE · revelations 87–114",byC.slice(86)]];
+    for(const [t,sub,arr] of parts){
+      const items=arr.filter(vis);if(!items.length)continue;
+      h+=`<section class="group period"><div class="ghead"><span class="eyebrow">${sub}</span><h3 data-src="tanzilorder,itqan">${t}</h3></div>${items.map(rowHTML).join("")}</section>`;
+    }
+  }
+  list.innerHTML=h;attachSrc(list);
+  const shown=D.filter(vis).length;
+  document.getElementById("tstat").textContent=`Showing ${shown} of 114 · ${D.filter(vis).reduce((a,d)=>a+d.v,0).toLocaleString()} verses`;
+  renderSpine();
+}
+function setPressed(ids,on){ids.forEach(id=>document.getElementById(id).setAttribute("aria-pressed",id===on))}
+[["s-mushaf","mushaf"],["s-type","type"],["s-chron","chron"]].forEach(([id,v])=>document.getElementById(id).onclick=()=>{sord=v;setPressed(["s-mushaf","s-type","s-chron"],id);renderSpine()});
+[["b-mushaf","mushaf"],["b-type","type"],["b-chron","chron"]].forEach(([id,v])=>document.getElementById(id).onclick=()=>{order=v;setPressed(["b-mushaf","b-type","b-chron"],id);render()});
+[["f-all","all"],["f-k","k"],["f-d","d"]].forEach(([id,v])=>document.getElementById(id).onclick=()=>{filt=v;setPressed(["f-all","f-k","f-d"],id);render()});
+renderStatic();renderRing();renderKursi();setupNav();attachSrc(document);
+document.getElementById("blocks").addEventListener("click",e=>{const b=e.target.closest("button[data-k]");if(!b)return;sel=b.dataset.k;showDetail()});
+showDetail();
+render();
+</script>
+
+</body>
+</html>

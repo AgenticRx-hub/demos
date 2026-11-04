@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NIS Mobile Prototype</title>
+<meta name="description" content="Agentic Rx bid prototype for the NISSS mobile application (RFP NISSS13/15_2026_02). Sample data only.">
+<style>
+:root{
+  --navy:#0d2a46;--navy2:#143a5e;--gold:#c7a96b;--gold2:#e6d3a3;
+  --bg:#f4f1ea;--card:#ffffff;--ink:#16202b;--muted:#5d6b78;--line:#e3ddd0;
+  --ok:#1f7a4d;--warn:#b46b00;--bad:#b3261e;--blue:#1d5fa8;
+  --phone:#0b0f14;--appbg:#f6f7f9;
+  --ultra:#00267f;--bgold:#ffc726;--sea:#0aa3c2;
+}
+.hero-bb{position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(160deg,#00267f 0%,#0b4fb3 45%,#0aa3c2 100%);color:#fff;padding:34px 28px 120px;margin-bottom:22px}
+.hero-bb h2{font:600 34px/1.15 Georgia,serif;margin:6px 0 10px;max-width:22ch;color:#fff}
+.hero-bb p{max-width:62ch;color:#e3eeff;font-size:16px}
+.hero-bb .eyebrow{color:var(--bgold);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
+.hero-bb .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hero-bb .cta button{border:0;border-radius:99px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}
+.hero-bb .cta .y{background:var(--bgold);color:#1d1600}.hero-bb .cta .w{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.35)}
+.hero-bb .art{position:absolute;inset:auto 0 0 0;height:150px;pointer-events:none}
+.hero-bb .tri{position:absolute;right:28px;top:22px;width:150px;opacity:.95}
+@media (max-width:700px){.hero-bb .tri{width:84px;opacity:.5}.hero-bb h2{font-size:27px}}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.feat .card{border-top:4px solid var(--bgold)}
+.feat .ic{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--ultra),var(--sea));color:#fff;display:grid;place-items:center;font-size:19px;margin-bottom:8px}
+.feat h4{margin:0 0 4px;font-size:15px}.feat p{margin:0;color:var(--muted);font-size:13.5px}
+.flagbar{height:6px;background:linear-gradient(90deg,var(--ultra) 0 33.3%,var(--bgold) 33.3% 66.6%,var(--ultra) 66.6%)}
+.int{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.int .card{display:flex;gap:12px;align-items:flex-start}
+.int .dot{width:12px;height:12px;border-radius:50%;margin-top:6px;flex:none}
+.ring{width:84px;height:84px}
+.nis-card{border-radius:18px;padding:16px;color:#fff;background:linear-gradient(135deg,#00267f,#0b4fb3 60%,#0aa3c2);position:relative;overflow:hidden;box-shadow:0 10px 24px rgba(0,38,127,.3)}
+.nis-card .stripe{position:absolute;left:0;right:0;bottom:0;height:8px;background:linear-gradient(90deg,#00267f 0 33.3%,#ffc726 33.3% 66.6%,#00267f 66.6%)}
+.netok{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:99px}
+.netok.good{background:#e3f3ea;color:#1f7a4d}.netok.bad{background:#fdecea;color:#b3261e}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f141a;--card:#17202a;--ink:#e8edf2;--muted:#9aa9b6;--line:#26323e;--appbg:#eef1f4;
+  }
+}
+:root[data-theme="dark"]{--bg:#0f141a;--card:#17202a;--ink:#e8edf2;--muted:#9aa9b6;--line:#26323e;--appbg:#eef1f4}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 "Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+a{color:var(--blue)}
+.ribbon{background:var(--gold);color:#2a2112;text-align:center;font-size:12.5px;padding:6px 16px;font-weight:600;letter-spacing:.02em}
+header.top{background:var(--navy);color:#fff;padding:18px 16px;border-bottom:4px solid var(--gold)}
+.top .wrap{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.top img{width:52px;height:52px;object-fit:contain;background:#fff;border-radius:10px;padding:5px}
+.top h1{margin:0;font:600 21px/1.2 Georgia,serif;letter-spacing:.04em}
+.top .sub{color:var(--gold2);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.top .ref{margin-left:auto;text-align:right;color:#b9cbdb;font-size:13px}
+nav.tabs{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav.tabs .wrap{max-width:1240px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:0 12px}
+nav.tabs button{background:none;border:0;padding:14px 14px;font:inherit;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--gold)}
+main{max-width:1240px;margin:0 auto;padding:22px 16px 60px}
+[hidden]{display:none!important}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:28px;align-items:start}
+@media (max-width:980px){.grid2{grid-template-columns:minmax(0,1fr)!important}}
+h2{font:600 26px/1.25 Georgia,serif;margin:4px 0 8px}
+h3{font-size:16px;margin:18px 0 6px}
+.lead{color:var(--muted);max-width:68ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0;overflow-x:auto}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi .v{font:600 22px/1.2 Georgia,serif}
+.kpi .l{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.pill{display:inline-block;white-space:nowrap;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600}
+.p-ok{background:#e3f3ea;color:var(--ok)}.p-warn{background:#fff1dc;color:var(--warn)}.p-blue{background:#e5effa;color:var(--blue)}.p-grey{background:#eceff2;color:#4c5966}
+.list-steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.list-steps li{counter-increment:s;padding:8px 0 8px 40px;position:relative;border-bottom:1px dashed var(--line)}
+.list-steps li:before{content:counter(s);position:absolute;left:0;top:7px;width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+.screens-list{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.screens-list button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+.screens-list button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.req{font-size:12px;color:var(--muted)}
+/* phone */
+.phone{width:380px;max-width:100%;margin:0 auto;background:var(--phone);border-radius:46px;padding:14px;box-shadow:0 30px 60px rgba(13,42,70,.25)}
+.screen{background:var(--appbg);border-radius:34px;height:760px;overflow:hidden;position:relative;display:flex;flex-direction:column;color:#16202b}
+.status{height:34px;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font-size:12.5px;font-weight:600;color:#fff;background:var(--navy)}
+.appbar{background:var(--navy);color:#fff;padding:6px 18px 14px;display:flex;align-items:center;gap:10px}
+.appbar .t{font-weight:700;font-size:17px}
+.appbar .back{background:rgba(255,255,255,.12);border:0;color:#fff;border-radius:10px;width:32px;height:32px;cursor:pointer;font-size:18px}
+.appbar .bell{margin-left:auto;background:rgba(255,255,255,.12);border:0;color:#fff;border-radius:10px;height:32px;padding:0 10px;cursor:pointer;font-size:13px}
+.body{flex:1;overflow-y:auto;padding:14px 14px 90px}
+.tabbar{position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e1e5ea;display:grid;grid-template-columns:repeat(5,1fr);padding:6px 4px 14px}
+.tabbar button{background:none;border:0;font:inherit;font-size:10.5px;color:#6a7682;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0}
+.tabbar button .ic{font-size:18px;line-height:1}
+.tabbar button.on{color:var(--navy);font-weight:700}
+.acard{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(16,24,40,.06);border:1px solid #e8ebef}
+.acard h4{margin:0 0 6px;font-size:14px}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:18px;padding:16px;margin-bottom:12px}
+.hero .big{font:600 26px/1.1 Georgia,serif;margin:4px 0}
+.hero .small{color:#c8d6e3;font-size:12px}
+.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.qa button{background:#fff;border:1px solid #e8ebef;border-radius:14px;padding:10px 4px;font:inherit;font-size:11px;color:#16202b;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px}
+.qa button .ic{font-size:20px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #eef1f4;font-size:13.5px}
+.row:last-child{border-bottom:0}
+.row .m{color:#6a7682;font-size:12px}
+.btn{display:block;width:100%;background:var(--navy);color:#fff;border:0;border-radius:12px;padding:13px;font:inherit;font-weight:700;cursor:pointer;margin-top:10px}
+.btn.gold{background:var(--gold);color:#2a2112}
+.btn.ghost{background:#fff;color:var(--navy);border:1px solid #cfd6de}
+label.f{display:block;font-size:12px;color:#5d6b78;margin:10px 0 4px;font-weight:600}
+.in{width:100%;border:1px solid #cfd6de;border-radius:10px;padding:11px;font:inherit;font-size:14px;background:#fff;color:#16202b}
+.in[readonly]{background:#f1f3f6;color:#5d6b78}
+input[type=range]{width:100%}
+.note{font-size:11.5px;color:#6a7682;margin-top:8px}
+.chip{display:inline-block;background:#eef2f7;border-radius:99px;padding:4px 10px;font-size:12px;margin:0 6px 6px 0;cursor:pointer;border:0;color:#16202b;font:inherit;font-size:12px}
+.chip.on{background:var(--navy);color:#fff}
+.bubble{max-width:82%;padding:9px 12px;border-radius:14px;margin:6px 0;font-size:13.5px}
+.bubble.me{background:var(--navy);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.bubble.them{background:#fff;border:1px solid #e8ebef;border-bottom-left-radius:4px}
+.toast{position:absolute;left:16px;right:16px;bottom:96px;background:#16202b;color:#fff;border-radius:12px;padding:11px 14px;font-size:13px;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+.steps3{display:flex;gap:6px;margin-bottom:12px}
+.steps3 span{flex:1;height:5px;border-radius:9px;background:#d9dee5}
+.steps3 span.on{background:var(--gold)}
+.receipt{border:1px dashed #b9c2cc;border-radius:14px;padding:14px;background:#fff}
+.lock{font-size:11px;color:#1f7a4d;font-weight:600}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.bar{height:10px;border-radius:9px;background:#e6eaef;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold)}
+svg text{font-family:inherit}
+.banner-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#00267f,#0b4fb3 70%,#0aa3c2);color:#fff;margin:0 0 18px;align-items:stretch}
+.banner-split .txt{padding:26px 26px 24px;display:flex;flex-direction:column;justify-content:center}
+.banner-split .txt h2{color:#fff;margin:4px 0 8px}.banner-split .txt p{margin:0;color:#e3eeff;max-width:60ch}
+.banner-split img{width:100%;height:100%;max-height:330px;object-fit:cover;display:block}
+@media (max-width:820px){.banner-split{grid-template-columns:minmax(0,1fr)}.banner-split img{max-height:260px}}
+.banner-img{position:relative;border-radius:18px;overflow:hidden;margin:0 0 16px;min-height:200px;background:#0d2a46 center/cover no-repeat;color:#fff;display:flex;align-items:flex-end}
+.banner-img .cap{padding:18px 20px;background:linear-gradient(180deg,rgba(0,20,60,0),rgba(0,20,60,.88) 45%);width:100%}
+.banner-img .cap h2{color:#fff;margin:0 0 4px}.banner-img .cap p{margin:0;color:#e3eeff;max-width:70ch}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px;margin:14px 0}
+.gallery figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.gallery img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center top;display:block}.gallery img.mid{object-position:center}
+.gallery figcaption{padding:12px 14px;font-size:13.5px;color:var(--muted)}
+.gallery figcaption b{display:block;font-size:15px;color:var(--ink);margin-bottom:4px}
+.gallery ul{margin:6px 0 0;padding-left:18px}
+.tier td:first-child{white-space:nowrap;font-weight:700}
+.tchip{display:inline-block;border-radius:8px;padding:2px 8px;font-size:12px;font-weight:700;color:#fff}
+.fphone{width:220px;margin:0 auto;background:#222;border-radius:26px;padding:16px 14px 22px}
+.fphone .lcd{background:#c9d8b6;color:#1d2a12;font:13px/1.45 "Courier New",monospace;border-radius:6px;padding:10px;min-height:150px}
+.fphone .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}
+.fphone .keys span{background:#444;color:#eee;border-radius:8px;text-align:center;padding:5px 0;font-size:13px}
+.pimg{width:100%;height:120px;object-fit:cover;border-radius:12px;display:block;margin-bottom:8px}
+.privacy{font-size:11px;color:#1f5e3f;background:#e3f3ea;border-radius:10px;padding:7px 10px;margin-top:10px;line-height:1.4}
+.btn.tri{background:#00267f;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn.tri svg{width:20px;height:24px}
+.or{display:flex;align-items:center;gap:8px;color:#6a7682;font-size:12px;margin:12px 0 2px}.or:before,.or:after{content:"";flex:1;height:1px;background:#d9dee5}
+.simple-btn{display:flex;align-items:center;gap:14px;width:100%;border:0;border-radius:18px;padding:18px;font:inherit;font-size:19px;font-weight:800;margin-bottom:12px;cursor:pointer;text-align:left;color:#fff}
+.simple-btn .si{font-size:28px;width:44px;text-align:center}
+.simple-btn small{display:block;font-size:13px;font-weight:600;opacity:.9}
+.screen.big .body{zoom:var(--zz,1.16)}
+.screen.hc{--appbg:#ffffff}.screen.hc .m,.screen.hc .note,.screen.hc .req{color:#1b2530!important}.screen.hc .acard{border-color:#5b6875}.screen.hc .chip{background:#dfe6ee}
+.sizes{display:flex;gap:8px}.sizes button{flex:1;border:1px solid #cfd6de;background:#fff;border-radius:10px;padding:8px;cursor:pointer;font-weight:800;color:#16202b}.sizes button.on{background:#0d2a46;color:#fff}
+.tapcard{border:2px dashed #0b4fb3;border-radius:16px;padding:18px;text-align:center;background:#eef4ff;margin-bottom:12px}
+.tapcard .tcard{width:150px;height:94px;margin:0 auto 8px;border-radius:10px;background:linear-gradient(135deg,#00267f,#0b4fb3);position:relative;box-shadow:0 6px 14px rgba(0,38,127,.3)}
+.tapcard .tcard:after{content:"";position:absolute;left:16px;top:30px;width:26px;height:20px;border-radius:4px;background:#e6d3a3}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin:14px 0}
+.strip .card{border-left:4px solid var(--ultra)}
+.strip .card b{display:block;margin-bottom:3px}.strip .card span{color:var(--muted);font-size:13px}
+.arch svg{width:100%;height:auto}
+.gantt td{padding:6px 8px}
+.gcell{height:16px;border-radius:4px}
+footer.foot{max-width:1240px;margin:0 auto;padding:20px 16px 40px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line)}
+@media (max-width:440px){.phone{border-radius:30px;padding:8px}.screen{border-radius:24px;height:700px}}
+</style>
+</head>
+<body>
+<div class="ribbon">Bid prototype by Agentic Rx Inc. for RFP No. NISSS13/15_2026_02 · Illustrative sample data only · Not an official NISSS service · Do not enter real personal details</div>
+<header class="top"><div class="wrap">
+  <img src="data:image/webp;base64,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" alt="Agentic Rx logo">
+  <div><h1>AGENTIC RX INC.</h1><div class="sub">Technology · Digital Solutions · Advisory</div></div>
+  <div class="ref">NIS Mobile — working prototype<br>Design and Development of a Mobile Application for the NISSS</div>
+</div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap" role="tablist">
+  <button role="tab" data-sec="home" aria-selected="true">Overview</button>
+  <button role="tab" data-sec="app" aria-selected="false">Mobile app</button>
+  <button role="tab" data-sec="everyone" aria-selected="false">For everyone</button>
+  <button role="tab" data-sec="trident" aria-selected="false">Trident ID and privacy</button>
+  <button role="tab" data-sec="abroad" aria-selected="false">Caribbean and diaspora</button>
+  <button role="tab" data-sec="int" aria-selected="false">Integrations</button>
+  <button role="tab" data-sec="admin" aria-selected="false">Admin and CMS</button>
+  <button role="tab" data-sec="ops" aria-selected="false">Monitoring and transformation</button>
+  <button role="tab" data-sec="arch" aria-selected="false">Architecture and security</button>
+  <button role="tab" data-sec="plan" aria-selected="false">Delivery plan</button>
+  <button role="tab" data-sec="trace" aria-selected="false">Requirements trace</button>
+</div></nav>
+
+<div class="flagbar" aria-hidden="true"></div>
+<main>
+<!-- ================= OVERVIEW ================= -->
+<section id="sec-home" data-section>
+ <div class="hero-bb">
+  <svg class="tri" viewBox="0 0 120 160" aria-hidden="true"><g fill="#ffc726"><path d="M57 6 L63 6 L66 30 L62 30 L62 112 L58 112 L58 30 L54 30 Z"/><path d="M60 0 L68 18 L52 18 Z"/><path d="M58 58 C38 58 26 46 22 20 L14 22 L24 4 L34 20 L28 19 C32 38 42 48 58 48 Z"/><path d="M62 58 C82 58 94 46 98 20 L106 22 L96 4 L86 20 L92 19 C88 38 78 48 62 48 Z"/><path d="M50 112 L70 112 L68 120 L52 120 Z"/><path d="M58 126 L62 126 L62 156 L58 156 Z" opacity=".55"/></g></svg>
+  <div class="eyebrow">NIS Mobile · working prototype</div>
+  <h2>Pay, check and claim from anywhere a Barbadian lives</h2>
+  <p>One secure app for members at home, across the Caribbean and in the diaspora. Pay contributions first, check your record next, estimate your pension, get alerts, talk to support and, in Phase 2, submit and track claims. Built for 10,000+ people at once, with answers in under 3 seconds.</p>
+  <div class="cta"><button class="y" data-goto="app">Try the app</button><button class="w" data-goto="abroad">Living abroad?</button><button class="w" data-goto="ops">See the live dashboard</button></div>
+  <svg class="art" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
+   <circle cx="980" cy="70" r="44" fill="#ffc726" opacity=".9"/>
+   <path d="M0 90 C150 60 300 120 450 92 S750 60 900 95 S1100 120 1200 88 V150 H0Z" fill="#0aa3c2" opacity=".55"/>
+   <path d="M0 110 C200 90 350 140 520 112 S820 85 1000 118 S1150 132 1200 112 V150 H0Z" fill="#ffffff" opacity=".22"/>
+   <path d="M0 128 C220 115 420 150 640 130 S960 118 1200 134 V150 H0Z" fill="#f4e6c4"/>
+   <g stroke="#0d2a46" stroke-width="5" fill="none" stroke-linecap="round"><path d="M120 128 C126 98 124 78 112 58"/></g>
+   <g fill="#0d2a46"><path d="M112 58 C96 50 78 52 66 62 C84 58 98 60 112 58Z"/><path d="M112 58 C108 42 96 32 80 30 C94 40 104 48 112 58Z"/><path d="M112 58 C122 44 138 38 154 40 C138 46 124 52 112 58Z"/><path d="M112 58 C130 54 146 60 156 72 C140 64 126 62 112 58Z"/></g>
+  </svg>
+ </div>
+ <div class="feat">
+  <div class="card"><div class="ic">$</div><h4>Pay first</h4><p>The amount due is the first thing members see. Two taps to pay by card or bank, from Barbados or abroad, with an instant receipt.</p></div>
+  <div class="card"><div class="ic">≡</div><h4>Check your record</h4><p>Every contribution, credited week and receipt, with a 12-month chart and your progress towards a pension.</p></div>
+  <div class="card"><div class="ic">%</div><h4>Plan your pension</h4><p>Live pension estimate from NISSS-approved rules, with the weeks still needed and the date it starts.</p></div>
+  <div class="card"><div class="ic">✚</div><h4>Claim without queuing</h4><p>Phase 2: sickness, maternity, injury and funeral claims with document upload and step-by-step tracking.</p></div>
+  <div class="card"><div class="ic">✈</div><h4>Barbadians abroad</h4><p>Pay in USD, CAD or GBP, use an overseas phone for sign-in codes, send life certificates and view CARICOM service.</p></div>
+  <div class="card"><div class="ic">🛡</div><h4>Safe on any network</h4><p>The app checks the network, pins NISSS certificates and suggests a trusted VPN on public Wi-Fi. Staff reach the admin console only through zero-trust access.</p></div>
+  <div class="card"><div class="ic">▣</div><h4>Digital NIS card</h4><p>A digital membership card with a verifiable QR code, plus clearance certificates requested and delivered in the app.</p></div>
+  <div class="card"><div class="ic">♿</div><h4>Simple for everyone</h4><p>Simple mode, large text, read-aloud, trusted helpers, a no-smartphone option and assisted service. Nobody is left out by age, ability, income or digital skill. <a href="#" data-goto="everyone">See how</a></p></div>
+  <div class="card"><div class="ic">▲</div><h4>Ready for Trident ID</h4><p>Sign in by tapping your Trident ID card or with the Trident eID app. Tiered, consent-based access to identity, social security, financial and health data. <a href="#" data-goto="trident">See how</a></p></div>
+  <div class="card"><div class="ic">⚙</div><h4>Run by NISSS</h4><p>Staff publish news, FAQs, videos and tips with approval and audit, and watch performance and adoption in real time.</p></div>
+ </div>
+ <h3>Aligned with Barbados's national priorities</h3>
+ <div class="strip">
+  <div class="card"><b>Trident ID and digital identity</b><span>Sign-in, registration and e-signatures through the national ID and Trident eID</span></div>
+  <div class="card"><b>GovTech and public-sector modernisation</b><span>Open APIs, cloud and cybersecurity, in line with the 2026 digitisation programme</span></div>
+  <div class="card"><b>National Portable Benefits Framework</b><span>Ready to count short and multi-employer work towards benefits</span></div>
+  <div class="card"><b>NISSS Self-Employed Unit</b><span>Free registration and the Flexible Arrangement: pay any amount, any time, by EZpay+ or SurePay</span></div>
+  <div class="card"><b>National Policy on Ageing</b><span>Simple mode, trusted helpers and digital life certificates for seniors and centenarians</span></div>
+  <div class="card"><b>National Digital Skills Empowerment Campaign</b><span>Assisted digital help and short training with community partners</span></div>
+ </div>
+ <div class="kpis">
+  <div class="card kpi"><div class="l">Business functions working</div><div class="v">11 of 11</div><div class="req">Phase 1 and Phase 2, RFB §1.2</div></div>
+  <div class="card kpi"><div class="l">Designed capacity</div><div class="v">20,000</div><div class="req">concurrent users (2× the RFB target)</div></div>
+  <div class="card kpi"><div class="l">Response target</div><div class="v">&lt; 3 s</div><div class="req">mobile and API, p95</div></div>
+  <div class="card kpi"><div class="l">Rules-engine tests</div><div class="v">12 / 12</div><div class="req">passing, 100% coverage</div></div>
+ </div>
+</section>
+
+<!-- ================= MOBILE APP ================= -->
+<section id="sec-app" data-section hidden>
+ <div class="grid2">
+  <div>
+   <div class="req">Phase 1 and Phase 2 business functions · RFB §1.2</div>
+   <h2>Every Phase 1 and Phase 2 function, working end to end</h2>
+   <p class="lead">Tap through the phone on the right, or jump straight to a screen below. Each screen is mapped to the RFB requirement it meets. Data is invented; the delivered app reads it live from NISSS's REST APIs through the API Gateway.</p>
+   <div class="screens-list" id="jump"></div>
+   <div class="card" id="explain"></div>
+   <h3>Try this</h3>
+   <ol class="list-steps">
+     <li>Sign in with the demo account. You are asked for a one-time code, as in the live app (multi-factor authentication).</li>
+     <li>On <b>Contributions</b>, filter the history, then pay two outstanding self-employed months and open the receipt.</li>
+     <li>On <b>Pension estimator</b>, move the sliders and watch the estimate and the qualifying-weeks check update.</li>
+     <li>On <b>Claims</b> (Phase 2), start a sickness benefit claim, attach a document and follow its status.</li>
+   </ol>
+  </div>
+  <div>
+   <div class="phone" aria-label="Phone prototype">
+    <div class="screen" id="screen">
+      <div class="status"><span id="clock">9:41</span><span>5G ▮▮▮ 92%</span></div>
+      <div class="appbar"><button class="back" id="back" aria-label="Back" hidden>‹</button><div class="t" id="title">NIS Mobile</div><button class="bell" id="speak" aria-label="Read this screen aloud" title="Read aloud">🔊</button><button class="bell" id="aa" aria-label="Accessibility settings" title="Accessibility" style="margin-left:6px">Aa</button><button class="bell" id="bell" hidden style="margin-left:6px">🔔 <span id="ncount">3</span></button></div>
+      <div class="body" id="view"></div>
+      <div class="tabbar" id="tabbar" hidden>
+        <button data-go="home"><span class="ic">⌂</span>Home</button>
+        <button data-go="contrib"><span class="ic">≡</span>Contributions</button>
+        <button data-go="estimate"><span class="ic">%</span>Estimator</button>
+        <button data-go="claims"><span class="ic">✚</span>Claims</button>
+        <button data-go="more"><span class="ic">☰</span>More</button>
+      </div>
+      <div class="toast" id="toast"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= EVERYONE ================= -->
+<section id="sec-everyone" data-section hidden>
+ <div class="req">Inclusive design · WCAG 2.2 AA · usability testing with members (RFB §4.2) · Data Protection Act, 2019</div>
+ <h2>One simple app for every Barbadian</h2>
+ <p class="lead">Nobody should be shut out of their social security because of age, disability, income, where they live, the phone they own or how confident they are with technology. Every feature below is built in from day one, and each has a non-digital route as well.</p>
+ <div class="gallery">
+  <figure><img src="img/centenarians.jpg" alt="Barbados Postal Service stamps honouring Barbadian centenarians" loading="lazy"><figcaption><b>Seniors and pensioners</b>Barbados has one of the highest numbers of centenarians per head in the world. Simple mode, large text, read-aloud, a trusted helper and digital life certificates make the app easy at any age.</figcaption></figure>
+  <figure><img src="img/youth.jpg" alt="Young Barbadian athletes celebrating with the national flag" loading="lazy"><figcaption><b>Young people starting work</b>School leavers get their NIS number, see their first contributions and learn how social security protects them, in plain language and on any phone.</figcaption></figure>
+  <figure><img class="mid" src="img/chattel.jpg" alt="Colourful chattel house display with a QR code for Crop Over" loading="lazy"><figcaption><b>Self-employed, vendors and gig workers</b>Register free, pay any amount at any time under the Flexible Arrangement, and pay with cash at SurePay agents using a QR or payment code. Short and multi-employer work is ready to count under the Portable Benefits Framework.</figcaption></figure>
+ </div>
+ <h3>Built-in inclusion toolkit</h3>
+ <div class="feat">
+  <div class="card"><div class="ic">◉</div><h4>Simple mode</h4><p>Three big buttons: pay what I owe, check my pension, get help. Plain language, no jargon. <a href="#" data-try="simple">Try it</a></p></div>
+  <div class="card"><div class="ic">Aa</div><h4>Text size, contrast and read-aloud</h4><p>Three text sizes, high contrast, screen-reader labels and a read-aloud button on every screen. <a href="#" data-try="access">Try it</a></p></div>
+  <div class="card"><div class="ic">♥</div><h4>Trusted helper</h4><p>A family member or carer can help with limited, time-bound permission the member grants and can withdraw. Every action is logged. <a href="#" data-try="helper">Try it</a></p></div>
+  <div class="card"><div class="ic">☎</div><h4>No smartphone needed</h4><p>Check what you owe, your pension date and request a call-back by SMS or a short code on any basic phone.</p></div>
+  <div class="card"><div class="ic">⌂</div><h4>Assisted service</h4><p>Staff at NISSS offices, and proposed community partners, can complete any task with the member, using the same secure app.</p></div>
+  <div class="card"><div class="ic">$</div><h4>No bank account needed</h4><p>Pay by card or bank through EZpay+, or with cash at SurePay agents using a payment code from the app.</p></div>
+  <div class="card"><div class="ic">↯</div><h4>Low-data and older phones</h4><p>Small download, works on older Android and iPhone models and on slow mobile data, with a low-data mode.</p></div>
+  <div class="card"><div class="ic">🌐</div><h4>Languages</h4><p>English with plain-language wording, and content in other languages for migrant workers managed by NISSS in the CMS.</p></div>
+ </div>
+ <div class="grid2" style="grid-template-columns:minmax(0,1fr) 260px;margin-top:8px">
+  <div class="card"><h3 style="margin-top:0">Who we design for, and how</h3>
+   <table><thead><tr><th>Member</th><th>Common barrier</th><th>How NIS Mobile removes it</th></tr></thead><tbody>
+   <tr><td>Seniors and pensioners</td><td>Small text, complex menus, travel to an office</td><td>Simple mode, large text, read-aloud, trusted helper, digital life certificate</td></tr>
+   <tr><td>Persons with disabilities</td><td>Screens that do not work with assistive technology</td><td>WCAG 2.2 AA, screen-reader labels, voice input, high contrast, no time limits on forms</td></tr>
+   <tr><td>Low income or unbanked</td><td>No card, no bank account, limited data</td><td>Cash at SurePay agents, low-data mode, SMS and short code, works on older phones</td></tr>
+   <tr><td>Self-employed and gig workers</td><td>Irregular income and many employers</td><td>Pay any amount any time, all work in one record, Portable Benefits-ready</td></tr>
+   <tr><td>Rural and island-wide</td><td>Distance from Bridgetown</td><td>Everything in the app, plus assisted service and call-back</td></tr>
+   <tr><td>Barbadians abroad</td><td>Time zones, foreign cards, posted forms</td><td>Pay in USD, CAD or GBP, overseas codes, digital life certificate</td></tr>
+   <tr><td>Less confident with technology</td><td>Fear of making mistakes or being scammed</td><td>Plain language, confirmation before every payment, guided help, digital skills sessions</td></tr>
+   </tbody></table></div>
+  <div><div class="fphone" aria-label="Basic phone example"><div class="lcd">NIS (short code)<br>1 What I owe<br>2 Last payment<br>3 Pension date<br>4 Get a payment code<br>5 Call me back<br>&gt; 1<br>Due: BBD 972.40<br>Sep, Oct 2026</div><div class="keys"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>*</span><span>0</span><span>#</span></div></div><div class="req" style="text-align:center;margin-top:8px">Basic-phone service (illustrative). The short code is agreed with NISSS and the telecoms providers.</div></div>
+ </div>
+</section>
+
+<!-- ================= TRIDENT ================= -->
+<section id="sec-trident" data-section hidden>
+ <div class="banner-split"><div class="txt"><div class="req" style="color:#ffc726">Barbados Identity Management Act · Data Protection Act, 2019 · RFB §1.4.3</div><h2>Trident ID, tiered data and privacy by design</h2><p>Built on Barbados law: the member's national ID is the key, and the member decides what is shared, every time.</p></div><img src="img/parliament.jpg" alt="Parliament Buildings, Bridgetown"></div>
+ <div class="grid2" style="grid-template-columns:1fr 1fr">
+  <div class="card"><h3 style="margin-top:0">What Trident ID provides</h3>
+   <ul style="margin:0;padding-left:18px">
+    <li>A durable, tamper-resistant smart card with a chip, a PIN for extra information, a machine-readable zone and a QR code.</li>
+    <li>An optional Trident eID on the phone for remote sign-in, doing business remotely and legally binding electronic signatures.</li>
+    <li>Sharing only when the holder acts (shows, taps, scans or enters a PIN), with advance notice of what is requested.</li>
+    <li>An embossed trident to help visually impaired holders, and optional, verified disability status.</li>
+   </ul><div class="req" style="margin-top:8px">Source: trident.gov.bb and the Government Information Service. Integration uses the interfaces the Government makes available.</div></div>
+  <div class="card"><h3 style="margin-top:0">How NIS Mobile uses it</h3>
+   <ul style="margin:0;padding-left:18px">
+    <li><b>Sign in</b> by tapping the Trident ID card (NFC and PIN) or approving in the Trident eID app. <a href="#" data-try="trident">Try it</a></li>
+    <li><b>Register</b> without paperwork: identity is verified once, not re-keyed.</li>
+    <li><b>Sign</b> claims, declarations and life certificates electronically.</li>
+    <li><b>Share less:</b> the app asks only for the data a task needs, and shows it first.</li>
+    <li><b>Stay in control:</b> a consent dashboard lists every access and lets the member withdraw it. <a href="#" data-try="consent">Try it</a></li>
+   </ul></div>
+ </div>
+ <h3>Tiered access: the card is the key, not the vault</h3>
+ <p class="lead">Records stay in the systems that own them. Each tier needs a stronger proof of identity and its own consent, and every access is logged.</p>
+ <div class="card"><table class="tier"><thead><tr><th>Tier</th><th>Examples</th><th>Proof of identity</th><th>Consent</th><th>Where the data stays</th></tr></thead><tbody>
+  <tr><td><span class="tchip" style="background:#5d6b78">0 Public</span></td><td>News, FAQs, office hours, benefit guides</td><td>None</td><td>Not needed</td><td>NISSS CMS</td></tr>
+  <tr><td><span class="tchip" style="background:#0b4fb3">1 Identity</span></td><td>Name, date of birth, Trident ID and NIS numbers</td><td>Trident eID or card and PIN, or password and one-time code</td><td>Shown at sign-in</td><td>Trident ID service and NISSS</td></tr>
+  <tr><td><span class="tchip" style="background:#00267f">2 Social security</span></td><td>Contributions, credited weeks, pension estimate, claims</td><td>Signed-in session on a trusted device</td><td>Covered by membership; access logged</td><td>NISSS systems of record</td></tr>
+  <tr><td><span class="tchip" style="background:#b46b00">3 Financial</span></td><td>Bank account for benefits, payment records</td><td>Step-up check (biometric or card PIN)</td><td>Asked each time a detail changes</td><td>Banks and the payment provider; card numbers never stored by NISSS</td></tr>
+  <tr><td><span class="tchip" style="background:#b3261e">4 Health and disability</span></td><td>Medical certificates for sickness or injury claims; optional disability status</td><td>Step-up check plus explicit consent</td><td>Per claim, time-limited, can be withdrawn</td><td>Issuing clinician and NISSS document system; encrypted, restricted to assessors</td></tr>
+ </tbody></table></div>
+ <h3>Security and privacy in every module</h3>
+ <div class="card"><table><thead><tr><th>Module</th><th>Highest tier</th><th>Key controls</th></tr></thead><tbody>
+  <tr><td>Sign-in and account</td><td>1</td><td>Trident eID or MFA, device binding, biometric unlock, lockout and alerts on new devices</td></tr>
+  <tr><td>Dashboard and contributions</td><td>2</td><td>Short-lived tokens, read-only API scopes, no records cached unencrypted on the phone</td></tr>
+  <tr><td>Payments and receipts</td><td>3</td><td>Hosted payment page, PCI DSS scope reduction, idempotent payments, step-up for new payees</td></tr>
+  <tr><td>Pension estimator</td><td>2</td><td>Rules signed off by NISSS, inputs not stored unless the member saves them</td></tr>
+  <tr><td>Notifications</td><td>1</td><td>No sensitive figures in SMS or lock-screen previews; member chooses channels</td></tr>
+  <tr><td>Support and chat</td><td>2</td><td>Agent sees only what the case needs, conversations logged with consent, masked data</td></tr>
+  <tr><td>Claims and documents</td><td>4</td><td>Explicit consent, encrypted signed uploads, malware scanning, assessor-only access, retention limits</td></tr>
+  <tr><td>Trusted helper</td><td>2 to 3</td><td>Member-granted, scoped and time-limited, every action logged and shown to the member</td></tr>
+  <tr><td>Admin and CMS</td><td>Staff</td><td>Zero-trust access, role-based permissions, approval workflow, tamper-evident audit trail</td></tr>
+ </tbody></table></div>
+</section>
+
+<!-- ================= ABROAD ================= -->
+<section id="sec-abroad" data-section hidden>
+ <div class="banner-split"><div class="txt"><div class="req" style="color:#ffc726">Optional enhancements proposed under the RFB "Purchaser's Requirements"</div><h2>For Barbadians across the Caribbean and in the diaspora</h2><p>Home is always one tap away, wherever members live and work.</p></div><img src="img/careenage.jpg" alt="The Careenage and Chamberlain Bridge, Bridgetown"></div>
+ <p class="lead">Many contributors and pensioners live in other CARICOM states, North America or the UK. The app lets them deal with NISSS without travelling home or posting forms. Try each one in the phone on the Mobile app tab.</p>
+ <div class="feat">
+  <div class="card"><div class="ic">$</div><h4>Pay from abroad</h4><p>Pay in USD, CAD or GBP by international card. The app shows the BBD amount credited before you confirm. <a href="#" data-try="abroad">Try it</a></p></div>
+  <div class="card"><div class="ic">☎</div><h4>Overseas sign-in codes</h4><p>One-time codes by SMS to any country code, by email, or by an authenticator app when SMS is unreliable.</p></div>
+  <div class="card"><div class="ic">✔</div><h4>Digital life certificate</h4><p>Pensioners abroad confirm they are alive with a selfie and ID check, instead of posting a witnessed form. <a href="#" data-try="life">Try it</a></p></div>
+  <div class="card"><div class="ic">◎</div><h4>CARICOM service record</h4><p>See insurable periods in other CARICOM states that may count towards benefits under the CARICOM Agreement on Social Security. <a href="#" data-try="caricom">Try it</a></p></div>
+  <div class="card"><div class="ic">🛡</div><h4>Secure connection check</h4><p>Warns on public or untrusted Wi-Fi and recommends a trusted VPN before signing in. Traffic is always encrypted and certificate-pinned. <a href="#" data-try="network">Try it</a></p></div>
+  <div class="card"><div class="ic">▣</div><h4>Digital NIS card and clearance</h4><p>Show a verifiable digital NIS card and request a clearance certificate, delivered to the app. <a href="#" data-try="card">Try it</a></p></div>
+ </div>
+ <div class="card"><h3 style="margin-top:0">Where members use the app (projected mix, illustrative)</h3>
+  <svg id="map" viewBox="0 20 900 190" role="img" aria-label="Projected share of app sessions by region"></svg>
+  <div class="req">Illustrative projection for capacity planning only. Final figures come from NISSS membership data.</div>
+ </div>
+</section>
+
+<!-- ================= INTEGRATIONS ================= -->
+<section id="sec-int" data-section hidden>
+ <div class="req">System integration · RFB §2.3 and §0.4</div>
+ <h2>Integrations: active in the prototype, and planned</h2>
+ <p class="lead">Each integration runs through the API Gateway and the integration layer. Status shows what the prototype simulates now, what the contract delivers, and what we offer as optional add-ons.</p>
+ <div class="int" id="ints"></div>
+</section>
+
+<!-- ================= ADMIN ================= -->
+<section id="sec-admin" data-section hidden>
+ <div class="req">Content management, administration and access control · RFB §1.4, §3.1.7</div>
+ <h2>Admin console: content with approval, roles and audit</h2>
+ <p class="lead">NISSS staff publish announcements, FAQs, videos and financial tips without a developer. Every item passes an approval step, and every action is written to the audit trail.</p>
+ <div class="kpis">
+  <div class="card kpi"><div class="l">Pending approval</div><div class="v" id="k-pend">2</div></div>
+  <div class="card kpi"><div class="l">Published items</div><div class="v" id="k-pub">41</div></div>
+  <div class="card kpi"><div class="l">Admin roles</div><div class="v">5</div></div>
+  <div class="card kpi"><div class="l">Audit events (24h)</div><div class="v" id="k-aud">128</div></div>
+ </div>
+ <div class="card">
+  <h3 style="margin-top:0">Content queue</h3>
+  <table><thead><tr><th>Item</th><th>Type</th><th>Author</th><th>Status</th><th>Action</th></tr></thead><tbody id="cms"></tbody></table>
+ </div>
+ <div class="grid2" style="margin-top:16px;grid-template-columns:1fr 1fr">
+  <div class="card"><h3 style="margin-top:0">Role-based access</h3>
+   <table><thead><tr><th>Role</th><th>Content</th><th>Approve</th><th>Users</th><th>Config</th></tr></thead><tbody>
+   <tr><td>System administrator</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+   <tr><td>Content approver</td><td>✓</td><td>✓</td><td>–</td><td>–</td></tr>
+   <tr><td>Content editor</td><td>✓</td><td>–</td><td>–</td><td>–</td></tr>
+   <tr><td>Customer support agent</td><td>View</td><td>–</td><td>View</td><td>–</td></tr>
+   <tr><td>Auditor (read-only)</td><td>View</td><td>–</td><td>View</td><td>View</td></tr>
+   </tbody></table></div>
+  <div class="card"><h3 style="margin-top:0">Audit trail</h3>
+   <table><thead><tr><th>Time</th><th>User</th><th>Event</th></tr></thead><tbody id="audit"></tbody></table></div>
+ </div>
+</section>
+
+<!-- ================= MONITORING ================= -->
+<section id="sec-ops" data-section hidden>
+ <div class="req">Monitoring, reporting and performance · RFB §1.4.5, §1.5, §3.1.6</div>
+ <h2>Live service health against the RFB targets</h2>
+ <p class="lead">The management dashboard NISSS decision-makers are trained on. Targets come from RFB §1.5: 10,000 concurrent users, responses under 3 seconds and 99.9% uptime. Figures are simulated.</p>
+ <div class="kpis">
+  <div class="card kpi"><div class="l">Concurrent users</div><div class="v" id="m-users">–</div><div class="req">Target ≥ 10,000 supported</div></div>
+  <div class="card kpi"><div class="l">p95 API response</div><div class="v" id="m-api">–</div><div class="req">Target &lt; 3 s</div></div>
+  <div class="card kpi"><div class="l">Uptime, 30 days</div><div class="v">99.97%</div><div class="req">Target 99.9%</div></div>
+  <div class="card kpi"><div class="l">Crash-free sessions</div><div class="v">99.8%</div><div class="req">iOS and Android</div></div>
+ </div>
+ <div class="card"><h3 style="margin-top:0">Requests per minute and p95 response time (last 60 minutes, simulated)</h3>
+  <svg id="chart" viewBox="0 0 900 260" role="img" aria-label="Line chart of requests per minute and response time"></svg>
+  <div class="legend"><span><b style="color:#0d2a46">━</b> Requests per minute</span><span><b style="color:#c7a96b">━</b> p95 response (ms)</span><span>‒ ‒ 3,000 ms threshold</span></div>
+ </div>
+ <h3>Digital transformation scorecard (projected after 12 months, illustrative)</h3>
+ <div class="kpis">
+  <div class="card kpi"><div class="l">Payments made digitally</div><div class="v">64%</div><div class="bar" style="margin-top:6px"><i style="width:64%"></i></div><div class="req">from a counter-led baseline</div></div>
+  <div class="card kpi"><div class="l">Counter visits avoided</div><div class="v">48,000</div><div class="req">per year</div></div>
+  <div class="card kpi"><div class="l">Claims submitted in-app</div><div class="v">41%</div><div class="bar" style="margin-top:6px"><i style="width:41%"></i></div><div class="req">Phase 2</div></div>
+  <div class="card kpi"><div class="l">Members active abroad</div><div class="v">9,600</div><div class="req">CARICOM and diaspora</div></div>
+  <div class="card kpi"><div class="l">Average payment time</div><div class="v">48 s</div><div class="req">sign-in to receipt</div></div>
+ </div>
+ <div class="grid2" style="margin-top:16px;grid-template-columns:1fr 1fr">
+  <div class="card"><h3 style="margin-top:0">Feature usage this month</h3><div id="usage"></div></div>
+  <div class="card"><h3 style="margin-top:0">Operational alerts</h3>
+   <table><tbody>
+    <tr><td><span class="pill p-ok">Resolved</span></td><td>Payment gateway latency above 2 s for 4 minutes; auto-scaled</td></tr>
+    <tr><td><span class="pill p-blue">Info</span></td><td>Nightly backup completed and restore test passed</td></tr>
+    <tr><td><span class="pill p-warn">Watch</span></td><td>Peak contribution day expected Friday; capacity pre-scaled</td></tr>
+   </tbody></table></div>
+ </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section id="sec-arch" data-section hidden>
+ <div class="req">Software and hardware architecture, security · RFB §1.3, §1.4.3, §3.1</div>
+ <h2>Secure multi-tier architecture</h2>
+ <p class="lead">Native-quality iOS and Android apps talk only to an API Gateway. Behind it sit stateless application services, an integration layer to NISSS's own REST APIs, and an encrypted, replicated database. NISSS's systems of record are never exposed to the internet.</p>
+ <div class="card arch">
+ <svg viewBox="0 0 1000 430" role="img" aria-label="Architecture diagram">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#5d6b78"/></marker></defs>
+  <g font-size="13">
+  <rect x="20" y="40" width="160" height="70" rx="12" fill="#0d2a46"/><text x="100" y="70" fill="#fff" text-anchor="middle" font-weight="700">Mobile app</text><text x="100" y="90" fill="#c8d6e3" text-anchor="middle">iOS and Android</text>
+  <rect x="20" y="150" width="160" height="60" rx="12" fill="#143a5e"/><text x="100" y="185" fill="#fff" text-anchor="middle">Admin and CMS (web)</text>
+  <rect x="230" y="60" width="150" height="150" rx="12" fill="#e6d3a3"/><text x="305" y="110" text-anchor="middle" font-weight="700">API Gateway</text><text x="305" y="132" text-anchor="middle">WAF · rate limits</text><text x="305" y="152" text-anchor="middle">OAuth2 token check</text><text x="305" y="172" text-anchor="middle">TLS 1.2+</text>
+  <rect x="430" y="40" width="200" height="190" rx="12" fill="#fff" stroke="#c9d1da"/><text x="530" y="66" text-anchor="middle" font-weight="700">Application services</text>
+  <text x="530" y="92" text-anchor="middle">Accounts and profile</text><text x="530" y="112" text-anchor="middle">Contributions and payments</text><text x="530" y="132" text-anchor="middle">Estimator rules engine</text><text x="530" y="152" text-anchor="middle">Notifications</text><text x="530" y="172" text-anchor="middle">Support and content</text><text x="530" y="192" text-anchor="middle">Claims (Phase 2)</text><text x="530" y="214" text-anchor="middle" fill="#5d6b78">containers, auto-scaled</text>
+  <rect x="680" y="40" width="150" height="90" rx="12" fill="#fff" stroke="#c9d1da"/><text x="755" y="72" text-anchor="middle" font-weight="700">Integration layer</text><text x="755" y="94" text-anchor="middle">adapters, queue,</text><text x="755" y="112" text-anchor="middle">retries, caching</text>
+  <rect x="860" y="20" width="125" height="200" rx="12" fill="#0d2a46"/><text x="922" y="46" fill="#fff" text-anchor="middle" font-weight="700">NISSS systems</text>
+  <text x="922" y="72" fill="#c8d6e3" text-anchor="middle">Contributions</text><text x="922" y="94" fill="#c8d6e3" text-anchor="middle">Customer records</text><text x="922" y="116" fill="#c8d6e3" text-anchor="middle">Payments</text><text x="922" y="138" fill="#c8d6e3" text-anchor="middle">Documents</text><text x="922" y="160" fill="#c8d6e3" text-anchor="middle">IAM (SaaS)</text><text x="922" y="190" fill="#e6d3a3" text-anchor="middle">REST · JSON</text>
+  <rect x="430" y="270" width="200" height="80" rx="12" fill="#fff" stroke="#c9d1da"/><text x="530" y="300" text-anchor="middle" font-weight="700">Database layer</text><text x="530" y="320" text-anchor="middle">encrypted, replicated,</text><text x="530" y="338" text-anchor="middle">point-in-time backup</text>
+  <rect x="680" y="160" width="150" height="70" rx="12" fill="#fff" stroke="#c9d1da"/><text x="755" y="190" text-anchor="middle" font-weight="700">Push and SMS</text><text x="755" y="210" text-anchor="middle">APNs · FCM · email</text>
+  <rect x="230" y="270" width="150" height="80" rx="12" fill="#fff" stroke="#c9d1da"/><text x="305" y="298" text-anchor="middle" font-weight="700">Observability</text><text x="305" y="318" text-anchor="middle">logs · metrics · traces</text><text x="305" y="336" text-anchor="middle">SIEM and alerts</text>
+  <rect x="680" y="270" width="305" height="80" rx="12" fill="#f4efe2" stroke="#c7a96b"/><text x="832" y="300" text-anchor="middle" font-weight="700">Secure cloud, two availability zones</text><text x="832" y="322" text-anchor="middle">load balancing · redundancy · DR region</text>
+  <g stroke="#5d6b78" stroke-width="1.6" fill="none" marker-end="url(#a)">
+   <path d="M180 75H228"/><path d="M180 180H228"/><path d="M380 135H428"/><path d="M630 85H678"/><path d="M830 85H858"/><path d="M530 230V268"/><path d="M630 195H678"/><path d="M380 300H428" stroke-dasharray="4 4"/>
+  </g>
+  <text x="20" y="400" fill="#5d6b78">Arrows show call direction. The app never connects directly to NISSS systems: every call is authenticated at the gateway and brokered by the integration layer.</text>
+  </g>
+ </svg></div>
+ <div class="grid2" style="margin-top:16px;grid-template-columns:1fr 1fr">
+  <div class="card"><h3 style="margin-top:0">Security controls</h3>
+   <table><tbody>
+   <tr><td>Identity</td><td>OAuth 2.0 / OpenID Connect via NISSS's SaaS IAM; multi-factor sign-in; biometric unlock bound to device keys</td></tr>
+   <tr><td>Data in transit</td><td>TLS 1.2+ everywhere, certificate pinning in the app</td></tr>
+   <tr><td>Data at rest</td><td>AES-256 database and backup encryption; keys in a managed KMS; no personal data cached unencrypted on the device</td></tr>
+   <tr><td>Access</td><td>Role-based access control for staff; least privilege for services</td></tr>
+   <tr><td>Detection</td><td>WAF, intrusion detection, centralised audit logging into a SIEM</td></tr>
+   <tr><td>Assurance</td><td>OWASP MASVS / Mobile Top 10 testing, independent penetration test, no critical or high findings at go-live</td></tr>
+   </tbody></table></div>
+  <div class="card"><h3 style="margin-top:0">Standards and law</h3>
+   <table><tbody>
+   <tr><td>Barbados Data Protection Act, 2019-29</td><td>Privacy impact assessment, lawful basis, data minimisation, breach-response plan</td></tr>
+   <tr><td>National Insurance and Social Security Act</td><td>Contribution and benefit rules configured, not hard-coded, and signed off by NISSS</td></tr>
+   <tr><td>ISO/IEC 27001 and 27002</td><td>Controls mapped in the Security Architecture deliverable</td></tr>
+   <tr><td>OWASP Mobile</td><td>MASVS L2 for authentication, storage and network controls</td></tr>
+   <tr><td>WCAG 2.2 AA</td><td>Large text, screen readers, colour contrast</td></tr>
+   </tbody></table></div>
+ </div>
+</section>
+
+<!-- ================= PLAN ================= -->
+<section id="sec-plan" data-section hidden>
+ <div class="req">Implementation schedule · RFB p.36 and "Duration and Implementation Schedule"</div>
+ <h2>14 months, five payment milestones, two phases</h2>
+ <p class="lead">Delivery follows the NISSS implementation schedule exactly: Phase 1 releases at weeks 10 and 24, Phase 2 at weeks 44, 54 and 68, each followed by acceptance two weeks later.</p>
+ <div class="card"><svg id="gantt" viewBox="0 0 980 330" role="img" aria-label="Implementation timeline"></svg></div>
+ <div class="card" style="margin-top:16px">
+  <table><thead><tr><th>Milestone</th><th>Scope</th><th>Delivery</th><th>Acceptance</th><th>Payment</th></tr></thead><tbody>
+  <tr><td>1</td><td>User account management, dashboard, transaction monitoring, payments and receipts, pension estimator (v1)</td><td>Week 10</td><td>Week 12</td><td>22%</td></tr>
+  <tr><td>2</td><td>Notifications and alerts, customer support, information services, content management; Phase 1 close-out</td><td>Week 24</td><td>Week 26</td><td>33.5%</td></tr>
+  <tr><td>3</td><td>Core user information services</td><td>Week 44</td><td>Week 46</td><td>11%</td></tr>
+  <tr><td>4</td><td>Communication and notification services</td><td>Week 54</td><td>Week 56</td><td>11%</td></tr>
+  <tr><td>5</td><td>Claims and benefits digitisation; Phase 2 close-out</td><td>Week 68</td><td>Week 70</td><td>22.5%</td></tr>
+  </tbody></table></div>
+</section>
+
+<!-- ================= TRACE ================= -->
+<section id="sec-trace" data-section hidden>
+ <div class="req">Testing and QA · RFB §4: "All testing MUST be traceable to requirements"</div>
+ <h2>Requirements traceability</h2>
+ <p class="lead">Each requirement links to the screen that meets it, the test that proves it, and its status in this prototype.</p>
+ <div class="card"><table><thead><tr><th>RFB ref.</th><th>Requirement</th><th>Where to see it</th><th>Test type</th><th>Prototype</th></tr></thead><tbody id="trace"></tbody></table></div>
+</section>
+</main>
+<footer class="foot">Agentic Rx Inc. · 41B Blue Waters, Rockley, Christ Church, Barbados · info@agentic-rx.com · Bid prototype for RFP No. NISSS13/15_2026_02. All names, numbers and amounts are invented sample data. The delivered application will use NISSS's live APIs, approved benefit rules and branding. Trident ID integration uses the interfaces made available by the Government of Barbados. Photographs are used for illustration.</footer>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const money=v=>'BBD '+v.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+/* ---------- top tabs ---------- */
+function showSec(id){$$('[data-section]').forEach(s=>s.hidden=s.id!=='sec-'+id);$$('nav.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.sec===id));if(id==='ops')drawOps();if(id==='plan')drawGantt();if(id==='abroad')drawMap();if(id==='int')drawInts();window.scrollTo(0,0);}
+$$('nav.tabs button').forEach(b=>b.onclick=()=>{showSec(b.dataset.sec);history.replaceState(null,'','#'+b.dataset.sec)});
+$$('[data-goto]').forEach(b=>b.onclick=e=>{e.preventDefault();showSec(b.dataset.goto);history.replaceState(null,'','#'+b.dataset.goto)});
+$$('[data-try]').forEach(a=>a.onclick=e=>{e.preventDefault();showSec('app');const t=a.dataset.try;if(t==='simple'){simple=true;authed=true;stack=[];go('home',false);return;}if(t==='trident'){authed=false;stack=['login'];go('trident',false);return;}authed=true;stack=['home'];go(t,false);});
+/* ---------- sample data ---------- */
+const member={name:'Jordan Alleyne',nis:'NIS 000-000-000 (sample)',type:'Self-employed',weeks:612,since:2009,dob:1971};
+const months=['Oct 2026','Sep 2026','Aug 2026','Jul 2026','Jun 2026','May 2026','Apr 2026','Mar 2026','Feb 2026','Jan 2026','Dec 2025','Nov 2025'];
+let contribs=months.map((m,i)=>({m,amt:i<2?0:[486.20,486.20,486.20,471.90,471.90,471.90,471.90,471.90,463.10,463.10][i-2],due:486.20,status:i<2?'Due':'Paid',ref:i<2?'':'RCP-26'+(4810-i*37)}));
+let notes=[
+ {t:'Contribution due',b:'Your contributions for September and October 2026 are due.',d:'Today',u:1},
+ {t:'Payment received',b:'We received BBD 486.20 for August 2026. Receipt RCP-264736.',d:'2 Oct',u:1},
+ {t:'New: financial tip',b:'Five ways to plan for retirement income.',d:'28 Sep',u:1},
+ {t:'Office hours',b:'Offices close at 1:00 p.m. on 30 November (Independence Day observance).',d:'20 Sep',u:0}];
+let claims=[{id:'CLM-10422',type:'Sickness benefit',date:'12 Aug 2026',status:3}];
+const claimSteps=['Submitted','Documents checked','Under assessment','Approved','Paid'];
+/* ---------- phone router ---------- */
+let route='login', stack=[], authed=false, netSafe=false, simple=false, tsize=0, hc=false, lowdata=false, helperOn=false;
+const consents={1:true,2:true,3:true,4:false};
+const accessLog=[['Today 09:41','NIS Mobile','Read contributions','2'],['Today 09:40','Trident ID','Confirmed identity for sign-in','1'],['3 Oct','Payment provider','Card payment for Aug 2026','3']];
+const TRI='<svg viewBox="0 0 120 160" aria-hidden="true"><g fill="#ffc726"><path d="M57 6 L63 6 L66 30 L62 30 L62 112 L58 112 L58 30 L54 30 Z"/><path d="M60 0 L68 18 L52 18 Z"/><path d="M58 58 C38 58 26 46 22 20 L14 22 L24 4 L34 20 L28 19 C32 38 42 48 58 48 Z"/><path d="M62 58 C82 58 94 46 98 20 L106 22 L96 4 L86 20 L92 19 C88 38 78 48 62 48 Z"/></g></svg>';
+function qr(){let seed=7,o='';const r=()=>{seed=(seed*9301+49297)%233280;return seed/233280};const fin=(x,y)=>`<rect x="${x}" y="${y}" width="7" height="7" fill="#00267f"/><rect x="${x+1}" y="${y+1}" width="5" height="5" fill="#fff"/><rect x="${x+2}" y="${y+2}" width="3" height="3" fill="#00267f"/>`;
+ for(let y=0;y<21;y++)for(let x=0;x<21;x++){if((x<8&&y<8)||(x>12&&y<8)||(x<8&&y>12))continue;if(r()>.52)o+=`<rect x="${x}" y="${y}" width="1" height="1" fill="#0d2a46"/>`;}
+ return o+fin(0,0)+fin(14,0)+fin(0,14);}
+const titles={login:'NIS Mobile',otp:'Verify it\'s you',home:'Home',contrib:'Contributions',pay:'Make a payment',receipt:'Receipt',estimate:'Pension estimator',claims:'Claims',newclaim:'New claim',claim:'Claim status',more:'More',notes:'Notifications',support:'Customer support',chat:'Chat with us',info:'Information',profile:'My account',security:'Security and devices',card:'Digital NIS card',abroad:'Pay from abroad',caricom:'CARICOM service',life:'Life certificate',network:'Secure connection',clearance:'Clearance certificate',trident:'Trident ID sign-in',consent:'My data and consent',access:'Accessibility and language',helper:'Trusted helper'};
+const explain={
+ login:['Secure sign-in','§1.2.1.1 User account management · §3.1.4.2 OAuth2/OpenID Connect','Sign-in is handled by NISSS\'s cloud IAM. The demo account is pre-filled so no details are typed.'],
+ otp:['Multi-factor authentication','§1.4.3 Security management','A one-time code is required on new devices; biometric unlock is offered afterwards.'],
+ home:['Personal dashboard','§1.2.1.2 User dashboard','Contribution status, amount due, credited weeks and quick actions in one view.'],
+ contrib:['Transaction monitoring','§1.2.1.3 Transaction monitoring, payments and receipts','Twelve months of contributions with filters; outstanding months can be paid from here.'],
+ pay:['Payments','§1.2.1.3 · §2.3 payment processing integration','Card or bank payment through NISSS\'s payment platform. Card details never touch the app servers.'],
+ receipt:['Receipts','§1.2.1.3','A numbered receipt is issued instantly and stored in the account.'],
+ estimate:['Pension estimator (v1)','§1.2.1.4 Benefits estimator, Phase 1','Estimates update as inputs change. The formula here is illustrative; the delivered rules engine uses the logic NISSS is finalising, configured not hard-coded.'],
+ claims:['Claims and benefits (Phase 2)','§1.2.2.3 Claims and benefits digitisation','Members start a claim, upload documents and track every step.'],
+ newclaim:['Digital claim form','§1.2.2.3 · §2.3 document management integration','Guided form with validation and document upload to NISSS\'s document system.'],
+ claim:['Claim tracking','§1.2.2.3','A status timeline replaces phone calls and office visits.'],
+ more:['Services menu','§1.2.1.6, §1.2.1.7','Support, information, notifications and account settings.'],
+ notes:['Notifications and alerts','§1.2.1.5 · §1.2.2.2','Push, SMS and email alerts for dues, payments, claims and announcements; members choose channels.'],
+ support:['Customer support','§1.2.1.6 Customer support','Chat, call-back, branch details and FAQs.'],
+ chat:['Support chat','§1.2.1.6','Conversations are logged to the support desk with the member\'s consent.'],
+ info:['Information services','§1.2.1.7 · §1.2.1.8 Content management','Announcements, FAQs, videos and financial tips, all published by NISSS staff through the CMS.'],
+ profile:['Account management','§1.2.1.1 · §1.2.2.1 Core user information services','View and update contact details, employer and preferences; changes are verified.'],
+ security:['Security and devices','§1.4.3 · Data Protection Act','Manage trusted devices, biometrics and consent; sign out everywhere.'],
+ card:['Digital NIS card','Optional add-on · §0.4.2 digitisation','A verifiable digital membership card with a rotating QR code that NISSS staff or employers can check.'],
+ abroad:['Pay from abroad','§1.2.1.3 · optional add-on for the diaspora','International cards in USD, CAD or GBP; the BBD amount credited is shown before the member confirms.'],
+ caricom:['CARICOM service record','Optional add-on · CARICOM Agreement on Social Security','Shows periods insured in other CARICOM states that may count towards benefits. Illustrative; data exchange subject to NISSS agreements.'],
+ life:['Digital life certificate','Optional add-on · §1.2.2.3 claims and benefits','Pensioners abroad confirm proof of life with a selfie and ID check, replacing a posted, witnessed form.'],
+ network:['Secure connection check','§1.4.3 · OWASP MASVS-NETWORK','The app checks the network, always uses TLS with certificate pinning, and recommends a trusted VPN on public Wi-Fi.'],
+ clearance:['Clearance certificate','§0.4.2 digitisation of clearance certification','Request an NIS clearance certificate and receive it in the app, ready to share with a verification link.'],
+ trident:['Sign in with Trident ID','§1.2.1.1 · §1.4.3 · Barbados Identity Management Act','Tap the Trident ID card and enter its PIN, or approve in the Trident eID app. The member sees exactly what is shared before agreeing.'],
+ consent:['My data and consent','Data Protection Act, 2019 · §1.4.3','Tiered consent with an access log: members see who used which data, and can withdraw optional consents.'],
+ access:['Accessibility and language','WCAG 2.2 AA · inclusive design','Simple mode, three text sizes, high contrast, read-aloud, low-data mode and language choice, saved to the member\'s profile.'],
+ helper:['Trusted helper','Inclusive design · Data Protection Act, 2019','A family member or carer can help with limited, time-bound permission that the member grants and can withdraw. Every action is logged.'],
+ simple:['Simple mode','Inclusive design','Three big actions in plain language for members who want the simplest possible app.']};
+const privacy={login:'Tier 1 identity. Strong sign-in; nothing typed in the demo is sent anywhere.',otp:'Tier 1. One-time code binds this device; codes expire in 5 minutes.',trident:'Tier 1. Only name, date of birth and ID numbers are shared, with the holder\'s action and PIN.',home:'Tier 2. Read-only access over TLS with certificate pinning; nothing cached unencrypted.',contrib:'Tier 2. Read-only API scope; each access written to the member\'s access log.',pay:'Tier 3. Card details stay on the payment provider\'s page; step-up check for new payment methods.',receipt:'Tier 3. Receipt shows masked card details only.',estimate:'Tier 2. Inputs are not stored unless the member saves an estimate.',claims:'Tier 2 to 4. Claim records restricted to assessors.',newclaim:'Tier 4 health data. Medical certificate shared only with explicit consent, encrypted and seen only by assessors.',claim:'Tier 2. Status only; no medical details on this screen.',notes:'Tier 1. Alerts never show amounts or health details on the lock screen.',support:'Tier 2. Agents see only what the case needs.',chat:'Tier 2. Conversation logged with consent; personal data masked.',profile:'Tier 1 to 3. Changes to contact or bank details need a step-up check.',security:'Tier 1. Manage devices and sign out everywhere.',card:'Tier 1. Rotating QR proves membership without revealing records.',clearance:'Tier 2. Certificate shows status only, with a verification link.',abroad:'Tier 3. International card payments through the hosted payment page.',caricom:'Tier 2. Shown only where a data-sharing agreement exists.',life:'Tier 1 and 4. Liveness check images are deleted after verification.',network:'Network security: TLS 1.3, certificate pinning, VPN advice on public Wi-Fi.',consent:'The member controls Tiers 3 and 4; Tier 2 access is logged.',access:'Settings are stored on the device only.',helper:'Helper access is scoped, time-limited and logged.',more:'',info:'Tier 0 public content.',simple:'Same security as the full app, with fewer choices.'};
+function go(r,push=true){if(push&&route!==r)stack.push(route);route=r;render();}
+function back(){route=stack.pop()||'home';render();}
+$('#back').onclick=back;$('#bell').onclick=()=>go('notes');
+function speak(){try{const t=$('#view').innerText.replace(/\s+/g,' ').slice(0,700);speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.95;speechSynthesis.speak(u);toast('Reading this screen aloud');}catch(e){toast('Read-aloud is not available on this browser');}}
+$('#speak').onclick=speak;$('#aa').onclick=()=>{if(!authed){authed=true;stack=['home'];}go('access');};
+$$('#tabbar button').forEach(b=>b.onclick=()=>{stack=[];go(b.dataset.go,false)});
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200);}
+function render(){
+ const v=$('#view');$('#title').textContent=titles[route]||'NIS Mobile';
+ $('#tabbar').hidden=!authed;$('#bell').hidden=!authed;$('#back').hidden=!authed||!stack.length||['home','contrib','estimate','claims','more'].includes(route)&&!stack.length;
+ $$('#tabbar button').forEach(b=>b.classList.toggle('on',b.dataset.go===route));
+ $('#ncount').textContent=notes.filter(n=>n.u).length;
+ const vk=(route==='home'&&simple)?'simplehome':route;v.innerHTML=(views[vk]||views.home)();v.scrollTop=0;
+ (binds[vk]||(()=>{}))();
+ const key=(route==='home'&&simple)?'simple':route;const ex=explain[key];if(ex)$('#explain').innerHTML=`<div class="req">${ex[1]}</div><h3 style="margin:4px 0">${ex[0]}</h3><div>${ex[2]}</div>${privacy[key]?`<div class="privacy" style="font-size:12.5px">🔒 Security and privacy: ${privacy[key]}</div>`:''}`;
+ $('#screen').classList.toggle('big',simple||tsize>0);$('#screen').style.setProperty('--zz',[1.16,1.16,1.3][tsize]||1.16);$('#screen').classList.toggle('hc',hc);
+ $$('#jump button').forEach(b=>b.classList.toggle('on',b.dataset.r===(route==='home'&&simple?'simple':route)));
+}
+const due=()=>contribs.filter(c=>c.status==='Due');
+const views={
+ login:()=>`<div style="text-align:center;margin:18px 0 14px"><div style="width:70px;height:70px;margin:0 auto;border-radius:20px;background:#0d2a46;display:grid;place-items:center;color:#e6d3a3;font:700 24px Georgia">NIS</div><h3 style="margin:12px 0 2px">Welcome</h3><div class="note">Prototype sign-in · demo account</div></div>
+  <button class="btn tri" id="tri">${TRI}Sign in with Trident ID</button><div class="note" style="text-align:center">Tap your Trident ID card or use the Trident eID app</div>
+  <div class="or">or use your NIS number</div>
+  <label class="f">NIS number or email</label><input class="in" value="demo.member@example.com" readonly>
+  <label class="f">Password</label><input class="in" value="••••••••••" readonly>
+  <button class="btn" id="signin">Continue with demo account</button>
+  <button class="btn ghost" id="reg">Register for NIS Mobile</button>
+  <button class="chip" id="simpleOn" style="margin-top:12px;width:100%;padding:10px;font-weight:700">◉ Prefer bigger buttons? Use Simple mode</button>
+  <div class="note">Fields are fixed for the demo: nothing you type is sent anywhere. The live app uses NISSS's identity service.</div>`,
+ otp:()=>`<p style="font-size:14px">We sent a 6-digit code to the phone ending ••42. For the demo, the code is filled in for you.</p>
+  <div style="display:flex;gap:8px;justify-content:center;margin:18px 0">${'482913'.split('').map(d=>`<div style="width:42px;height:52px;border:1px solid #cfd6de;border-radius:10px;display:grid;place-items:center;font:700 22px Georgia;background:#fff">${d}</div>`).join('')}</div>
+  <button class="btn" id="verify">Verify and sign in</button>
+  <label style="display:flex;gap:8px;align-items:center;margin-top:14px;font-size:13px"><input type="checkbox" checked> Use Face ID / fingerprint next time</label>`,
+ home:()=>{const d=due(),amt=d.reduce((a,c)=>a+c.due,0),paidMonths=contribs.slice().reverse();
+  const bars=paidMonths.map((c,i)=>{const v=c.status==='Paid'?c.amt:0,h=Math.round(v/500*46);return `<rect x="${i*22+4}" y="${52-h}" width="14" height="${Math.max(h,3)}" rx="3" fill="${c.status==='Paid'?'#00267f':'#ffc726'}"/>`}).join('');
+  const pct=Math.min(1,member.weeks/1300),C=2*Math.PI*34;
+  return `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div><div style="font-size:12px;color:#6a7682">Good morning,</div><div style="font-size:18px;font-weight:800">${member.name}</div></div><button class="netok ${netSafe?'good':'bad'}" data-q="network" style="border:0;cursor:pointer">${netSafe?'🛡 Secure':'⚠ Check network'}</button></div>
+  <div class="hero" style="background:linear-gradient(135deg,#00267f,#0b4fb3 60%,#0aa3c2)"><div class="small">${d.length?'Amount due now':'All contributions paid'}</div><div class="big">${money(amt)}</div><div class="small">${d.length?d.map(x=>x.m).join(' · ')+' · '+member.type:'Next contribution due 15 Nov 2026'}</div>
+  ${d.length?'<button class="btn gold" id="paynow" style="margin-top:12px">Pay now · 2 taps</button>':'<button class="btn gold" data-q="receipt" style="margin-top:12px">View last receipt</button>'}</div>
+  <div class="qa"><button data-q="contrib"><span class="ic">≡</span>History</button><button data-q="estimate"><span class="ic">%</span>Pension</button><button data-q="card"><span class="ic">▣</span>NIS card</button><button data-q="clearance"><span class="ic">✓</span>Clearance</button><button data-q="newclaim"><span class="ic">✚</span>Claim</button><button data-q="abroad"><span class="ic">✈</span>Abroad</button><button data-q="support"><span class="ic">✆</span>Help</button><button data-q="notes"><span class="ic">🔔</span>Alerts</button></div>
+  <div class="acard"><div style="display:flex;justify-content:space-between;align-items:center"><h4 style="margin:0">Contributions, last 12 months</h4><span style="font-size:11px;color:#6a7682">${contribs.filter(c=>c.status==='Paid').length} of 12 paid</span></div><svg viewBox="0 0 268 56" style="width:100%;height:60px;margin-top:6px">${bars}</svg><div style="display:flex;justify-content:space-between;font-size:10.5px;color:#6a7682"><span>Nov 2025</span><span>Oct 2026</span></div></div>
+  <div class="acard" style="display:flex;gap:14px;align-items:center"><svg class="ring" viewBox="0 0 84 84"><circle cx="42" cy="42" r="34" fill="none" stroke="#e6eaef" stroke-width="9"/><circle cx="42" cy="42" r="34" fill="none" stroke="#ffc726" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C*pct} ${C}" transform="rotate(-90 42 42)"/><text x="42" y="47" text-anchor="middle" font-size="15" font-weight="800" fill="#00267f">${Math.round(pct*100)}%</text></svg>
+   <div><h4 style="margin:0 0 4px">Pension progress</h4><div style="font-size:12.5px">${member.weeks} credited weeks. Qualified at 500 ✓. Maximum rate at 1,300 weeks.</div><button class="chip" data-q="estimate" style="margin-top:6px">Estimate my pension ›</button></div></div>
+  <div class="acard"><h4>Latest from NISSS</h4><div class="row"><span>${notes[2].b}</span><span class="m">${notes[2].d}</span></div><button class="btn ghost" data-q="info">See all news and tips</button></div>`},
+ simplehome:()=>{const d=due(),amt=d.reduce((a,c)=>a+c.due,0);return `<div style="font-size:16px;margin-bottom:12px">Hello, <b>${member.name.split(' ')[0]}</b>. What would you like to do?</div>
+  <button class="simple-btn" style="background:#00267f" id="s-pay"><span class="si">$</span><span>${d.length?'Pay what I owe':'Nothing to pay'}<small>${d.length?money(amt)+' for '+d.map(x=>x.m).join(' and '):'All contributions are paid'}</small></span></button>
+  <button class="simple-btn" style="background:#0b6d7a" data-q="estimate"><span class="si">%</span><span>Check my pension<small>${member.weeks} weeks paid · see what you may get</small></span></button>
+  <button class="simple-btn" style="background:#8a5a00" id="s-help"><span class="si">✆</span><span>Get help<small>We will call you back</small></span></button>
+  <button class="btn ghost" id="s-read">🔊 Read this screen to me</button>
+  <button class="btn ghost" id="s-full">Show the full app</button>
+  <div class="privacy">🔒 Same security as the full app. Your helper can assist only if you have allowed it.</div>`},
+ trident:()=>`<div class="steps3"><span class="on"></span><span id="t2"></span><span id="t3"></span></div>
+  <div class="tapcard" id="tap" style="cursor:pointer"><div class="tcard"></div><b>Hold your Trident ID card to the back of your phone</b><div class="note">or approve the request in your Trident eID app</div></div>
+  <div class="acard"><h4>NIS Mobile is asking to see</h4><div class="row"><span>Name</span><b>✓</b></div><div class="row"><span>Date of birth</span><b>✓</b></div><div class="row"><span>Trident ID number</span><b>✓</b></div><div class="row"><span class="m">Not requested: address, licence details, disability status</span><span></span></div></div>
+  <label class="f">Card PIN</label><input class="in" value="••••" readonly>
+  <button class="btn" id="trishare">Share and sign in</button><div class="privacy">🔒 Shared only because you tapped and entered your PIN, as the Barbados Identity Management Act and Data Protection Act require. Demo only: no card is read.</div>`,
+ consent:()=>`<div class="acard"><h4>What NIS Mobile may use</h4>${[[1,'Identity','Name, date of birth, ID numbers','#0b4fb3',1],[2,'Social security','Contributions, pension, claims','#00267f',1],[3,'Financial','Bank account for benefits, payments','#b46b00',0],[4,'Health and disability','Medical certificates for claims; disability status','#b3261e',0]].map(t=>`<label class="row"><span><span class="tchip" style="background:${t[3]}">Tier ${t[0]}</span> <b>${t[1]}</b><br><span class="m">${t[2]}</span></span>${t[4]?'<span class="m">Required</span>':`<input type="checkbox" data-tier="${t[0]}" ${consents[t[0]]?'checked':''}>`}</label>`).join('')}</div>
+  <div class="acard"><h4>Access log</h4>${accessLog.map(a=>`<div class="row"><span>${a[2]}<br><span class="m">${a[0]} · ${a[1]}</span></span><span class="m">Tier ${a[3]}</span></div>`).join('')}</div>
+  <button class="btn ghost" id="dl">Download a copy of my data</button>`,
+ access:()=>`<div class="acard"><label class="row"><span><b>Simple mode</b><br><span class="m">Three big buttons, plain language</span></span><input type="checkbox" id="a-simple" ${simple?'checked':''}></label>
+  <div style="padding:9px 0"><b>Text size</b><div class="sizes" style="margin-top:6px">${['A','A+','A++'].map((x,i)=>`<button data-ts="${i}" class="${tsize===i?'on':''}">${x}</button>`).join('')}</div></div>
+  <label class="row"><span><b>High contrast</b></span><input type="checkbox" id="a-hc" ${hc?'checked':''}></label>
+  <label class="row"><span><b>Low-data mode</b><br><span class="m">Fewer images, smaller downloads</span></span><input type="checkbox" id="a-low" ${lowdata?'checked':''}></label></div>
+  <div class="acard"><h4>Language</h4>${['English','Español','Français'].map((l,i)=>`<button class="chip ${i==0?'on':''}" data-lang="${l}">${l}</button>`).join('')}<div class="note">Translations are managed by NISSS in the CMS.</div></div>
+  <button class="btn ghost" id="a-read">🔊 Read this screen aloud</button><button class="btn ghost" data-q="helper">Add a trusted helper</button>`,
+ helper:()=>`<div class="acard"><h4>Your trusted helper</h4>${helperOn?'<div class="row"><span><b>Andrea Alleyne</b> (daughter)<br><span class="m">Can view and pay · until 31 Dec 2026</span></span><button class="chip" id="h-off" style="flex:none;align-self:center">Remove</button></div>':'<div class="m">No helper yet. A helper can sign in with their own Trident ID to help you.</div>'}</div>
+  ${helperOn?'':`<div class="acard"><label class="f">What can they do?</label><label class="row"><span>View my contributions</span><input type="checkbox" checked></label><label class="row"><span>Make payments for me</span><input type="checkbox" checked></label><label class="row"><span>Submit claims for me</span><input type="checkbox"></label><label class="f">For how long?</label><select class="in"><option>Until 31 Dec 2026</option><option>3 months</option><option>Until I remove it</option></select></div><button class="btn" id="h-add">Invite helper (demo)</button>`}
+  <div class="privacy">🔒 Helpers never see your password. They act with their own identity, only within what you allow, and every action appears in your access log.</div>`,
+ card:()=>`<div class="nis-card"><div style="display:flex;justify-content:space-between"><b style="letter-spacing:.12em">NIS MEMBER CARD</b><span style="font-size:11px;opacity:.85">PROTOTYPE</span></div><div style="font:600 20px Georgia;margin-top:18px">${member.name}</div><div style="font-size:12.5px;opacity:.9">${member.nis}</div><div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px;margin-bottom:6px"><div style="font-size:12px;opacity:.9">Member since ${member.since}<br>${member.type}</div><svg width="78" height="78" viewBox="0 0 21 21" style="background:#fff;border-radius:8px;padding:4px">${qr()}</svg></div><div class="stripe"></div></div>
+  <div class="note">The QR code rotates every 60 seconds and is verified against NISSS records, so a screenshot cannot be reused.</div><button class="btn ghost" id="wallet">Add to Apple Wallet or Google Wallet</button>`,
+ clearance:()=>`<div class="acard"><h4>NIS clearance certificate</h4><div class="row"><span>Contribution status</span><b>${due().length?'Outstanding: '+due().length+' month(s)':'Up to date ✓'}</b></div><label class="f">Purpose</label><select class="in"><option>Government contract</option><option>Work permit</option><option>Bank or loan</option><option>Other</option></select></div>
+  ${due().length?'<div class="note">Contributions must be up to date before a certificate is issued.</div><button class="btn gold" data-q="pay">Pay outstanding months</button>':'<button class="btn" id="getcert">Request certificate</button>'}`,
+ abroad:()=>`<div class="acard"><h4>Pay from abroad</h4><label class="f">Pay in</label><div>${['USD','CAD','GBP','BBD'].map((c,i)=>`<button class="chip ${i==0?'on':''}" data-cur="${c}">${c}</button>`).join('')}</div>
+  <div class="row"><span>Months</span><b>${due().length||1}</b></div><div class="row"><span>Credited to NISSS</span><b>${money(due().reduce((a,c)=>a+c.due,0)||486.2)}</b></div><div class="row"><span>You pay</span><b id="fx"></b></div><div class="note" id="fxn"></div></div>
+  <div class="acard"><h4>Sign-in codes abroad</h4><div class="row"><span>SMS to an overseas number</span><span class="pill p-ok">On</span></div><div class="row"><span>Authenticator app</span><span class="pill p-blue">Available</span></div></div>
+  <button class="btn gold" id="payabroad">Continue to secure payment</button>`,
+ caricom:()=>`<div class="acard"><h4>Your insured periods</h4>${[['Barbados','2009 – today','612 weeks','p-ok'],['Trinidad and Tobago','2003 – 2008','214 weeks','p-blue'],['Jamaica','2001 – 2003','96 weeks','p-blue']].map(r=>`<div class="row"><span><b>${r[0]}</b><br><span class="m">${r[1]}</span></span><span class="pill ${r[3]}">${r[2]}</span></div>`).join('')}</div>
+  <div class="hero" style="background:linear-gradient(135deg,#00267f,#0aa3c2)"><div class="small">Total CARICOM insured weeks</div><div class="big">922</div><div class="small">May count towards benefit eligibility under the CARICOM Agreement on Social Security</div></div><div class="note">Illustrative sample. Records from other states appear only where NISSS has a data-sharing arrangement.</div>`,
+ life:()=>`<div class="steps3"><span class="on"></span><span id="l2"></span><span id="l3"></span></div><div class="acard"><h4>Annual life certificate</h4><div style="font-size:13px">Due by 31 Dec 2026 for pensioners living outside Barbados.</div></div>
+  <div class="acard" id="selfie" style="text-align:center;cursor:pointer;border-style:dashed"><div style="font-size:30px">🙂</div>Tap to take a selfie (demo)</div><div class="acard" id="idcheck" style="text-align:center;cursor:pointer;border-style:dashed"><div style="font-size:26px">🪪</div>Scan passport or ID (demo)</div><button class="btn" id="lifesend">Submit life certificate</button>`,
+ network:()=>`<div class="acard" style="text-align:center"><div style="font-size:40px">${netSafe?'🛡':'⚠'}</div><h4 style="margin:6px 0">${netSafe?'Your connection is protected':'Public Wi-Fi detected'}</h4><div style="font-size:13px">${netSafe?'Trusted VPN on. NISSS certificates verified.':'"Airport_Free_WiFi" is an open network. We recommend a trusted VPN before you sign in or pay.'}</div></div>
+  <div class="acard"><div class="row"><span>Encryption (TLS 1.3)</span><b>✓</b></div><div class="row"><span>NISSS certificate pinning</span><b>✓</b></div><div class="row"><span>Trusted VPN</span><b>${netSafe?'On':'Off'}</b></div><div class="row"><span>Device integrity</span><b>✓ Not rooted or jailbroken</b></div></div>
+  <button class="btn ${netSafe?'ghost':'gold'}" id="vpn">${netSafe?'Turn off VPN':'Turn on trusted VPN'}</button><div class="note">Data is always encrypted in transit. A VPN adds protection on untrusted networks abroad. NISSS staff reach the admin console only through zero-trust access.</div>`,
+ contrib:()=>`<div style="margin-bottom:8px">${['All','Paid','Due'].map((f,i)=>`<button class="chip ${i==0?'on':''}" data-f="${f}">${f}</button>`).join('')}</div>
+  <div class="acard" style="border-left:4px solid #0aa3c2"><h4>Work counted this month</h4><div class="row"><span>Island Catering Ltd</span><b>16 h</b></div><div class="row"><span>Harbour Events</span><b>9 h</b></div><div class="row"><span>Self-employed (vending)</span><b>12 h</b></div><div class="note">Every job counts towards your record. Ready for the National Portable Benefits Framework (illustrative).</div></div>
+  <div class="acard" id="clist"></div>${due().length?'<button class="btn gold" id="paydue">Pay outstanding months</button>':''}<div class="note">Source: NISSS contribution API (sample data).</div>`,
+ pay:()=>{const d=due();return `<div class="steps3"><span class="on"></span><span class="on"></span><span></span></div>
+  <div class="acard"><h4>Months to pay</h4>${d.map(c=>`<label class="row"><span><input type="checkbox" checked data-m="${c.m}"> ${c.m}</span><b>${money(c.due)}</b></label>`).join('')}<div class="row"><span><b>Total</b></span><b id="ptot">${money(d.reduce((a,c)=>a+c.due,0))}</b></div></div>
+  <div class="acard"><h4>Payment method</h4><label class="row"><span><input type="radio" name="pm" checked> Debit or credit card</span><span class="m">via payment gateway</span></label><label class="row"><span><input type="radio" name="pm"> Bank account (direct debit)</span><span class="m">Barbados banks</span></label></div>
+  <div class="lock">🔒 Card details are entered on the payment provider's secure page, never stored by NIS Mobile.</div>
+  <button class="btn" id="confirm">Confirm payment</button>
+  <div class="acard" style="margin-top:12px;display:flex;gap:12px;align-items:center"><svg width="64" height="64" viewBox="0 0 21 21" style="flex:none;background:#fff;border:1px solid #e1e5ea;border-radius:8px;padding:3px">${qr()}</svg><div><b style="font-size:13.5px">No card or bank account?</b><div class="m">Pay cash at any SurePay agent with this code, or online through EZpay+.</div><button class="chip" id="paycode" style="margin-top:6px">Get payment code</button></div></div>`},
+ receipt:()=>{const r=window._rcpt||{};return `<div class="receipt"><div style="text-align:center"><div style="font-size:34px">✓</div><h3 style="margin:4px 0">Payment successful</h3><div class="note">Receipt ${r.no}</div></div>
+  <div class="row"><span>Member</span><b>${member.name}</b></div><div class="row"><span>Months</span><b>${(r.months||[]).join(', ')}</b></div><div class="row"><span>Amount</span><b>${money(r.total||0)}</b></div><div class="row"><span>Date</span><b>${new Date().toLocaleDateString('en-GB')}</b></div><div class="row"><span>Method</span><b>Card ••••4242</b></div></div>
+  <button class="btn ghost" id="share">Download PDF receipt</button><button class="btn" data-q="home">Back to home</button>`},
+ estimate:()=>`<div class="acard"><label class="f">Year of birth: <b id="e-dob-v"></b></label><input type="range" id="e-dob" min="1960" max="2000" value="1971">
+  <label class="f">Average insurable weekly earnings: <b id="e-earn-v"></b></label><input type="range" id="e-earn" min="200" max="1500" step="10" value="820">
+  <label class="f">Contribution weeks at retirement: <b id="e-weeks-v"></b></label><input type="range" id="e-weeks" min="150" max="2200" step="10" value="1500"></div>
+  <div class="hero"><div class="small">Estimated monthly pension</div><div class="big" id="e-out"></div><div class="small" id="e-age"></div><div class="bar" style="margin-top:10px;background:rgba(255,255,255,.2)"><i id="e-bar"></i></div><div class="small" id="e-rate" style="margin-top:6px"></div></div>
+  <div class="acard" id="e-elig"></div>
+  <div class="note">Illustrative formula for the prototype only: 40% of average insurable earnings at 500 weeks, plus 1.25% for each further 50 weeks, capped at 60%. The delivered estimator applies the benefit rules NISSS confirms during requirements validation. Rules are data, so reforms such as the pensionable age moving to 67.5 in 2028 and 68 in 2034 are a configuration change, not a new release.</div>`,
+ claims:()=>`<button class="btn gold" data-q="newclaim" style="margin-top:0">Start a new claim</button>
+  <h4 style="margin:16px 0 8px">Your claims</h4>${claims.map(c=>`<div class="acard" data-c="${c.id}" style="cursor:pointer"><div class="row"><span><b>${c.type}</b><br><span class="m">${c.id} · ${c.date}</span></span><span class="pill ${c.status>=3?'p-ok':'p-blue'}">${claimSteps[c.status]}</span></div></div>`).join('')}
+  <div class="note">Phase 2 · Claims and benefits digitisation.</div>`,
+ newclaim:()=>`<div class="steps3"><span class="on"></span><span id="s2"></span><span id="s3"></span></div>
+  <label class="f">Benefit</label><select class="in" id="ctype"><option>Sickness benefit</option><option>Maternity benefit</option><option>Employment injury benefit</option><option>Funeral grant</option></select>
+  <label class="f">First day unable to work</label><input class="in" type="date" id="cdate" value="2026-10-05">
+  <label class="f">Medical certificate</label><div class="acard" id="drop" style="text-align:center;border-style:dashed;cursor:pointer">📎 Tap to attach (demo file)</div>
+  <div class="privacy" style="margin-top:-4px;margin-bottom:6px">🔒 Health data (Tier 4): shared only for this claim, encrypted and seen only by NISSS assessors. You can withdraw consent in My data.</div>
+  <label class="f">Bank account for payment</label><input class="in" value="Account ending ••1188 (on file)" readonly>
+  <label style="display:flex;gap:8px;align-items:flex-start;margin-top:12px;font-size:12.5px"><input type="checkbox" id="decl"> I declare the information is true and complete.</label>
+  <button class="btn" id="submitclaim">Submit claim</button>`,
+ claim:()=>{const c=claims.find(x=>x.id===window._claim)||claims[0];return `<div class="acard"><h4>${c.type}</h4><div class="m">${c.id} · submitted ${c.date}</div></div>
+  <div class="acard">${claimSteps.map((s,i)=>`<div class="row"><span>${i<=c.status?'●':'○'} ${s}</span><span class="m">${i<=c.status?'Done':i===c.status+1?'Next':''}</span></div>`).join('')}</div>
+  <button class="btn ghost" data-q="chat">Ask about this claim</button>`},
+ more:()=>`<div class="acard">${[['profile','👤','My account'],['card','▣','Digital NIS card'],['clearance','✓','Clearance certificate'],['abroad','✈','Pay from abroad'],['life','🙂','Life certificate (pensioners abroad)'],['caricom','◎','CARICOM service record'],['network','🛡','Secure connection'],['notes','🔔','Notifications'],['support','✆','Customer support'],['info','ℹ','News, FAQs and tips'],['security','🔒','Security and devices'],['consent','🛡','My data and consent'],['access','Aa','Accessibility and language'],['helper','♥','Trusted helper']].map(x=>`<div class="row" data-q="${x[0]}" style="cursor:pointer"><span>${x[1]} ${x[2]}</span><span class="m">›</span></div>`).join('')}</div>
+  <button class="btn ghost" id="signout">Sign out</button>`,
+ notes:()=>`${notes.map((n,i)=>`<div class="acard" style="${n.u?'border-left:4px solid #c7a96b':''}"><div class="row" style="border:0;padding:0"><b>${n.t}</b><span class="m">${n.d}</span></div><div style="font-size:13px;margin-top:4px">${n.b}</div></div>`).join('')}
+  <div class="acard"><h4>Alert preferences</h4>${['Push notifications','SMS','Email'].map((c,i)=>`<label class="row"><span>${c}</span><input type="checkbox" ${i<2?'checked':''}></label>`).join('')}</div>`,
+ support:()=>`<div class="qa" style="grid-template-columns:repeat(3,1fr)"><button data-q="chat"><span class="ic">💬</span>Chat</button><button id="callback"><span class="ic">✆</span>Call me back</button><button data-q="info"><span class="ic">?</span>FAQs</button></div>
+  <div class="acard"><h4>Common questions</h4>${['How do I pay contributions online?','When will my pension be paid?','How do I get a clearance certificate?','How do I update my address?'].map(q=>`<details class="row" style="display:block"><summary style="cursor:pointer">${q}</summary><div class="m" style="margin-top:6px">Answer managed by NISSS through the content management system.</div></details>`).join('')}</div>
+  <div class="acard"><h4>Visit us</h4><img class="pimg" src="img/nisbuilding.jpg" alt="Frank Walcott Building, NISSS headquarters" loading="lazy"><div style="font-size:13px"><b>Frank Walcott Building</b>, Culloden Road, St. Michael</div><div class="m">Staff can complete any task with you using the same secure app. Opening hours are published by NISSS.</div></div>`,
+ chat:()=>`<div id="chatlog"><div class="bubble them">Hi ${member.name.split(' ')[0]}, you're through to NIS customer support. How can we help?</div></div>
+  <div style="display:flex;gap:6px;margin-top:10px">${['Payment not showing','Claim status','Update my details'].map(t=>`<button class="chip" data-t="${t}">${t}</button>`).join('')}</div>`,
+ info:()=>`<div style="margin-bottom:8px">${['Announcements','FAQs','Videos','Financial tips'].map((f,i)=>`<button class="chip ${i==0?'on':''}">${f}</button>`).join('')}</div>
+  ${lowdata?'':`<div class="acard"><img class="pimg" src="img/chattel.jpg" alt="Colourful chattel house display" loading="lazy"><span class="pill p-grey">Self-employed</span><h4 style="margin-top:6px">Vending at Crop Over? Register free and pay any amount, any time</h4><div class="m">Sample article · published through the CMS</div></div>`}
+  ${[['Announcement','New online payment options for self-employed persons','Published by Communications · 1 Oct'],['Financial tip','Five ways to plan for retirement income','Published by Communications · 28 Sep'],['Video','How to read your contribution statement (2 min)','Published by Customer Service · 15 Sep'],['FAQ','What counts as a credited week?','Published by Benefits · 2 Sep']].map(a=>`<div class="acard"><span class="pill p-grey">${a[0]}</span><h4 style="margin-top:6px">${a[1]}</h4><div class="m">${a[2]}</div></div>`).join('')}`,
+ profile:()=>`<div class="acard"><div class="row"><span>Name</span><b>${member.name}</b></div><div class="row"><span>NIS number</span><b>${member.nis}</b></div><div class="row"><span>Category</span><b>${member.type}</b></div><div class="row"><span>Mobile</span><b>••• •••42</b></div><div class="row"><span>Email</span><b>demo.member@example.com</b></div><div class="row"><span>Address</span><b>On file</b></div></div>
+  <button class="btn ghost" id="edit">Request a change of details</button><div class="note">Changes to sensitive details are verified before they reach NISSS's customer record.</div>`,
+ security:()=>`<div class="acard"><h4>Trusted devices</h4><div class="row"><span>iPhone 15 (this device)</span><span class="pill p-ok">Active</span></div><div class="row"><span>Samsung Galaxy A54</span><button class="chip" id="revoke">Remove</button></div></div>
+  <div class="acard"><h4>Sign-in</h4><label class="row"><span>Biometric unlock</span><input type="checkbox" checked></label><label class="row"><span>Two-step verification</span><input type="checkbox" checked disabled></label></div>
+  <div class="acard"><h4>Privacy</h4><div class="m">See how your data is used under the Data Protection Act, 2019-29, and download a copy of your data.</div></div>
+  <button class="btn ghost" id="signall">Sign out of all devices</button>`
+};
+const binds={
+ login:()=>{$('#signin').onclick=()=>go('otp');$('#tri').onclick=()=>go('trident');$('#simpleOn').onclick=()=>{simple=true;toast('Simple mode on');render();};$('#reg').onclick=()=>toast('Registration verifies your NIS number with NISSS before activation.');},
+ otp:()=>{$('#verify').onclick=()=>{authed=true;stack=[];go('home',false);toast('Signed in securely');}},
+ home:()=>{qa();const p=$('#paynow');if(p)p.onclick=()=>go('pay');},
+ simplehome:()=>{qa();const p=$('#s-pay');p.onclick=()=>{if(due().length)go('pay');else toast('Nothing to pay');};$('#s-help').onclick=()=>toast('Call-back requested. We will call you today.');$('#s-read').onclick=speak;$('#s-full').onclick=()=>{simple=false;render();};},
+ trident:()=>{$('#tap').onclick=()=>{$('#tap').innerHTML='<div style="font-size:30px">✓</div><b>Card read</b><div class="note">Identity confirmed by Trident ID</div>';$('#t2').classList.add('on');};
+   $('#trishare').onclick=()=>{$('#t3').classList.add('on');authed=true;stack=[];accessLog.unshift(['Now','Trident ID','Confirmed identity for sign-in','1']);go('home',false);toast('Signed in with Trident ID');};},
+ consent:()=>{$$('[data-tier]').forEach(c=>c.onchange=()=>{consents[c.dataset.tier]=c.checked;toast(c.checked?'Consent given':'Consent withdrawn');});$('#dl').onclick=()=>toast('Your data export is being prepared (demo)');},
+ access:()=>{qa();$('#a-simple').onchange=e=>{simple=e.target.checked;render();};$$('[data-ts]').forEach(b=>b.onclick=()=>{tsize=+b.dataset.ts;$('#screen').style.fontSize='';render();});$('#a-hc').onchange=e=>{hc=e.target.checked;render();};$('#a-low').onchange=e=>{lowdata=e.target.checked;toast(lowdata?'Low-data mode on':'Low-data mode off');};$$('[data-lang]').forEach(b=>b.onclick=()=>{$$('[data-lang]').forEach(x=>x.classList.remove('on'));b.classList.add('on');toast('Language: '+b.dataset.lang+' (demo)');});$('#a-read').onclick=speak;},
+ helper:()=>{const a=$('#h-add');if(a)a.onclick=()=>{helperOn=true;accessLog.unshift(['Now','You','Added trusted helper','2']);render();toast('Invitation sent to your helper');};const o=$('#h-off');if(o)o.onclick=()=>{helperOn=false;render();toast('Helper removed');};},
+ card:()=>{$('#wallet').onclick=()=>toast('Pass added to wallet (demo)');},
+ clearance:()=>{qa();const g=$('#getcert');if(g)g.onclick=()=>{notes.unshift({t:'Clearance certificate ready',b:'Your NIS clearance certificate is ready to download and share.',d:'Now',u:1});toast('Certificate issued: CLR-2026-'+Math.floor(Math.random()*90000+10000));};},
+ abroad:()=>{const due0=due().reduce((a,c)=>a+c.due,0)||486.2,rates={USD:2,CAD:1.47,GBP:2.62,BBD:1};const f=c=>{const v=due0/rates[c];$('#fx').textContent=c+' '+v.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});$('#fxn').textContent=c==='BBD'?'Paid in Barbados dollars.':`Illustrative rate: 1 ${c} = BBD ${rates[c].toFixed(2)}. The card issuer may add its own fees.`;};f('USD');
+   $$('[data-cur]').forEach(b=>b.onclick=()=>{$$('[data-cur]').forEach(x=>x.classList.remove('on'));b.classList.add('on');f(b.dataset.cur)});$('#payabroad').onclick=()=>{if(due().length)go('pay');else toast('No months are outstanding');};},
+ life:()=>{let a=0,b=0;$('#selfie').onclick=()=>{a=1;$('#selfie').innerHTML='✓ Selfie captured and liveness checked';$('#l2').classList.add('on')};$('#idcheck').onclick=()=>{b=1;$('#idcheck').innerHTML='✓ Passport verified';$('#l3').classList.add('on')};
+   $('#lifesend').onclick=()=>{if(!(a&&b)){toast('Please complete both steps');return;}notes.unshift({t:'Life certificate received',b:'Thank you. Your pension continues without interruption.',d:'Now',u:1});toast('Life certificate submitted');};},
+ network:()=>{$('#vpn').onclick=()=>{netSafe=!netSafe;render();toast(netSafe?'Trusted VPN connected':'VPN turned off');};},
+ contrib:()=>{const draw=f=>{$('#clist').innerHTML=contribs.filter(c=>f==='All'||c.status===f).map(c=>`<div class="row"><span>${c.m}<br><span class="m">${c.ref||'Outstanding'}</span></span><span style="text-align:right"><b>${money(c.status==='Paid'?c.amt:c.due)}</b><br><span class="pill ${c.status==='Paid'?'p-ok':'p-warn'}">${c.status}</span></span></div>`).join('')};draw('All');
+   $$('[data-f]').forEach(b=>b.onclick=()=>{$$('[data-f]').forEach(x=>x.classList.remove('on'));b.classList.add('on');draw(b.dataset.f)});const p=$('#paydue');if(p)p.onclick=()=>go('pay');},
+ pay:()=>{const upd=()=>{const sel=$$('[data-m]').filter(x=>x.checked).map(x=>x.dataset.m);$('#ptot').textContent=money(due().filter(c=>sel.includes(c.m)).reduce((a,c)=>a+c.due,0));};$$('[data-m]').forEach(x=>x.onchange=upd);
+   $('#paycode').onclick=()=>toast('Payment code NIS-7Q4K-82 · valid 7 days at SurePay agents (demo)');
+   $('#confirm').onclick=()=>{const sel=$$('[data-m]').filter(x=>x.checked).map(x=>x.dataset.m);if(!sel.length){toast('Select at least one month');return;}let total=0,no='RCP-'+(265000+Math.floor(Math.random()*900));contribs.forEach(c=>{if(sel.includes(c.m)){c.status='Paid';c.amt=c.due;c.ref=no;total+=c.due}});window._rcpt={no,months:sel,total};notes.unshift({t:'Payment received',b:`We received ${money(total)}. Receipt ${no}.`,d:'Now',u:1});go('receipt');}},
+ receipt:()=>{qa();$('#share').onclick=()=>toast('Receipt PDF generated (demo)');},
+ estimate:()=>{const f=()=>{const dob=+$('#e-dob').value,earn=+$('#e-earn').value,w=+$('#e-weeks').value;$('#e-dob-v').textContent=dob;$('#e-earn-v').textContent=money(earn);$('#e-weeks-v').textContent=w;
+   const ok=w>=500,rate=ok?Math.min(60,40+Math.floor((w-500)/50)*1.25):0,monthly=earn*rate/100*52/12;$('#e-out').textContent=ok?money(monthly):'Not yet eligible';$('#e-rate').textContent=ok?`Replacement rate ${rate.toFixed(2)}% of average insurable earnings`:'At least 500 contribution weeks are needed';
+   $('#e-bar').style.width=(rate/60*100)+'%';$('#e-age').textContent='Pensionable age 67 · from '+(dob+67);
+   $('#e-elig').innerHTML=`<h4>Qualifying check</h4><div class="row"><span>Minimum 500 weeks</span><b>${ok?'✓ Met':'✗ '+(500-w)+' weeks short'}</b></div><div class="row"><span>Weeks credited today</span><b>${member.weeks}</b></div><div class="row"><span>Maximum rate reached at</span><b>1,300 weeks</b></div>`;};$$('#view input[type=range]').forEach(r=>r.oninput=f);f();},
+ claims:()=>{qa();$$('[data-c]').forEach(e=>e.onclick=()=>{window._claim=e.dataset.c;go('claim')});},
+ newclaim:()=>{let att=false;$('#drop').onclick=()=>{att=true;$('#drop').innerHTML='✓ medical-certificate.pdf (demo, 182 KB)';$('#s2').classList.add('on');};
+   $('#submitclaim').onclick=()=>{if(!att){toast('Please attach the medical certificate');return;}if(!$('#decl').checked){toast('Please confirm the declaration');return;}const id='CLM-'+(10500+claims.length);claims.unshift({id,type:$('#ctype').value,date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),status:0});notes.unshift({t:'Claim received',b:`Your claim ${id} has been submitted.`,d:'Now',u:1});window._claim=id;stack=['claims'];go('claim',false);toast('Claim submitted: '+id);};},
+ claim:()=>qa(),
+ more:()=>{qa();$('#signout').onclick=()=>{authed=false;stack=[];go('login',false);}},
+ notes:()=>{notes.forEach(n=>n.u=0);$('#ncount').textContent=0;},
+ support:()=>{qa();$('#callback').onclick=()=>toast('Call-back requested for the next business day');},
+ chat:()=>{$$('[data-t]').forEach(b=>b.onclick=()=>{const log=$('#chatlog');log.insertAdjacentHTML('beforeend',`<div class="bubble me">${b.dataset.t}</div>`);setTimeout(()=>{log.insertAdjacentHTML('beforeend',`<div class="bubble them">Thanks. An agent has your account details and will reply here within 1 business day. Reference SUP-${Math.floor(Math.random()*9000+1000)}.</div>`);$('#view').scrollTop=9999;},600);});},
+ profile:()=>{$('#edit').onclick=()=>toast('Change request sent for verification');},
+ security:()=>{$('#revoke').onclick=()=>toast('Device removed');$('#signall').onclick=()=>toast('Signed out of all other devices');}
+};
+function qa(){$$('#view [data-q]').forEach(b=>b.onclick=()=>go(b.dataset.q));}
+/* jump list */
+const jumpList=[['login','Sign-in'],['home','Dashboard'],['card','NIS card'],['clearance','Clearance'],['abroad','Pay from abroad'],['life','Life certificate'],['caricom','CARICOM record'],['network','Secure connection'],['contrib','Contributions'],['pay','Payment'],['estimate','Pension estimator'],['notes','Notifications'],['support','Support'],['info','Information'],['profile','Account'],['claims','Claims (Phase 2)'],['newclaim','New claim'],['trident','Trident ID sign-in'],['simple','Simple mode'],['access','Accessibility'],['helper','Trusted helper'],['consent','My data and consent']];
+$('#jump').innerHTML=jumpList.map(j=>`<button data-r="${j[0]}">${j[1]}</button>`).join('');
+$$('#jump button').forEach(b=>b.onclick=()=>{if(b.dataset.r==='login'||b.dataset.r==='trident'){authed=false;stack=b.dataset.r==='trident'?['login']:[];go(b.dataset.r,false);return;}if(b.dataset.r==='simple'){simple=true;authed=true;stack=[];go('home',false);return;}if(b.dataset.r==='pay'&&!due().length){contribs[0].status='Due';contribs[0].amt=0;}authed=true;stack=b.dataset.r==='home'?[]:['home'];go(b.dataset.r,false);});
+/* ---------- admin ---------- */
+let cms=[{t:'Independence Day office hours',type:'Announcement',a:'Communications',s:'Pending'},{t:'Retirement planning: 5 tips',type:'Financial tip',a:'Communications',s:'Pending'},{t:'How to read your statement',type:'Video',a:'Customer Service',s:'Published'},{t:'What counts as a credited week?',type:'FAQ',a:'Benefits',s:'Published'}];
+let audit=[['09:12','m.brathwaite','Approved FAQ "What counts as a credited week?"'],['08:57','admin.sys','Changed role: content editor → content approver (r.greaves)'],['08:31','c.hinds','Uploaded video "How to read your statement"']];
+function drawAdmin(){$('#cms').innerHTML=cms.map((c,i)=>`<tr><td>${c.t}</td><td>${c.type}</td><td>${c.a}</td><td><span class="pill ${c.s==='Published'?'p-ok':'p-warn'}">${c.s}</span></td><td>${c.s==='Pending'?`<button class="chip" data-ap="${i}">Approve</button>`:'–'}</td></tr>`).join('');
+ $('#audit').innerHTML=audit.slice(0,6).map(a=>`<tr><td>${a[0]}</td><td>${a[1]}</td><td>${a[2]}</td></tr>`).join('');$('#k-pend').textContent=cms.filter(c=>c.s==='Pending').length;
+ $$('[data-ap]').forEach(b=>b.onclick=()=>{const c=cms[+b.dataset.ap];c.s='Published';const n=new Date();audit.unshift([n.toTimeString().slice(0,5),'you (approver)',`Approved ${c.type.toLowerCase()} "${c.t}"`]);$('#k-pub').textContent=+$('#k-pub').textContent+1;$('#k-aud').textContent=+$('#k-aud').textContent+1;drawAdmin();});}
+drawAdmin();
+/* ---------- ops ---------- */
+function drawOps(){const svg=$('#chart');let rpm=[],lat=[];let r=4200;for(let i=0;i<60;i++){r=Math.max(1500,r+(Math.sin(i/7)*500)+(i>38&&i<46?900:0)-(i>46?120:0));rpm.push(Math.round(r));lat.push(Math.round(520+Math.sin(i/5)*90+(i>38&&i<46?(i-38)*150:0)-(i>45?60:0)));}
+ const W=900,H=260,P=40,maxR=Math.max(...rpm)*1.15,maxL=3600,x=i=>P+i*(W-2*P)/59,yr=v=>H-P-v/maxR*(H-2*P),yl=v=>H-P-v/maxL*(H-2*P);
+ let s=`<line x1="${P}" y1="${yl(3000)}" x2="${W-P}" y2="${yl(3000)}" stroke="#b3261e" stroke-dasharray="6 5"/><text x="${W-P}" y="${yl(3000)-6}" text-anchor="end" font-size="12" fill="#b3261e">3,000 ms</text>`;
+ s+=`<polyline fill="none" stroke="#0d2a46" stroke-width="2.4" points="${rpm.map((v,i)=>x(i)+','+yr(v)).join(' ')}"/>`;
+ s+=`<polyline fill="none" stroke="#c7a96b" stroke-width="2.4" points="${lat.map((v,i)=>x(i)+','+yl(v)).join(' ')}"/>`;
+ s+=`<line x1="${P}" y1="${H-P}" x2="${W-P}" y2="${H-P}" stroke="#c9d1da"/><text x="${P}" y="${H-12}" font-size="12" fill="#5d6b78">60 min ago</text><text x="${W-P}" y="${H-12}" font-size="12" fill="#5d6b78" text-anchor="end">now</text>`;
+ svg.innerHTML=s;$('#m-users').textContent=(6120).toLocaleString('en-GB');$('#m-api').textContent=(Math.max(...lat.slice(-10))/1000).toFixed(2)+' s';
+ const u=[['Contribution history',38],['Payments',22],['Pension estimator',17],['Notifications',11],['Support',7],['Information',5]];
+ $('#usage').innerHTML=u.map(a=>`<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>${a[0]}</span><b>${a[1]}%</b></div><div class="bar"><i style="width:${a[1]/38*100}%"></i></div></div>`).join('');}
+/* ---------- gantt ---------- */
+function drawGantt(){const rows=[['Mobilisation and requirements validation',0,6,'#143a5e'],['Architecture, UX design and security design',2,9,'#143a5e'],['Milestone 1 build (accounts, dashboard, payments, estimator)',4,10,'#c7a96b'],['Milestone 2 build (alerts, support, info, CMS)',12,24,'#c7a96b'],['Phase 1 go-live and close-out',24,26,'#1f7a4d'],['Milestone 3: core user information services',27,44,'#c7a96b'],['Milestone 4: communication and notification services',40,54,'#c7a96b'],['Milestone 5: claims and benefits digitisation',48,68,'#c7a96b'],['Testing, security testing and UAT (continuous)',4,70,'#8fa6bb'],['Training and documentation',20,70,'#8fa6bb']];
+ const W=980,L=330,R=20,wk=(W-L-R)/70;let s='';for(let w=0;w<=70;w+=10){s+=`<line x1="${L+w*wk}" y1="20" x2="${L+w*wk}" y2="${rows.length*28+30}" stroke="#e3ddd0"/><text x="${L+w*wk}" y="14" font-size="11" text-anchor="middle" fill="#5d6b78">wk ${w}</text>`;}
+ rows.forEach((r,i)=>{const y=26+i*28;s+=`<text x="0" y="${y+13}" font-size="12" fill="currentColor">${r[0]}</text><rect x="${L+r[1]*wk}" y="${y}" width="${Math.max(4,(r[2]-r[1])*wk)}" height="17" rx="4" fill="${r[3]}"/>`;});
+ [[10,'M1'],[24,'M2'],[44,'M3'],[54,'M4'],[68,'M5']].forEach(m=>{s+=`<path d="M${L+m[0]*wk} ${rows.length*28+34} l6 10 h-12z" fill="#b3261e"/><text x="${L+m[0]*wk}" y="${rows.length*28+58}" font-size="11" text-anchor="middle" fill="#b3261e">${m[1]}</text>`;});
+ $('#gantt').innerHTML=s;$('#gantt').style.color=getComputedStyle(document.body).color;}
+/* ---------- trace ---------- */
+const tr=[['1.2.1.1','User account management','App › Sign-in, Account','Functional, security','Working'],['1.2.1.2','User dashboard','App › Home','Functional, usability','Working'],['1.2.1.3','Transaction monitoring, payments and receipts','App › Contributions, Payment, Receipt','Integration, system','Working (simulated gateway)'],['1.2.1.4','Pension estimator (Phase 1)','App › Estimator','Unit (rules), system','Working (illustrative rules)'],['1.2.1.5','Notifications and alerts','App › Notifications','Integration','Working'],['1.2.1.6','Customer support','App › Support, Chat','Functional','Working'],['1.2.1.7','Information services','App › Information','Functional','Working'],['1.2.1.8','Content management','Admin › Content queue','Functional, security (RBAC)','Working'],['1.2.2.1','Core user information services','App › Account','Functional','Working'],['1.2.2.2','Communication and notification services','App › Notifications preferences','Integration','Working'],['1.2.2.3','Claims and benefits digitisation','App › Claims','System, UAT','Working'],['1.4.2','User administration and access control','Admin › Role-based access','Security','Shown'],['1.4.3','Security management','Architecture › Security controls','Security, penetration','Designed'],['1.4.5','Monitoring and reporting','Monitoring','Performance','Shown (simulated)'],['1.5','10,000 users, < 3 s, 99.9% uptime','Monitoring','Performance, load','Designed and modelled']];
+$('#trace').innerHTML=tr.map(t=>`<tr><td>§${t[0]}</td><td>${t[1]}</td><td>${t[2]}</td><td>${t[3]}</td><td><span class="pill ${/Working|Shown/.test(t[4])?'p-ok':'p-blue'}">${t[4]}</span></td></tr>`).join('');
+/* ---------- start ---------- */
+setInterval(()=>{const d=new Date();$('#clock').textContent=d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')},10000);
+render();
+function drawMap(){const d=[['Barbados',71,'#00267f'],['United States',11,'#0b4fb3'],['United Kingdom',7,'#0aa3c2'],['Canada',5,'#3fb6cf'],['Other CARICOM states',4,'#ffc726'],['Rest of world',2,'#c7a96b']];let x=20,s='';const W=860;d.forEach(r=>{const w=r[1]/100*W;s+=`<rect x="${x}" y="40" width="${w}" height="46" fill="${r[2]}"/>`;if(r[1]>=4)s+=`<text x="${x+w/2}" y="69" text-anchor="middle" fill="${r[2]==='#ffc726'?'#1d1600':'#fff'}" font-size="14" font-weight="700">${r[1]}%</text>`;x+=w;});
+ let lx=20;d.forEach((r,i)=>{const col=i%3,row=Math.floor(i/3);s+=`<rect x="${20+col*290}" y="${120+row*34}" width="14" height="14" rx="3" fill="${r[2]}"/><text x="${42+col*290}" y="${132+row*34}" font-size="14" fill="currentColor">${r[0]} · ${r[1]}%</text>`;});$('#map').innerHTML=s;$('#map').style.color=getComputedStyle(document.body).color;}
+function drawInts(){const I=[['NISSS contribution and payment databases','REST/JSON via NISSS API Gateway','Active in prototype (simulated)','#1f7a4d'],['Customer records system','Profile and change requests','Active in prototype (simulated)','#1f7a4d'],['Identity (SaaS IAM)','OAuth 2.0 / OpenID Connect, MFA','Active in prototype (simulated)','#1f7a4d'],['Payment processing platform','Cards and bank, BBD and international cards','Active in prototype (simulated)','#1f7a4d'],['Push, SMS and email','APNs, FCM, SMS gateway, email','Active in prototype (simulated)','#1f7a4d'],['Help desk and support','Chat and call-back tickets','Active in prototype (simulated)','#1f7a4d'],['Document management system','Claim documents, signed uploads','Contract, Phase 2','#1d5fa8'],['Clearance certificate service','Digitised clearance certification (§0.4.2)','Contract, aligned to NISSS project','#1d5fa8'],['Benefits estimator rules','NISSS-approved rule sets','Contract, Phase 1','#1d5fa8'],['Apple Wallet and Google Wallet','Digital NIS card','Optional add-on','#b46b00'],['CARICOM social security data exchange','Insured periods in other member states','Optional add-on, subject to agreements','#b46b00'],['Identity verification for life certificates','Selfie liveness and ID document check','Optional add-on','#b46b00'],['Employer portal and payroll upload','Employer contributions and earnings','Optional add-on','#b46b00'],['Zero-trust staff access and VPN','Admin console and support tools','Contract (staff access)','#1d5fa8']];
+ $('#ints').innerHTML=I.map(i=>`<div class="card"><span class="dot" style="background:${i[3]}"></span><div><b>${i[0]}</b><div class="req">${i[1]}</div><span class="pill" style="margin-top:6px;background:${i[3]}1a;color:${i[3]}">${i[2]}</span></div></div>`).join('');}
+const h=(location.hash||'').slice(1);if(['home','app','everyone','trident','abroad','int','admin','ops','arch','plan','trace'].includes(h))showSec(h);
+})();
+</script>
+</body>
+</html>

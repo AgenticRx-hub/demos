@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QEH Clinical Financing Demo</title>
+<meta name="description" content="Agentic Rx Inc. demonstration of the clinical costing and funding intelligence capability proposed for the Queen Elizabeth Hospital, Barbados. Illustrative sample data.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: navy letterhead with gold rule, sticky section tabs, one centred column of panels. Single light theme by design for print and screenshot fidelity. */
+:root {
+  --navy: #0d2a46; --navy-2: #173c60; --teal: #0e7c80; --gold: #b8954f; --gold-soft: #f4ecdb;
+  --ground: #f3f6f8; --panel: #ffffff; --line: #d8e0e6; --ink: #13212e; --muted: #5b6b79;
+  --bad: #b3342b; --bad-soft: #f6dedb; --ok: #1d7a46; --ok-soft: #dcf0e3; --warn: #9a6a00; --warn-soft: #f8ecd2;
+  --c1: #0e7c80; --c2: #d08a1e; --c3: #5a6fb3; --c4: #9aa7b3; --c5: #7a4f8f;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Public Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1140px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.band { background: var(--navy); color: #fff; border-bottom: 5px solid var(--gold); }
+.band .wrap { padding-block: 22px 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; }
+.brand { display: flex; align-items: center; gap: 16px; }
+.mark { width: 60px; height: 60px; border-radius: 12px; background: #fff; padding: 5px; object-fit: contain; }
+.brand-name { font-family: var(--serif); font-weight: 600; font-size: 24px; letter-spacing: .14em; }
+.brand-tag { font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-top: 2px; }
+.prep { margin-left: auto; font-size: 13px; color: #c9d6e2; text-align: right; }
+.prep b { color: #fff; font-weight: 600; letter-spacing: .04em; }
+nav.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--panel); border-bottom: 1px solid var(--line); }
+nav.tabs .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 0; }
+nav.tabs button { font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: none; border: 0; border-bottom: 3px solid transparent; padding: 14px 14px 11px; cursor: pointer; white-space: nowrap; }
+nav.tabs button[aria-selected="true"] { color: var(--navy); border-bottom-color: var(--gold); }
+nav.tabs button:hover { color: var(--navy); }
+main.wrap { padding-block: 28px 44px; }
+section.page { display: flex; flex-direction: column; gap: 20px; }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.15; margin: 0; color: var(--navy); text-wrap: balance; }
+h2 { margin: 0; font-size: 17px; font-weight: 600; color: var(--navy); }
+h3 { margin: 0 0 4px; font-size: 15px; color: var(--navy); }
+.lead { margin: 6px 0 0; max-width: 72ch; font-size: 16px; }
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.banner { border: 1px solid #e7cf9c; background: #fdf6e6; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #5c4a1c; margin: 0; }
+.banner b { color: var(--warn); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px; }
+.tile, .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; min-width: 0; }
+.tile { padding: 16px 18px; display: flex; flex-direction: column; gap: 2px; }
+.tile .lbl { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.tile .num { font-family: var(--serif); font-size: 29px; font-variant-numeric: tabular-nums; color: var(--navy); }
+.tile .num.bad { color: var(--bad); } .tile .num.good { color: var(--ok); }
+.tile .sub { font-size: 13px; color: var(--muted); }
+.card { padding: 20px 22px; }
+.card .note { margin: 4px 0 14px; font-size: 13px; color: var(--muted); max-width: 78ch; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 14px; }
+.tw { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+th { text-align: left; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; padding: 8px 10px; border-bottom: 2px solid var(--line); white-space: nowrap; }
+td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.nw { white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+tfoot td { font-weight: 600; border-top: 2px solid var(--line); }
+.r { text-align: right; }
+.neg { color: var(--bad); font-weight: 600; } .pos { color: var(--ok); font-weight: 600; }
+.pill { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.pill.High, .pill.A { background: var(--ok-soft); color: var(--ok); } .pill.Medium, .pill.B { background: var(--warn-soft); color: var(--warn); } .pill.Low, .pill.C { background: var(--bad-soft); color: var(--bad); } .pill.D { background: var(--bad); color: #fff; }
+.pill.api { background: #e3edf7; color: var(--navy-2); } .pill.noapi { background: #eef0f2; color: var(--muted); }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: auto; }
+.chart text { font-family: var(--sans); font-size: 12px; fill: var(--muted); }
+.chart .lab { fill: var(--ink); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.tip { position: absolute; pointer-events: none; background: #fff; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(13,42,70,.14); border-radius: 8px; padding: 6px 10px; font-size: 12px; white-space: nowrap; z-index: 3; }
+.tip .t { color: var(--muted); }
+/* workflow */
+.flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 12px; counter-reset: step; }
+.step { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px 16px 18px; border-top: 4px solid var(--teal); }
+.step .n { font-family: var(--serif); font-size: 26px; color: var(--gold); line-height: 1; }
+.step h3 { margin-top: 6px; }
+.step p { margin: 4px 0 8px; font-size: 14px; }
+.step dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 12.5px; }
+.step dt { color: var(--muted); } .step dd { margin: 0; }
+.gate { border-top-color: var(--gold); background: linear-gradient(180deg, var(--gold-soft), var(--panel) 60%); }
+/* simulator */
+.controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px 24px; margin-bottom: 16px; }
+.ctl label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--navy); }
+.ctl label output { font-variant-numeric: tabular-nums; color: var(--teal); }
+.ctl input[type=range] { width: 100%; accent-color: var(--teal); }
+.ctl small { color: var(--muted); font-size: 12px; }
+.scen { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.scen button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--panel); color: var(--navy); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.scen button:hover, .scen button.on { border-color: var(--teal); background: #e6f3f3; }
+/* heatmap */
+.heat td.g { text-align: center; }
+.check { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.check li { display: flex; gap: 10px; font-size: 14px; }
+.check li::before { content: ""; flex: none; width: 16px; height: 16px; margin-top: 3px; border-radius: 4px; background: var(--teal); -webkit-mask: radial-gradient(circle, #000 0, #000 100%); }
+footer { border-top: 1px solid var(--line); background: var(--panel); }
+footer .wrap { padding-block: 18px 22px; font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 24px; justify-content: space-between; }
+a { color: var(--teal); }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) { section.page { animation: fade .25s ease-out; } @keyframes fade { from { opacity: .4; } to { opacity: 1; } } }
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="wrap">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Agentic Rx logo">
+      <div>
+        <div class="brand-name">AGENTIC RX INC.</div>
+        <div class="brand-tag">Pharmaceuticals · Medical Supplies · Healthcare Systems</div>
+      </div>
+    </div>
+    <div class="prep"><b>CLINICAL COSTING &amp; FUNDING INTELLIGENCE</b><br>Prepared for The Queen Elizabeth Hospital, Barbados<br>RFP Ref. DDP-DCCSFIC-072026</div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap" role="tablist">
+    <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+    <button role="tab" data-tab="workflow" aria-selected="false">Costing workflow</button>
+    <button role="tab" data-tab="buildup" aria-selected="false">Cost build-up</button>
+    <button role="tab" data-tab="simulator" aria-selected="false">Funding simulator</button>
+    <button role="tab" data-tab="data" aria-selected="false">Data &amp; governance</button>
+    <button role="tab" data-tab="roadmap" aria-selected="false">Delivery roadmap</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <p class="banner"><b>Illustrative sample data.</b> Activity volumes and source systems are QEH's published figures (RFP Response to Bidders' Questions, Attachments 1 and 2; activity for 1 January 2025 – 30 June 2026). All costs, funding, tariffs, grades and monthly figures are invented to demonstrate the outputs. They are not QEH figures.</p>
+  <div style="height:20px"></div>
+
+  <!-- OVERVIEW -->
+  <section class="page" id="overview" data-page>
+    <div><div class="eyebrow">Executive view</div><h1>What the QEH costing dashboards will show</h1><p class="lead" id="lead"></p></div>
+    <div class="tiles" id="tiles"></div>
+    <div class="card">
+      <h2>Cost per unit of activity by service</h2>
+      <p class="note">What one ED visit, admission, test or dialysis treatment costs, and how each service compares with its block funding. 18 months, Barbados dollars.</p>
+      <div class="tw"><table><thead><tr><th>Service</th><th>Unit</th><th class="r">Activity</th><th class="r">Cost per unit</th><th class="r">Total cost</th><th class="r">Block funding</th><th class="r">Gap</th><th class="r">Shadow ABF</th></tr></thead><tbody id="unit-body"></tbody><tfoot id="unit-foot"></tfoot></table></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h2>Funding gap by service</h2><p class="note">Block funding minus cost. Bars left of zero show services that cost more than they are funded.</p><div class="chart" id="gap"></div></div>
+      <div class="card"><h2>Monthly cost against block funding</h2><p class="note">All seven priority services, BBD millions per month.</p><div class="chart" id="trend"></div><div class="legend"><span><i style="background:var(--c1)"></i>Cost of care</span><span><i style="background:var(--c2)"></i>Block funding</span></div></div>
+    </div>
+    <div class="card"><h2>What drives cost in each service</h2><p class="note">Share of each service's cost by category after overheads are allocated.</p><div class="chart" id="mix"></div><div class="legend" id="mix-legend"></div></div>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section class="page" id="workflow" data-page hidden>
+    <div><div class="eyebrow">How the numbers are made</div><h1>The costing cycle, from source system to funding decision</h1><p class="lead">Eight steps run every costing cycle. Each one has an owner at QEH, a control that must pass, and an output that the next step depends on. Gold steps are decision gates where QEH signs off before figures are used.</p></div>
+    <div class="flow" id="flow"></div>
+    <div class="card">
+      <h2>Where the data comes from</h2>
+      <p class="note">QEH's own systems, as listed in Attachment 1 of the bidders' Q&amp;A. None has a data dictionary, so discovery documents each one. Systems without an API are reached through approved file extracts.</p>
+      <div class="tw"><table><thead><tr><th>Department</th><th>System</th><th>Holds</th><th>Interface</th><th>Feeds costing step</th></tr></thead><tbody id="sys-body"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- BUILD-UP -->
+  <section class="page" id="buildup" data-page hidden>
+    <div><div class="eyebrow">Worked example</div><h1>How one dialysis treatment reaches BBD 640</h1><p class="lead">Every unit cost can be traced back to the general ledger. This example follows a single haemodialysis session through direct costs, clinical support and allocated overheads.</p></div>
+    <div class="card"><h2>Cost build-up per haemodialysis treatment</h2><p class="note">Each bar adds one cost component; the final bar is the full cost per treatment. BBD per treatment.</p><div class="chart" id="waterfall"></div></div>
+    <div class="grid2">
+      <div class="card">
+        <h2>Component detail</h2>
+        <p class="note">Source and allocation basis for each component.</p>
+        <div class="tw"><table><thead><tr><th>Component</th><th>Source</th><th>Basis</th><th class="r">BBD</th></tr></thead><tbody id="dia-body"></tbody><tfoot id="dia-foot"></tfoot></table></div>
+      </div>
+      <div class="card">
+        <h2>Overhead allocation drivers</h2>
+        <p class="note">Shared costs are allocated by step-down, highest-volume pools first, using documented drivers QEH can audit and re-run. Dialysis shares total BBD 1.82M over 18 months, or BBD 68 per treatment.</p>
+        <div class="tw"><table><thead><tr><th>Overhead pool</th><th class="r">Pool (BBD M)</th><th>Driver</th><th class="r">Dialysis share</th></tr></thead><tbody id="ovh-body"></tbody></table></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Reconciliation check</h2>
+      <p class="note">Every costing run must reconcile allocated cost back to the general ledger before results are released.</p>
+      <div class="tw"><table><thead><tr><th>Check</th><th class="r">Ledger (BBD M)</th><th class="r">Allocated (BBD M)</th><th class="r">Variance</th><th>Result</th></tr></thead><tbody id="rec-body"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- SIMULATOR -->
+  <section class="page" id="simulator" data-page hidden>
+    <div><div class="eyebrow">Shadow funding model</div><h1>Test activity-based funding without changing a single budget</h1><p class="lead">Move the controls to see how QEH's funding would change if part of it followed activity at an indicative tariff. This is the Phase 2 shadow model in miniature: modelling only, with no change to real budgets.</p></div>
+    <div class="card">
+      <div class="scen" id="scen"></div>
+      <div class="controls">
+        <div class="ctl"><label for="s-share">Share of funding paid by activity <output id="o-share"></output></label><input type="range" id="s-share" min="0" max="100" step="5" value="50"><small>0% is today's block funding; 100% is full activity-based funding.</small></div>
+        <div class="ctl"><label for="s-tariff">Tariff level, as % of cost <output id="o-tariff"></output></label><input type="range" id="s-tariff" min="85" max="110" step="1" value="97"><small>Below 100% builds in an efficiency expectation.</small></div>
+        <div class="ctl"><label for="s-growth">Change in activity <output id="o-growth"></output></label><input type="range" id="s-growth" min="-10" max="15" step="1" value="0"><small>Costs are assumed 60% variable with activity.</small></div>
+      </div>
+      <div class="tiles" id="sim-tiles"></div>
+    </div>
+    <div class="card"><h2>Funding by service under this scenario</h2><p class="note">Simulated funding compared with today's block funding and with cost. BBD millions over 18 months.</p><div class="chart" id="sim-chart"></div><div class="legend"><span><i style="background:var(--c4)"></i>Block funding today</span><span><i style="background:var(--c1)"></i>Simulated funding</span><span><i style="background:var(--navy)"></i>Cost (marker)</span></div></div>
+    <div class="card"><h2>Scenario detail</h2><div class="tw"><table><thead><tr><th>Service</th><th class="r">Block today</th><th class="r">Activity-based part</th><th class="r">Simulated funding</th><th class="r">Change vs block</th><th class="r">Cost</th><th class="r">Funding minus cost</th></tr></thead><tbody id="sim-body"></tbody><tfoot id="sim-foot"></tfoot></table></div></div>
+  </section>
+
+  <!-- DATA & GOVERNANCE -->
+  <section class="page" id="data" data-page hidden>
+    <div><div class="eyebrow">Attention to detail</div><h1>Every figure carries its data-quality grade</h1><p class="lead">Discovery grades each source A–D on four tests. Grades are shown on every output, so decision-makers know how far to rely on a number, and the remediation plan targets the weakest cells first.</p></div>
+    <div class="card"><h2>Data-readiness by priority service</h2><p class="note">A: reliable at patient level. B: reliable at service level. C: usable with adjustment. D: not yet usable; interim estimate applied.</p><div class="tw"><table class="heat"><thead><tr><th>Service</th><th>Completeness</th><th>Accuracy</th><th>Granularity</th><th>Timeliness</th><th>Costing layer achievable</th></tr></thead><tbody id="heat-body"></tbody></table></div></div>
+    <div class="grid2">
+      <div class="card"><h2>Data protection controls</h2><p class="note">Aligned to the Barbados Data Protection Act 2019-29 and QEH's security requirements.</p><ul class="check" id="dpa"></ul></div>
+      <div class="card"><h2>Deliverable acceptance</h2><p class="note">Measurable criteria agreed at mobilisation; the designated QEH owner signs off each deliverable.</p><div class="tw"><table><thead><tr><th>#</th><th>Deliverable</th><th>Accepted when</th></tr></thead><tbody id="acc-body"></tbody></table></div></div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="page" id="roadmap" data-page hidden>
+    <div><div class="eyebrow">Delivery plan</div><h1>Twelve months, five decision gates, useful results by month four</h1><p class="lead">Delivery is phased so QEH has a working costing capability early, even if data or HIS timing slips. Each gate is a formal QEH approval before the next stage starts.</p></div>
+    <div class="card"><h2>Implementation timeline</h2><p class="note">Months from contract signature. Diamonds mark decision gates.</p><div class="chart" id="gantt"></div></div>
+    <div class="card"><h2>Path from block funding to activity-based funding</h2><p class="note">A proposed progression for discussion with QEH and the Ministries; each step depends on data reliability and policy decisions.</p><div class="tw"><table><thead><tr><th>Horizon</th><th>Funding approach</th><th>What must be true first</th></tr></thead><tbody id="path-body"></tbody></table></div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Agentic Rx Inc. · 41B Blue Waters, Rockley, Christ Church, Barbados · CAIPO Company No. 55000</span>
+    <span>info@agentic-rx.com · +1 (415) 654-2333 · <a href="https://agentic-rx.com">agentic-rx.com</a></span>
+  </div>
+</footer>
+
+<script>
+const DATA = {"services": [{"service": "Emergency Department", "unit": "visit", "activity": 41348, "total_cost_bbd": 25635760, "block_funding_bbd": 22400000}, {"service": "Inpatient services", "unit": "admission", "activity": 21447, "total_cost_bbd": 210180600, "block_funding_bbd": 198000000}, {"service": "Operating theatres", "unit": "elective surgery", "activity": 6499, "total_cost_bbd": 46792800, "block_funding_bbd": 41500000}, {"service": "Outpatient services", "unit": "visit", "activity": 178793, "total_cost_bbd": 37546530, "block_funding_bbd": 40200000}, {"service": "Medical imaging", "unit": "study", "activity": 76364, "total_cost_bbd": 23672840, "block_funding_bbd": 21600000}, {"service": "Laboratory", "unit": "test", "activity": 7260177, "total_cost_bbd": 65341593, "block_funding_bbd": 61000000}, {"service": "Dialysis", "unit": "treatment", "activity": 26729, "total_cost_bbd": 17106560, "block_funding_bbd": 14200000}, {"service": "Oncology", "unit": "attendance", "activity": 14664, "total_cost_bbd": 31527600, "block_funding_bbd": 26800000}], "monthly": [{"month": "2025-01", "total_cost_bbd": 25254349, "block_funding_bbd": 23650000}, {"month": "2025-02", "total_cost_bbd": 25637904, "block_funding_bbd": 23650000}, {"month": "2025-03", "total_cost_bbd": 26569902, "block_funding_bbd": 23650000}, {"month": "2025-04", "total_cost_bbd": 26168537, "block_funding_bbd": 23650000}, {"month": "2025-05", "total_cost_bbd": 26554589, "block_funding_bbd": 23650000}, {"month": "2025-06", "total_cost_bbd": 26059938, "block_funding_bbd": 23650000}, {"month": "2025-07", "total_cost_bbd": 25289107, "block_funding_bbd": 23650000}, {"month": "2025-08", "total_cost_bbd": 25288535, "block_funding_bbd": 23650000}, {"month": "2025-09", "total_cost_bbd": 24488938, "block_funding_bbd": 23650000}, {"month": "2025-10", "total_cost_bbd": 24806528, "block_funding_bbd": 23650000}, {"month": "2025-11", "total_cost_bbd": 24623593, "block_funding_bbd": 23650000}, {"month": "2025-12", "total_cost_bbd": 25068053, "block_funding_bbd": 23650000}, {"month": "2026-01", "total_cost_bbd": 25967187, "block_funding_bbd": 23650000}, {"month": "2026-02", "total_cost_bbd": 26936036, "block_funding_bbd": 23650000}, {"month": "2026-03", "total_cost_bbd": 26644034, "block_funding_bbd": 23650000}, {"month": "2026-04", "total_cost_bbd": 26932360, "block_funding_bbd": 23650000}, {"month": "2026-05", "total_cost_bbd": 27258134, "block_funding_bbd": 23650000}, {"month": "2026-06", "total_cost_bbd": 27262458, "block_funding_bbd": 23650000}], "mix": [{"service": "Emergency Department", "category": "Staff", "cost_bbd": 14868741}, {"service": "Emergency Department", "category": "Drugs and supplies", "cost_bbd": 3589006}, {"service": "Emergency Department", "category": "Diagnostics", "cost_bbd": 4101722}, {"service": "Emergency Department", "category": "Overheads", "cost_bbd": 3076291}, {"service": "Inpatient services", "category": "Staff", "cost_bbd": 115599330}, {"service": "Inpatient services", "category": "Drugs and supplies", "cost_bbd": 35730702}, {"service": "Inpatient services", "category": "Diagnostics", "cost_bbd": 25221672}, {"service": "Inpatient services", "category": "Overheads", "cost_bbd": 33628896}, {"service": "Operating theatres", "category": "Staff", "cost_bbd": 22460544}, {"service": "Operating theatres", "category": "Drugs and supplies", "cost_bbd": 14037840}, {"service": "Operating theatres", "category": "Diagnostics", "cost_bbd": 3275496}, {"service": "Operating theatres", "category": "Overheads", "cost_bbd": 7018920}, {"service": "Outpatient services", "category": "Staff", "cost_bbd": 23278849}, {"service": "Outpatient services", "category": "Drugs and supplies", "cost_bbd": 3754653}, {"service": "Outpatient services", "category": "Diagnostics", "cost_bbd": 4505584}, {"service": "Outpatient services", "category": "Overheads", "cost_bbd": 6007445}, {"service": "Medical imaging", "category": "Staff", "cost_bbd": 9469136}, {"service": "Medical imaging", "category": "Drugs and supplies", "cost_bbd": 2840741}, {"service": "Medical imaging", "category": "Diagnostics", "cost_bbd": 7812037}, {"service": "Medical imaging", "category": "Overheads", "cost_bbd": 3550926}, {"service": "Laboratory", "category": "Staff", "cost_bbd": 22869558}, {"service": "Laboratory", "category": "Drugs and supplies", "cost_bbd": 29403717}, {"service": "Laboratory", "category": "Diagnostics", "cost_bbd": 3267080}, {"service": "Laboratory", "category": "Overheads", "cost_bbd": 9801239}, {"service": "Dialysis", "category": "Staff", "cost_bbd": 6500493}, {"service": "Dialysis", "category": "Drugs and supplies", "cost_bbd": 7184755}, {"service": "Dialysis", "category": "Diagnostics", "cost_bbd": 1368525}, {"service": "Dialysis", "category": "Overheads", "cost_bbd": 2052787}, {"service": "Oncology", "category": "Staff", "cost_bbd": 9458280}, {"service": "Oncology", "category": "Drugs and supplies", "cost_bbd": 16394352}, {"service": "Oncology", "category": "Diagnostics", "cost_bbd": 1891656}, {"service": "Oncology", "category": "Overheads", "cost_bbd": 3783312}], "tariffs": [{"group": "Haemodialysis session", "service": "Dialysis", "unit": "treatment", "tariff_bbd": 640, "confidence": "High"}, {"group": "Triage 1\u20132 (resuscitation, emergent)", "service": "Emergency Department", "unit": "visit", "tariff_bbd": 1450, "confidence": "Medium"}, {"group": "Triage 3\u20135 (urgent to non-urgent)", "service": "Emergency Department", "unit": "visit", "tariff_bbd": 480, "confidence": "Medium"}, {"group": "Medical admission", "service": "Inpatient services", "unit": "admission", "tariff_bbd": 8900, "confidence": "Medium"}, {"group": "Surgical admission", "service": "Inpatient services", "unit": "admission", "tariff_bbd": 14300, "confidence": "Low"}, {"group": "Minor elective procedure", "service": "Operating theatres", "unit": "procedure", "tariff_bbd": 3100, "confidence": "Medium"}, {"group": "Major elective procedure", "service": "Operating theatres", "unit": "procedure", "tariff_bbd": 12800, "confidence": "Low"}, {"group": "Chemotherapy day attendance", "service": "Oncology", "unit": "attendance", "tariff_bbd": 2600, "confidence": "Medium"}, {"group": "First attendance", "service": "Outpatient services", "unit": "visit", "tariff_bbd": 260, "confidence": "High"}, {"group": "Follow-up attendance", "service": "Outpatient services", "unit": "visit", "tariff_bbd": 180, "confidence": "High"}, {"group": "CT scan", "service": "Medical imaging", "unit": "study", "tariff_bbd": 520, "confidence": "Medium"}, {"group": "Plain X-ray", "service": "Medical imaging", "unit": "study", "tariff_bbd": 95, "confidence": "High"}, {"group": "Routine test", "service": "Laboratory", "unit": "test", "tariff_bbd": 9, "confidence": "High"}]};
+(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const fmtM = (v) => (v < 0 ? '−' : '') + 'BBD ' + (Math.abs(v) / 1e6).toFixed(1) + 'M';
+  const fmtMs = (v) => (v < 0 ? '−' : v > 0 ? '+' : '') + (Math.abs(v) / 1e6).toFixed(1) + 'M';
+  const fmtN = (v) => Math.round(v).toLocaleString('en-GB');
+  const fmtCost = (v) => 'BBD ' + (v < 100 ? v.toFixed(2) : Math.round(v).toLocaleString('en-GB'));
+  const pct = (v) => (v * 100).toFixed(1) + '%';
+  const el = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+  const txt = (parent, x, y, s, attrs) => { const t = el('text', Object.assign({ x, y }, attrs || {}), parent); t.textContent = s; return t; };
+  const measure = (svg, s) => { const t = txt(svg, 0, 0, s); const w = t.getComputedTextLength(); t.remove(); return w; };
+  const lin = (d0, d1, r0, r1) => (v) => r0 + (v - d0) / (d1 - d0) * (r1 - r0);
+  const niceStep = (span, n) => { const raw = span / n; const p = Math.pow(10, Math.floor(Math.log10(raw))); const m = raw / p; return (m < 1.5 ? 1 : m < 3 ? 2 : m < 7 ? 5 : 10) * p; };
+  const row = (tbody, cells) => { const tr = document.createElement('tr'); cells.forEach(([v, c, node]) => { const td = document.createElement('td'); if (node) td.appendChild(node); else td.textContent = v; if (c) td.className = c; tr.appendChild(td); }); tbody.appendChild(tr); return tr; };
+  const pill = (t, c) => { const s = document.createElement('span'); s.className = 'pill ' + (c || t); s.textContent = t; return s; };
+  function tipFor(box) { let t = box.querySelector('.tip'); if (!t) { t = document.createElement('div'); t.className = 'tip'; t.hidden = true; box.appendChild(t); } return t; }
+  function showTip(t, box, x, y, title, lines) { t.innerHTML = ''; const h = document.createElement('div'); h.className = 't'; h.textContent = title; t.appendChild(h); lines.forEach(s => { const l = document.createElement('div'); l.textContent = s; t.appendChild(l); }); t.hidden = false; const w = t.offsetWidth; let left = x + 12; if (left + w > box.clientWidth) left = Math.max(0, x - w - 12); t.style.left = left + 'px'; t.style.top = Math.max(0, y - 12) + 'px'; }
+  const hover = (node, box, title, lines) => { const t = tipFor(box); node.addEventListener('mousemove', (ev) => { const bb = box.getBoundingClientRect(); showTip(t, box, ev.clientX - bb.left, ev.clientY - bb.top, title, typeof lines === 'function' ? lines() : lines); }); node.addEventListener('mouseleave', () => { t.hidden = true; }); };
+
+  const S = DATA.services.map(r => ({ service: r.service, unit: r.unit, activity: r.activity, unit_cost: r.total_cost_bbd / r.activity, cost: r.total_cost_bbd, fund: r.block_funding_bbd, gap: r.block_funding_bbd - r.total_cost_bbd, shadow: Math.round(r.total_cost_bbd * 0.97) }));
+  const T = S.reduce((a, r) => ({ activity: 0, cost: a.cost + r.cost, fund: a.fund + r.fund, shadow: a.shadow + r.shadow }), { cost: 0, fund: 0, shadow: 0 });
+  T.gap = T.fund - T.cost;
+  const worst = S.slice().sort((a, b) => a.gap - b.gap)[0];
+
+  /* ---------- OVERVIEW ---------- */
+  document.getElementById('lead').textContent = 'In this sample, care across the seven priority services costs ' + fmtM(-T.gap) + ' more than block funding over 18 months. ' + worst.service + ' carry the largest gap, so they would be the first services to review in a move towards activity-based funding.';
+  [['Total cost of care · 18 months', fmtM(T.cost), 'All seven priority services', ''], ['Block funding · 18 months', fmtM(T.fund), 'Current allocation', ''], ['Funding gap · 18 months', fmtM(T.gap), 'Underfunded by ' + pct(-T.gap / T.cost) + ' of cost', 'bad'], ['Shadow activity-based funding', fmtM(T.shadow), 'At indicative tariffs (97% of cost)', '']].forEach(([l, n, s, c]) => { const d = document.createElement('div'); d.className = 'tile'; d.innerHTML = '<span class="lbl"></span><span class="num"></span><span class="sub"></span>'; d.children[0].textContent = l; d.children[1].textContent = n; if (c) d.children[1].classList.add(c); d.children[2].textContent = s; document.getElementById('tiles').appendChild(d); });
+  const ub = document.getElementById('unit-body');
+  S.forEach(r => row(ub, [[r.service, 'nw'], [r.unit, 'nw'], [fmtN(r.activity), 'r'], [fmtCost(r.unit_cost), 'r nw'], [fmtM(r.cost), 'r nw'], [fmtM(r.fund), 'r nw'], [fmtM(r.gap), 'r nw ' + (r.gap < 0 ? 'neg' : 'pos')], [fmtM(r.shadow), 'r nw']]));
+  row(document.getElementById('unit-foot'), [['All priority services', ''], ['', ''], ['', ''], ['', ''], [fmtM(T.cost), 'r nw'], [fmtM(T.fund), 'r nw'], [fmtM(T.gap), 'r nw neg'], [fmtM(T.shadow), 'r nw']]);
+
+  function drawGap() {
+    const box = document.getElementById('gap'); if (!box.clientWidth) return; box.innerHTML = '';
+    const W = Math.max(300, box.clientWidth), rowH = 34, mt = 6, mb = 30, data = S.slice().sort((a, b) => a.gap - b.gap), H = mt + mb + data.length * rowH;
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Funding gap by service' }, box);
+    const ml = Math.min(W * 0.42, Math.max(...data.map(r => measure(svg, r.service))) + 14), mr = 18;
+    const ext = Math.max(...data.map(r => Math.abs(r.gap))), step = niceStep(2 * ext, W < 460 ? 3 : 5), lim = Math.ceil(ext / step) * step, x = lin(-lim, lim, ml, W - mr);
+    for (let v = -lim; v <= lim + 1; v += step) { el('line', { x1: x(v), x2: x(v), y1: mt, y2: H - mb, stroke: Math.abs(v) < 1 ? '#8796a3' : css('--line') }, svg); txt(svg, x(v), H - mb + 18, (v / 1e6).toFixed(0) + 'M', { 'text-anchor': 'middle' }); }
+    data.forEach((r, i) => { const y = mt + i * rowH + 7, h = rowH - 14; txt(svg, ml - 10, y + h / 2 + 4, r.service, { 'text-anchor': 'end', class: 'lab' }); const b = el('rect', { x: Math.min(x(0), x(r.gap)), y, width: Math.max(2, Math.abs(x(r.gap) - x(0))), height: h, rx: 4, fill: r.gap < 0 ? css('--bad') : css('--c1') }, svg); hover(b, box, r.service, ['Gap: ' + fmtM(r.gap), 'Cost: ' + fmtM(r.cost), 'Funding: ' + fmtM(r.fund)]); });
+  }
+  function drawTrend() {
+    const box = document.getElementById('trend'); if (!box.clientWidth) return; box.innerHTML = '';
+    const W = Math.max(300, box.clientWidth), H = 300, mt = 12, mb = 30, svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Monthly cost against block funding' }, box);
+    const m = DATA.monthly.map(r => ({ label: r.month, cost: r.total_cost_bbd / 1e6, fund: r.block_funding_bbd / 1e6 }));
+    const lo = Math.min(...m.map(r => Math.min(r.cost, r.fund))) * 0.96, hi = Math.max(...m.map(r => Math.max(r.cost, r.fund))) * 1.02, step = niceStep(hi - lo, 4), y0 = Math.floor(lo / step) * step, y1 = Math.ceil(hi / step) * step, last = m[m.length - 1];
+    const ends = [['Cost ' + last.cost.toFixed(1) + 'M', last.cost, css('--c1')], ['Funding ' + last.fund.toFixed(1) + 'M', last.fund, css('--c2')]];
+    const ml = Math.max(measure(svg, y1.toFixed(0) + 'M'), measure(svg, y0.toFixed(0) + 'M')) + 10, mr = Math.max(...ends.map(e => measure(svg, e[0]))) + 14;
+    const y = lin(y0, y1, H - mb, mt), x = lin(0, m.length - 1, ml, W - mr);
+    for (let v = y0; v <= y1 + 1e-9; v += step) { el('line', { x1: ml, x2: W - mr, y1: y(v), y2: y(v), stroke: css('--line') }, svg); txt(svg, ml - 6, y(v) + 4, v.toFixed(0) + 'M', { 'text-anchor': 'end' }); }
+    const mn = (s) => { const [yy, mm] = s.split('-'); return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+mm - 1] + ' ' + yy; };
+    m.forEach((r, i) => { if (i % (W < 460 ? 6 : 3) === 0) txt(svg, x(i), H - mb + 18, mn(r.label), { 'text-anchor': 'middle' }); });
+    const path = (k) => m.map((r, i) => (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(r[k]).toFixed(1)).join(' ');
+    el('path', { d: path('fund'), fill: 'none', stroke: css('--c2'), 'stroke-width': 2, 'stroke-dasharray': '6 4' }, svg);
+    el('path', { d: path('cost'), fill: 'none', stroke: css('--c1'), 'stroke-width': 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, svg);
+    let ly = ends.map(e => y(e[1])); if (Math.abs(ly[0] - ly[1]) < 15) { const mid = (ly[0] + ly[1]) / 2, a = ly[0] <= ly[1] ? 0 : 1; ly[a] = mid - 8; ly[1 - a] = mid + 8; }
+    ends.forEach((e, i) => txt(svg, W - mr + 6, ly[i] + 4, e[0], { style: 'fill:' + e[2] + ';font-weight:600' }));
+    const dot = el('circle', { r: 4, fill: css('--c1'), style: 'display:none' }, svg), hit = el('rect', { x: ml, y: mt, width: W - ml - mr, height: H - mt - mb, fill: 'transparent' }, svg), t = tipFor(box);
+    hit.addEventListener('mousemove', (ev) => { const bb = box.getBoundingClientRect(), sx = (ev.clientX - bb.left) * W / bb.width, i = Math.max(0, Math.min(m.length - 1, Math.round((sx - ml) / (W - ml - mr) * (m.length - 1)))), r = m[i]; dot.setAttribute('cx', x(i)); dot.setAttribute('cy', y(r.cost)); dot.style.display = ''; showTip(t, box, x(i) * bb.width / W, y(r.cost) * bb.width / W, mn(r.label), ['Cost: BBD ' + r.cost.toFixed(1) + 'M', 'Block funding: BBD ' + r.fund.toFixed(1) + 'M']); });
+    hit.addEventListener('mouseleave', () => { t.hidden = true; dot.style.display = 'none'; });
+  }
+  function drawMix() {
+    const box = document.getElementById('mix'); if (!box.clientWidth) return; box.innerHTML = '';
+    const cats = [...new Set(DATA.mix.map(r => r.category))], colors = ['--c1', '--c2', '--c3', '--c4'].map(css), services = [...new Set(DATA.mix.map(r => r.service))];
+    const W = Math.max(300, box.clientWidth), rowH = 32, mt = 4, mb = 28, H = mt + mb + services.length * rowH, svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Cost mix by service' }, box);
+    const ml = Math.min(W * 0.36, Math.max(...services.map(s => measure(svg, s))) + 14), mr = 14, x = lin(0, 1, ml, W - mr);
+    [0, .25, .5, .75, 1].forEach(v => { el('line', { x1: x(v), x2: x(v), y1: mt, y2: H - mb, stroke: css('--line') }, svg); txt(svg, x(v), H - mb + 18, (v * 100) + '%', { 'text-anchor': 'middle' }); });
+    services.forEach((s, i) => { const rs = DATA.mix.filter(r => r.service === s), tot = rs.reduce((a, r) => a + r.cost_bbd, 0), y = mt + i * rowH + 6, h = rowH - 12; let acc = 0; txt(svg, ml - 10, y + h / 2 + 4, s, { 'text-anchor': 'end', class: 'lab' }); cats.forEach((c, k) => { const v = (rs.find(r => r.category === c) || { cost_bbd: 0 }).cost_bbd, sh = v / tot, b = el('rect', { x: x(acc), y, width: Math.max(0, x(acc + sh) - x(acc) - 1.5), height: h, rx: 2, fill: colors[k] }, svg); hover(b, box, s, [c + ': ' + pct(sh) + ' · ' + fmtM(v)]); acc += sh; }); });
+    const lg = document.getElementById('mix-legend'); lg.innerHTML = ''; cats.forEach((c, k) => { const sp = document.createElement('span'), i = document.createElement('i'); i.style.background = colors[k]; sp.appendChild(i); sp.appendChild(document.createTextNode(c)); lg.appendChild(sp); });
+  }
+
+  /* ---------- WORKFLOW ---------- */
+  const flow = [
+    ['Extract', 'Pull ledger, payroll, inventory and activity data from each source for the costing period.', 'IT and data staff', 'Monthly, then per cycle', 'Row counts match source; extract logged', false],
+    ['Validate and grade', 'Run completeness, accuracy, granularity and timeliness tests; assign each source an A–D grade.', 'Costing team', 'Every cycle', 'No critical failures; grades recorded', false],
+    ['Build the cost ledger', 'Map general-ledger and payroll lines to cost centres; remove non-patient costs.', 'Finance', 'Every cycle', 'Ledger reconciles to audited accounts', true],
+    ['Allocate overheads', 'Step-down allocation of estates, HR, IT, finance and support costs using documented drivers.', 'Costing team', 'Every cycle', 'Every pool fully allocated; drivers documented', false],
+    ['Link activity', 'Match costs to encounters: admissions, ED visits, procedures, tests, treatments.', 'Health records and costing team', 'Every cycle', 'Match rate reported per service', false],
+    ['Calculate unit and patient costs', 'Produce cost per unit, per specialty, per service line and, where data allows, per patient.', 'Costing team', 'Every cycle', 'Totals equal allocated cost', true],
+    ['Report', 'Refresh executive and operational dashboards and service-line packs, with quality grades shown.', 'Finance and service managers', 'Quarterly', 'Clinical leads review their service', false],
+    ['Shadow funding and tariffs', 'Price activity at indicative tariffs, compare with block funding, run scenarios.', 'Finance and Ministry liaison', 'Twice yearly', 'Steering committee approval', true]
+  ];
+  const fl = document.getElementById('flow');
+  flow.forEach(([h, p, owner, freq, ctl, gate], i) => { const d = document.createElement('div'); d.className = 'step' + (gate ? ' gate' : ''); d.innerHTML = '<div class="n"></div><h3></h3><p></p><dl><dt>Owner</dt><dd></dd><dt>When</dt><dd></dd><dt>Control</dt><dd></dd></dl>'; d.querySelector('.n').textContent = String(i + 1).padStart(2, '0'); d.querySelector('h3').textContent = h + (gate ? ' · gate' : ''); d.querySelector('p').textContent = p; const dd = d.querySelectorAll('dd'); dd[0].textContent = owner; dd[1].textContent = freq; dd[2].textContent = ctl; fl.appendChild(d); });
+  const systems = [['Finance', 'CloudSuite', 'General ledger, payables, fixed assets, supplies', 'Cloud', '3 Cost ledger'], ['Finance', 'Smartstream Financials', 'General ledger, purchasing, fixed assets', 'Extract', '3 Cost ledger'], ['Finance', 'Smartstream HR', 'HR and payroll', 'No API', '3 Cost ledger'], ['Finance', 'Micropay', 'Payroll processing', 'Extract', '3 Cost ledger'], ['Finance / Procurement', 'IMS', 'Inventory management', 'No API', '4 Allocate'], ['Finance', 'Sage50', 'Patient billing and receipting', 'Extract', '5 Link activity'], ['Medical Records', 'MedData', 'Admissions, discharges, transfers; ICD-10 coding', 'HL7 FHIR', '5 Link activity'], ['A&E', 'Savance', 'Patient tracking', 'No API', '5 Link activity'], ['Laboratory', 'Schuylab / Schuynet', 'Instrument results and worksheets', 'HL7', '5 Link activity'], ['Radiology', 'Zeeromed', 'Cloud PACS imaging', 'HL7', '5 Link activity'], ['Cardiology', 'ShowCase', 'Diagnostic images', 'No API', '5 Link activity'], ['Gastroenterology', 'Endosoft', 'GI procedures', 'HL7', '5 Link activity'], ['Ophthalmology', 'OpenEMR', 'Practice management and EMR', 'HL7 FHIR', '5 Link activity'], ['Neurophysiology', 'Cadlink / Sierra', 'Neurological diagnostics', 'HL7', '5 Link activity'], ['Clinical Risk', 'Datix', 'Incident reporting', 'HL7', 'Quality indicators']];
+  const sb = document.getElementById('sys-body');
+  systems.forEach(([d, s, h, i, f]) => row(sb, [[d, 'nw'], [s, 'nw'], [h, ''], ['', '', pill(i, /No API|Extract/.test(i) ? 'noapi' : 'api')], [f, 'nw']]));
+
+  /* ---------- BUILD-UP ---------- */
+  const dia = [['Nursing and technician staff', 'Payroll (Smartstream HR, Micropay)', 'Rostered hours per session', 196], ['Nephrology medical staff', 'Payroll', 'Sessions supervised', 48], ['Dialysers, lines and consumables', 'Inventory (IMS)', 'Items issued per treatment', 214], ['Drugs: anticoagulant, erythropoietin, iron', 'Pharmacy issues', 'Doses per treatment', 54], ['Equipment depreciation and maintenance', 'Fixed assets (CloudSuite)', 'Machine hours', 38], ['Water treatment and utilities', 'General ledger', 'Floor area and metered use', 22], ['Allocated overheads', 'Step-down allocation', 'See driver table', 68]];
+  const diaTot = dia.reduce((a, r) => a + r[3], 0);
+  const db = document.getElementById('dia-body'); dia.forEach(([c, s, b, v]) => row(db, [[c, ''], [s, ''], [b, ''], [v.toLocaleString('en-GB'), 'r']]));
+  row(document.getElementById('dia-foot'), [['Full cost per treatment', ''], ['', ''], ['', ''], ['BBD ' + diaTot, 'r']]);
+  const ovh = [['Estates and facilities', 18.2, 'Floor area (m²)', 0.041], ['Human resources', 6.1, 'Headcount', 0.036], ['Information technology', 7.4, 'Devices and users', 0.025], ['Finance and administration', 9.8, 'Transactions processed', 0.031], ['Hotel services: cleaning, laundry, catering', 12.6, 'Weighted floor area and bed-days', 0.029]];
+  const ob = document.getElementById('ovh-body'); ovh.forEach(([p, v, d, s]) => row(ob, [[p, ''], [v.toFixed(1), 'r'], [d, ''], [pct(s), 'r']]));
+  const rec = [['General ledger operating expenditure', 457.8, 457.8], ['Payroll to ledger', 241.6, 241.2], ['Inventory issues to ledger', 98.4, 98.1], ['Overheads fully allocated', 54.1, 54.1]];
+  const rb = document.getElementById('rec-body'); rec.forEach(([c, a, b]) => { const v = (b - a) / a; row(rb, [[c, ''], [a.toFixed(1), 'r'], [b.toFixed(1), 'r'], [(v * 100).toFixed(2) + '%', 'r'], ['', '', pill(Math.abs(v) <= 0.01 ? 'Pass' : 'Review', Math.abs(v) <= 0.01 ? 'A' : 'C')]]); });
+  function drawWaterfall() {
+    const box = document.getElementById('waterfall'); if (!box.clientWidth) return; box.innerHTML = '';
+    const W = Math.max(300, box.clientWidth), H = 320, mt = 24, mb = 56, svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Dialysis cost build-up' }, box);
+    const items = dia.map(r => ({ k: r[0], v: r[3] })).concat([{ k: 'Total', v: diaTot, total: true }]);
+    const ml = 44, mr = 10, y = lin(0, 700, H - mb, mt), bw = (W - ml - mr) / items.length;
+    [0, 100, 200, 300, 400, 500, 600, 700].forEach(v => { el('line', { x1: ml, x2: W - mr, y1: y(v), y2: y(v), stroke: css('--line') }, svg); txt(svg, ml - 6, y(v) + 4, String(v), { 'text-anchor': 'end' }); });
+    let acc = 0; const short = ['Nursing', 'Medical', 'Consumables', 'Drugs', 'Equipment', 'Utilities', 'Overheads', 'Total'];
+    items.forEach((it, i) => { const x0 = ml + i * bw + bw * 0.16, w = bw * 0.68, top = it.total ? it.v : acc + it.v, bot = it.total ? 0 : acc; const b = el('rect', { x: x0, y: y(top), width: w, height: Math.max(1, y(bot) - y(top)), rx: 3, fill: it.total ? css('--navy') : css('--c1') }, svg); hover(b, box, it.k, ['BBD ' + it.v + (it.total ? ' per treatment' : ''), it.total ? '' : 'Running total: BBD ' + (acc + it.v)].filter(Boolean)); txt(svg, x0 + w / 2, y(top) - 6, (it.total ? '' : '+') + it.v, { 'text-anchor': 'middle', class: 'lab', style: 'font-weight:600' }); txt(svg, x0 + w / 2, H - mb + 18, W < 560 ? short[i].slice(0, 5) : short[i], { 'text-anchor': 'middle' }); if (!it.total) { if (i < items.length - 1) el('line', { x1: x0 + w, x2: x0 + bw, y1: y(acc + it.v), y2: y(acc + it.v), stroke: '#8796a3', 'stroke-dasharray': '3 3' }, svg); acc += it.v; } });
+  }
+
+  /* ---------- SIMULATOR ---------- */
+  const sh = document.getElementById('s-share'), ta = document.getElementById('s-tariff'), gr = document.getElementById('s-growth');
+  const scenarios = [['Today: block funding', 0, 97, 0], ['Blended 50/50', 50, 97, 0], ['Full ABF at 97%', 100, 97, 0], ['Full ABF, activity +10%', 100, 97, 10], ['Tight tariff (90%)', 100, 90, 0]];
+  const sc = document.getElementById('scen');
+  scenarios.forEach(([n, a, b, c]) => { const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = n; btn.addEventListener('click', () => { sh.value = a; ta.value = b; gr.value = c; sim(); }); sc.appendChild(btn); });
+  function simRows() {
+    const s = +sh.value / 100, t = +ta.value / 100, g = +gr.value / 100;
+    return S.map(r => { const cost = r.cost * (1 + 0.6 * g), abf = r.unit_cost * t * r.activity * (1 + g), fund = r.fund * (1 - s) + abf * s; return { service: r.service, block: r.fund, abfPart: abf * s, fund, change: fund - r.fund, cost, margin: fund - cost }; });
+  }
+  function sim() {
+    document.getElementById('o-share').textContent = sh.value + '%'; document.getElementById('o-tariff').textContent = ta.value + '%'; document.getElementById('o-growth').textContent = (gr.value > 0 ? '+' : '') + gr.value + '%';
+    [...sc.children].forEach((b, i) => b.classList.toggle('on', +sh.value === scenarios[i][1] && +ta.value === scenarios[i][2] && +gr.value === scenarios[i][3]));
+    const R = simRows(), tot = R.reduce((a, r) => ({ block: a.block + r.block, fund: a.fund + r.fund, cost: a.cost + r.cost }), { block: 0, fund: 0, cost: 0 });
+    const tl = document.getElementById('sim-tiles'); tl.innerHTML = '';
+    [['Simulated funding', fmtM(tot.fund), 'Block today ' + fmtM(tot.block), ''], ['Change against block', (tot.fund - tot.block < 0 ? '−' : '+') + 'BBD ' + (Math.abs(tot.fund - tot.block) / 1e6).toFixed(1) + 'M', pct((tot.fund - tot.block) / tot.block) + ' of current funding', tot.fund - tot.block < 0 ? 'bad' : 'good'], ['Funding minus cost', fmtM(tot.fund - tot.cost), (tot.fund - tot.cost) < 0 ? 'Still underfunded' : 'Cost covered', tot.fund - tot.cost < 0 ? 'bad' : 'good'], ['Service lines covered', R.filter(r => r.margin >= 0).length + ' of ' + R.length, 'Funding at or above cost', '']].forEach(([l, n, s, c]) => { const d = document.createElement('div'); d.className = 'tile'; d.innerHTML = '<span class="lbl"></span><span class="num"></span><span class="sub"></span>'; d.children[0].textContent = l; d.children[1].textContent = n; if (c) d.children[1].classList.add(c); d.children[2].textContent = s; tl.appendChild(d); });
+    const b = document.getElementById('sim-body'); b.innerHTML = '';
+    R.forEach(r => row(b, [[r.service, 'nw'], [fmtM(r.block), 'r nw'], [fmtM(r.abfPart), 'r nw'], [fmtM(r.fund), 'r nw'], [fmtMs(r.change), 'r nw ' + (r.change < 0 ? 'neg' : 'pos')], [fmtM(r.cost), 'r nw'], [fmtM(r.margin), 'r nw ' + (r.margin < 0 ? 'neg' : 'pos')]]));
+    const f = document.getElementById('sim-foot'); f.innerHTML = '';
+    row(f, [['All priority services', ''], [fmtM(tot.block), 'r nw'], ['', ''], [fmtM(tot.fund), 'r nw'], [fmtMs(tot.fund - tot.block), 'r nw'], [fmtM(tot.cost), 'r nw'], [fmtM(tot.fund - tot.cost), 'r nw ' + (tot.fund - tot.cost < 0 ? 'neg' : 'pos')]]);
+    drawSim(R);
+  }
+  function drawSim(R) {
+    const box = document.getElementById('sim-chart'); if (!box.clientWidth) return; box.innerHTML = '';
+    const W = Math.max(300, box.clientWidth), rowH = 40, mt = 6, mb = 30, data = R.slice().sort((a, b) => b.cost - a.cost), H = mt + mb + data.length * rowH;
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Simulated funding by service' }, box);
+    const ml = Math.min(W * 0.36, Math.max(...data.map(r => measure(svg, r.service))) + 14), mr = 16, max = Math.max(...data.map(r => Math.max(r.block, r.fund, r.cost))), step = niceStep(max, W < 460 ? 3 : 5), lim = Math.ceil(max / step) * step, x = lin(0, lim, ml, W - mr);
+    for (let v = 0; v <= lim + 1; v += step) { el('line', { x1: x(v), x2: x(v), y1: mt, y2: H - mb, stroke: css('--line') }, svg); txt(svg, x(v), H - mb + 18, (v / 1e6).toFixed(0) + 'M', { 'text-anchor': 'middle' }); }
+    data.forEach((r, i) => { const y = mt + i * rowH + 6; txt(svg, ml - 10, y + 15, r.service, { 'text-anchor': 'end', class: 'lab' }); const b1 = el('rect', { x: ml, y, width: Math.max(1, x(r.block) - ml), height: 12, rx: 3, fill: css('--c4') }, svg); const b2 = el('rect', { x: ml, y: y + 14, width: Math.max(1, x(r.fund) - ml), height: 12, rx: 3, fill: css('--c1') }, svg); const mk = el('rect', { x: x(r.cost) - 1.5, y: y - 2, width: 3, height: 30, fill: css('--navy') }, svg); [b1, b2, mk].forEach(n => hover(n, box, r.service, ['Block today: ' + fmtM(r.block), 'Simulated: ' + fmtM(r.fund), 'Cost: ' + fmtM(r.cost)])); });
+  }
+  [sh, ta, gr].forEach(i => i.addEventListener('input', sim));
+
+  /* ---------- DATA & GOVERNANCE ---------- */
+  const heat = [['Emergency Department', 'B', 'C', 'C', 'B', 'Service level now; triage-weighted after HIS'], ['Inpatient services', 'B', 'B', 'B', 'C', 'Hybrid: bed-days and specialty'], ['Operating theatres', 'C', 'B', 'C', 'C', 'Hybrid: theatre minutes from registers'], ['Outpatient services', 'B', 'B', 'C', 'B', 'Service level by clinic'], ['Diagnostics', 'A', 'A', 'B', 'B', 'Patient level for lab and imaging'], ['Dialysis', 'A', 'A', 'A', 'B', 'Patient level per treatment'], ['Oncology', 'B', 'B', 'B', 'C', 'Hybrid: treatment cycle']];
+  const hb = document.getElementById('heat-body'); heat.forEach(([s, a, b, c, d, l]) => row(hb, [[s, 'nw'], ['', 'g', pill(a)], ['', 'g', pill(b)], ['', 'g', pill(c)], ['', 'g', pill(d)], [l, '']]));
+  const dpa = ['Data-processing agreement and privacy impact assessment before any data moves', 'Patient identifiers replaced with a pseudonymous key before costing', 'Encryption in transit (TLS 1.2+) and at rest (AES-256)', 'Role-based access for administrator, core, read-only and viewer roles, with multi-factor sign-in', 'Full audit log of every access and change', 'Hosting on QEH\'s own server by default; any cloud use only after QEH approval', 'Secure deletion of all QEH data at contract end, with certificates'];
+  const dl = document.getElementById('dpa'); dpa.forEach(s => { const li = document.createElement('li'); li.textContent = s; dl.appendChild(li); });
+  const acc = [['1', 'Current State Assessment', 'All sources for 7 services graded; gaps logged with owners'], ['3', 'Cost Allocation Methodology', 'Every cost centre classified; every driver documented'], ['5', 'Service Line Costing Reports', 'Allocated cost reconciles to the ledger within ±1%'], ['6', 'Executive Dashboards', 'Role-based access tested; user acceptance signed off'], ['8', 'Shadow ABF Model', 'Three scenarios run; QEH staff run a new one unaided'], ['12', 'Sustainability Plan', 'QEH completes a full costing cycle with support only']];
+  const ab = document.getElementById('acc-body'); acc.forEach(([n, d, c]) => row(ab, [[n, ''], [d, ''], [c, '']]));
+
+  /* ---------- ROADMAP ---------- */
+  const stages = [['0. Mobilisation', 0, 0.5, 'Gate 0'], ['1. Discovery', 0.5, 2, 'Gate 1'], ['2. Minimum viable costing', 2, 4, 'Gate 2'], ['3. Patient-level and service-line costing', 4, 8, 'Gate 3'], ['4. Funding intelligence', 6, 11, 'Gate 4'], ['5. Handover and capability transfer', 10, 12, 'Gate 5']];
+  function drawGantt() {
+    const box = document.getElementById('gantt'); if (!box.clientWidth) return; box.innerHTML = '';
+    const W = Math.max(300, box.clientWidth), rowH = 40, mt = 26, mb = 10, H = mt + mb + stages.length * rowH, svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Implementation timeline' }, box);
+    const ml = Math.min(W * 0.42, Math.max(...stages.map(s => measure(svg, s[0]))) + 16), mr = 16, x = lin(0, 12, ml, W - mr);
+    for (let m = 0; m <= 12; m++) { el('line', { x1: x(m), x2: x(m), y1: mt - 6, y2: H - mb, stroke: css('--line') }, svg); if (W > 520 || m % 2 === 0) txt(svg, x(m), mt - 10, 'M' + m, { 'text-anchor': 'middle' }); }
+    el('rect', { x: x(4) - 1, y: mt - 6, width: 2, height: H - mb - mt + 6, fill: css('--gold') }, svg);
+    stages.forEach(([n, a, b, g], i) => { const y = mt + i * rowH + 9, h = rowH - 18; txt(svg, ml - 10, y + h / 2 + 4, n, { 'text-anchor': 'end', class: 'lab' }); const r = el('rect', { x: x(a), y, width: Math.max(4, x(b) - x(a)), height: h, rx: 4, fill: i === 4 ? css('--c3') : css('--c1') }, svg); hover(r, box, n, ['Months ' + a + '–' + b, g + ' at month ' + b]); const cx = x(b), cy = y + h / 2; el('path', { d: `M${cx} ${cy - 8} L${cx + 8} ${cy} L${cx} ${cy + 8} L${cx - 8} ${cy} Z`, fill: css('--gold'), stroke: '#fff', 'stroke-width': 1.5 }, svg); });
+  }
+  const path = [['Year 1', 'Block funding continues; shadow ABF model runs alongside', 'Reconciled costing for all seven priority services; first indicative tariffs'], ['Year 2', 'Blended pilot: dialysis funded partly by activity', 'Grade A data for the pilot service; tariff validated with the Ministries'], ['Year 3 onwards', 'Staged extension of blended funding to further services', 'HIS feeds live; clinical coding capacity; policy decision by Government']];
+  const pb = document.getElementById('path-body'); path.forEach(([h, a, w]) => row(pb, [[h, 'nw'], [a, ''], [w, '']]));
+
+  /* ---------- TABS ---------- */
+  const tabs = [...document.querySelectorAll('nav.tabs button')], pages = [...document.querySelectorAll('[data-page]')];
+  const drawers = { overview: () => { drawGap(); drawTrend(); drawMix(); }, buildup: drawWaterfall, simulator: sim, roadmap: drawGantt, workflow: () => {}, data: () => {} };
+  let current = 'overview';
+  function show(id) { if (!drawers[id]) id = 'overview'; current = id; tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === id))); pages.forEach(p => { p.hidden = p.id !== id; }); drawers[id](); }
+  tabs.forEach(t => t.addEventListener('click', () => { show(t.dataset.tab); try { history.replaceState(null, '', '#' + t.dataset.tab); } catch (e) {} window.scrollTo({ top: 0 }); }));
+  const go = () => { show((location.hash || '').slice(1) || 'overview'); let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => drawers[current](), 120); }); };
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(go, go);
+})();
+</script>
+
+</body>
+</html>

@@ -35,12 +35,12 @@ const D=[
 ];
 const X=[
 ["https://bmpra.com/#home","BMPA Consultation Guide","Barbados Medical Products Authority · draft Act and Regulations","Section-by-section guide to the draft Act, page-by-page regulations, medicine lists, and an AI assistant whose answers link to the exact section."],
-["https://agenticrx-hub.github.io/qeh-clinical-financing/#overview","QEH Clinical Financing Demo","Queen Elizabeth Hospital, Barbados","Clinical costing and funding intelligence demonstration."],
-["https://agenticrx-hub.github.io/nisss-mobile-app/","NIS Mobile Prototype","National Insurance and Social Security Service, Barbados","Mobile app prototype and technical build-out."],
-["https://ihinds.github.io/quran-order-map/","Quran Order Map","Independent project","Interactive map and visual exploration of chapter order."]
+["qeh-clinical-financing/#overview","QEH Clinical Financing Demo","Queen Elizabeth Hospital, Barbados","Clinical costing and funding intelligence demonstration."],
+["nisss-mobile-app/","NIS Mobile Prototype","National Insurance and Social Security Service, Barbados","Mobile app prototype and technical build-out."],
+["quran-order-map/","Quran Order Map","Independent project","Interactive map and visual exploration of chapter order."]
 ];
 const g=document.getElementById("g"),q=document.getElementById("q");
 function r(){const t=q.value.toLowerCase();g.innerHTML=D.filter(d=>d.join(" ").toLowerCase().includes(t)).map(d=>`<a class="card" href="${d[0]}/"><h2>${d[1]}</h2><div class="meta">${d[2]}</div><div class="desc">${d[3]}</div></a>`).join("")}
-function rx(){const t=q.value.toLowerCase();document.getElementById("x").innerHTML=X.filter(d=>d.join(" ").toLowerCase().includes(t)).map(d=>`<a class="card" href="${d[0]}" target="_blank" rel="noopener"><h2>${d[1]}</h2><div class="meta">${d[2]}</div><div class="desc">${d[3]}</div></a>`).join("")}
+function rx(){const t=q.value.toLowerCase();document.getElementById("x").innerHTML=X.filter(d=>d.join(" ").toLowerCase().includes(t)).map(d=>`<a class="card" href="${d[0]}"${d[0].startsWith("http")?' target="_blank" rel="noopener"':""}><h2>${d[1]}</h2><div class="meta">${d[2]}</div><div class="desc">${d[3]}</div></a>`).join("")}
 q.oninput=()=>{r();rx()};r();rx();
 </script></body></html>

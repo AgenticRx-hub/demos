@@ -1,0 +1,103 @@
+openapi: 3.1.0
+info:
+  title: NIS Mobile API (bid prototype contract)
+  version: 0.1.0
+  description: >
+    Contract between the NIS Mobile app and the API Gateway. Illustrative; final
+    paths and fields are confirmed with NISSS IT during requirements validation.
+    All requests and responses are JSON (RFB §0.4.1(5)).
+servers:
+  - url: https://api.example.invalid/v1
+security:
+  - oauth2: [member]
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://iam.example.invalid/authorize
+          tokenUrl: https://iam.example.invalid/token
+          scopes:
+            member: Member self-service
+            admin: Staff administration
+  schemas:
+    Money: { type: object, required: [amount, currency], properties: { amount: { type: number }, currency: { type: string, enum: [BBD] } } }
+    Contribution:
+      type: object
+      properties:
+        period: { type: string, example: '2026-09' }
+        amountDue: { $ref: '#/components/schemas/Money' }
+        status: { type: string, enum: [Paid, Due] }
+        receiptNo: { type: string, nullable: true }
+    PaymentRequest:
+      type: object
+      required: [periods]
+      properties:
+        periods: { type: array, items: { type: string }, minItems: 1 }
+    Receipt:
+      type: object
+      properties:
+        receiptNo: { type: string }
+        paidAt: { type: string, format: date-time }
+        total: { $ref: '#/components/schemas/Money' }
+        periods: { type: array, items: { type: string } }
+    Estimate:
+      type: object
+      properties:
+        eligible: { type: boolean }
+        weeksShort: { type: integer }
+        ratePct: { type: number }
+        monthlyPension: { type: number }
+        pensionStartYear: { type: integer }
+        ruleSet: { type: string }
+    Claim:
+      type: object
+      properties:
+        id: { type: string }
+        type: { type: string, enum: [Sickness, Maternity, EmploymentInjury, FuneralGrant] }
+        status: { type: string, enum: [Submitted, DocumentsChecked, UnderAssessment, Approved, Paid, Rejected] }
+        submittedAt: { type: string, format: date-time }
+    Problem:
+      type: object
+      description: RFC 9457 problem details
+      properties: { type: { type: string }, title: { type: string }, status: { type: integer }, detail: { type: string } }
+paths:
+  /me:
+    get: { summary: Member profile and dashboard summary, responses: { '200': { description: OK } } }
+  /me/change-requests:
+    post: { summary: Request a change of contact details (verified before update), responses: { '202': { description: Accepted } } }
+  /contributions:
+    get:
+      summary: Contribution and payment history
+      parameters:
+        - { name: status, in: query, schema: { type: string, enum: [Paid, Due] } }
+        - { name: from, in: query, schema: { type: string } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Contribution' } } } } }
+  /payments:
+    post:
+      summary: Create a payment session with the payment provider
+      parameters:
+        - { name: Idempotency-Key, in: header, required: true, schema: { type: string, minLength: 16 } }
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/PaymentRequest' } } } }
+      responses:
+        '201': { description: Payment session created (redirect to hosted payment page) }
+        '409': { description: Period already paid, content: { application/problem+json: { schema: { $ref: '#/components/schemas/Problem' } } } }
+  /receipts/{receiptNo}:
+    get: { summary: Receipt detail and PDF link, parameters: [ { name: receiptNo, in: path, required: true, schema: { type: string } } ], responses: { '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Receipt' } } } } } }
+  /estimates/pension:
+    post: { summary: Pension estimate from the approved rule set, responses: { '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Estimate' } } } } } }
+  /notifications:
+    get: { summary: Member notifications, responses: { '200': { description: OK } } }
+  /notifications/preferences:
+    put: { summary: Update channels (push, SMS, email), responses: { '204': { description: Updated } } }
+  /support/tickets:
+    post: { summary: Open a support conversation or call-back request, responses: { '201': { description: Created } } }
+  /content:
+    get: { summary: Published announcements, FAQs, videos and tips, security: [], responses: { '200': { description: OK } } }
+  /claims:
+    get: { summary: Member's claims (Phase 2), responses: { '200': { description: OK } } }
+    post: { summary: Submit a claim (Phase 2), responses: { '201': { description: Created, content: { application/json: { schema: { $ref: '#/components/schemas/Claim' } } } } } }
+  /claims/{id}/documents:
+    post: { summary: Get a signed upload URL for a claim document, parameters: [ { name: id, in: path, required: true, schema: { type: string } } ], responses: { '201': { description: Upload URL issued } } }
