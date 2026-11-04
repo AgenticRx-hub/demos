@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Caribbean Health Interoperability Console</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: navy masthead with tab strip, then one working canvas of panels; library uses tree | page | outline */
+:root{--bg:#f3f2ee;--card:#fff;--fg:#16212d;--muted:#56626f;--line:#dfdbd0;--navy:#0F2A47;--gold:#B8914A;--teal:#1f6f78;--ok:#2f7a4b;--okbg:#e2f0e6;--warn:#94660c;--warnbg:#f7edd4;--bad:#a3392f;--badbg:#f6dfdb;--idle:#d9d5cc;--paper:#fdfcf8;--ink:#23282f;--onnavy:#fff;--onnavy2:#c9d3df;--gold2:#d6c290;
+--s1:#f6dfdb;--s2:#f3e3c4;--s3:#e9ecd2;--s4:#cfe6d6;--s5:#9fcfb0;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--teal:#6cc0c8;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#1b2939;--ink:#e3e8ee;--s1:#4a2420;--s2:#4a3a1c;--s3:#3b4224;--s4:#1f4630;--s5:#2c6b45;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--teal:#6cc0c8;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#1b2939;--ink:#e3e8ee;--s1:#4a2420;--s2:#4a3a1c;--s3:#3b4224;--s4:#1f4630;--s5:#2c6b45;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14.5px/1.5 var(--sans);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px;margin:0}
+header{background:var(--navy);color:var(--onnavy);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:18px max(16px,env(safe-area-inset-left,0px)) 0;border-bottom:3px solid var(--gold)}
+header .in,main{max-width:1180px;margin:0 auto}
+header h1{margin:0;font:600 22px var(--serif);text-wrap:balance}header p{margin:4px 0 12px;color:var(--gold2);font-size:12px;letter-spacing:.08em}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav button{font:600 14px var(--sans);background:transparent;color:var(--onnavy2);border:0;padding:9px 14px;border-radius:6px 6px 0 0;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;margin:14px 0;font-size:14px}
+h2{font:600 18px var(--serif);margin:0 0 8px;text-wrap:balance}h3{font:600 14.5px var(--sans);margin:12px 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.g2{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}.kpi b{display:block;font:600 22px var(--mono);font-variant-numeric:tabular-nums}.kpi span{color:var(--muted);font-size:13px}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:600}
+th.sort{cursor:pointer;user-select:none}th.sort[data-dir]::after{content:attr(data-dir);margin-left:4px;color:var(--gold)}
+td.n{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:13.5px}
+td.c{text-align:center;font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+td.c.l1{background:var(--s1)}td.c.l2{background:var(--s2)}td.c.l3{background:var(--s3)}td.c.l4{background:var(--s4)}td.c.l5{background:var(--s5)}
+tbody tr.click{cursor:pointer}tbody tr.click:hover,tbody tr.sel{background:var(--bg)}
+.pill{font-size:12.5px;padding:1px 8px;border-radius:999px;white-space:nowrap}.p-ok{background:var(--okbg);color:var(--ok)}.p-w{background:var(--warnbg);color:var(--warn)}.p-b{background:var(--badbg);color:var(--bad)}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input,select,textarea{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg);width:100%}
+textarea{font:13.5px/1.45 var(--mono);min-height:300px;resize:vertical}
+button.btn{font:600 14px var(--sans);background:var(--navy);color:var(--onnavy);border:1px solid var(--gold);border-radius:5px;padding:7px 12px;cursor:pointer}
+button.ghost{font:500 14px var(--sans);background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;margin:0 6px 6px 0}
+button.ghost:hover,button.ghost.on{border-color:var(--gold)}button.ghost.on{background:var(--bg)}
+.detail{font-size:14px;color:var(--muted)}
+.tab{display:none}.tab.on{display:block}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:-1px;border:1px solid var(--line)}
+.bars .r{display:grid;grid-template-columns:150px 1fr 40px;gap:8px;align-items:center;font-size:14px;margin:4px 0}
+.bars .t{height:10px;background:var(--idle);border-radius:5px;overflow:hidden}.bars .t div{height:100%;background:var(--teal)}
+.bars .r b{font:600 13.5px var(--mono);text-align:right}
+.res{display:flex;flex-wrap:wrap;gap:0}
+pre.json{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:12px;font:13px/1.5 var(--mono);overflow:auto;max-height:420px;margin:0}
+.k{color:var(--teal)}.s{color:var(--warn)}
+.viewer{display:grid;grid-template-columns:250px 1fr 230px;gap:12px}
+.tree a{display:block;padding:5px 8px;border-radius:4px;color:var(--fg);text-decoration:none;cursor:pointer;font-size:14px}.tree a:hover,.tree a.on{background:var(--bg)}.tree a small{display:block;color:var(--muted);font-size:12.5px}
+.page{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:24px 28px;min-height:420px;font:14.5px/1.65 Georgia,serif}
+.page h4{font:700 15px Georgia,serif;margin:0 0 2px}.page .hd{font:12.5px var(--sans);color:var(--muted);letter-spacing:.06em;margin-bottom:14px}
+.page mark{background:var(--warnbg);color:var(--ink)}
+.chat{display:flex;flex-direction:column;gap:10px;max-height:540px;overflow:auto;padding:4px}
+.msg{max-width:90%;padding:10px 12px;border-radius:8px;font-size:14px}
+.msg.u{align-self:flex-end;background:var(--navy);color:var(--onnavy)}
+.msg.a{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.cite{display:inline-block;font:600 12.5px var(--mono);background:var(--card);border:1px solid var(--gold);color:var(--fg);border-radius:4px;padding:1px 6px;margin:4px 4px 0 0;cursor:pointer;text-decoration:none}
+.ask{display:flex;gap:8px;margin-top:10px}
+svg text{fill:var(--muted);font:12px var(--sans)}
+.flowrow{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:8px 0}
+.st{background:var(--navy);color:var(--onnavy);border-radius:6px;padding:9px 6px;text-align:center;border-bottom:4px solid var(--gold);font-size:13px}.st b{display:block;font:600 18px var(--mono)}
+.st.hot{border-bottom-color:var(--bad)}
+.vres{font-size:14px;margin-top:8px}
+@media (max-width:900px){.viewer,.g2{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.flowrow{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}.bars .r{grid-template-columns:110px 1fr 36px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<header><div class="in"><h1>Caribbean Health Interoperability Console</h1><p>AGENTIC RX INC. · DEMONSTRATION FOR CARPHA-1224 DIGITAL HEALTH TECHNOLOGY SPECIALIST</p>
+<nav role="tablist">
+<button role="tab" data-t="ready" aria-selected="true">Readiness</button>
+<button role="tab" data-t="fhir" aria-selected="false">FHIR explorer</button>
+<button role="tab" data-t="xch" aria-selected="false">Data exchange</button>
+<button role="tab" data-t="lib" aria-selected="false">Standards library</button>
+<button role="tab" data-t="ai" aria-selected="false">Assistant</button>
+</nav></div></header>
+<main>
+<div class="note">Illustrative sample data only. Readiness scores, message traffic and document summaries are invented for demonstration and do not describe any real Member State or CARPHA system. Library pages are short summaries written for this demo, with links to the official sources.</div>
+
+<section class="tab on" id="t-ready">
+<div class="kpis" id="rk"></div>
+<div class="g2">
+<section class="panel"><h2>Member State readiness for regional data exchange</h2>
+<p class="detail" style="margin-top:0">Scores 1 to 5 on seven dimensions, adapted from the PAHO IS4H maturity model domains plus standards and legal readiness. Click a column to sort, a row for detail.</p>
+<div class="wrap"><table id="rt"><thead></thead><tbody></tbody></table></div>
+<div class="legend"><span><i style="background:var(--s1)"></i>1 Initial</span><span><i style="background:var(--s2)"></i>2</span><span><i style="background:var(--s3)"></i>3 Defined</span><span><i style="background:var(--s4)"></i>4</span><span><i style="background:var(--s5)"></i>5 Optimised</span></div>
+</section>
+<section class="panel"><h2 id="cn">Country profile</h2><div class="detail" id="cs"></div><div class="bars" id="cb"></div><h3>Priority actions</h3><ul id="ca" style="padding-left:18px;margin:4px 0;font-size:14px"></ul><h3>Exchange status</h3><div id="cx" class="detail"></div></section>
+</div>
+</section>
+
+<section class="tab" id="t-fhir">
+<div class="g2">
+<section class="panel"><h2>HL7 FHIR R4 resource explorer</h2>
+<p class="detail" style="margin-top:0">Resources used by the regional International Patient Summary (IPS) and aggregate reporting profiles. Pick a resource to see its key elements, bindings and a sample instance.</p>
+<div class="res" id="rl"></div>
+<div class="wrap"><table><thead><tr><th>Element</th><th>Card.</th><th>Must support</th><th>Binding / note</th></tr></thead><tbody id="re"></tbody></table></div>
+<p class="detail" id="rnote"></p>
+</section>
+<section class="panel"><h2>Sample instance and validator</h2><label for="js">Edit the JSON, then validate against the regional profile rules</label><textarea id="js" spellcheck="false"></textarea><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn" id="val">Validate</button><button class="ghost" id="brk">Introduce an error</button><button class="ghost" id="rst">Reset</button></div><div class="vres" id="vr"></div></section>
+</div>
+</section>
+
+<section class="tab" id="t-xch">
+<div class="kpis" id="xk"></div>
+<section class="panel"><h2>Message pipeline: last 24 hours</h2><div class="flowrow" id="fr"></div><p class="detail">Country system → national gateway → regional validation → terminology mapping → regional repository (aggregate indicators to DHIS2, patient summaries to the IPS exchange).</p></section>
+<div class="grid" style="margin-top:14px">
+<section class="panel"><h2>Messages accepted per day (14 days)</h2><div id="xc"></div></section>
+<section class="panel"><h2>Rejection reasons</h2><div class="bars" id="xr"></div></section>
+</div>
+<section class="panel" style="margin-top:14px"><h2>Recent batches</h2>
+<div class="filters"><div><label for="xq">Search batch or country</label><input id="xq" placeholder="e.g. Guyana or B-2611"></div><div><label for="xs">Status</label><select id="xs"><option value="">All</option><option>Accepted</option><option>Partially accepted</option><option>Rejected</option></select></div><div><label for="xt">Message type</label><select id="xt"><option value="">All</option><option>IPS Bundle</option><option>Immunization</option><option>ADX aggregate</option><option>Lab Observation</option></select></div></div>
+<div class="wrap"><table><thead><tr><th>Batch</th><th>Received (AST)</th><th>Member State</th><th>Type</th><th>Messages</th><th>Errors</th><th>Status</th><th>Main issue</th></tr></thead><tbody id="xb"></tbody></table></div></section>
+</section>
+
+<section class="tab" id="t-lib">
+<div class="viewer">
+<section class="panel"><h2>Standards and policy library</h2><input id="lq" placeholder="Filter documents" aria-label="Filter documents" style="margin-bottom:8px"><div class="tree" id="lt"></div></section>
+<section class="panel"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px"><b id="dt"></b><span class="detail" id="dp"></span></div><div class="page" id="pg"></div>
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center"><button class="ghost" id="prev">Previous page</button><button class="ghost" id="next">Next page</button><button class="ghost" id="cl">Copy link to this page</button><span class="detail" id="clo"></span></div></section>
+<section class="panel"><h3 style="margin-top:0">Bookmarks</h3><div class="tree" id="bm"></div><h3>Official source</h3><div id="src" class="detail"></div></section>
+</div>
+</section>
+
+<section class="tab" id="t-ai">
+<div class="g2">
+<section class="panel"><h2>Interoperability assistant</h2>
+<div><button class="ghost q">Which Member States are least ready for FHIR exchange?</button><button class="ghost q">What does the IPS require for immunisations?</button><button class="ghost q">Why were Guyana's batches rejected?</button><button class="ghost q">What legal safeguards apply to cross-border data?</button><button class="ghost q">How should we code diagnoses, ICD-10 or ICD-11?</button></div>
+<div class="chat" id="chat"></div>
+<form class="ask" id="af"><input id="aq" placeholder="Ask about readiness, standards or exchange" aria-label="Question"><button class="btn" id="go" type="submit">Ask</button></form></section>
+<section class="panel"><h2>How it works</h2><ol style="padding-left:18px;font-size:14px;margin:0"><li>The assistant searches only the console's own library, readiness scores and exchange logs.</li><li>Every answer cites the exact library page or data view it used. Click a citation to open it.</li><li>If nothing in the sources answers the question, it says so instead of guessing.</li><li>In production this would run inside CARPHA's own tenant with a governed language model; this demo uses client-side rules so it works offline.</li></ol></section>
+</div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const DIMS=[["gov","Governance"],["leg","Legal and privacy"],["inf","Infrastructure"],["std","Standards adoption"],["dat","Data management"],["wf","Workforce"],["sus","Sustainability"]];
+const MS=[["Anguilla",2,2,3,2,3,2,2],["Antigua and Barbuda",3,2,3,2,3,2,3],["Aruba",3,4,4,3,3,3,3],["Bahamas",4,3,4,3,4,3,3],["Barbados",4,4,4,3,4,3,3],["Belize",3,3,3,3,3,2,3],["Bermuda",4,4,5,4,4,4,4],["British Virgin Islands",3,3,3,2,3,2,3],["Cayman Islands",4,4,4,3,4,3,4],["Curaçao",3,3,4,3,3,3,3],["Dominica",2,2,2,2,2,2,2],["Grenada",3,2,3,2,3,2,2],["Guyana",3,2,3,2,3,3,3],["Haiti",2,1,2,1,2,2,1],["Jamaica",4,4,3,3,4,3,3],["Montserrat",2,2,2,1,2,1,2],["St Kitts and Nevis",3,2,3,2,2,2,2],["Saint Lucia",3,3,3,3,3,2,3],["St Vincent and the Grenadines",3,2,3,2,3,2,2],["Sint Maarten",2,3,3,2,2,2,2],["Suriname",3,2,3,3,3,3,2],["Trinidad and Tobago",4,3,4,4,4,3,3],["Turks and Caicos Islands",3,3,3,2,3,2,3]].map(r=>{const o={name:r[0]};DIMS.forEach((d,i)=>o[d[0]]=r[i+1]);o.avg=+(DIMS.reduce((a,d)=>a+o[d[0]],0)/7).toFixed(1);o.stage=o.avg>=3.6?"Ready to pilot":o.avg>=2.8?"Preparing":"Foundational";return o});
+let rsort={k:"avg",d:-1},selC="Guyana";
+function renderReady(){const n=MS.length,ready=MS.filter(m=>m.stage==="Ready to pilot").length,found=MS.filter(m=>m.stage==="Foundational").length,av=(MS.reduce((a,m)=>a+m.avg,0)/n).toFixed(1),dp=MS.filter(m=>m.leg>=3).length;
+$("rk").innerHTML=[[n,"Member States assessed"],[av,"Regional mean score (of 5)"],[ready,"Ready to pilot IPS exchange"],[found,"Foundational stage"],[dp+" / "+n,"With data-protection law score 3+"]].map(k=>`<div class="kpi"><b>${k[0]}</b><span>${k[1]}</span></div>`).join("");
+const cols=[["name","Member State"],...DIMS,["avg","Mean"],["stage","Stage"]];
+$("rt").tHead.innerHTML="<tr>"+cols.map(c=>`<th class="sort" data-k="${c[0]}" ${rsort.k===c[0]?`data-dir="${rsort.d>0?"▲":"▼"}"`:""}>${c[1]}</th>`).join("")+"</tr>";
+const rows=[...MS].sort((a,b)=>{const x=a[rsort.k],y=b[rsort.k];return (x>y?1:x<y?-1:0)*rsort.d});
+$("rt").tBodies[0].innerHTML=rows.map(m=>`<tr class="click${m.name===selC?" sel":""}" data-c="${m.name}"><td>${m.name}</td>${DIMS.map(d=>`<td class="c l${m[d[0]]}">${m[d[0]]}</td>`).join("")}<td class="n"><b>${m.avg.toFixed(1)}</b></td><td><span class="pill ${m.stage==="Ready to pilot"?"p-ok":m.stage==="Preparing"?"p-w":"p-b"}">${m.stage}</span></td></tr>`).join("");
+$("rt").tHead.querySelectorAll("th").forEach(th=>th.onclick=()=>{const k=th.dataset.k;rsort={k,d:rsort.k===k?-rsort.d:(k==="name"?1:-1)};renderReady()});
+$("rt").tBodies[0].querySelectorAll("tr").forEach(tr=>tr.onclick=()=>{selC=tr.dataset.c;renderReady()});country(selC)}
+const ACT={std:"Adopt the regional FHIR IPS profile and LOINC/SNOMED CT subsets for priority data",leg:"Complete data-protection legislation or a data-sharing regulation covering health data",inf:"Secure a national gateway with TLS 1.2+, audit logging and uptime monitoring",dat:"Clean the master patient index and publish a facility registry",wf:"Train a national interoperability focal point and two analysts",gov:"Name a national digital health lead and steering committee",sus:"Budget recurrent costs for hosting, licences and support"};
+function country(c){const m=MS.find(x=>x.name===c);$("cn").textContent=m.name;$("cs").innerHTML=`Mean score <b>${m.avg.toFixed(1)}</b> · <span class="pill ${m.stage==="Ready to pilot"?"p-ok":m.stage==="Preparing"?"p-w":"p-b"}">${m.stage}</span>`;
+$("cb").innerHTML=DIMS.map(d=>`<div class="r"><span>${d[1]}</span><div class="t"><div style="width:${m[d[0]]*20}%"></div></div><b>${m[d[0]]}</b></div>`).join("");
+$("ca").innerHTML=[...DIMS].sort((a,b)=>m[a[0]]-m[b[0]]).slice(0,3).map(d=>`<li>${ACT[d[0]]} <span class="detail">(${d[1]} ${m[d[0]]}/5)</span></li>`).join("");
+const bs=BATCH.filter(b=>b.ms===c);const er=bs.reduce((a,b)=>a+b.err,0),tot=bs.reduce((a,b)=>a+b.msgs,0);
+$("cx").innerHTML=bs.length?`${bs.length} batches in the last 24 hours, ${tot.toLocaleString("en-GB")} messages, ${er} errors. <a href="#xch" class="cite" data-go="xch" data-q="${c}">Open in Data exchange</a>`:"No batches received in the last 24 hours.";
+const a=$("cx").querySelector("[data-go]");if(a)a.onclick=e=>{e.preventDefault();show("xch");$("xq").value=c;renderX()}}
+
+/* FHIR */
+const RES={
+Patient:{note:"IPS Patient profile. Identifiers use the national health ID system URI agreed for each Member State.",els:[["identifier","1..*","Yes","National health ID, system URI per Member State"],["name","1..*","Yes","family and given"],["gender","0..1","Yes","AdministrativeGender"],["birthDate","1..1","Yes","Required for matching"],["address.country","0..1","Yes","ISO 3166-1 alpha-2"],["communication.language","0..*","No","BCP 47"]],req:["resourceType","identifier","name","birthDate"],
+sample:{resourceType:"Patient",id:"pt-0001",identifier:[{system:"urn:oid:2.16.999.1.52.1",value:"BB-1984-0442"}],name:[{family:"Sample",given:["Alex"]}],gender:"female",birthDate:"1984-06-12",address:[{country:"BB"}]}},
+Immunization:{note:"IPS Immunization profile. Vaccine coded with SNOMED CT or the regional CVX subset; date and status required.",els:[["status","1..1","Yes","completed | entered-in-error | not-done"],["vaccineCode","1..1","Yes","SNOMED CT / CVX regional subset"],["patient","1..1","Yes","Reference(Patient)"],["occurrenceDateTime","1..1","Yes","Date given"],["lotNumber","0..1","Yes","Batch number"],["protocolApplied.doseNumberPositiveInt","0..1","No","Dose in series"]],req:["resourceType","status","vaccineCode","patient","occurrenceDateTime"],
+sample:{resourceType:"Immunization",id:"imm-0007",status:"completed",vaccineCode:{coding:[{system:"http://hl7.org/fhir/sid/cvx",code:"37",display:"Yellow fever vaccine"}]},patient:{reference:"Patient/pt-0001"},occurrenceDateTime:"2026-03-02",lotNumber:"YF-25-118"}},
+Observation:{note:"Laboratory and vital-sign results. LOINC code required; units in UCUM.",els:[["status","1..1","Yes","final | amended | preliminary"],["category","1..*","Yes","laboratory | vital-signs"],["code","1..1","Yes","LOINC"],["subject","1..1","Yes","Reference(Patient)"],["effectiveDateTime","1..1","Yes","Specimen or measurement time"],["valueQuantity","0..1","Yes","UCUM units"]],req:["resourceType","status","code","subject"],
+sample:{resourceType:"Observation",id:"obs-0103",status:"final",category:[{coding:[{system:"http://terminology.hl7.org/CodeSystem/observation-category",code:"laboratory"}]}],code:{coding:[{system:"http://loinc.org",code:"4548-4",display:"Hemoglobin A1c/Hemoglobin.total in Blood"}]},subject:{reference:"Patient/pt-0001"},effectiveDateTime:"2026-09-14",valueQuantity:{value:7.9,unit:"%",system:"http://unitsofmeasure.org",code:"%"}}},
+Condition:{note:"Problem list entries. ICD-10 accepted during transition; ICD-11 or SNOMED CT preferred for new systems.",els:[["clinicalStatus","0..1","Yes","active | resolved"],["code","1..1","Yes","SNOMED CT, ICD-10 or ICD-11"],["subject","1..1","Yes","Reference(Patient)"],["onsetDateTime","0..1","Yes","Onset"]],req:["resourceType","code","subject"],
+sample:{resourceType:"Condition",id:"cond-0021",clinicalStatus:{coding:[{system:"http://terminology.hl7.org/CodeSystem/condition-clinical",code:"active"}]},code:{coding:[{system:"http://hl7.org/fhir/sid/icd-10",code:"E11.9",display:"Type 2 diabetes mellitus without complications"}]},subject:{reference:"Patient/pt-0001"},onsetDateTime:"2019-02"}},
+MedicationStatement:{note:"Current medicines in the IPS. Medication coded with the regional formulary subset or SNOMED CT.",els:[["status","1..1","Yes","active | completed | stopped"],["medicationCodeableConcept","1..1","Yes","Regional formulary subset"],["subject","1..1","Yes","Reference(Patient)"],["dosage.text","0..*","Yes","Free-text dosage"]],req:["resourceType","status","medicationCodeableConcept","subject"],
+sample:{resourceType:"MedicationStatement",id:"med-0004",status:"active",medicationCodeableConcept:{text:"Metformin 500 mg tablet"},subject:{reference:"Patient/pt-0001"},dosage:[{text:"500 mg twice daily"}]}},
+Bundle:{note:"An IPS document is a Bundle of type 'document' whose first entry is a Composition with the IPS sections.",els:[["type","1..1","Yes","document"],["identifier","1..1","Yes","Unique document ID"],["timestamp","1..1","Yes","Assembly time"],["entry[0].resource","1..1","Yes","Composition (IPS)"],["entry","1..*","Yes","Patient, Condition, MedicationStatement, AllergyIntolerance, Immunization"]],req:["resourceType","type","timestamp","entry"],
+sample:{resourceType:"Bundle",id:"ips-0001",type:"document",identifier:{system:"urn:ietf:rfc:3986",value:"urn:uuid:1b7c0b6e-0001"},timestamp:"2026-11-03T09:15:00-04:00",entry:[{resource:{resourceType:"Composition",status:"final",title:"International Patient Summary"}},{resource:{resourceType:"Patient",id:"pt-0001"}}]}},
+Organization:{note:"Facility and laboratory identities, linked to the national facility registry.",els:[["identifier","1..*","Yes","Facility registry ID"],["name","1..1","Yes","Official name"],["type","0..*","No","hospital | lab | clinic"],["address.country","0..1","Yes","ISO 3166-1"]],req:["resourceType","identifier","name"],
+sample:{resourceType:"Organization",id:"org-0012",identifier:[{system:"urn:oid:2.16.999.1.52.9",value:"FAC-0012"}],name:"Sample District Polyclinic",type:[{text:"clinic"}],address:[{country:"GY"}]}}};
+let curR="Immunization";
+function hl(o){return esc(JSON.stringify(o,null,2)).replace(/"([^"]+)":/g,'<span class="k">"$1"</span>:')}
+function renderF(){$("rl").innerHTML=Object.keys(RES).map(k=>`<button class="ghost${k===curR?" on":""}" data-r="${k}">${k}</button>`).join("");$("rl").querySelectorAll("button").forEach(b=>b.onclick=()=>{curR=b.dataset.r;renderF();$("js").value=JSON.stringify(RES[curR].sample,null,2);$("vr").innerHTML=""});
+const r=RES[curR];$("re").innerHTML=r.els.map(e=>`<tr><td><code>${e[0]}</code></td><td class="n">${e[1]}</td><td>${e[2]==="Yes"?'<span class="pill p-ok">Yes</span>':'<span class="pill p-w">No</span>'}</td><td style="white-space:normal">${e[3]}</td></tr>`).join("");$("rnote").innerHTML=r.note+` <a class="cite" href="#doc-ips-p2">IPS p.2</a>`;
+$("rnote").querySelector("a").onclick=e=>{e.preventDefault();openDoc("ips",2)}}
+function validate(){const out=[];let o;try{o=JSON.parse($("js").value)}catch(e){$("vr").innerHTML=`<span class="pill p-b">Not valid JSON</span> ${esc(e.message)}`;return}
+const r=RES[o.resourceType];if(!r){$("vr").innerHTML=`<span class="pill p-b">Unknown resourceType</span> Expected one of ${Object.keys(RES).join(", ")}.`;return}
+r.req.forEach(k=>{if(o[k]===undefined||o[k]===""||(Array.isArray(o[k])&&!o[k].length))out.push(`Missing required element <code>${k}</code> (cardinality 1..)`)});
+const dt=o.birthDate||o.occurrenceDateTime||o.effectiveDateTime;if(dt&&!/^\d{4}(-\d{2}(-\d{2})?)?/.test(dt))out.push("Date is not in FHIR date format (YYYY, YYYY-MM or YYYY-MM-DD)");
+if(o.resourceType==="Immunization"&&o.status&&!["completed","entered-in-error","not-done"].includes(o.status))out.push(`status '${esc(o.status)}' is not in the required value set`);
+if(o.vaccineCode&&!(o.vaccineCode.coding||[]).some(c=>c.system))out.push("vaccineCode has no coding.system; the regional profile requires a coded vaccine");
+if(o.resourceType==="Observation"&&o.code&&!(o.code.coding||[]).some(c=>c.system==="http://loinc.org"))out.push("Observation.code must include a LOINC coding");
+$("vr").innerHTML=out.length?`<span class="pill p-b">${out.length} issue${out.length>1?"s":""}</span><ul style="padding-left:18px;margin:6px 0">${out.map(x=>`<li>${x}</li>`).join("")}</ul>`:`<span class="pill p-ok">Valid</span> Conforms to the regional ${o.resourceType} rules checked in this demo (required elements, dates, value sets, coding systems).`}
+$("val").onclick=validate;$("rst").onclick=()=>{$("js").value=JSON.stringify(RES[curR].sample,null,2);$("vr").innerHTML=""};
+$("brk").onclick=()=>{const o=JSON.parse(JSON.stringify(RES[curR].sample));const k=RES[curR].req[1];delete o[k];if(o.birthDate)o.birthDate="12/06/1984";$("js").value=JSON.stringify(o,null,2);validate()};
+
+/* Exchange */
+let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+const TYPES=["IPS Bundle","Immunization","ADX aggregate","Lab Observation"];
+const ISS={ok:"",code:"Unmapped local vaccine code",id:"Patient identifier system missing",date:"Invalid date format",dup:"Duplicate message ID",cert:"Expired gateway certificate",unit:"Non-UCUM unit"};
+const BATCH=[];{const pool=MS.filter(m=>m.avg>=2.4);for(let i=0;i<46;i++){const m=pool[Math.floor(rnd()*pool.length)];const t=TYPES[Math.floor(rnd()*4)];const msgs=20+Math.floor(rnd()*480);let iss="ok",err=0;const risk=(4.2-m.avg)/3;
+if(m.name==="Guyana"&&i%3!==2){iss=i%2?"code":"date";err=Math.round(msgs*(.08+rnd()*.12))}else if(rnd()<risk*.5){iss=["id","dup","unit","code"][Math.floor(rnd()*4)];err=Math.round(msgs*rnd()*.1)+1}
+if(m.name==="Belize"&&i===11){iss="cert";err=msgs}
+const st=err===0?"Accepted":err>=msgs?"Rejected":"Partially accepted";const mins=1430-i*31;BATCH.push({id:"B-26"+String(11+i).padStart(2,"0"),t:`${String(Math.floor(mins/60)).padStart(2,"0")}:${String(mins%60).padStart(2,"0")}`,ms:m.name,type:t,msgs,err,st,iss:ISS[iss]})}
+Object.assign(BATCH[11],{ms:"Belize",type:"ADX aggregate",msgs:64,err:64,st:"Rejected",iss:ISS.cert})}
+function renderX(){const tot=BATCH.reduce((a,b)=>a+b.msgs,0),err=BATCH.reduce((a,b)=>a+b.err,0);
+$("xk").innerHTML=[[tot.toLocaleString("en-GB"),"Messages received (24 h)"],[((1-err/tot)*100).toFixed(1)+"%","Accepted first time"],[new Set(BATCH.map(b=>b.ms)).size,"Member States sending"],["1.8 s","Median validation time"],[BATCH.filter(b=>b.st==="Rejected").length,"Batches rejected"]].map(k=>`<div class="kpi"><b>${k[0]}</b><span>${k[1]}</span></div>`).join("");
+const steps=[["Country systems",tot],["National gateways",tot],["Regional validation",tot-err],["Terminology mapping",tot-err],["Regional repository",tot-err]];
+$("fr").innerHTML=steps.map((s,i)=>`<div class="st${i===2&&err>0?" hot":""}">${s[0]}<b>${s[1].toLocaleString("en-GB")}</b>${i===2?`<small>${err} held for correction</small>`:""}</div>`).join("");
+const days=[];for(let d=13;d>=0;d--)days.push(2600+Math.round(Math.sin(d/2)*500+rnd()*700));days[13]=tot-err;const W=520,H=200,L=44,B=24,T=10,mx=4000,bw=(W-L-10)/14;
+$("xc").innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Messages accepted per day">${[0,1000,2000,3000,4000].map(v=>{const y=T+(1-v/mx)*(H-T-B);return `<line x1="${L}" x2="${W-10}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${L-6}" y="${y+4}" text-anchor="end">${v.toLocaleString("en-GB")}</text>`}).join("")}${days.map((v,i)=>{const h=(v/mx)*(H-T-B);return `<rect x="${L+i*bw+3}" y="${H-B-h}" width="${bw-6}" height="${h}" rx="2" fill="${i===13?"var(--gold)":"var(--teal)"}"><title>${v}</title></rect>`}).join("")}<text x="${L}" y="${H-6}">14 days ago</text><text x="${W-10}" y="${H-6}" text-anchor="end">Today</text></svg>`;
+const rr={};BATCH.forEach(b=>{if(b.iss)rr[b.iss]=(rr[b.iss]||0)+b.err});const rm=Math.max(...Object.values(rr),1);
+$("xr").innerHTML=Object.entries(rr).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="r"><span style="white-space:normal">${k}</span><div class="t"><div style="width:${v/rm*100}%;background:var(--bad)"></div></div><b>${v}</b></div>`).join("");
+const q=$("xq").value.trim().toLowerCase(),s=$("xs").value,ty=$("xt").value;
+$("xb").innerHTML=BATCH.filter(b=>(!q||(b.ms+b.id).toLowerCase().includes(q))&&(!s||b.st===s)&&(!ty||b.type===ty)).map(b=>`<tr><td class="n">${b.id}</td><td class="n">${b.t}</td><td>${b.ms}</td><td>${b.type}</td><td class="n">${b.msgs}</td><td class="n">${b.err}</td><td><span class="pill ${b.st==="Accepted"?"p-ok":b.st==="Rejected"?"p-b":"p-w"}">${b.st}</span></td><td>${b.iss||"None"}</td></tr>`).join("")||`<tr><td colspan="8">No batches match these filters.</td></tr>`}
+["xq","xs","xt"].forEach(i=>$(i).oninput=renderX);
+
+/* Library */
+const DOCS={
+fhir:{t:"HL7 FHIR R4: orientation for Member States",cat:"Standard",src:"https://hl7.org/fhir/R4/",pages:[["What FHIR is","FHIR (Fast Healthcare Interoperability Resources) defines health data as small, reusable <mark>resources</mark> such as Patient, Observation and Immunization, exchanged over a RESTful API in JSON or XML. Release 4 (R4) is the normative, widely implemented version and the baseline for the regional profiles in this console."],["Profiles and implementation guides","A <mark>profile</mark> constrains a base resource for a use case, for example making Patient.birthDate mandatory. An implementation guide (IG) packages profiles, value sets and examples. Member States should implement the regional IG rather than the base specification, so that validation rules are the same everywhere."],["Security","FHIR does not define security on its own. The regional gateway pattern uses TLS 1.2 or higher, OAuth 2.0 client credentials between gateways, and an <mark>AuditEvent</mark> record for every exchange, retained for the period set in the data-sharing agreement."]]},
+ips:{t:"International Patient Summary (IPS): regional notes",cat:"Standard",src:"https://build.fhir.org/ig/HL7/fhir-ips/",pages:[["Purpose","The IPS is a minimal, specialty-agnostic summary of a person's health for <mark>unplanned, cross-border care</mark>. It is published as an HL7 FHIR implementation guide and aligned with ISO 27269. For the Caribbean, where residents and visitors move between islands, it is the natural first cross-border use case."],["Required sections","An IPS document is a FHIR Bundle of type document. The Composition must contain the <mark>problems, medication and allergies</mark> sections; immunisations, results and procedures are recommended. Each Immunization entry needs a status, a coded vaccine, the patient and the date given. Lot number is must-support."],["Terminology","IPS uses SNOMED CT (via the free IPS terminology), LOINC for results and UCUM for units. Where a Member State uses local codes, the regional terminology service maps them before storage. <mark>Unmapped codes are the most common cause of rejected messages</mark> in early pilots."]]},
+is4h:{t:"PAHO IS4H maturity model: how we score readiness",cat:"Framework",src:"https://www.paho.org/en/topics/information-systems-health",pages:[["Domains","PAHO's Information Systems for Health (IS4H) framework assesses countries across four strategic domains: <mark>data management and information technologies; management and governance; knowledge management and sharing; and innovation</mark>. This console adds legal readiness and standards adoption as separate scores because they decide whether cross-border exchange can start."],["Scale","Each dimension is scored 1 (initial) to 5 (optimised). A Member State with a mean of <mark>3.6 or higher</mark> is treated here as ready to pilot IPS exchange; 2.8 to 3.5 is preparing; below 2.8 is foundational and should focus on governance, registries and law first."],["Using the scores","Scores are a conversation starter with each Ministry, not a ranking. Each score should cite evidence: a policy, a system inventory entry or an interview note, so the national team can challenge and update it."]]},
+dsa:{t:"Regional health data-sharing agreement (sample outline)",cat:"Policy",src:"",pages:[["Parties and purpose","A sample outline prepared for this demonstration. The agreement would be between CARPHA and each participating Member State, limited to <mark>specified purposes</mark>: continuity of care, public health surveillance and regional reporting."],["Safeguards","Core safeguards: lawful basis under each Member State's law; data minimisation; <mark>pseudonymisation of aggregate and surveillance data</mark>; role-based access; breach notification within 72 hours; audit logs; and retention limits. Transfers only through approved gateways."],["Governance","A regional data governance committee approves new data uses, reviews audit reports and handles complaints. Each Member State keeps ownership of its data and may suspend exchange on notice."]]},
+law:{t:"Data protection landscape across Member States (sample)",cat:"Policy",src:"",pages:[["Overview","Sample summary for this demo. Member States are at different stages: some have comprehensive data-protection Acts in force, some have Acts passed but not fully commenced, and some rely on sector rules or confidentiality duties. <mark>The legal score in the Readiness tab reflects this stage</mark>, not the quality of any law."],["Implications for exchange","Where there is no comprehensive law, exchange can still proceed under a data-sharing agreement and Ministerial direction, but only for public-health purposes and with <mark>de-identified data</mark> until a legal basis for identifiable cross-border transfer exists."]]},
+icd:{t:"Diagnosis coding: ICD-10 to ICD-11 transition note",cat:"Guidance",src:"https://icd.who.int/",pages:[["Position","WHO's ICD-11 came into effect for recording and reporting on 1 January 2022. Most Member State systems still use ICD-10. The regional profile <mark>accepts both during transition</mark> and stores the code system with every Condition."],["Recommendation","New systems should record in ICD-11 or SNOMED CT; mortality and morbidity reporting continue in the code system each country uses, with WHO's mapping tables applied centrally for regional comparison."]]},
+dhis:{t:"Aggregate reporting to the regional DHIS2 repository",cat:"Guidance",src:"https://dhis2.org/",pages:[["Flow","Aggregate indicators move from national systems to the regional DHIS2 repository as <mark>ADX</mark> (Aggregate Data Exchange) or the DHIS2 Web API. Each data element has a regional code; the gateway maps national codes before submission."],["Data quality checks","On arrival the repository runs completeness, timeliness and outlier checks. Failed values are returned to the national focal point with the rule that failed, so they can be corrected at source."]]}};
+let cd="ips",cp=1;
+function renderTree(){const q=$("lq").value.trim().toLowerCase();$("lt").innerHTML=Object.entries(DOCS).filter(([k,d])=>!q||(d.t+d.pages.map(p=>p.join(" ")).join(" ")).toLowerCase().includes(q)).map(([k,d])=>`<a data-d="${k}" class="${k===cd?"on":""}">${d.t}<small>${d.cat} · ${d.pages.length} pages</small></a>`).join("")||'<p class="detail">No documents match.</p>';$("lt").querySelectorAll("a").forEach(a=>a.onclick=()=>openDoc(a.dataset.d,1))}
+function openDoc(d,p){cd=d;cp=Math.max(1,Math.min(p,DOCS[d].pages.length));show("lib",true);const D=DOCS[d],P=D.pages[cp-1];$("dt").textContent=D.t;$("dp").textContent=`Page ${cp} of ${D.pages.length}`;
+$("pg").innerHTML=`<div class="hd">${D.cat.toUpperCase()} · SUMMARY FOR DEMONSTRATION</div><h4>${P[0]}</h4><p>${P[1]}</p>`;
+$("bm").innerHTML=D.pages.map((x,i)=>`<a data-p="${i+1}" class="${i+1===cp?"on":""}">${i+1}. ${x[0]}</a>`).join("");$("bm").querySelectorAll("a").forEach(a=>a.onclick=()=>openDoc(cd,+a.dataset.p));
+$("src").innerHTML=D.src?`<a href="${D.src}" target="_blank" rel="noopener">${D.src.replace(/^https:\/\//,"")}</a>`:"Sample document written for this demonstration.";renderTree();$("clo").textContent="";setHash(`doc-${d}-p${cp}`)}
+$("prev").onclick=()=>openDoc(cd,cp-1);$("next").onclick=()=>openDoc(cd,cp+1);$("lq").oninput=renderTree;
+$("cl").onclick=()=>{const u=location.href.split("#")[0]+`#doc-${cd}-p${cp}`;try{navigator.clipboard.writeText(u).then(()=>$("clo").textContent="Link copied",()=>$("clo").textContent=u)}catch(e){$("clo").textContent=u}};
+
+/* Assistant */
+function cite(d,p){return `<a class="cite" href="#doc-${d}-p${p}" data-d="${d}" data-p="${p}">${DOCS[d].t.split(":")[0]} p.${p}</a>`}
+function citeV(v,label){return `<a class="cite" href="#${v}" data-v="${v}">${label}</a>`}
+function answer(q){const t=q.toLowerCase();
+if(/least ready|lowest|not ready|weak|foundational/.test(t)){const l=[...MS].sort((a,b)=>a.avg-b.avg).slice(0,4);return `The four Member States with the lowest mean readiness are ${l.map(m=>`<b>${m.name}</b> (${m.avg.toFixed(1)})`).join(", ")}. Their weakest dimensions are standards adoption and legal readiness, so the model recommends governance, registries and law before live FHIR exchange.<br>${citeV("ready","Readiness table")}${cite("is4h",2)}`}
+if(/most ready|pilot|best|highest/.test(t)){const l=MS.filter(m=>m.stage==="Ready to pilot");return `${l.length} Member States score 3.6 or higher and are ready to pilot IPS exchange: ${l.map(m=>m.name).join(", ")}.<br>${citeV("ready","Readiness table")}${cite("is4h",2)}`}
+if(/immuni[sz]|vaccin/.test(t))return `Each Immunization entry in an IPS needs a <b>status</b>, a <b>coded vaccine</b>, the <b>patient</b> and the <b>date given</b>; lot number is must-support. Immunisations are a recommended (not required) IPS section.<br>${cite("ips",2)}${citeV("fhir","FHIR explorer: Immunization")}`;
+if(/reject|error|fail|guyana|belize|why/.test(t)){const c=MS.find(m=>t.includes(m.name.toLowerCase().split(" ")[0]));const bs=BATCH.filter(b=>(!c||b.ms===c.name)&&b.err>0);const by={};bs.forEach(b=>by[b.iss]=(by[b.iss]||0)+b.err);const top=Object.entries(by).sort((a,b)=>b[1]-a[1]);
+if(!top.length)return `No rejected messages for ${c?c.name:"that query"} in the last 24 hours.<br>${citeV("xch","Data exchange")}`;
+return `${c?`<b>${c.name}</b>`:"Across the region"}: ${bs.length} batches had errors. Main causes: ${top.map(x=>`${x[0].toLowerCase()} (${x[1]})`).join("; ")}. Unmapped local codes are the most common cause in early pilots and are fixed by adding the code to the regional terminology map.<br>${citeV("xch","Data exchange")}${cite("ips",3)}`}
+if(/legal|privacy|protect|consent|cross-border|safeguard|law/.test(t))return `Exchange should rest on a data-sharing agreement limited to specified purposes, with data minimisation, pseudonymisation of aggregate and surveillance data, role-based access, 72-hour breach notification, audit logs and retention limits. Where a Member State has no comprehensive data-protection law, start with de-identified public-health data only.<br>${cite("dsa",2)}${cite("law",2)}`;
+if(/icd|diagnos|code|snomed/.test(t))return `The regional profile accepts both ICD-10 and ICD-11 during the transition and stores the code system with every Condition. New systems should record in ICD-11 or SNOMED CT, with WHO mapping tables applied centrally.<br>${cite("icd",1)}${cite("icd",2)}`;
+if(/dhis|aggregate|adx|indicator/.test(t))return `Aggregate indicators go to the regional DHIS2 repository as ADX or through the DHIS2 Web API, after national codes are mapped to regional data-element codes. Completeness, timeliness and outlier checks run on arrival.<br>${cite("dhis",1)}${cite("dhis",2)}`;
+if(/secur|tls|oauth|audit/.test(t))return `The gateway pattern uses TLS 1.2 or higher, OAuth 2.0 client credentials between gateways and an AuditEvent for every exchange.<br>${cite("fhir",3)}`;
+if(/fhir|profile|resource/.test(t))return `FHIR exchanges small resources over a REST API; the regional implementation guide constrains them with profiles so every Member State validates the same way.<br>${cite("fhir",1)}${cite("fhir",2)}`;
+return `I could not find that in the console's library, readiness scores or exchange logs, so I will not guess. Try asking about readiness, IPS sections, rejected batches, data protection, ICD coding or DHIS2 reporting.`}
+function ask(q){q=(q||"").trim();if(!q)return;$("aq").value="";const c=$("chat");c.insertAdjacentHTML("beforeend",`<div class="msg u">${esc(q)}</div><div class="msg a">${answer(q)}</div>`);c.scrollTop=c.scrollHeight;
+c.querySelectorAll(".cite").forEach(a=>a.onclick=e=>{e.preventDefault();if(a.dataset.d)openDoc(a.dataset.d,+a.dataset.p);else show(a.dataset.v)})}
+document.querySelectorAll("button.q").forEach(b=>b.onclick=()=>ask(b.textContent));$("af").onsubmit=e=>{e.preventDefault();ask($("aq").value)};
+
+/* routing */
+function setHash(h){try{history.replaceState(null,"","#"+h)}catch(e){}}
+function show(t,keep){document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));if(!keep){if(t==="lib"){openDoc(cd,cp);return}setHash(t)}}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.t));
+function fromHash(){const h=location.hash.slice(1);const m=h.match(/^doc-([a-z0-9]+)-p(\d+)$/);if(m&&DOCS[m[1]]){openDoc(m[1],+m[2]);return}if(["ready","fhir","xch","lib","ai"].includes(h))show(h,true)}
+window.addEventListener("hashchange",fromHash);
+renderReady();renderF();$("js").value=JSON.stringify(RES[curR].sample,null,2);renderX();renderTree();
+ask("Which Member States are least ready for FHIR exchange?");fromHash();
+</script>
+</body></html>

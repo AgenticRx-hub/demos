@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NMSF Capacity Assessment Tool</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+
+/* Layout: navy masthead with tab strip; framework grid beside radar; findings use list | evidence page | documents */
+:root{--bg:#f3f2ee;--card:#fff;--fg:#16212d;--muted:#56626f;--line:#dfdbd0;--navy:#0F2A47;--gold:#B8914A;--teal:#1f6f78;--ok:#2f7a4b;--okbg:#e2f0e6;--warn:#94660c;--warnbg:#f7edd4;--bad:#a3392f;--badbg:#f6dfdb;--idle:#d9d5cc;--paper:#fdfcf8;--ink:#23282f;--onnavy:#fff;--onnavy2:#c9d3df;--gold2:#d6c290;
+--s1:#f6dfdb;--s2:#f3e3c4;--s3:#e9ecd2;--s4:#cfe6d6;--s5:#9fcfb0;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--teal:#6cc0c8;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#1b2939;--ink:#e3e8ee;--s1:#4a2420;--s2:#4a3a1c;--s3:#3b4224;--s4:#1f4630;--s5:#2c6b45;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--teal:#6cc0c8;--ok:#7fd19c;--okbg:#173326;--warn:#e6c06b;--warnbg:#352a12;--bad:#f19a90;--badbg:#3a1d1a;--idle:#2b3a4b;--paper:#1b2939;--ink:#e3e8ee;--s1:#4a2420;--s2:#4a3a1c;--s3:#3b4224;--s4:#1f4630;--s5:#2c6b45;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14.5px/1.5 var(--sans);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px;margin:0}
+header{background:var(--navy);color:var(--onnavy);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:18px max(16px,env(safe-area-inset-left,0px)) 0;border-bottom:3px solid var(--gold)}
+header .in,main{max-width:1180px;margin:0 auto}
+header h1{margin:0;font:600 22px var(--serif);text-wrap:balance}header p{margin:4px 0 12px;color:var(--gold2);font-size:12px;letter-spacing:.08em}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav button{font:600 14px var(--sans);background:transparent;color:var(--onnavy2);border:0;padding:9px 14px;border-radius:6px 6px 0 0;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.note{background:var(--warnbg);color:var(--warn);border-radius:6px;padding:8px 12px;margin:14px 0;font-size:14px}
+h2{font:600 18px var(--serif);margin:0 0 8px;text-wrap:balance}h3{font:600 14.5px var(--sans);margin:12px 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.g2{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}.kpi b{display:block;font:600 22px var(--mono);font-variant-numeric:tabular-nums}.kpi span{color:var(--muted);font-size:13px}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:600}
+th.sort{cursor:pointer;user-select:none}th.sort[data-dir]::after{content:attr(data-dir);margin-left:4px;color:var(--gold)}
+td.n{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:13.5px}
+td.c{text-align:center;font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+td.c.l1{background:var(--s1)}td.c.l2{background:var(--s2)}td.c.l3{background:var(--s3)}td.c.l4{background:var(--s4)}td.c.l5{background:var(--s5)}
+tbody tr.click{cursor:pointer}tbody tr.click:hover,tbody tr.sel{background:var(--bg)}
+.pill{font-size:12.5px;padding:1px 8px;border-radius:999px;white-space:nowrap}.p-ok{background:var(--okbg);color:var(--ok)}.p-w{background:var(--warnbg);color:var(--warn)}.p-b{background:var(--badbg);color:var(--bad)}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input,select,textarea{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg);width:100%}
+textarea{font:13.5px/1.45 var(--mono);min-height:300px;resize:vertical}
+button.btn{font:600 14px var(--sans);background:var(--navy);color:var(--onnavy);border:1px solid var(--gold);border-radius:5px;padding:7px 12px;cursor:pointer}
+button.ghost{font:500 14px var(--sans);background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;margin:0 6px 6px 0}
+button.ghost:hover,button.ghost.on{border-color:var(--gold)}button.ghost.on{background:var(--bg)}
+.detail{font-size:14px;color:var(--muted)}
+.tab{display:none}.tab.on{display:block}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:-1px;border:1px solid var(--line)}
+.bars .r{display:grid;grid-template-columns:150px 1fr 40px;gap:8px;align-items:center;font-size:14px;margin:4px 0}
+.bars .t{height:10px;background:var(--idle);border-radius:5px;overflow:hidden}.bars .t div{height:100%;background:var(--teal)}
+.bars .r b{font:600 13.5px var(--mono);text-align:right}
+.res{display:flex;flex-wrap:wrap;gap:0}
+pre.json{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:12px;font:13px/1.5 var(--mono);overflow:auto;max-height:420px;margin:0}
+.k{color:var(--teal)}.s{color:var(--warn)}
+.viewer{display:grid;grid-template-columns:250px 1fr 230px;gap:12px}
+.tree a{display:block;padding:5px 8px;border-radius:4px;color:var(--fg);text-decoration:none;cursor:pointer;font-size:14px}.tree a:hover,.tree a.on{background:var(--bg)}.tree a small{display:block;color:var(--muted);font-size:12.5px}
+.page{background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:24px 28px;min-height:420px;font:14.5px/1.65 Georgia,serif}
+.page h4{font:700 15px Georgia,serif;margin:0 0 2px}.page .hd{font:12.5px var(--sans);color:var(--muted);letter-spacing:.06em;margin-bottom:14px}
+.page mark{background:var(--warnbg);color:var(--ink)}
+.chat{display:flex;flex-direction:column;gap:10px;max-height:540px;overflow:auto;padding:4px}
+.msg{max-width:90%;padding:10px 12px;border-radius:8px;font-size:14px}
+.msg.u{align-self:flex-end;background:var(--navy);color:var(--onnavy)}
+.msg.a{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.cite{display:inline-block;max-width:100%;white-space:normal;overflow-wrap:anywhere;font:600 12.5px var(--mono);background:var(--card);border:1px solid var(--gold);color:var(--fg);border-radius:4px;padding:1px 6px;margin:4px 4px 0 0;cursor:pointer;text-decoration:none}
+.ask{display:flex;gap:8px;margin-top:10px}
+svg text{fill:var(--muted);font:12px var(--sans)}
+.flowrow{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:8px 0}
+.st{background:var(--navy);color:var(--onnavy);border-radius:6px;padding:9px 6px;text-align:center;border-bottom:4px solid var(--gold);font-size:13px}.st b{display:block;font:600 18px var(--mono)}
+.st.hot{border-bottom-color:var(--bad)}
+.vres{font-size:14px;margin-top:8px}
+@media (max-width:900px){.viewer,.g2{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.flowrow{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}.bars .r{grid-template-columns:110px 1fr 36px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.pil h3{margin:0 0 6px;display:flex;justify-content:space-between;gap:8px}.pil h3 b{font:600 15px var(--mono)}
+.ind{display:grid;grid-template-columns:1fr 64px;gap:8px;align-items:center;font-size:14px;margin:5px 0}
+.ind select{padding:4px 6px}
+.tiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;max-width:560px}
+.tile{aspect-ratio:1.25;border-radius:5px;border:1px solid var(--line);padding:5px;font-size:12.5px;line-height:1.2;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;justify-content:space-between;text-align:left;font-family:var(--sans);min-width:0;overflow:hidden;overflow-wrap:anywhere}
+.tile b{font:600 14px var(--mono)}.tile.on{outline:2px solid var(--gold);outline-offset:1px}
+.h0{background:var(--s5)}.h1{background:var(--s4)}.h2{background:var(--s3)}.h3{background:var(--s2)}.h4{background:var(--s1)}.hx{background:var(--idle)}
+td.m{text-align:center;font:13px var(--mono);color:var(--ink)}td.m.so{background:var(--s1);font-weight:700}td.m.lo{background:var(--s2)}td.m.okk{background:var(--s4)}td.m.ov{background:var(--s3)}
+.sc{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:14px}.sc span{color:var(--muted)}
+@media (max-width:520px){.tile{font-size:10px;padding:3px;aspect-ratio:.95}.tile b{font-size:12.5px}}
+</style></head><body>
+<header><div class="in"><h1>NMSF Operational Capacity Assessment</h1><p>AGENTIC RX INC. · DEMONSTRATION FOR WHO/SUD/PROC/2026/0071 · NATIONAL MEDICAL SUPPLIES FUND, SUDAN</p>
+<nav role="tablist">
+<button role="tab" data-t="frame" aria-selected="true">Framework scoring</button>
+<button role="tab" data-t="fac" aria-selected="false">Warehouse scorecards</button>
+<button role="tab" data-t="map" aria-selected="false">Stock-out map</button>
+<button role="tab" data-t="find" aria-selected="false">Findings</button>
+<button role="tab" data-t="ai" aria-selected="false">Assistant</button>
+</nav></div></header>
+<main>
+<div class="note">Illustrative sample data only. Scores, warehouse figures, stock levels and findings are invented to show how the assessment would be recorded and reported. They do not describe the real situation of the NMSF or any state.</div>
+
+<section class="tab on" id="t-frame">
+<div class="kpis" id="fk"></div>
+<div class="g2">
+<section class="panel"><h2>Capability maturity by pillar</h2><p class="detail" style="margin-top:0">Seven pillars, four indicators each, scored 1 (nascent) to 5 (optimised), in the style of the USAID National Supply Chain Assessment and WHO supply-chain guidance. Change any score to see the profile update.</p><div class="pillars" id="pl"></div></section>
+<section class="panel"><h2>Maturity profile</h2><div id="radar"></div><div class="legend"><span><i style="background:var(--teal)"></i>Current (assessed)</span><span><i style="background:var(--gold)"></i>Target in 3 years</span></div><h3>Lowest-scoring indicators</h3><ul id="low" style="padding-left:18px;margin:4px 0;font-size:14px"></ul></section>
+</div>
+</section>
+
+<section class="tab" id="t-fac">
+<div class="kpis" id="ak"></div>
+<div class="g2">
+<section class="panel"><h2>Warehouses and state stores</h2>
+<div class="filters"><div><label for="fq">Search</label><input id="fq" placeholder="e.g. Kassala"></div><div><label for="fm">Assessment mode</label><select id="fm"><option value="">All</option><option>On-site</option><option>Remote</option><option>Deferred</option></select></div><div><label for="fr">Rating</label><select id="fr"><option value="">All</option><option>Good</option><option>Needs improvement</option><option>Critical</option></select></div></div>
+<div class="wrap"><table id="ft"><thead></thead><tbody></tbody></table></div></section>
+<section class="panel"><h2 id="sn">Scorecard</h2><div class="detail" id="ss"></div><div class="bars" id="sb"></div><h3>Key figures</h3><div class="sc" id="sf"></div><h3>Linked findings</h3><div id="sl" class="detail"></div></section>
+</div>
+</section>
+
+<section class="tab" id="t-map">
+<div class="g2">
+<section class="panel"><h2>Tracer medicine availability by state</h2><p class="detail" style="margin-top:0">Share of 10 tracer items stocked out at the state store on the assessment date. Schematic tile map, not to scale. Click a state.</p>
+<div class="tiles" id="tm"></div>
+<div class="legend"><span><i class="h0"></i>0%</span><span><i class="h1"></i>1 to 10%</span><span><i class="h2"></i>11 to 25%</span><span><i class="h3"></i>26 to 40%</span><span><i class="h4"></i>over 40%</span><span><i class="hx"></i>No data (deferred)</span></div></section>
+<section class="panel"><h2 id="mn">State detail</h2><div class="detail" id="ms"></div><div class="wrap"><table><thead><tr><th>Tracer item</th><th>Months of stock</th><th>Status</th></tr></thead><tbody id="mt"></tbody></table></div></section>
+</div>
+<section class="panel" style="margin-top:14px"><h2>Months of stock: all states by tracer item</h2><div class="wrap"><table id="hm"></table></div><div class="legend"><span><i style="background:var(--s1)"></i>Stocked out</span><span><i style="background:var(--s2)"></i>Under 1 month</span><span><i style="background:var(--s4)"></i>1 to 6 months</span><span><i style="background:var(--s3)"></i>Over 6 months (expiry risk)</span></div></section>
+</section>
+
+<section class="tab" id="t-find">
+<div class="viewer">
+<section class="panel" style="grid-column:span 1"><h2>Findings repository</h2>
+<label for="nq">Filter</label><input id="nq" placeholder="Search findings" style="margin-bottom:6px"><select id="np" aria-label="Pillar" style="margin-bottom:6px"></select><select id="ns" aria-label="Severity"><option value="">All severities</option><option>High</option><option>Medium</option><option>Low</option></select>
+<div class="tree" id="nl" style="margin-top:8px;max-height:560px;overflow:auto"></div></section>
+<section class="panel"><div id="fd"></div><h3>Evidence</h3><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:6px"><b id="dt"></b><span class="detail" id="dp"></span></div><div class="page" id="pg"></div>
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center"><button class="ghost" id="prev">Previous page</button><button class="ghost" id="next">Next page</button><button class="ghost" id="cl">Copy link</button><span class="detail" id="clo"></span></div></section>
+<section class="panel"><h3 style="margin-top:0">Evidence documents</h3><div class="tree" id="dl"></div><h3>Pages</h3><div class="tree" id="bm"></div></section>
+</div>
+</section>
+
+<section class="tab" id="t-ai">
+<div class="g2">
+<section class="panel"><h2>Assessment assistant</h2>
+<div><button class="ghost q">Which pillars are weakest?</button><button class="ghost q">Where are stock-outs worst?</button><button class="ghost q">What did we find about cold chain?</button><button class="ghost q">Is LMIS data reliable enough for forecasting?</button><button class="ghost q">What are the top recommendations?</button></div>
+<div class="chat" id="chat"></div>
+<form class="ask" id="af"><input id="aq" placeholder="Ask about scores, warehouses, stock or findings" aria-label="Question"><button class="btn" id="go" type="submit">Ask</button></form></section>
+<section class="panel"><h2>How it works</h2><ol style="padding-left:18px;font-size:14px;margin:0"><li>Answers come only from this assessment's scores, scorecards, stock data and evidence documents.</li><li>Every answer cites the finding, data view or evidence page it used. Click a citation to open it.</li><li>If the evidence does not answer the question, the assistant says so.</li><li>For the real assignment the assistant would run in a WHO-approved environment, with no NMSF data leaving it. This demo runs client-side rules only.</li></ol></section>
+</div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+let seed=11;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+/* framework */
+const P=[["gov","Governance and leadership",[["Legal mandate and board oversight",3],["Strategic and business plan in use",2],["Performance KPIs reported to MoH",2],["Revolving fund financial controls",3]]],
+["fc","Forecasting and supply planning",[["Consumption-based forecasting",2],["Quantification reviewed with programmes",2],["Supply plan updated quarterly",1],["Pipeline monitoring with partners",2]]],
+["pr","Procurement",[["Written procurement procedures",3],["Supplier prequalification and QA",2],["Lead-time tracking",2],["Foreign-currency and payment planning",1]]],
+["wh","Warehousing and storage",[["Storage capacity matched to volume",2],["Temperature mapping and monitoring",2],["FEFO and bin location control",3],["Inventory accuracy (cycle counts)",2]]],
+["di","Distribution and transport",[["Distribution schedule to states",2],["Fleet and third-party transport",2],["Proof of delivery records",2],["Security and access planning",2]]],
+["lm","LMIS and data visibility",[["Stock data at central level",3],["State-level reporting rate",2],["Data quality checks",1],["Use of data for decisions",2]]],
+["qa","Quality assurance",[["Receipt inspection and sampling",3],["Link to NMPB and testing",2],["Recall and quarantine procedure",2],["Expiry and waste management",2]]]];
+const TARGET=[4,4,4,4,3,4,4];const LV=["","Nascent","Emerging","Defined","Managed","Optimised"];
+function pscore(p){return p[2].reduce((a,i)=>a+i[1],0)/p[2].length}
+function renderFrame(){const all=P.flatMap(p=>p[2]),ov=all.reduce((a,i)=>a+i[1],0)/all.length;const wk=[...P].sort((a,b)=>pscore(a)-pscore(b))[0];
+$("fk").innerHTML=[[ov.toFixed(1)+" / 5","Overall maturity"],[LV[Math.round(ov)],"Maturity level"],[P.length+" pillars, "+all.length,"Indicators scored"],[wk[1],"Weakest pillar"],[all.filter(i=>i[1]<=1).length,"Indicators at level 1"]].map(k=>`<div class="kpi"><b style="font-size:${String(k[0]).length>12?"16px":"22px"}">${k[0]}</b><span>${k[1]}</span></div>`).join("");
+$("pl").innerHTML=P.map((p,pi)=>`<div class="pil"><h3>${p[1]}<b>${pscore(p).toFixed(1)}</b></h3>${p[2].map((i,ii)=>`<div class="ind"><label for="s${pi}-${ii}" style="margin:0;color:var(--fg);font-size:14px">${i[0]}</label><select id="s${pi}-${ii}" data-p="${pi}" data-i="${ii}">${[1,2,3,4,5].map(v=>`<option${v===i[1]?" selected":""}>${v}</option>`).join("")}</select></div>`).join("")}</div>`).join("");
+$("pl").querySelectorAll("select").forEach(s=>s.onchange=()=>{P[+s.dataset.p][2][+s.dataset.i][1]=+s.value;renderFrame();const n=$(s.id);if(n)n.focus()});
+radar();$("low").innerHTML=P.flatMap(p=>p[2].map(i=>[p[1],i[0],i[1]])).sort((a,b)=>a[2]-b[2]).slice(0,4).map(x=>`<li>${x[1]} <span class="detail">(${x[0]}, ${x[2]}/5)</span></li>`).join("")}
+function radar(){const W=500,H=360,cx=250,cy=178,R=130,n=P.length;const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(a)*R*v/5,cy+Math.sin(a)*R*v/5]};
+let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Maturity radar chart">`;for(let l=1;l<=5;l++)s+=`<polygon points="${P.map((p,i)=>pt(i,l).join(",")).join(" ")}" fill="none" stroke="var(--line)"/>`;
+P.forEach((p,i)=>{const[x,y]=pt(i,5);const[lx,ly]=pt(i,6.1);s+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--line)"/><text x="${lx}" y="${ly+4}" text-anchor="${lx<cx-10?"end":lx>cx+10?"start":"middle"}">${p[1].split(" ")[0]}</text>`});
+s+=`<polygon points="${P.map((p,i)=>pt(i,TARGET[i]).join(",")).join(" ")}" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="5 4"/>`;
+s+=`<polygon points="${P.map((p,i)=>pt(i,pscore(p)).join(",")).join(" ")}" fill="var(--teal)" fill-opacity=".25" stroke="var(--teal)" stroke-width="2"/>`;
+P.forEach((p,i)=>{const[x,y]=pt(i,pscore(p));s+=`<circle cx="${x}" cy="${y}" r="3.5" fill="var(--teal)"/>`});$("radar").innerHTML=s+"</svg>"}
+/* states and warehouses */
+const ST=[["Northern",2,0],["River Nile",3,0],["Red Sea",4,0],["North Darfur",0,1],["North Kordofan",2,1],["Khartoum",3,1],["Kassala",5,1],["West Darfur",0,2],["Central Darfur",1,2],["West Kordofan",2,2],["White Nile",3,2],["Gezira",4,2],["Gedaref",5,2],["South Darfur",0,3],["East Darfur",1,3],["South Kordofan",2,3],["Sennar",4,3],["Blue Nile",4,4]];
+const DEF=["North Darfur","Central Darfur","West Darfur","South Darfur","East Darfur","Khartoum"],REM=["West Kordofan","South Kordofan","North Kordofan","Blue Nile"];
+const ITEMS=["Amoxicillin 250 mg disp. tab","Oral rehydration salts + zinc","Oxytocin 10 IU inj.","Artemether-lumefantrine 20/120","Insulin, soluble 100 IU/ml","Ceftriaxone 1 g inj.","Ringer's lactate 500 ml","Magnesium sulfate 50% inj.","Metformin 500 mg","Paracetamol 500 mg"];
+const FAC=[];FAC.push({n:"NMSF central warehouse, Port Sudan",st:"Red Sea",type:"Central",mode:"On-site",area:6400,util:118,cold:180,temp:"Partial",fefo:84,acc:91,power:"Grid + generator",sec:"Good"});
+ST.forEach(s=>{if(s[0]==="Red Sea")return;const mode=DEF.includes(s[0])?"Deferred":REM.includes(s[0])?"Remote":"On-site";FAC.push({n:`${s[0]} state store`,st:s[0],type:"State",mode,area:mode==="Deferred"?null:Math.round(600+rnd()*1600),util:mode==="Deferred"?null:Math.round(55+rnd()*70),cold:mode==="Deferred"?null:Math.round(4+rnd()*30),temp:mode==="Deferred"?"Not assessed":["None","Partial","Full"][Math.floor(rnd()*3)],fefo:mode==="Deferred"?null:Math.round(55+rnd()*40),acc:mode==="Deferred"?null:Math.round(68+rnd()*28),power:["Grid only","Grid + generator","Solar hybrid","Generator only"][Math.floor(rnd()*4)],sec:["Good","Fair","Poor"][Math.floor(rnd()*3)]})});
+FAC.forEach(f=>{if(f.mode==="Deferred"){f.score=null;f.rate="Not rated";return}const sc=[f.util>100?1:f.util>85?3:5,{None:1,Partial:3,Full:5}[f.temp],f.fefo/20,f.acc/20,f.sec==="Good"?5:f.sec==="Fair"?3:1,f.power.includes("generator")||f.power.includes("Solar")?4:2];f.parts=sc;f.score=+(sc.reduce((a,b)=>a+b,0)/sc.length).toFixed(1);f.rate=f.score>=3.8?"Good":f.score>=2.8?"Needs improvement":"Critical"});
+/* stock */
+const MOS={};ST.forEach(s=>{MOS[s[0]]=DEF.includes(s[0])?null:ITEMS.map((it,i)=>{let v=+(rnd()*7.5).toFixed(1);const press=REM.includes(s[0])?.35:.12;if(rnd()<press)v=0;else if(rnd()<.18)v=+(rnd()*.9).toFixed(1);if(i===4&&rnd()<.5)v=0;return v})});
+MOS["Red Sea"][4]=2.1;MOS["Kassala"][2]=0;MOS["Kassala"][4]=0;
+function soPct(s){const m=MOS[s];return m?Math.round(m.filter(v=>v===0).length/m.length*100):null}
+let sortF={k:"score",d:1},selF=0,selS="Kassala";
+function rateP(r){return `<span class="pill ${r==="Good"?"p-ok":r==="Critical"?"p-b":r==="Needs improvement"?"p-w":""}" ${r==="Not rated"?'style="background:var(--idle);color:var(--fg)"':""}>${r}</span>`}
+function renderFac(){const done=FAC.filter(f=>f.mode!=="Deferred");$("ak").innerHTML=[[FAC.length,"Stores in scope"],[FAC.filter(f=>f.mode==="On-site").length,"Assessed on site"],[FAC.filter(f=>f.mode==="Remote").length,"Assessed remotely"],[FAC.filter(f=>f.mode==="Deferred").length,"Deferred (access)"],[Math.round(done.reduce((a,f)=>a+f.acc,0)/done.length)+"%","Mean inventory accuracy"]].map(k=>`<div class="kpi"><b>${k[0]}</b><span>${k[1]}</span></div>`).join("");
+const cols=[["n","Store"],["mode","Mode"],["util","Space used %"],["acc","Inventory accuracy %"],["score","Score"],["rate","Rating"]];
+$("ft").tHead.innerHTML="<tr>"+cols.map(c=>`<th class="sort" data-k="${c[0]}" ${sortF.k===c[0]?`data-dir="${sortF.d>0?"▲":"▼"}"`:""}>${c[1]}</th>`).join("")+"</tr>";
+const q=$("fq").value.trim().toLowerCase(),m=$("fm").value,r=$("fr").value;
+const rows=FAC.map((f,i)=>({...f,i})).filter(f=>(!q||f.n.toLowerCase().includes(q))&&(!m||f.mode===m)&&(!r||f.rate===r)).sort((a,b)=>{const x=a[sortF.k]??99,y=b[sortF.k]??99;return (x>y?1:x<y?-1:0)*sortF.d});
+$("ft").tBodies[0].innerHTML=rows.map(f=>`<tr class="click${f.i===selF?" sel":""}" data-i="${f.i}"><td>${f.n}</td><td>${f.mode}</td><td class="n">${f.util??"–"}</td><td class="n">${f.acc??"–"}</td><td class="n"><b>${f.score!=null?f.score.toFixed(1):"–"}</b></td><td>${rateP(f.rate)}</td></tr>`).join("")||'<tr><td colspan="6">No stores match these filters.</td></tr>';
+$("ft").tHead.querySelectorAll("th").forEach(th=>th.onclick=()=>{const k=th.dataset.k;sortF={k,d:sortF.k===k?-sortF.d:1};renderFac()});
+$("ft").tBodies[0].querySelectorAll("tr[data-i]").forEach(tr=>tr.onclick=()=>{selF=+tr.dataset.i;renderFac()});card(FAC[selF])}
+function card(f){$("sn").textContent=f.n;$("ss").innerHTML=`${f.type} store · ${f.mode} assessment · ${rateP(f.rate)}${f.score?` · score <b>${f.score.toFixed(1)}</b> / 5`:""}`;
+const lab=["Space","Temperature control","FEFO compliance","Inventory accuracy","Security","Power resilience"];
+$("sb").innerHTML=f.parts?lab.map((l,i)=>`<div class="r"><span>${l}</span><div class="t"><div style="width:${f.parts[i]*20}%;background:${f.parts[i]<2.5?"var(--bad)":f.parts[i]<3.5?"var(--warn)":"var(--ok)"}"></div></div><b>${f.parts[i].toFixed(1)}</b></div>`).join(""):'<p class="detail">Not assessed. Access was not possible in the sample period; the plan uses a remote key-informant interview and partner data instead, and a site visit when access allows.</p>';
+$("sf").innerHTML=[["Storage area (m²)",f.area?f.area.toLocaleString("en-GB"):"–"],["Space used",f.util?f.util+"%":"–"],["Cold room / fridge capacity (m³)",f.cold??"–"],["Temperature mapping",f.temp],["Power",f.power],["Security",f.sec]].map(x=>`<span>${x[0]}</span><b>${x[1]}</b>`).join("");
+const lf=FIND.filter(x=>x.st===f.st||(f.type==="Central"&&x.st==="Central"));$("sl").innerHTML=lf.length?lf.map(x=>`<a class="cite" href="#f-${x.id}" data-f="${x.id}">${x.id} ${x.t.slice(0,46)}…</a>`).join(""):"None recorded.";$("sl").querySelectorAll("a").forEach(a=>a.onclick=e=>{e.preventDefault();openF(a.dataset.f)})}
+["fq","fm","fr"].forEach(i=>$(i).oninput=renderFac);
+function renderMap(){$("tm").innerHTML="";const g=$("tm");const grid=Array(30).fill(null);ST.forEach(s=>grid[s[2]*6+s[1]]=s);
+g.innerHTML=grid.map(s=>{if(!s)return "<div></div>";const p=soPct(s[0]);const c=p===null?"hx":p===0?"h0":p<=10?"h1":p<=25?"h2":p<=40?"h3":"h4";return `<button class="tile ${c}${s[0]===selS?" on":""}" data-s="${s[0]}" aria-label="${s[0]}: ${p===null?"no data":p+"% stocked out"}"><span>${s[0]}</span><b>${p===null?"n/a":p+"%"}</b></button>`}).join("");
+g.querySelectorAll(".tile").forEach(t=>t.onclick=()=>{selS=t.dataset.s;renderMap()});
+const m=MOS[selS];$("mn").textContent=selS;const f=FAC.find(x=>x.st===selS);
+$("ms").innerHTML=m?`${soPct(selS)}% of tracer items stocked out · store assessed ${f.mode.toLowerCase()}`:"Deferred: no stock data collected in the sample period.";
+$("mt").innerHTML=m?ITEMS.map((it,i)=>{const v=m[i];const s=v===0?["Out","p-b"]:v<1?["Low","p-w"]:v>6?["Overstock","p-w"]:["OK","p-ok"];return `<tr><td>${it}</td><td class="n">${v.toFixed(1)}</td><td><span class="pill ${s[1]}">${s[0]}</span></td></tr>`}).join(""):"";
+$("hm").innerHTML=`<thead><tr><th>State</th>${ITEMS.map(i=>`<th title="${i}">${i.split(" ")[0].replace(",","")}</th>`).join("")}</tr></thead><tbody>${ST.map(s=>{const m=MOS[s[0]];return `<tr><td>${s[0]}</td>${ITEMS.map((x,i)=>{if(!m)return `<td class="m" style="background:var(--idle)">–</td>`;const v=m[i];return `<td class="m ${v===0?"so":v<1?"lo":v>6?"ov":"okk"}">${v===0?"0":v.toFixed(1)}</td>`}).join("")}</tr>`}).join("")}</tbody>`}
+/* documents and findings */
+const DOCS={
+inc:{t:"Inception report (sample)",pages:[["Scope and method","Sample document. The assessment covers the NMSF central level and state stores across seven pillars, using document review, key-informant interviews, site visits with a structured checklist, and analysis of LMIS and stock data. <mark>States without safe access are assessed remotely</mark> through interviews with state pharmacists and partner data, and flagged as such in every result."],["Scoring","Each indicator is scored 1 to 5 against written criteria, with the evidence reference recorded beside the score. Two assessors score independently; differences of more than one level are resolved in a review meeting with NMSF counterparts."]]},
+pzu:{t:"Central warehouse walk-through, Port Sudan (sample)",pages:[["Space and layout","Sample observations. Pallet positions were <mark>fully occupied and goods were stacked in aisles</mark>, equivalent to about 118% of rated capacity. Receiving and dispatch share one bay, which slows both."],["Temperature","A temperature mapping study exists for the main hall but not for the extension. <mark>Two of four data loggers had no readings for the past 30 days.</mark> Cold rooms held 2 to 8°C on the day; the alarm system was not connected to a phone alert."],["Stock control","FEFO was followed in most bins checked. A cycle count of 40 lines found 91% accuracy; differences were mainly unrecorded issues to emergency programmes."]]},
+lmis:{t:"LMIS data extract review (sample)",pages:[["Reporting","Sample analysis. Of the states expected to report monthly stock data, <mark>reporting completeness averaged 58%</mark> over six months, and timeliness 41%. Reports from states with restricted access were mostly missing."],["Data quality","Opening balances did not match the previous closing balance in 23% of state reports checked. Consumption is often recorded as issues from the store, not dispensed quantities, so <mark>forecasts based on these data would over-state demand</mark> where stock is lost or diverted."]]},
+kii:{t:"Key-informant interview summary (sample)",pages:[["Planning","Sample summary. Interviewees described quantification as an annual exercise led by programmes, with <mark>no quarterly supply-plan update</mark>. Donor pipelines (WHO, UNICEF, others) are tracked in separate spreadsheets."],["Finance and procurement","Access to foreign currency and payment delays were the most cited constraints on procurement lead times. Interviewees asked for a single dashboard showing pipeline, stock and lead time by item."],["Distribution","Distribution to states is by schedule where routes are open and by request elsewhere. <mark>Proof-of-delivery forms are not returned</mark> for many consignments, so receipt at state level cannot be confirmed."]]},
+proc:{t:"Procurement file review (sample)",pages:[["Files reviewed","Sample review of 20 procurement files. Written procedures exist and were followed in most files. Supplier prequalification evidence was <mark>missing in 6 of 20 files</mark>, and pre-shipment quality documents were missing in 4."],["Lead times","Median lead time from requisition to receipt was 7.5 months, with the longest delays between award and payment."]]},
+qa:{t:"Quality assurance and expiries (sample)",pages:[["Receipt inspection","Sample findings. Visual inspection at receipt is routine; sampling for laboratory testing happens only on request. A recall procedure exists but has not been tested."],["Expiries","Expired stock awaiting destruction occupied about <mark>9% of central storage space</mark>. No destruction had taken place in the past year because of approvals and cost."]]}};
+const FIND=[
+{id:"F-01",p:"wh",sev:"High",st:"Central",t:"Central warehouse operating above rated capacity",d:"pzu",pg:1,rec:"Release space by disposing of expired stock and using a temporary overflow store; plan a capacity expansion study."},
+{id:"F-02",p:"wh",sev:"High",st:"Central",t:"Gaps in temperature monitoring at central level",d:"pzu",pg:2,rec:"Repair or replace loggers, connect alarms to phone alerts, and complete mapping of the extension."},
+{id:"F-03",p:"lm",sev:"High",st:"All",t:"Low LMIS reporting completeness from states",d:"lmis",pg:1,rec:"Simplify the monthly report, allow mobile submission, and publish a monthly reporting-rate league table."},
+{id:"F-04",p:"lm",sev:"Medium",st:"All",t:"Stock data quality not fit for forecasting",d:"lmis",pg:2,rec:"Add automatic balance checks and record dispensed quantities where possible; use morbidity-based methods alongside."},
+{id:"F-05",p:"fc",sev:"High",st:"All",t:"No quarterly supply-plan update",d:"kii",pg:1,rec:"Introduce a quarterly supply-planning meeting with programmes and partners using one shared pipeline tool."},
+{id:"F-06",p:"pr",sev:"Medium",st:"Central",t:"Supplier prequalification evidence missing in some files",d:"proc",pg:1,rec:"Use a checklist at award and keep a prequalified supplier register."},
+{id:"F-07",p:"pr",sev:"High",st:"Central",t:"Long procurement lead times driven by payment delays",d:"proc",pg:2,rec:"Plan foreign-currency needs with the Ministry of Finance and partners; track lead time by stage."},
+{id:"F-08",p:"di",sev:"Medium",st:"All",t:"Proof of delivery not returned for many consignments",d:"kii",pg:3,rec:"Use a simple electronic proof of delivery, with photos where connectivity allows."},
+{id:"F-09",p:"qa",sev:"Medium",st:"Central",t:"Expired stock occupying central storage",d:"qa",pg:2,rec:"Agree a fast-track destruction procedure with the regulator and environmental authority."},
+{id:"F-10",p:"qa",sev:"Low",st:"Central",t:"Recall procedure untested",d:"qa",pg:1,rec:"Run a table-top recall exercise each year."},
+{id:"F-11",p:"wh",sev:"Medium",st:"Kassala",t:"Insulin and oxytocin stocked out at a state store",d:"lmis",pg:1,rec:"Prioritise cold-chain tracer items in emergency allocations and confirm cold capacity at state level."},
+{id:"F-12",p:"gov",sev:"Medium",st:"Central",t:"KPIs not routinely reported to the Ministry",d:"inc",pg:2,rec:"Agree eight KPIs and a one-page monthly report to the Ministry and partners."}];
+const PN=Object.fromEntries(P.map(p=>[p[0],p[1]]));let cf="F-01",cd="pzu",cp=1;
+$("np").innerHTML='<option value="">All pillars</option>'+P.map(p=>`<option value="${p[0]}">${p[1]}</option>`).join("");
+function renderFind(){const q=$("nq").value.trim().toLowerCase(),p=$("np").value,s=$("ns").value;
+$("nl").innerHTML=FIND.filter(f=>(!q||(f.t+f.rec).toLowerCase().includes(q))&&(!p||f.p===p)&&(!s||f.sev===s)).map(f=>`<a data-f="${f.id}" class="${f.id===cf?"on":""}"><b>${f.id}</b> ${f.t}<small>${PN[f.p]} · ${f.sev}</small></a>`).join("")||'<p class="detail">No findings match.</p>';
+$("nl").querySelectorAll("a").forEach(a=>a.onclick=()=>openF(a.dataset.f));
+$("dl").innerHTML=Object.entries(DOCS).map(([k,d])=>`<a data-d="${k}" class="${k===cd?"on":""}">${d.t}<small>${d.pages.length} pages</small></a>`).join("");$("dl").querySelectorAll("a").forEach(a=>a.onclick=()=>openDoc(a.dataset.d,1))}
+function openF(id){const f=FIND.find(x=>x.id===id);cf=id;$("fd").innerHTML=`<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><h2 style="margin:0">${f.id}. ${f.t}</h2><span class="pill ${f.sev==="High"?"p-b":f.sev==="Medium"?"p-w":"p-ok"}">${f.sev}</span></div><p class="detail" style="margin:4px 0">${PN[f.p]} · ${f.st==="All"?"All states":f.st==="Central"?"Central level":f.st+" state"}</p><p style="margin:6px 0"><b>Recommendation.</b> ${f.rec}</p>`;openDoc(f.d,f.pg,true);setHash("f-"+id)}
+function openDoc(d,p,keep){cd=d;cp=Math.max(1,Math.min(p,DOCS[d].pages.length));show("find",true);const D=DOCS[d],Pg=D.pages[cp-1];$("dt").textContent=D.t;$("dp").textContent=`Page ${cp} of ${D.pages.length}`;
+$("pg").innerHTML=`<div class="hd">EVIDENCE · SAMPLE DOCUMENT FOR DEMONSTRATION</div><h4>${Pg[0]}</h4><p>${Pg[1]}</p>`;
+$("bm").innerHTML=D.pages.map((x,i)=>`<a data-p="${i+1}" class="${i+1===cp?"on":""}">${i+1}. ${x[0]}</a>`).join("");$("bm").querySelectorAll("a").forEach(a=>a.onclick=()=>openDoc(cd,+a.dataset.p));$("clo").textContent="";renderFind();if(!keep)setHash(`doc-${d}-p${cp}`)}
+$("prev").onclick=()=>openDoc(cd,cp-1);$("next").onclick=()=>openDoc(cd,cp+1);["nq","np","ns"].forEach(i=>$(i).oninput=renderFind);
+$("cl").onclick=()=>{const u=location.href.split("#")[0]+`#doc-${cd}-p${cp}`;try{navigator.clipboard.writeText(u).then(()=>$("clo").textContent="Link copied",()=>$("clo").textContent=u)}catch(e){$("clo").textContent=u}};
+/* assistant */
+const cite=(d,p)=>`<a class="cite" href="#doc-${d}-p${p}" data-d="${d}" data-p="${p}">${DOCS[d].t.replace(" (sample)","")} p.${p}</a>`;
+const citeF=id=>`<a class="cite" href="#f-${id}" data-f="${id}">${id}</a>`;const citeV=(v,l)=>`<a class="cite" href="#${v}" data-v="${v}">${l}</a>`;
+function answer(q){const t=q.toLowerCase();
+if(/weak|lowest pillar|pillar/.test(t)){const s=[...P].sort((a,b)=>pscore(a)-pscore(b));return `The weakest pillars are <b>${s[0][1]}</b> (${pscore(s[0]).toFixed(1)}) and <b>${s[1][1]}</b> (${pscore(s[1]).toFixed(1)}). The strongest is ${s[6][1]} (${pscore(s[6]).toFixed(1)}).<br>${citeV("frame","Framework scoring")}${citeF("F-05")}${citeF("F-03")}`}
+if(/stock.?out|shortage|worst|availability/.test(t)){const s=ST.map(x=>[x[0],soPct(x[0])]).filter(x=>x[1]!==null).sort((a,b)=>b[1]-a[1]).slice(0,3);const d=ST.filter(x=>soPct(x[0])===null).length;return `Highest tracer stock-out rates: ${s.map(x=>`<b>${x[0]}</b> (${x[1]}%)`).join(", ")}. ${d} states have no data because they were deferred for access reasons, so the true picture there is unknown.<br>${citeV("map","Stock-out map")}${citeF("F-11")}`}
+if(/cold|temperat|fridge|insulin|oxytocin/.test(t))return `At central level, two of four data loggers had no readings for 30 days and cold-room alarms were not connected to phone alerts. At state level, insulin and oxytocin stock-outs were recorded in Kassala.<br>${citeF("F-02")}${cite("pzu",2)}${citeF("F-11")}`;
+if(/lmis|data|forecast|reliab/.test(t))return `Not yet. State reporting completeness averaged 58% and opening balances failed to match in 23% of reports checked. Consumption is recorded as issues, so forecasts would over-state demand. Use morbidity-based methods alongside until data quality improves.<br>${citeF("F-03")}${citeF("F-04")}${cite("lmis",2)}`;
+if(/procure|lead time|supplier|payment/.test(t))return `Median requisition-to-receipt lead time was 7.5 months, mostly between award and payment; prequalification evidence was missing in 6 of 20 files.<br>${citeF("F-07")}${citeF("F-06")}${cite("proc",2)}`;
+if(/recommend|priorit|top|action/.test(t))return `The high-severity findings point to five priorities: free central storage space (${citeF("F-01")}), fix temperature monitoring (${citeF("F-02")}), raise LMIS reporting (${citeF("F-03")}), start quarterly supply planning (${citeF("F-05")}) and shorten payment-driven lead times (${citeF("F-07")}).`;
+if(/expir|waste|destruct/.test(t))return `Expired stock awaiting destruction took about 9% of central storage space, and none was destroyed in the past year.<br>${citeF("F-09")}${cite("qa",2)}`;
+if(/deliver|distribut|transport/.test(t))return `Distribution runs on a schedule where routes are open and by request elsewhere; proof-of-delivery forms are often not returned.<br>${citeF("F-08")}${cite("kii",3)}`;
+if(/method|remote|access|how.*assess/.test(t))return `States without safe access are assessed remotely through interviews and partner data, and flagged as remote or deferred in every result. Two assessors score each indicator independently against written criteria.<br>${cite("inc",1)}${cite("inc",2)}`;
+return `The assessment evidence does not answer that, so I will not guess. Try asking about pillar scores, stock-outs, cold chain, LMIS data, procurement lead times or recommendations.`}
+function ask(q){q=(q||"").trim();if(!q)return;$("aq").value="";const c=$("chat");c.insertAdjacentHTML("beforeend",`<div class="msg u">${esc(q)}</div><div class="msg a">${answer(q)}</div>`);c.scrollTop=c.scrollHeight;
+c.querySelectorAll(".cite").forEach(a=>a.onclick=e=>{e.preventDefault();if(a.dataset.d)openDoc(a.dataset.d,+a.dataset.p);else if(a.dataset.f)openF(a.dataset.f);else show(a.dataset.v)})}
+document.querySelectorAll("button.q").forEach(b=>b.onclick=()=>ask(b.textContent));$("af").onsubmit=e=>{e.preventDefault();ask($("aq").value)};
+/* routing */
+function setHash(h){try{history.replaceState(null,"","#"+h)}catch(e){}}
+function show(t,keep){document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));if(!keep){if(t==="find"){openF(cf);return}setHash(t)}}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.t));
+function fromHash(){const h=location.hash.slice(1);let m=h.match(/^doc-([a-z]+)-p(\d+)$/);if(m&&DOCS[m[1]]){openDoc(m[1],+m[2]);return}m=h.match(/^f-(F-\d+)$/);if(m&&FIND.some(f=>f.id===m[1])){openF(m[1]);return}if(["frame","fac","map","find","ai"].includes(h))show(h,true)}
+window.addEventListener("hashchange",fromHash);
+renderFrame();renderFac();renderMap();renderFind();ask("Which pillars are weakest?");fromHash();
+</script>
+</body></html>
