@@ -21,6 +21,8 @@ footer{color:var(--muted);font-size:12.5px;text-align:center;padding:20px}
 <p class="note">Each proposal we submit comes with a working demonstration of the system we propose to build. All names, records and figures are illustrative sample data.</p>
 <input id="q" placeholder="Filter demonstrations" aria-label="Filter demonstrations">
 <div class="grid" id="g"></div>
+<h2 style="font:600 19px Georgia,serif;margin:28px 0 12px">Earlier working demonstrations</h2>
+<div class="grid" id="x"></div>
 </div></main>
 <footer>Agentic Rx LLC (Tampa, Florida) · Agentic Rx Inc. (Christ Church, Barbados) · info@agentic-rx.com · agentic-rx.com</footer>
 <script>
@@ -33,7 +35,14 @@ const D=[
 ["medt-hr-records","MEdT HR Records Digitalisation Console","Ministry of Education Transformation, Barbados · SFTF II RfB 4.2.1","Production dashboard, workflow line, searchable repository of 9,580 personnel files, file viewer with bookmarks and deep links, AI records assistant with cited answers, and QA/QC."],
 ["census-rfid-wims","RFID Warehouse Console","US Census Bureau · RFID Integration RFI","Floor map with dock portals, live tag reads, inventory, receiving and shipping reconciliation against WIMS, exceptions, and an AI assistant that finds assets with cited read events."]
 ];
+const X=[
+["https://bmpra.com/#home","BMPA Consultation Guide","Barbados Medical Products Authority · draft Act and Regulations","Section-by-section guide to the draft Act, page-by-page regulations, medicine lists, and an AI assistant whose answers link to the exact section."],
+["https://agenticrx-hub.github.io/qeh-clinical-financing/#overview","QEH Clinical Financing Demo","Queen Elizabeth Hospital, Barbados","Clinical costing and funding intelligence demonstration."],
+["https://agenticrx-hub.github.io/nisss-mobile-app/","NIS Mobile Prototype","National Insurance and Social Security Service, Barbados","Mobile app prototype and technical build-out."],
+["https://ihinds.github.io/quran-order-map/","Quran Order Map","Independent project","Interactive map and visual exploration of chapter order."]
+];
 const g=document.getElementById("g"),q=document.getElementById("q");
 function r(){const t=q.value.toLowerCase();g.innerHTML=D.filter(d=>d.join(" ").toLowerCase().includes(t)).map(d=>`<a class="card" href="${d[0]}/"><h2>${d[1]}</h2><div class="meta">${d[2]}</div><div class="desc">${d[3]}</div></a>`).join("")}
-q.oninput=r;r();
+function rx(){const t=q.value.toLowerCase();document.getElementById("x").innerHTML=X.filter(d=>d.join(" ").toLowerCase().includes(t)).map(d=>`<a class="card" href="${d[0]}" target="_blank" rel="noopener"><h2>${d[1]}</h2><div class="meta">${d[2]}</div><div class="desc">${d[3]}</div></a>`).join("")}
+q.oninput=()=>{r();rx()};r();rx();
 </script></body></html>
