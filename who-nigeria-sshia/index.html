@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SSHIA Enrolment Dashboard</title>
+<meta name="description" content="Agentic Rx demonstration for WHO Nigeria RFP HSS/LE/2026/010/075: enrolment of PLHIV and TB clients in State Health Insurance Agencies.">
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#1d2733;--muted:#5d6b7a;--line:#dde3ea;--brand:#0f5c6e;--brand2:#1a8aa3;--accent:#c2843a;--bad:#b23b3b;--ok:#2f7d4f;--warn:#c98a12;--soft:#e8f2f4;--c4:#2f7d4f;--c3:#7aa84a;--c2:#d39a2a;--c1:#b23b3b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}}
+:root[data-theme="dark"]{--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line);padding:0 12px;position:sticky;top:0;z-index:5}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 10px;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+main{max-width:1120px;margin:0 auto;padding:16px}
+.banner{background:var(--soft);border-left:4px solid var(--brand);padding:10px 12px;border-radius:6px;font-size:13px;margin-bottom:14px}
+.banner b{color:var(--brand)}
+.grid{display:grid;gap:12px}.k4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.k2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.kpi .v{font-size:28px;font-family:Georgia,serif;margin:4px 0}.kpi .s{font-size:12px;color:var(--muted)}
+h2{font-size:17px;margin:20px 0 6px}h3{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.ctl{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:12px}
+.ctl label{font-size:13px;color:var(--muted);display:block}.ctl output{float:right;color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{text-align:right}.tw{overflow-x:auto}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+.p-ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.p-warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}.p-bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.r{display:inline-block;width:24px;text-align:center;border-radius:4px;color:#fff;font-weight:700}
+svg{width:100%;height:auto;display:block}svg text{fill:var(--muted);font-size:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tab{display:none}.tab.on{display:block}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+ul.as{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--muted)}ul.as li{margin-bottom:3px}
+footer{max-width:1120px;margin:0 auto;padding:16px;color:var(--muted);font-size:12px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.t-rfp{background:color-mix(in srgb,var(--brand) 18%,transparent);color:var(--brand)}.t-real{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.t-sample{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}.t-model{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent)}
+.links{margin-top:6px;font-size:13px;display:flex;gap:14px;flex-wrap:wrap}.links a{color:var(--brand);text-decoration:none}.links a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<header>
+<h1>SSHIA Enrolment &amp; Capacity Dashboard: PLHIV and TB clients</h1>
+<p>Demonstration for WHO Nigeria, RFP HSS/LE/2026/010/075 · Capacity strengthening of State Health Insurance Agencies in Anambra, Ebonyi, Gombe, Kwara and Lagos (Global Fund RSSH) · Agentic Rx Inc. with AMMA (Nigeria)</p>
+<p class="links"><a href="../">← All Agentic Rx demonstrations</a><a href="#data">Data &amp; assumptions</a><a href="https://agentic-rx.com" target="_blank" rel="noopener">agentic-rx.com</a></p>
+</header>
+<nav id="nav">
+<button data-t="ov" class="on">Overview</button>
+<button data-t="fun">Enrolment &amp; validation funnel</button>
+<button data-t="dig">Digital maturity</button>
+<button data-t="acc">Facility accreditation</button>
+<button data-t="tr">Financing transition</button>
+<button data-t="plan">8-week workplan</button>
+<button data-t="data">Data &amp; assumptions</button>
+</nav>
+<main>
+<div class="banner"><b>Illustrative data.</b> The five states, the Global Fund RSSH premium pilot, the 35,000+ enrolled and the 71% female share, the ToR tasks (4.1 to 4.9) and the deliverables come from the RFP. State-level targets, enrolment splits, funnel rates, maturity scores, facility counts and premiums are <b>sample data with stated assumptions</b> (last tab). At inception they are replaced with each SSHIA's own records.</div>
+
+<section class="tab on" id="ov">
+<h2>Enrolment against target, by state <span class="tag t-model">Model</span></h2>
+<p class="sub">ToR 4.9 asks for an enrolment dashboard tracking progress against targets by state and cohort. Move a slider to see how enrolment closes on target over the next 12 months.</p>
+<div class="ctl card">
+<div><label>Trained enrolment officers per state <output data-o="off"></output></label><input data-k="off" type="range" min="2" max="40" step="1" value="10"></div>
+<div><label>Enrolments captured digitally at the facility <output data-o="digi"></output></label><input data-k="digi" type="range" min="0" max="100" step="5" value="30"></div>
+<div><label>Validation turnaround (days) <output data-o="tat"></output></label><input data-k="tat" type="range" min="2" max="60" step="1" value="28"></div>
+<div><label>Community network referrals per month per state <output data-o="ref"></output></label><input data-k="ref" type="range" min="0" max="600" step="20" value="120"></div>
+</div>
+<div class="grid k4">
+<div class="card kpi"><div class="l">Enrolled today <span class="tag t-rfp">RFP</span></div><div class="v" id="o1"></div><div class="s">PLHIV and TB clients, five states (71% female)</div></div>
+<div class="card kpi"><div class="l">Projected in 12 months</div><div class="v" id="o2"></div><div class="s" id="o2s"></div></div>
+<div class="card kpi"><div class="l">States on target in 12 months</div><div class="v" id="o3"></div><div class="s" id="o3s"></div></div>
+<div class="card kpi"><div class="l">Clients waiting for validation</div><div class="v" id="o4"></div><div class="s">Backlog at current turnaround</div></div>
+</div>
+<div class="grid k2" style="margin-top:12px">
+<div class="card"><h3>Enrolled today and in 12 months vs target</h3><p class="sub">Dark bar: enrolled now. Light bar: added in 12 months. Dashed line: state target.</p><div id="c_ov1"></div><div class="legend"><span><i style="background:var(--brand)"></i>Enrolled now</span><span><i style="background:var(--brand2)"></i>Added in 12 months</span><span><i style="background:var(--bad)"></i>Target</span></div></div>
+<div class="card"><h3>Cumulative enrolment, all five states</h3><p class="sub">Monthly projection against the combined target.</p><div id="c_ov2"></div></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>By state and cohort</h3><div class="tw"><table id="t_ov"></table></div></div>
+</section>
+
+<section class="tab" id="fun">
+<h2>From identified client to first insured visit <span class="tag t-sample">Sample</span></h2>
+<p class="sub">ToR 4.1 and 4.2: map each SSHIA's enrolment and validation workflow and harmonise it. Each step loses clients; the SOP and digital capture sliders show which losses the harmonised process removes.</p>
+<div class="ctl card">
+<div><label>State <output data-o="st"></output></label><input data-k="st" type="range" min="0" max="4" step="1" value="0"></div>
+<div><label>Clients with NIN at first contact <output data-o="nin"></output></label><input data-k="nin" type="range" min="30" max="100" step="5" value="55"></div>
+<div><label>Harmonised SOP adoption <output data-o="sop"></output></label><input data-k="sop" type="range" min="0" max="100" step="10" value="0"></div>
+<div><label>Enrolments captured digitally <output data-o="digi"></output></label><input data-k="digi" type="range" min="0" max="100" step="5" value="30"></div>
+</div>
+<div class="grid k2">
+<div class="card"><h3>Funnel per 1,000 clients identified</h3><div id="c_fun"></div></div>
+<div class="card"><h3>Where clients are lost</h3><p class="sub">Loss at each step, with the main cause found in workflow mapping (sample).</p><div class="tw"><table id="t_fun"></table></div></div>
+</div>
+</section>
+
+<section class="tab" id="dig">
+<h2>ICT and digital maturity <span class="tag t-sample">Sample</span></h2>
+<p class="sub">ToR 4.3: assess each SSHIA's systems and propose a digitalisation and interoperability roadmap. Scores run 1 (paper) to 5 (integrated, real time). Move the roadmap slider to see the planned position.</p>
+<div class="ctl card">
+<div><label>Roadmap stage <output data-o="road"></output></label><input data-k="road" type="range" min="0" max="3" step="1" value="0"></div>
+<div><label>Roadmap investment per state (₦ million) <output data-o="inv"></output></label><input data-k="inv" type="range" min="10" max="300" step="10" value="80"></div>
+</div>
+<div class="grid k2">
+<div class="card"><h3>Maturity by state and dimension</h3><div id="c_dig"></div><div class="legend"><span><i style="background:var(--c1)"></i>1–2 Paper / partial</span><span><i style="background:var(--c2)"></i>3 Digital, siloed</span><span><i style="background:var(--c3)"></i>4 Integrated</span><span><i style="background:var(--c4)"></i>5 Real time</span></div></div>
+<div class="card"><h3>Average maturity per state</h3><div id="c_dig2"></div><p class="note">Interoperability targets: NHIA enrolment register, NIMC (NIN) verification, DHIS2 and the national HIV and TB programme data systems, via APIs and agreed data standards.</p></div>
+</div>
+</section>
+
+<section class="tab" id="acc">
+<h2>Accreditation of HIV and TB service points <span class="tag t-sample">Sample</span></h2>
+<p class="sub">ToR 4.7: map HIV treatment sites and TB DOT centres and support accreditation with NHIA, NPHCDA and the SSHIAs, so insured clients can use the facilities they already attend.</p>
+<div class="ctl card">
+<div><label>Accreditation visits per state per week <output data-o="vis"></output></label><input data-k="vis" type="range" min="1" max="15" step="1" value="4"></div>
+<div><label>Facilities passing on first visit <output data-o="pass"></output></label><input data-k="pass" type="range" min="30" max="95" step="5" value="60"></div>
+</div>
+<div class="grid k4">
+<div class="card kpi"><div class="l">Service points mapped</div><div class="v" id="a1"></div><div class="s">HIV sites and TB DOT centres</div></div>
+<div class="card kpi"><div class="l">Accredited today</div><div class="v" id="a2"></div><div class="s" id="a2s"></div></div>
+<div class="card kpi"><div class="l">Accredited by week 8</div><div class="v" id="a3"></div><div class="s" id="a3s"></div></div>
+<div class="card kpi"><div class="l">TB DOT centres accredited, week 8</div><div class="v" id="a4"></div><div class="s">The ToR names TB access as the main gap</div></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Accredited share by state: today and at week 8</h3><div id="c_acc"></div><div class="legend"><span><i style="background:var(--brand)"></i>Today</span><span><i style="background:var(--accent)"></i>Added by week 8</span></div></div>
+</section>
+
+<section class="tab" id="tr">
+<h2>Moving from Global Fund premiums to state financing <span class="tag t-model">Model</span></h2>
+<p class="sub">ToR 4.8: the pilot pays premiums for at least two years, then each cohort moves to state mechanisms (Equity Fund, Vulnerable Group Fund, BHCPF). This shows the cost the states must absorb and the gap if allocations stay as they are.</p>
+<div class="ctl card">
+<div><label>Annual premium per enrollee (₦) <output data-o="prem"></output></label><input data-k="prem" type="range" min="8000" max="40000" step="1000" value="15000"></div>
+<div><label>Enrollees at hand-over <output data-o="coh"></output></label><input data-k="coh" type="range" min="35000" max="120000" step="5000" value="60000"></div>
+<div><label>State budget allocated in year 3 <output data-o="alloc"></output></label><input data-k="alloc" type="range" min="0" max="100" step="5" value="35"></div>
+<div><label>Yearly growth in state allocation <output data-o="gr"></output></label><input data-k="gr" type="range" min="0" max="40" step="5" value="15"></div>
+</div>
+<div class="grid k4">
+<div class="card kpi"><div class="l">Annual premium bill at hand-over</div><div class="v" id="f1"></div><div class="s">Five states combined</div></div>
+<div class="card kpi"><div class="l">Funding gap, year 3</div><div class="v" id="f2"></div><div class="s" id="f2s"></div></div>
+<div class="card kpi"><div class="l">Year states fully fund premiums</div><div class="v" id="f3"></div><div class="s">At the growth rate set above</div></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Who pays the premium bill, years 1 to 6</h3><div id="c_tr"></div><div class="legend"><span><i style="background:var(--brand2)"></i>Global Fund RSSH</span><span><i style="background:var(--ok)"></i>State funds</span><span><i style="background:var(--bad)"></i>Unfunded gap</span></div></div>
+</section>
+
+<section class="tab" id="plan">
+<h2>8-week workplan and deliverables <span class="tag t-rfp">RFP</span></h2>
+<p class="sub">Four phases, each ToR task mapped to a deliverable. Move the slider to see the effect of a delayed start of state fieldwork.</p>
+<div class="ctl card"><div><label>Delay to state fieldwork (weeks) <output data-o="dly"></output></label><input data-k="dly" type="range" min="0" max="3" step="1" value="0"></div></div>
+<div class="card"><div id="c_gantt"></div></div>
+<div class="card" style="margin-top:12px"><h3>Deliverables</h3><div class="tw"><table id="t_del"></table></div></div>
+</section>
+
+<section class="tab" id="data">
+<h2>Data &amp; assumptions</h2>
+<div class="grid k2">
+<div class="card"><h3>From the RFP <span class="tag t-rfp">RFP</span></h3>
+<ul class="as"><li>Five states: Anambra, Ebonyi, Gombe, Kwara and Lagos.</li><li>Global Fund RSSH pays State health insurance premiums for PLHIV and TB clients for at least two years.</li><li>More than 35,000 enrolled; 71% female.</li><li>ToR tasks 4.1 to 4.9: workflow mapping, SOPs, ICT assessment and digitalisation roadmap, community engagement, capacity building, supportive supervision, facility mapping and accreditation, strategic plans, enrolment dashboard.</li><li>Eight weeks; deliverables as listed in the workplan tab.</li></ul></div>
+<div class="card"><h3>Sample data <span class="tag t-sample">Sample</span></h3>
+<ul class="as"><li>State split of the 35,000 enrolled and the state targets (51,000 in total).</li><li>PLHIV and TB shares per state.</li><li>Funnel step rates and causes of loss.</li><li>Digital maturity scores (1 to 5) across six dimensions.</li><li>Facility counts and accredited shares.</li><li>Premium of ₦15,000 per enrollee per year.</li></ul></div>
+<div class="card"><h3>Model rules <span class="tag t-model">Model</span></h3>
+<ul class="as"><li>Monthly enrolments per state = officers × 14 × a state-size factor × (1 + 0.6 × digital share) + 45% of community referrals, capped by validation capacity, which falls as turnaround rises.</li><li>Validation backlog = monthly enrolments × turnaround ÷ 30.</li><li>Funnel: harmonised SOPs cut the loss at each step by up to 60%; digital capture cuts registration and validation losses by up to 50%; NIN coverage drives validation success.</li><li>Accreditation: visits × weeks × first-visit pass rate, plus re-visits for those that failed.</li><li>Financing: Global Fund pays years 1–2; from year 3, state funds cover the share set, growing yearly; the rest is the gap.</li></ul></div>
+<div class="card"><h3>What changes at inception</h3>
+<ul class="as"><li>Each SSHIA's enrolment register, validation logs and premium records replace the sample data.</li><li>Facility lists come from NHIA, NPHCDA and the state HIV and TB programmes.</li><li>The dashboard is handed over to the SSHIAs with the data dictionary and training (ToR 4.9).</li></ul></div>
+</div>
+</section>
+</main>
+<footer>Agentic Rx Inc. (lead) with AMMA, Nigeria · Demonstration with sample data for RFP HSS/LE/2026/010/075 · Not WHO, NHIA or SSHIA data.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const S={off:10,digi:30,tat:28,ref:120,st:0,nin:55,sop:0,road:0,inv:80,vis:4,pass:60,prem:15000,coh:60000,alloc:35,gr:15,dly:0};
+const ST=[{n:'Lagos',e:11200,t:16000,hiv:.82,f:420,tb:.35,a:.38},{n:'Anambra',e:7100,t:10000,hiv:.78,f:260,tb:.30,a:.42},{n:'Gombe',e:6300,t:9000,hiv:.70,f:190,tb:.25,a:.30},{n:'Kwara',e:5600,t:8000,hiv:.74,f:170,tb:.28,a:.35},{n:'Ebonyi',e:5200,t:8000,hiv:.76,f:150,tb:.22,a:.27}];
+const ngn=v=>v>=1e9?'₦'+(v/1e9).toFixed(2)+'bn':v>=1e6?'₦'+(v/1e6).toFixed(0)+'M':'₦'+Math.round(v).toLocaleString();
+const ROAD=['Today','Stage 1: digital capture','Stage 2: NIN and NHIA links','Stage 3: real-time dashboard'];
+const FMT={off:v=>v,digi:v=>v+'%',tat:v=>v+' d',ref:v=>v,st:v=>ST[v].n,nin:v=>v+'%',sop:v=>v+'%',road:v=>ROAD[v],inv:v=>'₦'+v+'M',vis:v=>v,pass:v=>v+'%',prem:v=>'₦'+(+v).toLocaleString(),coh:v=>(+v).toLocaleString(),alloc:v=>v+'%',gr:v=>v+'%',dly:v=>v+' wk'};
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const RC=r=>css(['','--c1','--c1','--c2','--c3','--c4'][Math.max(1,Math.min(5,Math.round(r)))]);
+function svg(w,h,b){return `<svg viewBox="0 0 ${w} ${h}" role="img">${b}</svg>`}
+const k=v=>v>=1000?(v/1000).toFixed(1)+'k':Math.round(v)+'';
+
+function monthly(s){const cap=s.f*1.6*(28/Math.max(S.tat,7));const m=S.off*14*(.6+.4*s.e/7000)*(1+.6*S.digi/100)+.45*S.ref;return Math.min(m,cap)}
+function rOv(){let tot=0,proj=0,on=0,back=0;const rows=ST.map(s=>{const m=monthly(s);const add=m*12;tot+=s.e;proj+=s.e+add;if(s.e+add>=s.t)on++;back+=m*S.tat/30;return{...s,m,add}});
+ $('o1').textContent=k(tot);$('o2').textContent=k(proj);$('o2s').textContent=Math.round(100*proj/51000)+'% of the 51,000 combined target';$('o3').textContent=on+' of 5';$('o3s').textContent=on==5?'All states reach target':'Raise officers, digital capture or referrals';$('o4').textContent=k(back);
+ const W=520,L=80,lh=34,mx=Math.max(...rows.map(r=>Math.max(r.t,r.e+r.add)))*1.1;let g='';rows.forEach((r,i)=>{const y=i*lh+6,X=v=>L+(W-L-40)*v/mx;g+=`<text x="${L-6}" y="${y+18}" text-anchor="end">${r.n}</text><rect x="${L}" y="${y+4}" width="${X(r.e)-L}" height="20" rx="3" fill="${css('--brand')}"/><rect x="${X(r.e)}" y="${y+4}" width="${X(r.e+r.add)-X(r.e)}" height="20" fill="${css('--brand2')}"/><line x1="${X(r.t)}" x2="${X(r.t)}" y1="${y}" y2="${y+28}" stroke="${css('--bad')}" stroke-width="2" stroke-dasharray="3 2"/><text x="${X(r.e+r.add)+4}" y="${y+18}">${k(r.e+r.add)}</text>`});
+ $('c_ov1').innerHTML=svg(W,rows.length*lh+10,g);
+ const H=220,L2=50,B=26,mm=Math.max(51000,proj)*1.1,X=i=>L2+(W-L2-10)*i/12,Y=v=>H-B-(H-B-10)*v/mm;let g2='';[0,20000,40000,60000,80000,100000].filter(v=>v<mm).forEach(v=>g2+=`<line x1="${L2}" x2="${W-10}" y1="${Y(v)}" y2="${Y(v)}" stroke="${css('--line')}"/><text x="${L2-6}" y="${Y(v)+4}" text-anchor="end">${k(v)}</text>`);
+ const pts=[];let c=tot;for(let i=0;i<=12;i++){pts.push([X(i),Y(c)]);c+=rows.reduce((s,r)=>s+r.m,0)}for(let i=0;i<=12;i+=2)g2+=`<text x="${X(i)}" y="${H-8}" text-anchor="middle">M${i}</text>`;
+ g2+=`<line x1="${L2}" x2="${W-10}" y1="${Y(51000)}" y2="${Y(51000)}" stroke="${css('--bad')}" stroke-dasharray="5 3"/><text x="${W-12}" y="${Y(51000)-5}" text-anchor="end">Target 51k</text><polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${css('--brand')}" stroke-width="2.5"/>`;
+ $('c_ov2').innerHTML=svg(W,H,g2);
+ $('t_ov').innerHTML='<tr><th>State</th><th class="n">Enrolled</th><th class="n">PLHIV</th><th class="n">TB</th><th class="n">Target</th><th class="n">Per month (model)</th><th class="n">In 12 months</th><th>Status</th></tr>'+rows.map(r=>{const p=(r.e+r.add)/r.t;return `<tr><td>${r.n}</td><td class="n">${r.e.toLocaleString()}</td><td class="n">${Math.round(r.e*r.hiv).toLocaleString()}</td><td class="n">${Math.round(r.e*(1-r.hiv)).toLocaleString()}</td><td class="n">${r.t.toLocaleString()}</td><td class="n">${Math.round(r.m)}</td><td class="n">${Math.round(r.e+r.add).toLocaleString()}</td><td><span class="pill ${p>=1?'p-ok':p>=.85?'p-warn':'p-bad'}">${p>=1?'On target':p>=.85?'Close':'Behind'}</span></td></tr>`}).join('')}
+
+const STEPS=[['Identified at clinic or by network',1,'—'],['Consented and informed',.12,'Fear of status disclosure; no private space'],['Registered (form completed)',.15,'Paper forms incomplete; missing photo or ID'],['Identity validated (NIN)',.25,'No NIN; NIMC verification delays'],['Premium paid by programme',.08,'Batch payment timing between GF and SSHIA'],['Enrolment card or number issued',.10,'Cards printed centrally and not collected'],['First insured visit',.14,'Chosen facility not accredited for HIV or TB']];
+function rFun(){const sop=S.sop/100,dg=S.digi/100,sf=[1,1.1,.95,1.05,.9,1.15][S.st]||1;let n=1000;const rows=[];STEPS.forEach((s,i)=>{if(i==0){rows.push({l:s[0],v:n,loss:0,c:s[2]});return}let L=s[1]*sf*(1-.6*sop);if(i==2||i==3)L*=1-.5*dg;if(i==3)L=L*(1.6-S.nin/100);L=Math.min(.9,Math.max(0,L));const lost=n*L;n-=lost;rows.push({l:s[0],v:n,loss:lost,c:s[2]})});
+ const W=520,L=210,lh=30;let g='';rows.forEach((r,i)=>{const y=i*lh+4,w=(W-L-50)*r.v/1000;g+=`<text x="${L-6}" y="${y+19}" text-anchor="end">${r.l}</text><rect x="${L}" y="${y+5}" width="${w}" height="20" rx="3" fill="${i==rows.length-1?css('--ok'):css('--brand')}"/><text x="${L+w+5}" y="${y+19}">${Math.round(r.v)}</text>`});$('c_fun').innerHTML=svg(W,rows.length*lh+8,g);
+ $('t_fun').innerHTML='<tr><th>Step</th><th class="n">Lost</th><th>Main cause</th></tr>'+rows.slice(1).map(r=>`<tr><td>${r.l}</td><td class="n">${Math.round(r.loss)}</td><td>${r.c}</td></tr>`).join('')}
+
+const DIM=['Enrolment capture','ID validation (NIN)','Premium and payment','Claims and encounters','Interoperability','Data use and dashboards'];
+const MAT=[[3,2,3,2,1,2],[2,2,2,2,1,1],[1,1,2,1,1,1],[2,2,2,1,1,2],[1,1,2,1,1,1]];
+function rDig(){const W=560,L=70,cw=(W-L)/6,ch=36;let g='';DIM.forEach((d,j)=>g+=`<text x="${L+(j+.5)*cw}" y="12" text-anchor="middle" style="font-size:10px">${d.split(' ')[0]}</text>`);
+ const avgs=[];ST.forEach((s,i)=>{let sum=0;g+=`<text x="${L-6}" y="${24+i*ch+22}" text-anchor="end">${s.n}</text>`;MAT[i].forEach((v,j)=>{const up=Math.min(5,v+Math.min(S.road,Math.round(S.road*S.inv/100+ (S.road?0.5:0))));sum+=up;g+=`<rect x="${L+j*cw+2}" y="${24+i*ch}" width="${cw-4}" height="${ch-4}" rx="4" fill="${RC(up)}" fill-opacity=".85"/><text x="${L+(j+.5)*cw}" y="${24+i*ch+22}" text-anchor="middle" style="fill:#fff;font-weight:700">${up}</text>`});avgs.push(sum/6)});
+ $('c_dig').innerHTML=svg(W,24+ST.length*ch,g);
+ const W2=520,L2=80;let g2='';avgs.forEach((a,i)=>{const y=i*32+4,w=(W2-L2-40)*a/5;g2+=`<text x="${L2-6}" y="${y+19}" text-anchor="end">${ST[i].n}</text><rect x="${L2}" y="${y+5}" width="${w}" height="20" rx="3" fill="${RC(a)}"/><text x="${L2+w+5}" y="${y+19}">${a.toFixed(1)}</text>`});$('c_dig2').innerHTML=svg(W2,ST.length*32+8,g2)}
+
+function rAcc(){let tot=0,now=0,end=0,tbE=0,tbT=0;const rows=ST.map(s=>{const a0=Math.round(s.f*s.a);const left=s.f-a0;const visits=S.vis*7;const passFirst=visits*S.pass/100;const add=Math.min(left,passFirst+Math.max(0,visits-left)*0);tot+=s.f;now+=a0;end+=a0+add;const tbN=Math.round(s.f*s.tb);tbT+=tbN;tbE+=Math.round(tbN*(s.a*.6)+add*s.tb);return{n:s.n,f:s.f,a0,add}});
+ $('a1').textContent=tot.toLocaleString();$('a2').textContent=Math.round(100*now/tot)+'%';$('a2s').textContent=now+' service points';$('a3').textContent=Math.round(100*end/tot)+'%';$('a3s').textContent=Math.round(end)+' service points';$('a4').textContent=Math.round(100*Math.min(tbE,tbT)/tbT)+'%';
+ const W=520,L=80;let g='';rows.forEach((r,i)=>{const y=i*32+4,X=v=>(W-L-50)*v;g+=`<text x="${L-6}" y="${y+19}" text-anchor="end">${r.n}</text><rect x="${L}" y="${y+5}" width="${W-L-50}" height="20" rx="3" fill="${css('--line')}"/><rect x="${L}" y="${y+5}" width="${X(r.a0/r.f)}" height="20" rx="3" fill="${css('--brand')}"/><rect x="${L+X(r.a0/r.f)}" y="${y+5}" width="${X(r.add/r.f)}" height="20" fill="${css('--accent')}"/><text x="${W-45}" y="${y+19}">${Math.round(100*(r.a0+r.add)/r.f)}%</text>`});$('c_acc').innerHTML=svg(W,rows.length*32+8,g)}
+
+function rTr(){const bill=S.prem*S.coh;const yrs=[];let full='Beyond year 6';for(let y=1;y<=6;y++){const gf=y<=2?bill:0;let st=0;if(y>=3)st=Math.min(bill,bill*S.alloc/100*Math.pow(1+S.gr/100,y-3));const gap=bill-gf-st;yrs.push({y,gf,st,gap});if(y>=3&&gap<=0&&full=='Beyond year 6')full='Year '+y}
+ $('f1').textContent=ngn(bill);$('f2').textContent=ngn(yrs[2].gap);$('f2s').textContent=Math.round(100*yrs[2].gap/bill)+'% of the bill unfunded';$('f2').style.color=yrs[2].gap>0?css('--bad'):css('--ok');$('f3').textContent=full;
+ const W=980,H=280,L=70,B=26,mx=bill*1.1,bw=(W-L-10)/6*.5,X=i=>L+(W-L-10)*(i+.5)/6,Y=v=>H-B-(H-B-10)*v/mx;let g='';[0,.25,.5,.75,1].forEach(f=>g+=`<line x1="${L}" x2="${W-10}" y1="${Y(bill*f)}" y2="${Y(bill*f)}" stroke="${css('--line')}"/><text x="${L-6}" y="${Y(bill*f)+4}" text-anchor="end">${ngn(bill*f)}</text>`);
+ yrs.forEach((r,i)=>{let b=0;[[r.gf,'--brand2'],[r.st,'--ok'],[r.gap,'--bad']].forEach(([v,c])=>{if(v>0){g+=`<rect x="${X(i)-bw/2}" y="${Y(b+v)}" width="${bw}" height="${Y(b)-Y(b+v)}" fill="${css(c)}"/>`;b+=v}});g+=`<text x="${X(i)}" y="${H-8}" text-anchor="middle">Year ${r.y}</text>`});$('c_tr').innerHTML=svg(W,H,g)}
+
+function rPlan(){const d=S.dly;const T=[['Inception and desk review',1,2],['Inception Report',2,2,'D1'],['Workflow mapping, 5 SSHIAs (4.1)',2+d,4+d],['ICT and digital maturity (4.3)',2+d,4+d],['Facility mapping (4.7)',3+d,5+d],['Diagnostic report',4+d,4+d,'D2'],['Harmonised SOPs and validation (4.2)',4+d,6+d],['Digital roadmap and dashboard (4.3, 4.9)',4+d,6+d],['Community strategy, PLHIV and TB networks (4.4)',5+d,7+d],['Training and mentoring (4.5, 4.6)',6+d,8+d],['Accreditation support (4.7)',5+d,7+d],['Strategic plans and AOPs (4.8)',7+d,8+d],['Final report and validation workshop',8+d,8+d,'Final']];
+ const wk=Math.max(10,8+d+1),W=1000,L=380,lh=26,cw=(W-L-10)/wk;let g='';for(let i=1;i<=wk;i++){g+=`<text x="${L+(i-.5)*cw}" y="14" text-anchor="middle">W${i}</text>`;if(i==8)g+=`<line x1="${L+i*cw}" x2="${L+i*cw}" y1="18" y2="${T.length*lh+26}" stroke="${css('--accent')}" stroke-dasharray="4 3"/>`}
+ T.forEach((t,i)=>{const y=22+i*lh;g+=`<text x="${L-8}" y="${y+15}" text-anchor="end">${t[0]}</text>`;if(t[3]){const cx=L+(t[2]-.5)*cw;g+=`<polygon points="${cx},${y+4} ${cx+8},${y+12} ${cx},${y+20} ${cx-8},${y+12}" fill="${css('--accent')}"/>`}else g+=`<rect x="${L+(t[1]-1)*cw}" y="${y+5}" width="${(t[2]-t[1]+1)*cw}" height="${lh-10}" rx="3" fill="${t[2]>8?css('--bad'):css('--brand')}"/>`});$('c_gantt').innerHTML=svg(W,T.length*lh+30,g);
+ const D=[['Inception Report',2],['Workflow Mapping and Diagnostic Assessment Report',4],['Harmonised SOPs for Enrolment, Validation and QA',6],['Digitalisation and Interoperability Roadmap',6],['Capacity Building Plans and Training Materials',6],['Supportive Supervision Framework and Tools',6],['Community Engagement and Enrolment Scale-Up Strategy',7],['Facility Accreditation Support Report',7],['Knowledge Management Framework and Tools',8],['Medium-Term Strategic Plans for SSHIAs',8],['Final Consultancy Report with scale-up plan',8]];
+ $('t_del').innerHTML='<tr><th>Deliverable</th><th class="n">Due (week)</th><th>Status</th></tr>'+D.map(r=>{const w=r[1]==2?2:Math.min(r[1]+d,99);return `<tr><td>${r[0]}</td><td class="n">${w}</td><td><span class="pill ${w<=8?'p-ok':'p-bad'}">${w<=8?'On schedule':'Late'}</span></td></tr>`}).join('')}
+
+function renderAll(){document.querySelectorAll('[data-o]').forEach(o=>o.textContent=FMT[o.dataset.o](S[o.dataset.o]));rOv();rFun();rDig();rAcc();rTr();rPlan()}
+document.querySelectorAll('input[data-k]').forEach(el=>{el.value=S[el.dataset.k];el.addEventListener('input',()=>{const kk=el.dataset.k;S[kk]=+el.value;document.querySelectorAll(`input[data-k="${kk}"]`).forEach(o=>{if(o!==el)o.value=el.value});renderAll()})});
+const nav=$('nav');function show(t){nav.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('on',s.id==t))}
+nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;show(b.dataset.t);history.replaceState(null,'','#'+b.dataset.t)});
+addEventListener('hashchange',()=>{const h=location.hash.slice(1);if($(h)&&$(h).classList.contains('tab'))show(h)});
+if(location.hash&&$(location.hash.slice(1)))show(location.hash.slice(1));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',renderAll);
+renderAll();
+</script>
+</body>
+</html>
