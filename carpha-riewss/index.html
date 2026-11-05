@@ -1,0 +1,214 @@
+TEST-LINE
+<b>x</b><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RIEWSS Early Warning Demo</title>
+<meta name="description" content="Agentic Rx demonstration for CARPHA RG-T4387: Regional Integrated Early Warning Surveillance System on DHIS2.">
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#1d2733;--muted:#5d6b7a;--line:#dde3ea;--brand:#0f5c6e;--brand2:#1a8aa3;--accent:#c2843a;--bad:#b23b3b;--ok:#2f7d4f;--warn:#c98a12;--soft:#e8f2f4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33}}
+:root[data-theme="dark"]{--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line);padding:0 12px;position:sticky;top:0;z-index:5}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 10px;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+main{max-width:1100px;margin:0 auto;padding:16px}
+.banner{background:var(--soft);border-left:4px solid var(--brand);padding:10px 12px;border-radius:6px;font-size:13px;color:var(--ink);margin-bottom:14px}
+.banner b{color:var(--brand)}
+.grid{display:grid;gap:12px}.k4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.k2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.kpi .v{font-size:28px;font-family:Georgia,serif;margin:4px 0}.kpi .s{font-size:12px;color:var(--muted)}
+h2{font-size:17px;margin:20px 0 6px}h3{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.ctl{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:12px}
+.ctl label{font-size:13px;color:var(--muted);display:block}.ctl output{float:right;color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{text-align:right}.tw{overflow-x:auto}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.p-ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.p-warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}.p-bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+svg{width:100%;height:auto;display:block}svg text{fill:var(--muted);font-size:13px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tab{display:none}.tab.on{display:block}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+ul.as{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--muted)}
+footer{max-width:1100px;margin:0 auto;padding:16px;color:var(--muted);font-size:12px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.flow div{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px}.flow span{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+<h1>RIEWSS: Regional Integrated Early Warning Surveillance System</h1>
+<p>Demonstration for CARPHA, Terms of Reference RG-T4387 (Digital Health Technology Specialist) · Prepared by Dr. Mohammed Alhassan with Agentic Rx</p>
+</header>
+<nav id="nav">
+<button data-t="ov" class="on">Overview</button>
+<button data-t="sig">Early-warning signals</button>
+<button data-t="roll">Member State rollout</button>
+<button data-t="dq">Data quality &amp; integration</button>
+<button data-t="acc">Access &amp; security</button>
+<button data-t="plan">12-month plan</button>
+<button data-t="data">Data &amp; assumptions</button>
+</nav>
+<main>
+<div class="banner"><b>Illustrative data.</b> Member State names, the ToR scope and the deliverables are real (CARPHA ToR RG-T4387). Populations are approximate public estimates. All case counts, alerts, completeness and timeliness figures are generated sample data with stated assumptions, used only to show how the dashboards and controls will behave on CARPHA's real DHIS2 data. They are not CARPHA figures.</div>
+
+<section class="tab on" id="ov">
+<h2>What the regional early-warning dashboard shows</h2>
+<p class="sub">One view of syndromic signals, reporting performance and rollout status across CARPHA Member States, driven by the controls below. Move a slider and every figure on this page updates.</p>
+<div class="ctl card">
+<div><label>Alert threshold (standard deviations above baseline) <output id="o_k"></output></label><input id="k" type="range" min="1.5" max="3.5" step="0.1" value="2.5"></div>
+<div><label>Weekly reporting completeness <output id="o_c"></output></label><input id="c" type="range" min="40" max="100" step="1" value="78"></div>
+<div><label>Member States live on RIEWSS <output id="o_m"></output></label><input id="m" type="range" min="1" max="26" step="1" value="12"></div>
+</div>
+<div class="grid k4">
+<div class="card kpi"><div class="l">Signals flagged · 52 weeks</div><div class="v" id="kv1"></div><div class="s" id="ks1"></div></div>
+<div class="card kpi"><div class="l">Population covered</div><div class="v" id="kv2"></div><div class="s" id="ks2"></div></div>
+<div class="card kpi"><div class="l">Expected outbreaks detected</div><div class="v" id="kv3"></div><div class="s">Of 6 seeded outbreak events in the sample year</div></div>
+<div class="card kpi"><div class="l">Median days to detect</div><div class="v" id="kv4"></div><div class="s">From outbreak onset to first alert</div></div>
+</div>
+<div class="grid k2" style="margin-top:12px">
+<div class="card"><h3>Regional influenza-like illness, weekly</h3><p class="sub">Reported cases, rolling baseline and alert line. Red dots are weeks that cross the threshold.</p><div id="ch_ov1"></div><div class="legend"><span><i style="background:var(--brand)"></i>Reported</span><span><i style="background:var(--muted)"></i>Baseline</span><span><i style="background:var(--bad)"></i>Alert threshold</span></div></div>
+<div class="card"><h3>Detection trade-off</h3><p class="sub">Lower thresholds catch more outbreaks but raise false alarms that country teams must investigate. The dot shows the current setting.</p><div id="ch_ov2"></div></div>
+</div>
+</section>
+
+<section class="tab" id="sig">
+<h2>Early-warning signals by syndrome</h2>
+<p class="sub">An EARS-style method: an alert fires when a week's count exceeds the mean of the previous 8 weeks plus k standard deviations. CARPHA can tune k per syndrome. The same rule runs on DHIS2 program indicators and predictor rules.</p>
+<div class="ctl card">
+<div><label>Syndrome <output id="o_s"></output></label><select id="syn" style="width:100%;padding:6px"><option value="0">Influenza-like illness</option><option value="1">Acute gastroenteritis</option><option value="2">Fever and rash (dengue/arbovirus)</option><option value="3">Severe acute respiratory infection</option></select></div>
+<div><label>Alert threshold (k) <output id="o_k2"></output></label><input id="k2" type="range" min="1.5" max="3.5" step="0.1" value="2.5"></div>
+<div><label>Baseline window (weeks) <output id="o_w"></output></label><input id="w" type="range" min="4" max="16" step="1" value="8"></div>
+</div>
+<div class="card"><div id="ch_sig"></div><div class="legend"><span><i style="background:var(--brand)"></i>Reported cases</span><span><i style="background:var(--muted)"></i>Baseline</span><span><i style="background:var(--bad)"></i>Threshold</span><span><i style="background:var(--accent)"></i>Seeded outbreak weeks</span></div></div>
+<div class="grid k2" style="margin-top:12px">
+<div class="card"><h3>Alerts this year</h3><div class="tw"><table id="t_alerts"></table></div></div>
+<div class="card"><h3>Alert performance</h3><table id="t_perf"></table><p class="note">Sensitivity = seeded outbreak weeks that raised an alert. False alarms = alerts outside outbreak weeks. Each false alarm costs country epidemiologists about half a day to verify (assumption).</p></div>
+</div>
+</section>
+
+<section class="tab" id="roll">
+<h2>Member State instance rollout</h2>
+<p class="sub">Plan the rollout of CMS RIEWSS instances over the 12-month consultancy. Change the pace and the chart, the coverage figures and the schedule table update together.</p>
+<div class="ctl card">
+<div><label>Countries configured per month <output id="o_r"></output></label><input id="r" type="range" min="1" max="5" step="1" value="3"></div>
+<div><label>First go-live month <output id="o_g"></output></label><input id="g" type="range" min="2" max="6" step="1" value="3"></div>
+<div><label>Training days per country <output id="o_t"></output></label><input id="t" type="range" min="1" max="5" step="1" value="2"></div>
+</div>
+<div class="grid k4">
+<div class="card kpi"><div class="l">Live by month 12</div><div class="v" id="rv1"></div><div class="s">of 26 Member States</div></div>
+<div class="card kpi"><div class="l">Population covered at month 12</div><div class="v" id="rv2"></div><div class="s" id="rs2"></div></div>
+<div class="card kpi"><div class="l">Training days needed</div><div class="v" id="rv3"></div><div class="s">Remote sessions, consultant time</div></div>
+<div class="card kpi"><div class="l">Consultant days for config</div><div class="v" id="rv4"></div><div class="s">At 3 days per instance (assumption)</div></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Cumulative Member States live and population covered</h3><div id="ch_roll"></div><div class="legend"><span><i style="background:var(--brand)"></i>Member States live</span><span><i style="background:var(--accent)"></i>Population covered (%)</span></div></div>
+<div class="card" style="margin-top:12px"><h3>Proposed go-live order</h3><p class="sub">Ordered by population and existing DHIS2 readiness (larger health systems first, then OECS and small island states in clusters).</p><div class="tw"><table id="t_roll"></table></div></div>
+</section>
+
+<section class="tab" id="dq">
+<h2>Data quality and interoperability</h2>
+<p class="sub">Completeness and timeliness drive whether a signal is trustworthy. Set the targets and see which Member States meet them; the integration panel shows the feeds the consultant will build.</p>
+<div class="ctl card">
+<div><label>Completeness target <output id="o_ct"></output></label><input id="ct" type="range" min="60" max="100" step="1" value="80"></div>
+<div><label>Timeliness target (reported within 7 days) <output id="o_tt"></output></label><input id="tt" type="range" min="50" max="100" step="1" value="75"></div>
+<div><label>Improvement after automated reminders <output id="o_im"></output></label><input id="im" type="range" min="0" max="20" step="1" value="8"></div>
+</div>
+<div class="grid k4">
+<div class="card kpi"><div class="l">Meet both targets</div><div class="v" id="dv1"></div><div class="s">Member States (live ones)</div></div>
+<div class="card kpi"><div class="l">Regional completeness</div><div class="v" id="dv2"></div><div class="s">Population-weighted</div></div>
+<div class="card kpi"><div class="l">Regional timeliness</div><div class="v" id="dv3"></div><div class="s">Population-weighted</div></div>
+<div class="card kpi"><div class="l">Records via API / FHIR</div><div class="v" id="dv4"></div><div class="s">Share of weekly records not keyed by hand</div></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Completeness and timeliness by Member State</h3><p class="sub">Each dot is a Member State. The shaded box is where both targets are met.</p><div id="ch_dq"></div></div>
+<div class="card" style="margin-top:12px"><h3>Integration feeds into RIEWSS</h3>
+<div class="flow"><div>National lab systems (LIS)</div><span>→ HL7 FHIR / CSV ETL →</span><div>DHIS2 Web API</div><span>→</span><div>RIEWSS data store</div><span>→</span><div>Predictors &amp; alerts</div><span>→</span><div>Dashboards &amp; SMS/email</div></div>
+<div class="flow" style="margin-top:8px"><div>Hospital EMR / ED syndromic feeds</div><div>Port-of-entry and event-based surveillance</div><div>CARPHA laboratory (CMLR)</div><div>Tourism / hotel sentinel reports</div></div>
+<p class="note">Every feed gets a metadata map, a validation rule set and an audit log; failed records go to a review queue rather than being silently dropped.</p></div>
+</section>
+
+<section class="tab" id="acc">
+<h2>Access, roles and security</h2>
+<p class="sub">Role-based access by Member State and function, following least privilege. Toggle a role to see what it can reach.</p>
+<div class="ctl card"><div><label>Role</label><select id="role" style="width:100%;padding:6px"><option>Regional epidemiologist (CARPHA)</option><option>National surveillance officer</option><option>Data entry clerk</option><option>Laboratory focal point</option><option>System administrator</option><option>Read-only partner (PAHO/donor)</option></select></div></div>
+<div class="card"><div class="tw"><table id="t_role"></table></div><p class="note">Controls: two-factor sign-in for admin and national roles, sharing settings per program, audit of metadata and data changes, quarterly user review with automatic deactivation after 90 days of inactivity, encrypted backups tested monthly.</p></div>
+</section>
+
+<section class="tab" id="plan">
+<h2>12-month delivery plan (from the ToR deliverables)</h2>
+<p class="sub">Deliverables and reports named in the CARPHA ToR, with the month each is due under this plan.</p>
+<div class="card"><div id="ch_plan"></div></div>
+<div class="card" style="margin-top:12px"><div class="tw"><table id="t_plan"></table></div></div>
+</section>
+
+<section class="tab" id="data">
+<h2>Data sources and assumptions</h2>
+<div class="card">
+<h3>Order of evidence used in this demo</h3>
+<ul class="as">
+<li><b>CARPHA's own information:</b> ToR RG-T4387 scope, deliverables, reporting obligations, evaluation criteria and Member State list.</li>
+<li><b>Real-world public data:</b> approximate Member State populations (rounded public estimates, 2024-2025).</li>
+<li><b>Sample data:</b> none was available from CARPHA, so weekly case counts are generated.</li>
+<li><b>Predicted data:</b> completeness, timeliness and readiness per Member State are modelled estimates, not measurements.</li>
+</ul>
+<h3 style="margin-top:12px">Assumptions</h3>
+<ul class="as">
+<li>Weekly syndromic counts scale with population (ILI about 9 per 10,000 per week; gastroenteritis 6; fever and rash 2; SARI 0.8), with seasonality and random noise.</li>
+<li>Six outbreak events are seeded across the year (1.4x to 1.9x baseline for 2 to 4 weeks) so detection can be measured.</li>
+<li>Reported counts = true counts x completeness. Lower completeness hides part of each outbreak.</li>
+<li>Instance configuration: 3 consultant days per Member State; training days as set by the slider.</li>
+<li>Each false alarm takes about half a day of a national epidemiologist's time to verify.</li>
+</ul>
+</div>
+</section>
+</main>
+<footer>Agentic Rx demonstration · Illustrative sample data · Contact: info@agentic-rx.com · agentic-rx.com</footer>
+
+<script>
+const MS=[["Haiti",11700,0.35],["Jamaica",2830,0.85],["Trinidad and Tobago",1530,0.85],["Guyana",813,0.7],["Suriname",623,0.65],["The Bahamas",410,0.75],["Belize",410,0.7],["Barbados",282,0.9],["Saint Lucia",180,0.75],["Curaçao",155,0.7],["Grenada",126,0.7],["Aruba",107,0.75],["Saint Vincent and the Grenadines",104,0.7],["Antigua and Barbuda",94,0.75],["Dominica",73,0.65],["Cayman Islands",69,0.8],["Bermuda",64,0.8],["Saint Kitts and Nevis",47,0.7],["Turks and Caicos Islands",46,0.65],["Sint Maarten",42,0.65],["British Virgin Islands",31,0.7],["Bonaire",24,0.6],["Anguilla",16,0.65],["Montserrat",4.4,0.7],["Sint Eustatius",3,0.55],["Saba",2,0.55]];
+const POP=MS.reduce((a,b)=>a+b[1],0);
+// deterministic random
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const RATES=[9,6,2,0.8],SEAS=[[0.2,46],[0.12,30],[0.25,34],[0.22,48]];
+const OUTB=[[0,16,3,1.65],[0,46,4,1.45],[1,18,2,1.7],[2,30,4,1.55],[3,22,3,1.4],[1,40,2,1.9]]; // syndrome, startWeek, length, multiplier
+function series(syn){const r=rng(100+syn),base=POP*1000/10000*RATES[syn];const [amp,peak]=SEAS[syn];const out=[],ob=[];for(let w=0;w<52;w++){let v=base*(1+amp*Math.cos(2*Math.PI*(w-peak)/52));v*=1+(r()-0.5)*0.22;let flag=false;OUTB.forEach(o=>{if(o[0]===syn&&w>=o[1]&&w<o[1]+o[2]){v*=o[3];flag=true}});out.push(v);ob.push(flag)}return{v:out,ob}}
+const SER=[0,1,2,3].map(series);
+function detect(syn,k,W0,comp){let win=W0;const s=SER[syn],rep=s.v.map(x=>x*comp/100);const res=[];for(let w=0;w<52;w++){win=W0;if(w<win){res.push({w,c:rep[w],b:null,t:null,a:false,ob:s.ob[w]});continue}const p=[];for(let j=w-1;j>=0&&p.length<win;j--){if(!(res[j]&&res[j].a))p.push(rep[j])}if(p.length<3){res.push({w,c:rep[w],b:null,t:null,a:false,ob:s.ob[w]});continue}win=p.length;const m=p.reduce((a,b)=>a+b,0)/win;const sd=Math.sqrt(p.reduce((a,b)=>a+(b-m)**2,0)/win);// completeness adds noise floor
+const noise=Math.max(sd,0.12*m)*(1+(100-comp)/200);const th=m+k*noise;res.push({w,c:rep[w],b:m,t:th,a:rep[w]>th,ob:s.ob[w]})}return res}
+function perf(k,win,comp){let tp=0,fp=0,det=0,delays=[];OUTB.forEach(o=>{const d=detect(o[0],k,win,comp);let first=null;for(let w=o[1];w<o[1]+o[2];w++){if(d[w]&&d[w].a){first=w;break}}if(first!==null){det++;delays.push((first-o[1])*7+3)}});[0,1,2,3].forEach(s=>detect(s,k,win,comp).forEach(x=>{if(x.a){x.ob?tp++:fp++}}));delays.sort((a,b)=>a-b);return{det,fp,tp,delay:delays.length?delays[Math.floor(delays.length/2)]:null}}
+const fmt=n=>n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(n>=1e4?0:1)+'k':Math.round(n).toString();
+const $=id=>document.getElementById(id);
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+function line(el,opts){const W=640,H=opts.h||240,P={l:44,r:12,t:10,b:26};const xs=opts.n;const all=opts.lines.flatMap(l=>l.d.filter(v=>v!=null));const mx=opts.max||Math.max(...all)*1.08,mn=opts.min||0;const X=i=>P.l+(W-P.l-P.r)*i/(xs-1),Y=v=>H-P.b-(H-P.t-P.b)*(v-mn)/(mx-mn);let s=`<svg viewBox="0 0 ${W} ${H}">`;for(let i=0;i<=4;i++){const v=mn+(mx-mn)*i/4;s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="${css('--line')}"/><text x="${P.l-6}" y="${Y(v)+4}" text-anchor="end">${opts.yf?opts.yf(v):fmt(v)}</text>`}(opts.bands||[]).forEach(b=>{s+=`<rect x="${X(b[0])}" y="${P.t}" width="${Math.max(2,X(b[1])-X(b[0]))}" height="${H-P.t-P.b}" fill="${css('--accent')}" opacity=".15"/>`});(opts.xl||[]).forEach(([i,t])=>{s+=`<text x="${X(i)}" y="${H-8}" text-anchor="middle">${t}</text>`});opts.lines.forEach(l=>{let d='';l.d.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1)});s+=`<path d="${d}" fill="none" stroke="${l.c}" stroke-width="${l.w||2}" ${l.dash?'stroke-dasharray="5 4"':''}/>`;if(l.dots)l.dots.forEach(i=>{s+=`<circle cx="${X(i)}" cy="${Y(l.d[i])}" r="4" fill="${css('--bad')}"/>`})});s+='</svg>';el.innerHTML=s}
+const WEEKX=[[0,'Wk 1'],[12,'Wk 13'],[25,'Wk 26'],[38,'Wk 39'],[50,'Wk 51']];
+function liveCount(){return +$('m').value}
+function covered(n){return MS.slice(0,n).reduce((a,b)=>a+b[1],0)}
+function renderOv(){const k=+$('k').value,c=+$('c').value,m=liveCount();$('o_k').textContent=k.toFixed(1);$('o_c').textContent=c+'%';$('o_m').textContent=m;
+const p=perf(k,8,c);const cov=covered(m);$('kv1').textContent=p.tp+p.fp;$('ks1').textContent=`${p.tp} in outbreak weeks · ${p.fp} false alarms`;$('kv2').textContent=(cov/POP*100).toFixed(0)+'%';$('ks2').textContent=`${fmt(cov*1000)} of ${fmt(POP*1000)} people in ${m} Member States`;$('kv3').textContent=p.det+' of 6';$('kv4').textContent=p.delay==null?'n/a':p.delay+' days';
+const d=detect(0,k,8,c);line($('ch_ov1'),{n:52,xl:WEEKX,lines:[{d:d.map(x=>x.c),c:css('--brand'),dots:d.filter(x=>x.a).map(x=>x.w)},{d:d.map(x=>x.b),c:css('--muted'),dash:1},{d:d.map(x=>x.t),c:css('--bad'),w:1.5}],bands:OUTB.filter(o=>o[0]===0).map(o=>[o[1],o[1]+o[2]])});
+// tradeoff curve
+const ks=[];for(let x=1.5;x<=3.51;x+=0.1)ks.push(x);const pts=ks.map(x=>{const q=perf(x,8,c);return[q.fp,q.det]});const W=640,H=220,P={l:44,r:12,t:10,b:30};const mxf=Math.max(...pts.map(p=>p[0]),20);const X=v=>P.l+(W-P.l-P.r)*v/mxf,Y=v=>H-P.b-(H-P.t-P.b)*v/6;let s=`<svg viewBox="0 0 ${W} ${H}">`;for(let i=0;i<=6;i+=2)s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(i)}" y2="${Y(i)}" stroke="${css('--line')}"/><text x="${P.l-6}" y="${Y(i)+4}" text-anchor="end">${i}</text>`;s+=`<text x="${(W)/2}" y="${H-6}" text-anchor="middle">False alarms per year (all syndromes) →</text><text x="12" y="${H/2}" transform="rotate(-90 12 ${H/2})" text-anchor="middle">Outbreaks detected</text>`;s+=`<path d="${pts.map((p,i)=>(i?'L':'M')+X(p[0])+','+Y(p[1])).join('')}" fill="none" stroke="${css('--brand2')}" stroke-width="2"/>`;s+=`<circle cx="${X(p.fp)}" cy="${Y(p.det)}" r="7" fill="${css('--accent')}"/></svg>`;$('ch_ov2').innerHTML=s}
+const SYN=["Influenza-like illness","Acute gastroenteritis","Fever and rash","Severe acute respiratory infection"];
+function renderSig(){const syn=+$('syn').value,k=+$('k2').value,w=+$('w').value,c=+$('c').value;$('o_k2').textContent=k.toFixed(1);$('o_w').textContent=w;$('o_s').textContent='';const d=detect(syn,k,w,c);line($('ch_sig'),{n:52,xl:WEEKX,lines:[{d:d.map(x=>x.c),c:css('--brand'),dots:d.filter(x=>x.a).map(x=>x.w)},{d:d.map(x=>x.b),c:css('--muted'),dash:1},{d:d.map(x=>x.t),c:css('--bad'),w:1.5}],bands:OUTB.filter(o=>o[0]===syn).map(o=>[o[1],o[1]+o[2]])});
+const al=d.filter(x=>x.a);$('t_alerts').innerHTML='<tr><th>Week</th><th class="n">Reported</th><th class="n">Threshold</th><th>Type</th></tr>'+(al.length?al.map(x=>`<tr><td>Week ${x.w+1}</td><td class="n">${fmt(x.c)}</td><td class="n">${fmt(x.t)}</td><td>${x.ob?'<span class="pill p-bad">Outbreak</span>':'<span class="pill p-warn">False alarm</span>'}</td></tr>`).join(''):'<tr><td colspan="4">No alerts at this threshold.</td></tr>');
+const obw=d.filter(x=>x.ob).length,hit=d.filter(x=>x.ob&&x.a).length,fa=d.filter(x=>!x.ob&&x.a).length;$('t_perf').innerHTML=`<tr><td>Outbreak weeks (seeded)</td><td class="n">${obw}</td></tr><tr><td>Outbreak weeks alerted</td><td class="n">${hit}</td></tr><tr><td>Sensitivity</td><td class="n">${obw?Math.round(hit/obw*100):0}%</td></tr><tr><td>False alarms</td><td class="n">${fa}</td></tr><tr><td>Verification effort</td><td class="n">${(fa*0.5).toFixed(1)} days</td></tr>`}
+function renderRoll(){const r=+$('r').value,g=+$('g').value,t=+$('t').value;$('o_r').textContent=r;$('o_g').textContent='Month '+g;$('o_t').textContent=t;const live=[],pc=[];for(let mo=1;mo<=12;mo++){const n=mo<g?0:Math.min(26,(mo-g+1)*r);live.push(n);pc.push(covered(n)/POP*100)}const n12=live[11];$('rv1').textContent=n12;$('rv2').textContent=(covered(n12)/POP*100).toFixed(0)+'%';$('rs2').textContent=fmt(covered(n12)*1000)+' people';$('rv3').textContent=n12*t;$('rv4').textContent=n12*3;
+const W=640,H=240,P={l:44,r:44,t:10,b:26};const X=i=>P.l+(W-P.l-P.r)*i/11,Y=v=>H-P.b-(H-P.t-P.b)*v/26,Y2=v=>H-P.b-(H-P.t-P.b)*v/100;let s=`<svg viewBox="0 0 ${W} ${H}">`;for(let i=0;i<=4;i++){s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(26*i/4)}" y2="${Y(26*i/4)}" stroke="${css('--line')}"/><text x="${P.l-6}" y="${Y(26*i/4)+4}" text-anchor="end">${Math.round(26*i/4)}</text><text x="${W-P.r+6}" y="${Y2(25*i)+4}">${25*i}%</text>`}live.forEach((v,i)=>{s+=`<rect x="${X(i)-14}" y="${Y(v)}" width="28" height="${H-P.b-Y(v)}" fill="${css('--brand')}" rx="3"/><text x="${X(i)}" y="${H-8}" text-anchor="middle">M${i+1}</text>`});s+=`<path d="${pc.map((v,i)=>(i?'L':'M')+X(i)+','+Y2(v)).join('')}" fill="none" stroke="${css('--accent')}" stroke-width="2.5"/></svg>`;$('ch_roll').innerHTML=s;
+let rows='<tr><th>#</th><th>Member State</th><th class="n">Population</th><th>Readiness (est.)</th><th>Go-live</th></tr>';MS.forEach((m,i)=>{const mo=g+Math.floor(i/r);rows+=`<tr><td>${i+1}</td><td>${m[0]}</td><td class="n">${fmt(m[1]*1000)}</td><td>${m[2]>=0.8?'<span class="pill p-ok">High</span>':m[2]>=0.65?'<span class="pill p-warn">Medium</span>':'<span class="pill p-bad">Low</span>'}</td><td>${mo<=12?'Month '+mo:'<span class="pill p-bad">After month 12</span>'}</td></tr>`});$('t_roll').innerHTML=rows}
+function renderDq(){const ct=+$('ct').value,tt=+$('tt').value,im=+$('im').value,m=liveCount();$('o_ct').textContent=ct+'%';$('o_tt').textContent=tt+'%';$('o_im').textContent='+'+im+' pts';const r=rng(7);const pts=MS.map((x,i)=>{const comp=Math.min(100,40+x[2]*55+(r()-0.5)*14+im);const tim=Math.min(100,comp-5-r()*15+im*0.5);return{n:x[0],p:x[1],comp,tim,live:i<m}});const L=pts.filter(p=>p.live);const both=L.filter(p=>p.comp>=ct&&p.tim>=tt).length;const wp=L.reduce((a,b)=>a+b.p,0)||1;$('dv1').textContent=both+' / '+L.length;$('dv2').textContent=(L.reduce((a,b)=>a+b.comp*b.p,0)/wp).toFixed(0)+'%';$('dv3').textContent=(L.reduce((a,b)=>a+b.tim*b.p,0)/wp).toFixed(0)+'%';$('dv4').textContent=Math.min(95,35+im*2+Math.round(L.length/26*25))+'%';
+const W=640,H=300,P={l:44,r:12,t:10,b:32};const X=v=>P.l+(W-P.l-P.r)*(v-30)/70,Y=v=>H-P.b-(H-P.t-P.b)*(v-30)/70;let s=`<svg viewBox="0 0 ${W} ${H}"><rect x="${X(ct)}" y="${P.t}" width="${X(100)-X(ct)}" height="${Y(tt)-P.t}" fill="${css('--ok')}" opacity=".12"/>`;for(let v=30;v<=100;v+=10){s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="${css('--line')}"/><text x="${P.l-6}" y="${Y(v)+4}" text-anchor="end">${v}%</text><text x="${X(v)}" y="${H-16}" text-anchor="middle">${v}%</text>`}s+=`<text x="${W/2}" y="${H-2}" text-anchor="middle">Completeness →</text>`;pts.forEach(p=>{const ok=p.comp>=ct&&p.tim>=tt;s+=`<circle cx="${X(p.comp)}" cy="${Y(p.tim)}" r="${4+Math.sqrt(p.p)/12}" fill="${p.live?(ok?css('--ok'):css('--warn')):css('--muted')}" opacity="${p.live?.85:.35}"><title>${p.n}: completeness ${p.comp.toFixed(0)}%, timeliness ${p.tim.toFixed(0)}%${p.live?'':' (not yet live)'}</title></circle>`});s+='</svg>';$('ch_dq').innerHTML=s}
+const ROLES={"Regional epidemiologist (CARPHA)":["All Member States","Read","Read, annotate","Configure","—"],"National surveillance officer":["Own country","Read, write","Read, acknowledge","View","—"],"Data entry clerk":["Own facilities","Write own forms","—","—","—"],"Laboratory focal point":["Own country lab","Write lab results","Read lab alerts","—","—"],"System administrator":["All","Audit only","Configure","Configure","Full, logged"],"Read-only partner (PAHO/donor)":["Aggregated regional","Aggregate only","Read summary","—","—"]};
+function renderAcc(){const r=ROLES[$('role').value];const h=["Scope","Case and aggregate data","Alerts","Dashboards and predictors","Users and metadata"];$('t_role').innerHTML='<tr><th>Area</th><th>Access</th></tr>'+h.map((x,i)=>`<tr><td>${x}</td><td>${r[i]==='—'?'<span class="pill p-bad">No access</span>':r[i]}</td></tr>`).join('')}
+const PLAN=[["Inception and Technical Implementation Plan",1,"Review RIEWSS architecture, CMS instances, DHIS2 integration points, deployment environments and access controls; prioritised backlog"],["RIEWSS CMS Rollout and Post-Mission Support Reports",3,"After each country configuration mission: issues, decisions, user setup, data validation"],["Regional RIEWSS Upgrade / Development Release",4,"Front-end and back-end enhancements, bug fixes, release notes, version control updates"],["CMS Instance Development and Configuration Reports",6,"Programs, data sets, indicators, alert thresholds, dashboards and workflows per Member State"],["Data integration and interoperability",7,"API, ETL and HL7 FHIR feeds from labs and other systems; metadata mapping and validation"],["User access, roles and permissions",8,"RBAC, sharing settings, account lifecycle, audit and access reviews"],["System administration, security and documentation",10,"Monitoring, backups, upgrades, SOPs, handover documentation and knowledge transfer"],["Final technical report and handover",12,"Sustainability, maintenance plan and transfer to CARPHA IT"]];
+function renderPlan(){const W=640,H=PLAN.length*30+30,L=250;const X=m=>L+(W-L-10)*(m-0.5)/12;let s=`<svg viewBox="0 0 ${W} ${H}">`;for(let m=1;m<=12;m++)s+=`<text x="${X(m)}" y="${H-6}" text-anchor="middle">M${m}</text><line x1="${X(m)}" x2="${X(m)}" y1="0" y2="${H-20}" stroke="${css('--line')}"/>`;PLAN.forEach((p,i)=>{const y=i*30+8;s+=`<text x="4" y="${y+13}">${p[0].length>38?p[0].slice(0,37)+'…':p[0]}</text><rect x="${X(Math.max(1,p[1]-1))-8}" y="${y}" width="${X(p[1])-X(Math.max(1,p[1]-1))+16}" height="18" rx="4" fill="${css('--brand')}"/><circle cx="${X(p[1])}" cy="${y+9}" r="6" fill="${css('--accent')}"/>`});s+='</svg>';$('ch_plan').innerHTML=s;$('t_plan').innerHTML='<tr><th>Deliverable</th><th>Month</th><th>Content</th></tr>'+PLAN.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[2]}</td></tr>`).join('')}
+function all(){renderOv();renderSig();renderRoll();renderDq();renderAcc();renderPlan()}
+['k','c','m'].forEach(id=>$(id).addEventListener('input',()=>{$('k2').value=$('k').value;all()}));['k2','w','syn'].forEach(id=>$(id).addEventListener('input',renderSig));['r','g','t'].forEach(id=>$(id).addEventListener('input',renderRoll));['ct','tt','im'].forEach(id=>$(id).addEventListener('input',renderDq));$('role').addEventListener('change',renderAcc);
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.id===b.dataset.t));history.replaceState(null,'','#'+b.dataset.t)}));
+const h=location.hash.slice(1);if(h&&$(h)){document.querySelector(`nav button[data-t="${h}"]`)?.click()}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',all);all();
+</script>
+</body>
+</html>
