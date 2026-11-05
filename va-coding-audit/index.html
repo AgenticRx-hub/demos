@@ -87,6 +87,7 @@ header{position:relative}
 <button role="tab" data-t="queue" aria-selected="false">Auditor review <span class="ct" id="qct">0</span></button>
 <button role="tab" data-t="view" aria-selected="false">Document viewer</button>
 <button role="tab" data-t="ai" aria-selected="false">AI coding assistant</button>
+<button role="tab" data-t="sim" aria-selected="false">Impact simulator</button>
 </nav></div></header>
 <main>
 <div class="note">Illustrative sample data only. No real PHI. Veterans, clinicians, facilities, notes and dollar amounts are invented for demonstration. Dollar figures are illustrative charges, not VA reasonable charges or payer rates. Code edits shown are examples of rule types, not a complete or current edit table.</div>
@@ -152,6 +153,33 @@ header{position:relative}
 <li>Prompts and answers are logged with the rule and model version for audit.</li>
 <li>In this demo the assistant is rule-based and runs in your browser. No data leaves the page.</li></ul></section>
 </div></section>
+<section class="tab" id="t-sim">
+<section class="panel"><h2>Impact simulator</h2><p class="detail">How pre-bill coding audit changes VA revenue, compliance exposure and auditor workload across a year. Move any slider and every figure and chart updates. Inputs are illustrative; at pilot start they are replaced with the facility's own claims and audit data.</p>
+<div class="simctl">
+<label>Encounters audited per year <output id="so_vol"></output><input id="s_vol" type="range" min="50000" max="2000000" step="50000" value="400000"></label>
+<label>Baseline coding error rate <output id="so_err"></output><input id="s_err" type="range" min="4" max="30" step="1" value="14"></label>
+<label>Errors that are under-coding (revenue) <output id="so_under"></output><input id="s_under" type="range" min="20" max="80" step="5" value="55"></label>
+<label>AI flag recall (errors caught pre-bill) <output id="so_rec"></output><input id="s_rec" type="range" min="40" max="98" step="1" value="85"></label>
+<label>Auditor acceptance of AI flags <output id="so_prec"></output><input id="s_prec" type="range" min="50" max="98" step="1" value="88"></label>
+<label>Average billed charge per encounter <output id="so_chg"></output><input id="s_chg" type="range" min="150" max="1500" step="10" value="420"></label>
+<label>Third-party collection rate <output id="so_col"></output><input id="s_col" type="range" min="15" max="70" step="1" value="40"></label>
+<label>Auditor minutes per flag <output id="so_min"></output><input id="s_min" type="range" min="2" max="20" step="1" value="7"></label>
+</div></section>
+<div class="kpis" id="simk"></div>
+<div class="grid">
+<section class="panel"><h2>From errors to recovered revenue</h2><div id="simfun"></div><p class="detail">Coding errors in the year, those the AI flags before billing, those an auditor confirms, and the dollar effect.</p></section>
+<section class="panel"><h2>Monthly net recovery during rollout</h2><div id="simramp"></div><p class="detail">Assumes a 3-month pilot at one site, then phased rollout reaching full volume in month 6.</p></section>
+</div>
+<div class="grid" style="margin-top:14px">
+<section class="panel"><h2>Sensitivity: AI recall vs annual recovery</h2><div id="simsens"></div><p class="detail">The dot is the current setting. Recall is the share of real coding errors the model flags before the claim goes out.</p></section>
+<section class="panel"><h2>Data sources and assumptions</h2><ul class="simas">
+<li><b>From the RFI (36C10B27Q0073):</b> VA wants commercial software for healthcare data auditing and billing and coding optimisation.</li>
+<li><b>Real-world context:</b> VA bills third-party insurers for care that is not service-connected through its Medical Care Collections Fund, using reasonable charges; only part of what is billed is collected.</li>
+<li><b>Sample:</b> encounter volume, error rate, under-coding share, average charge and collection rate. To be replaced with facility data.</li>
+<li><b>Model:</b> recovered revenue = under-coding errors confirmed × charge × 25% average uplift × collection rate. Compliance exposure avoided = over-coding errors confirmed × charge. Auditor hours = flags reviewed × minutes per flag. False flags = flags × (1 − acceptance).</li>
+</ul></section>
+</div>
+</section>
 </main>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -371,5 +399,31 @@ function fromHash(){const h=new URLSearchParams(location.hash.slice(1));const t=
 window.addEventListener("hashchange",fromHash);
 function refresh(){dash();work();queue();renderDoc()}
 refresh();fromHash();
+</script>
+<style>.simctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:10px}.simctl label{font-size:13px;color:var(--muted);display:block}.simctl output{float:right;color:var(--fg);font-weight:600;font-family:var(--mono)}.simctl input{width:100%;accent-color:var(--navy);display:block;margin-top:4px}.simas{margin:0 0 0 18px;padding:0;font-size:13px;color:var(--muted)}.simas li{margin-bottom:5px}#t-sim svg{width:100%;height:auto;display:block}#t-sim svg text{fill:var(--muted);font-size:12px}</style>
+<script>
+(function(){
+const g=id=>document.getElementById(id);const ids=['vol','err','under','rec','prec','chg','col','min'];
+const fm=v=>'$'+(Math.abs(v)>=1e6?(v/1e6).toFixed(2)+'M':Math.round(v/1e3)+'k');
+const F={vol:v=>(+v).toLocaleString(),err:v=>v+'%',under:v=>v+'%',rec:v=>v+'%',prec:v=>v+'%',chg:v=>'$'+v,col:v=>v+'%',min:v=>v+' min'};
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function model(S,rec){rec=rec??S.rec;const errs=S.vol*S.err/100,caught=errs*rec/100,flags=caught/(S.prec/100),conf=caught;const under=conf*S.under/100,over=conf*(1-S.under/100);
+ const rev=under*S.chg*.25*S.col/100,comp=over*S.chg,hrs=flags*S.min/60,fte=hrs/1700,fp=flags-conf,acc0=100-S.err,acc1=100-S.err*(1-rec/100);return{errs,caught,flags,conf,under,over,rev,comp,hrs,fte,fp,acc0,acc1}}
+function draw(){const S={};ids.forEach(k=>{S[k]=+g('s_'+k).value;g('so_'+k).textContent=F[k](S[k])});const m=model(S);
+ g('simk').innerHTML=[['g',fm(m.rev),'Net revenue recovered per year'],['g',fm(m.comp),'Over-coding exposure avoided'],['',m.acc0.toFixed(1)+'% → '+m.acc1.toFixed(1)+'%','Coding accuracy before → after'],['w',Math.round(m.flags).toLocaleString(),'AI flags for auditor review'],['w',m.fte.toFixed(1)+' FTE','Auditor time ('+Math.round(m.hrs).toLocaleString()+' h)'],['r',Math.round(m.fp).toLocaleString(),'False flags rejected by auditors']].map(k=>`<div class="kpi ${k[0]}"><b>${k[1]}</b><span>${k[2]}</span></div>`).join('');
+ const rows=[['Coding errors in year',m.errs],['Flagged by AI pre-bill',m.caught],['Confirmed by auditor',m.conf],['Under-coding fixed (revenue)',m.under],['Over-coding fixed (compliance)',m.over]];
+ hbars(g('simfun'),rows.map(r=>[r[0],r[1],'',Math.round(r[1]).toLocaleString()]),m.errs);
+ const W=520,H=220,L=56,B=28,ramp=[.08,.12,.15,.35,.6,1,1,1,1,1,1,1],vals=ramp.map(r=>m.rev/12*r);const mx=Math.max(...vals)*1.15||1;const X=i=>L+(W-L-14)*(i+.5)/12,Y=v=>H-B-(H-B-10)*v/mx,bw=(W-L-14)/12*.7;
+ let s='';for(let k=0;k<=4;k++){const y=Y(mx*k/4);s+=`<line x1="${L}" x2="${W-8}" y1="${y}" y2="${y}" stroke="${cv('--line')}"/><text x="${L-6}" y="${y+4}" text-anchor="end">${fm(mx*k/4)}</text>`}
+ vals.forEach((v,i)=>{s+=`<rect x="${X(i)-bw/2}" y="${Y(v)}" width="${bw}" height="${H-B-Y(v)}" rx="2" fill="${i<3?cv('--gold'):cv('--navy')}"/><text x="${X(i)}" y="${H-8}" text-anchor="middle">M${i+1}</text>`});
+ g('simramp').innerHTML=`<svg viewBox="0 0 ${W} ${H}">${s}</svg>`;
+ const pts=[];for(let r=40;r<=98;r+=2)pts.push([r,model(S,r).rev]);const mx2=Math.max(...pts.map(p=>p[1]))*1.1||1;const X2=r=>L+(W-L-14)*(r-40)/58,Y2=v=>H-B-(H-B-10)*v/mx2;let t='';
+ for(let k=0;k<=4;k++){const y=Y2(mx2*k/4);t+=`<line x1="${L}" x2="${W-8}" y1="${y}" y2="${y}" stroke="${cv('--line')}"/><text x="${L-6}" y="${y+4}" text-anchor="end">${fm(mx2*k/4)}</text>`}
+ [40,55,70,85,98].forEach(r=>t+=`<text x="${X2(r)}" y="${H-8}" text-anchor="middle">${r}%</text>`);
+ t+=`<polyline points="${pts.map(p=>X2(p[0])+','+Y2(p[1])).join(' ')}" fill="none" stroke="${cv('--navy')}" stroke-width="2.5"/><circle cx="${X2(S.rec)}" cy="${Y2(m.rev)}" r="6" fill="${cv('--gold')}"/>`;
+ g('simsens').innerHTML=`<svg viewBox="0 0 ${W} ${H}">${t}</svg>`}
+ids.forEach(k=>g('s_'+k).addEventListener('input',draw));draw();
+document.querySelectorAll('nav button[data-t="sim"]').forEach(b=>b.addEventListener('click',draw));
+})();
 </script>
 </body></html>
