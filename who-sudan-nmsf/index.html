@@ -38,12 +38,14 @@ ul.as{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--muted)}ul.as li{m
 footer{max-width:1120px;margin:0 auto;padding:16px;color:var(--muted);font-size:12px}
 .tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
 .t-rfp{background:color-mix(in srgb,var(--brand) 18%,transparent);color:var(--brand)}.t-real{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.t-sample{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}.t-model{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent)}
+.links{margin-top:6px;font-size:13px;display:flex;gap:14px;flex-wrap:wrap}.links a{color:var(--brand);text-decoration:none}.links a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
 <header>
 <h1>NMSF Operational Capacity Assessment Tool</h1>
 <p>Demonstration for WHO Sudan, RFP WHO/SUD/PROC/2026/0071 (EM/ACO/SUD/P/0009715) · National Medical Supplies Fund under SHEIP · Agentic Rx Inc., Team Lead Dr. Maryam Karga-Hinds</p>
+<p class="links"><a href="../">← All Agentic Rx demonstrations</a><a href="https://www.ungm.org/Public/Notice/320813" target="_blank" rel="noopener">WHO RFP notice on UNGM</a><a href="#data">Data &amp; assumptions</a><a href="https://agentic-rx.com" target="_blank" rel="noopener">agentic-rx.com</a></p>
 </header>
 <nav id="nav">
 <button data-t="ov" class="on">Overview</button>
@@ -419,6 +421,7 @@ document.querySelectorAll('input[data-k]').forEach(el=>{el.value=S[el.dataset.k]
 const nav=$('nav');function show(t){nav.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('on',s.id==t))}
 nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;show(b.dataset.t);history.replaceState(null,'','#'+b.dataset.t)});
 if(location.hash&&$(location.hash.slice(1)))show(location.hash.slice(1));
+addEventListener('hashchange',()=>{const t=location.hash.slice(1);if($(t)&&$(t).classList.contains('tab')){show(t);scrollTo(0,0)}});
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',renderAll);
 renderAll();
 
