@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BLM SDS Management</title>
+<meta name="description" content="Agentic Rx demonstration for BLM RFQ 140LL027Q0013: online management software for chemical Safety Data Sheets.">
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#1d2733;--muted:#5d6b7a;--line:#dde3ea;--brand:#0f5c6e;--brand2:#1a8aa3;--accent:#c2843a;--bad:#b23b3b;--ok:#2f7d4f;--warn:#c98a12;--soft:#e8f2f4;--c4:#2f7d4f;--c3:#7aa84a;--c2:#d39a2a;--c1:#b23b3b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}}
+:root[data-theme="dark"]{--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line);padding:0 12px;position:sticky;top:0;z-index:5}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 10px;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+main{max-width:1120px;margin:0 auto;padding:16px}
+.banner{background:var(--soft);border-left:4px solid var(--brand);padding:10px 12px;border-radius:6px;font-size:13px;margin-bottom:14px}
+.banner b{color:var(--brand)}
+.grid{display:grid;gap:12px}.k4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.k2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.kpi .v{font-size:28px;font-family:Georgia,serif;margin:4px 0}.kpi .s{font-size:12px;color:var(--muted)}
+h2{font-size:17px;margin:20px 0 6px}h3{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.ctl{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:12px}
+.ctl label{font-size:13px;color:var(--muted);display:block}.ctl output{float:right;color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{text-align:right}.tw{overflow-x:auto}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+.p-ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.p-warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}.p-bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.r{display:inline-block;width:24px;text-align:center;border-radius:4px;color:#fff;font-weight:700}
+svg{width:100%;height:auto;display:block}svg text{fill:var(--muted);font-size:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tab{display:none}.tab.on{display:block}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+ul.as{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--muted)}ul.as li{margin-bottom:3px}
+footer{max-width:1120px;margin:0 auto;padding:16px;color:var(--muted);font-size:12px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.t-rfp{background:color-mix(in srgb,var(--brand) 18%,transparent);color:var(--brand)}.t-real{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.t-sample{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}.t-model{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent)}
+.links{margin-top:6px;font-size:13px;display:flex;gap:14px;flex-wrap:wrap}.links a{color:var(--brand);text-decoration:none}.links a:hover{text-decoration:underline}
+</style>
+<style>
+.srch{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+select,.inp{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer}.btn.s{background:var(--card);color:var(--brand);border:1px solid var(--brand)}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--soft)}
+.ghs{display:inline-block;border:2px solid var(--bad);transform:rotate(45deg);width:34px;height:34px;margin:8px 10px;position:relative;background:#fff}
+.ghs span{position:absolute;inset:0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#111;text-align:center;line-height:1}
+.sw{font-weight:800;font-size:18px}.sw.D{color:var(--bad)}.sw.W{color:var(--warn)}
+.label{border:3px solid #111;border-radius:6px;padding:14px;background:#fff;color:#111;max-width:520px}
+.label h3{font-size:20px;margin:0 0 6px}.label .sw{color:#111}
+#qr img,#qr canvas{margin-top:6px}
+@media print{header,nav,.banner,.ctl,.row,.noprint,footer{display:none!important}.tab{display:none!important}.tab.print{display:block!important}}
+</style>
+</head>
+<body>
+<header>
+<h1>SDS Online Management: BLM Oregon/Washington</h1>
+<p>Demonstration for RFQ 140LL027Q0013, online management support software for chemical Safety Data Sheets (29 CFR 1910.1200) · Agentic Rx LLC</p>
+<p class="links"><a href="../">← All Agentic Rx demonstrations</a><a href="#sow">SOW compliance</a><a href="https://agentic-rx.com" target="_blank" rel="noopener">agentic-rx.com</a></p>
+</header>
+<nav id="nav">
+<button data-t="lib" class="on">SDS library</button>
+<button data-t="bind">Facility binders</button>
+<button data-t="inv">Inventory &amp; reports</button>
+<button data-t="upd">Updates &amp; archive</button>
+<button data-t="lab">GHS labels</button>
+<button data-t="scan">Scan &amp; upload</button>
+<button data-t="adm">Administrators</button>
+<button data-t="sow">SOW compliance</button>
+</nav>
+<main>
+<div class="banner"><b>Sample data.</b> District names, facility counts (10 districts, 74 facilities), the 4,500-SDS inventory and 6,500 ceiling come from the RFQ. Products, manufacturers and revision dates here are illustrative; at start-up they are replaced by BLM's own inventory, imported from the SQLite3 file BLM provides (SOW 4.1).</div>
+
+<section class="tab on" id="lib">
+<h2>Search the SDS library</h2>
+<p class="sub">Search by product, manufacturer, CAS number or hazard; filter by district and facility (SOW 3.1.3, 3.1.17). Select a row to view, print or add the SDS to a facility binder.</p>
+<div class="row"><input id="q" class="srch" style="flex:1 1 300px" placeholder="Search product, manufacturer, CAS number (try: diesel, 7681-52-9, herbicide)"><select id="fd"></select><select id="ff"></select><select id="fh"><option value="">All hazards</option></select></div>
+<div class="grid k2">
+<div class="card"><div class="tw" style="max-height:560px;overflow-y:auto"><table id="t_lib"></table></div><p class="note" id="libn"></p></div>
+<div class="card" id="sdsv"></div>
+</div>
+</section>
+
+<section class="tab" id="bind">
+<h2>Facility electronic binders and workbooks</h2>
+<p class="sub">Each of the 74 facilities has its own binder (SOW 3.1.5, 3.1.6). Download or print the workbook, or post the facility QR code so staff on site can open the binder from a phone (3.1.7, 3.1.8, 3.1.9, 3.1.23).</p>
+<div class="row"><select id="bd"></select><select id="bf"></select><button class="btn" id="bcsv">Download workbook (Excel/CSV)</button><button class="btn s" id="bprint">Print workbook</button></div>
+<div class="grid k2"><div class="card"><h3 id="bt"></h3><div class="tw"><table id="t_bind"></table></div></div>
+<div class="card"><h3>Facility QR code</h3><p class="sub">Scanning opens this facility's binder on any phone or tablet. The binder is also cached for offline use in the field.</p><div id="qr"></div><p class="note" id="qrurl"></p></div></div>
+</section>
+
+<section class="tab" id="inv">
+<h2>Inventory across Oregon and Washington</h2>
+<div class="grid k4">
+<div class="card kpi"><div class="l">SDS in inventory</div><div class="v" id="k1"></div><div class="s" id="k1s"></div></div>
+<div class="card kpi"><div class="l">Districts / facilities</div><div class="v">10 / 74</div><div class="s">Catalogued individually or in groups (3.1.12)</div></div>
+<div class="card kpi"><div class="l">SDS older than 5 years</div><div class="v" id="k3"></div><div class="s">Checked against manufacturer revisions</div></div>
+<div class="card kpi"><div class="l">Archived (retained for compliance)</div><div class="v" id="k4"></div><div class="s">3.1.16, 3.1.21</div></div>
+</div>
+<div class="grid k2" style="margin-top:12px">
+<div class="card"><h3>SDS by district</h3><div id="c_dist"></div></div>
+<div class="card"><h3>Export reports (SOW 3.1.18, 3.1.19)</h3><p class="sub">Choose fields and format. Exports include product name, manufacturer, CAS number and revision date.</p>
+<div class="row"><select id="xscope"></select><select id="xfmt"><option>Excel (.csv)</option><option>Word / PDF (print view)</option></select><button class="btn" id="xgo">Export</button></div>
+<div class="tw"><table id="t_x"></table></div></div>
+</div>
+</section>
+
+<section class="tab" id="upd">
+<h2>Manufacturer updates, alerts and archive</h2>
+<p class="sub">The service checks every SDS against manufacturer revisions and GHS changes, alerts administrators, and keeps superseded versions in an archive for the retention period (SOW 3.1.10, 3.1.11, 3.1.16, 3.1.21).</p>
+<div class="grid k2"><div class="card"><h3>New revisions waiting for review</h3><div class="tw"><table id="t_upd"></table></div></div>
+<div class="card"><h3>Archive</h3><div class="tw"><table id="t_arc"></table></div><p class="note">Archived SDS stay searchable by administrators and can be exported for audits.</p></div></div>
+</section>
+
+<section class="tab" id="lab">
+<h2>GHS secondary container labels</h2>
+<p class="sub">Print a GHS-compliant label for spray bottles, fuel cans and other secondary containers (SOW 3.1.26).</p>
+<div class="row"><select id="lsel"></select><select id="lsz"><option>4 x 3 in</option><option>2 x 4 in</option><option>Letter sheet (6 per page)</option></select><button class="btn" id="lprint">Print label</button></div>
+<div id="lout"></div>
+</section>
+
+<section class="tab" id="scan">
+<h2>Scan a container or add a missing SDS</h2>
+<div class="grid k2">
+<div class="card"><h3>Scan barcode or QR code (3.1.22)</h3><p class="sub">On a phone the camera reads the code. Here, type or pick a product code.</p><div class="row"><input id="bc" class="inp" placeholder="UPC, e.g. 0074500100042"><button class="btn" id="bcgo">Look up</button></div><div id="bcout" class="note"></div></div>
+<div class="card"><h3>Upload an SDS not found in the database (3.1.24, 3.1.25)</h3>
+<div class="row"><input class="inp" id="up1" placeholder="Product name"><input class="inp" id="up2" placeholder="Manufacturer"></div>
+<div class="row"><label class="note">SDS PDF <input type="file" accept=".pdf"></label><label class="note">Product photo <input type="file" accept="image/*"></label></div>
+<button class="btn" id="upgo">Submit for review</button><p class="note" id="upout"></p></div>
+</div>
+</section>
+
+<section class="tab" id="adm">
+<h2>Administrators and users</h2>
+<p class="sub">BLM manages its own users without asking the vendor (3.1.13): one State-level Primary Account Administrator and at least twelve support administrators who can be rotated, all with edit access to every facility (3.1.14, 3.1.15).</p>
+<div class="row"><input class="inp" id="an" placeholder="Name"><select id="ar"><option>Support administrator</option><option>Facility user (read and print)</option></select><button class="btn" id="aadd">Add</button></div>
+<div class="card"><div class="tw"><table id="t_adm"></table></div></div>
+</section>
+
+<section class="tab" id="sow">
+<h2>Statement of Work compliance</h2>
+<p class="sub">Every SOW requirement and where it is met.</p>
+<div class="card"><div class="tw"><table id="t_sow"></table></div></div>
+</section>
+</main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · UEI C8MAWGE5LU65 · CAGE 20S95 · Demonstration with sample data for RFQ 140LL027Q0013. Not BLM data.</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const DIST=['Burns','Coos Bay','Lakeview','Medford','Northwest Oregon','Prineville','Roseburg','Spokane','Vale','OR/WA State Office'];
+const FT=['District Office','Fire Cache','Engine Station','Work Center','Field Station','Warehouse','Guard Station','Recreation Site'];
+const NF=[8,7,7,8,9,8,7,8,7,5];/* 74 */
+const FAC=[];DIST.forEach((d,i)=>{for(let j=0;j<NF[i];j++)FAC.push({d,n:d+' '+FT[j%FT.length]+(j>=FT.length?' 2':'')})});
+const SDSN=[520,430,410,560,610,480,450,420,380,220];/* 4,500 */
+const H={F:'Flammable',T:'Acute toxicity',C:'Corrosive',X:'Health hazard',E:'Irritant',N:'Environment',G:'Gas under pressure',O:'Oxidizer'};const HS={F:'Flame',T:'Skull',C:'Corr.',X:'Health',E:'(!)',N:'Env.',G:'Gas',O:'Oxid.'};
+/* name, manufacturer (sample), CAS, hazards, signal, H-statements, revision yyyy-mm, UPC */
+const P=[
+['Unleaded gasoline','Cascade Petroleum Co.','86290-81-5','FXE','D','Extremely flammable liquid and vapour. May cause cancer. Harmful if swallowed and enters airways.','2024-03','0074500100042'],
+['Diesel fuel No. 2','Cascade Petroleum Co.','68476-34-6','FXEN','D','Flammable liquid and vapour. Suspected of causing cancer. Toxic to aquatic life.','2023-07','0074500100059'],
+['Propane','Pacific Gas Supply','74-98-6','FG','D','Extremely flammable gas. Contains gas under pressure; may explode if heated.','2022-11','0074500100066'],
+['Drip torch fuel mix (diesel/gasoline)','Cascade Petroleum Co.','68476-34-6','FXEN','D','Highly flammable liquid and vapour. May cause cancer.','2021-05','0074500100073'],
+['Bar and chain oil','Timberline Lubricants','64742-65-0','','','Not classified as hazardous under GHS.','2023-02','0074500100080'],
+['Two-stroke engine oil','Timberline Lubricants','64742-54-7','E','W','May cause skin irritation.','2020-09','0074500100097'],
+['Hydraulic fluid AW-46','Timberline Lubricants','64742-54-7','','','Not classified as hazardous under GHS.','2024-06','0074500100103'],
+['Glyphosate herbicide (isopropylamine salt)','Range Vegetation Products','38641-94-0','EN','W','Causes serious eye irritation. Toxic to aquatic life with long lasting effects.','2023-10','0074500100110'],
+['2,4-D amine herbicide','Range Vegetation Products','94-75-7','TCN','D','Harmful if swallowed. Causes serious eye damage.','2022-04','0074500100127'],
+['Triclopyr herbicide','Range Vegetation Products','55335-06-3','EN','W','May cause an allergic skin reaction. Very toxic to aquatic life.','2021-12','0074500100134'],
+['Imazapyr herbicide','Range Vegetation Products','81334-34-1','E','W','Causes eye irritation.','2024-01','0074500100141'],
+['Aminopyralid herbicide','Range Vegetation Products','150114-71-9','','','Not classified as hazardous under GHS.','2023-05','0074500100158'],
+['Sodium hypochlorite 6% (bleach)','Clearwater Chemical','7681-52-9','CN','D','Causes severe skin burns and eye damage. Very toxic to aquatic life.','2024-08','0074500100165'],
+['Isopropyl alcohol 70%','Clearwater Chemical','67-63-0','FE','D','Highly flammable liquid and vapour. Causes serious eye irritation. May cause drowsiness.','2023-09','0074500100172'],
+['Acetone','Clearwater Chemical','67-64-1','FE','D','Highly flammable liquid and vapour. Causes serious eye irritation.','2022-06','0074500100189'],
+['Ethylene glycol antifreeze','Highway Auto Fluids','107-21-1','TX','W','Harmful if swallowed. May cause damage to kidneys through prolonged exposure.','2021-03','0074500100196'],
+['Mineral spirits','Summit Coatings','64742-88-7','FXE','D','Flammable liquid. May be fatal if swallowed and enters airways.','2020-11','0074500100202'],
+['Methanol (fuel line antifreeze)','Highway Auto Fluids','67-56-1','FTX','D','Highly flammable. Toxic if swallowed, in contact with skin or if inhaled. Causes damage to organs.','2023-12','0074500100219'],
+['Battery acid (sulfuric acid 35%)','Highway Auto Fluids','7664-93-9','C','D','Causes severe skin burns and eye damage.','2022-02','0074500100226'],
+['Penetrating lubricant aerosol','Timberline Lubricants','64742-47-8','FGX','D','Extremely flammable aerosol. May be fatal if swallowed and enters airways.','2024-04','0074500100233'],
+['Fire retardant concentrate (ammonium phosphate)','Wildland Fire Supply','7783-28-0','E','W','May cause eye irritation.','2023-03','0074500100240'],
+['Class A foam concentrate','Wildland Fire Supply','151-21-3','CE','D','Causes serious eye damage. Causes skin irritation.','2021-08','0074500100257'],
+['Calcium hypochlorite tablets','Clearwater Chemical','7778-54-3','OCTN','D','May intensify fire; oxidizer. Harmful if swallowed. Causes severe skin burns.','2022-09','0074500100264'],
+['Hydrogen peroxide 3%','Clearwater Chemical','7722-84-1','E','W','Causes serious eye irritation.','2024-02','0074500100271'],
+['Toluene','Summit Coatings','108-88-3','FXE','D','Highly flammable. May damage the unborn child. May cause damage to organs.','2020-05','0074500100288'],
+['Xylene','Summit Coatings','1330-20-7','FXE','D','Flammable. Harmful in contact with skin or if inhaled.','2021-10','0074500100295'],
+['Latex paint, exterior','Summit Coatings','13463-67-7','','','Not classified as hazardous under GHS.','2024-05','0074500100301'],
+['Spray paint aerosol, marking orange','Summit Coatings','67-64-1','FGE','D','Extremely flammable aerosol. Causes serious eye irritation.','2023-06','0074500100318'],
+['DEET insect repellent 30%','Field Safety Products','134-62-3','E','W','Causes serious eye irritation.','2022-07','0074500100325'],
+['Sodium hydroxide drain cleaner','Clearwater Chemical','1310-73-2','C','D','Causes severe skin burns and eye damage.','2021-01','0074500100332'],
+['Ammonium hydroxide cleaner','Clearwater Chemical','1336-21-6','CN','D','Causes severe skin burns. Very toxic to aquatic life.','2023-04','0074500100349'],
+['PVC cement (tetrahydrofuran)','Summit Coatings','109-99-9','FXE','D','Highly flammable. Suspected of causing cancer. May cause respiratory irritation.','2022-12','0074500100356'],
+['Epoxy resin, part A','Summit Coatings','25068-38-6','EN','W','Causes skin irritation. May cause an allergic skin reaction.','2024-07','0074500100363'],
+['Carburetor cleaner aerosol','Highway Auto Fluids','108-88-3','FGX','D','Extremely flammable aerosol. May cause damage to organs.','2020-08','0074500100370'],
+['Picloram herbicide','Range Vegetation Products','1918-02-1','EN','W','Causes eye irritation. Harmful to aquatic life.','2022-10','0074500100387'],
+['Kerosene (lantern fuel)','Cascade Petroleum Co.','8008-20-6','FXE','W','Flammable liquid. May be fatal if swallowed and enters airways.','2021-06','0074500100394']];
+const SDS=P.map((p,i)=>({id:i,n:p[0],m:p[1],cas:p[2],hz:p[3].split('').filter(Boolean),sw:p[4],hs:p[5],rev:p[6],upc:p[7],fac:FAC.filter((f,j)=>(j*7+i*3)%5<2).map(f=>f.n)}));
+let ARC=[{n:'Diesel fuel No. 2',v:'2019-04',why:'Superseded by 2023-07 revision',d:'2023-08-02'},{n:'Ant and roach spray',v:'2018-02',why:'Product no longer in use',d:'2025-05-14'},{n:'Two-stroke engine oil',v:'2016-09',why:'Superseded by 2020-09 revision',d:'2020-10-01'}];
+let UPD=[{i:16,nv:'2026-09',ch:'Section 2 hazard statements updated (GHS Rev. 10)'},{i:24,nv:'2026-08',ch:'New exposure limits in Section 8'},{i:5,nv:'2026-10',ch:'Manufacturer address and emergency number'},{i:33,nv:'2026-07',ch:'Reformulated; propellant changed'}];
+let ADM=[['Primary Account Administrator (PAA)','State Safety Manager, OR/WA State Office','Primary']].concat(DIST.slice(0,10).map(d=>['Support administrator',d+' District safety officer','Support'])).concat([['Support administrator','State Fire Program safety lead','Support'],['Support administrator','State Facilities engineer','Support']]);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const opt=(a,all)=>(all?`<option value="">${all}</option>`:'')+a.map(x=>`<option>${x}</option>`).join('');
+const ghs=h=>h.map(k=>`<span class="ghs" title="${H[k]}"><span>${HS[k]}</span></span>`).join('')||'<span class="note">No GHS pictogram</span>';
+const SW={D:'DANGER',W:'WARNING','':''};
+function age(r){const [y,m]=r.split('-').map(Number);return (2026+10/12)-(y+m/12)}
+function csv(rows,name){const s=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'text/csv'}));a.download=name;a.click()}
+
+/* library */
+$('fd').innerHTML=opt(DIST,'All districts');$('fh').innerHTML+=Object.values(H).map(v=>`<option>${v}</option>`).join('');
+function facOpts(sel,d,all){sel.innerHTML=opt(FAC.filter(f=>!d||f.d==d).map(f=>f.n),all)}
+facOpts($('ff'),'','All facilities');let cur=0;
+function rLib(){const q=$('q').value.toLowerCase().trim(),d=$('fd').value,f=$('ff').value,h=$('fh').value;const L=SDS.filter(s=>(!q||(s.n+' '+s.m+' '+s.cas+' '+s.hz.map(k=>H[k]).join(' ')+' '+(/herbicide/.test(s.n)?'herbicide pesticide':'')).toLowerCase().includes(q))&&(!d||s.fac.some(x=>x.startsWith(d)))&&(!f||s.fac.includes(f))&&(!h||s.hz.some(k=>H[k]==h)));
+ $('t_lib').innerHTML='<tr><th>Product</th><th>Manufacturer</th><th>CAS</th><th>Revised</th><th class="n">Sites</th></tr>'+L.map(s=>`<tr class="click" data-i="${s.id}"><td>${s.n}</td><td>${s.m}</td><td>${s.cas}</td><td>${s.rev}${age(s.rev)>5?' <span class="pill p-warn">check</span>':''}</td><td class="n">${s.fac.length}</td></tr>`).join('');
+ $('libn').textContent=L.length+' of '+SDS.length+' sample products shown. The live library searches all BLM SDS plus the vendor database of manufacturer SDS.';
+ $('t_lib').querySelectorAll('tr.click').forEach(r=>r.onclick=()=>{cur=+r.dataset.i;rView()});if(L.length&&!L.find(s=>s.id==cur)){cur=L[0].id}rView()}
+function rView(){const s=SDS[cur];$('sdsv').innerHTML=`<h3>${s.n}</h3><p class="sub">${s.m} · CAS ${s.cas} · Revision ${s.rev}</p><div>${ghs(s.hz)}</div><p class="sw ${s.sw}">${SW[s.sw]}</p><p>${s.hs}</p><p class="note">Used at ${s.fac.length} facilities: ${s.fac.slice(0,4).join('; ')}${s.fac.length>4?' and more':''}.</p><div class="row noprint"><button class="btn" onclick="window.print()">Print SDS</button><button class="btn s" onclick="this.textContent='Added to binder ✓'">Add to a facility binder</button><button class="btn s" onclick="show('lab');$('lsel').value='${s.id}';rLab()">Make GHS label</button></div>`}
+['q','fd','ff','fh'].forEach(id=>$(id).addEventListener('input',()=>{if(id=='fd')facOpts($('ff'),$('fd').value,'All facilities');rLib()}));
+
+/* binders */
+$('bd').innerHTML=opt(DIST);function rBind(){const f=$('bf').value;const L=SDS.filter(s=>s.fac.includes(f));$('bt').textContent=f+' · '+L.length+' SDS';
+ $('t_bind').innerHTML='<tr><th>Product</th><th>Hazard</th><th>Revised</th></tr>'+L.map(s=>`<tr><td>${s.n}</td><td>${SW[s.sw]||'—'}</td><td>${s.rev}</td></tr>`).join('');
+ const url=location.href.split('#')[0]+'#bind/'+encodeURIComponent(f);$('qrurl').textContent=url;$('qr').innerHTML='';if(window.QRCode)new QRCode($('qr'),{text:url,width:150,height:150});else $('qr').innerHTML='<p class="note">QR code appears here.</p>'}
+$('bd').oninput=()=>{facOpts($('bf'),$('bd').value);rBind()};$('bf').oninput=rBind;facOpts($('bf'),DIST[0]);
+$('bcsv').onclick=()=>{const f=$('bf').value;csv([['Facility','Product','Manufacturer','CAS','Signal word','Revision']].concat(SDS.filter(s=>s.fac.includes(f)).map(s=>[f,s.n,s.m,s.cas,SW[s.sw],s.rev])),'workbook.csv')};
+$('bprint').onclick=()=>window.print();
+
+/* inventory */
+function rInv(){const tot=SDSN.reduce((a,b)=>a+b,0);$('k1').textContent=tot.toLocaleString();$('k1s').textContent='Ceiling 6,500 over five years ('+Math.round(100*tot/6500)+'% used)';
+ const old=SDS.filter(s=>age(s.rev)>5).length/SDS.length;$('k3').textContent=Math.round(old*tot).toLocaleString();$('k4').textContent=(312+ARC.length).toLocaleString();
+ const W=520,L=130,lh=26,mx=Math.max(...SDSN);let g='';DIST.forEach((d,i)=>{const y=i*lh+4,w=(W-L-50)*SDSN[i]/mx;g+=`<text x="${L-6}" y="${y+17}" text-anchor="end">${d}</text><rect x="${L}" y="${y+4}" width="${w}" height="${lh-8}" rx="3" fill="${css('--brand')}"/><text x="${L+w+5}" y="${y+17}">${SDSN[i]}</text>`});
+ $('c_dist').innerHTML=`<svg viewBox="0 0 ${W} ${DIST.length*lh+8}">${g}</svg>`;
+ $('xscope').innerHTML=opt(['All districts'].concat(DIST));rX()}
+function xRows(){const d=$('xscope').value;return SDS.filter(s=>d=='All districts'||s.fac.some(f=>f.startsWith(d)))}
+function rX(){$('t_x').innerHTML='<tr><th>Product</th><th>Manufacturer</th><th>CAS</th><th>Revision</th></tr>'+xRows().slice(0,8).map(s=>`<tr><td>${s.n}</td><td>${s.m}</td><td>${s.cas}</td><td>${s.rev}</td></tr>`).join('')+'<tr><td colspan="4" class="note">Preview of first 8 rows</td></tr>'}
+$('xscope').oninput=rX;$('xgo').onclick=()=>{if($('xfmt').value.startsWith('Excel'))csv([['Product','Manufacturer','CAS','Revision date','Signal word']].concat(xRows().map(s=>[s.n,s.m,s.cas,s.rev,SW[s.sw]])),'sds_report.csv');else window.print()};
+
+/* updates */
+function rUpd(){$('t_upd').innerHTML='<tr><th>Product</th><th>On file</th><th>New</th><th>Change</th><th></th></tr>'+UPD.map((u,k)=>`<tr><td>${SDS[u.i].n}</td><td>${SDS[u.i].rev}</td><td>${u.nv}</td><td>${u.ch}</td><td><button class="btn" data-k="${k}">Accept</button></td></tr>`).join('')||'<tr><td>No pending revisions</td></tr>';
+ $('t_upd').querySelectorAll('button').forEach(b=>b.onclick=()=>{const u=UPD[+b.dataset.k];const s=SDS[u.i];ARC.unshift({n:s.n,v:s.rev,why:'Superseded by '+u.nv+' revision',d:'2026-11-06'});s.rev=u.nv;UPD.splice(+b.dataset.k,1);rUpd();rLib();rInv()});
+ $('t_arc').innerHTML='<tr><th>Product</th><th>Version</th><th>Reason</th><th>Archived</th></tr>'+ARC.map(a=>`<tr><td>${a.n}</td><td>${a.v}</td><td>${a.why}</td><td>${a.d}</td></tr>`).join('')}
+
+/* labels */
+$('lsel').innerHTML=SDS.map(s=>`<option value="${s.id}">${s.n}</option>`).join('');
+function rLab(){const s=SDS[+$('lsel').value];$('lout').innerHTML=`<div class="label"><h3>${s.n}</h3><div>${ghs(s.hz)}</div><p class="sw">${SW[s.sw]||'No signal word'}</p><p style="margin:4px 0"><b>Hazards:</b> ${s.hs}</p><p style="margin:4px 0"><b>Precautions:</b> Read the SDS before use. Keep container closed. Wear the PPE listed in SDS Section 8.</p><p style="margin:4px 0;font-size:12px">${s.m} · CAS ${s.cas} · SDS rev. ${s.rev} · Scan the facility QR code for the full SDS.</p></div>`}
+$('lsel').oninput=rLab;$('lprint').onclick=()=>{document.getElementById('lab').classList.add('print');window.print();document.getElementById('lab').classList.remove('print')};
+
+/* scan & upload */
+$('bcgo').onclick=()=>{const v=$('bc').value.trim();const s=SDS.find(x=>x.upc==v||x.n.toLowerCase().includes(v.toLowerCase())&&v);$('bcout').innerHTML=s?`Found: <b>${s.n}</b> (${s.m}), revision ${s.rev}. <a href="#lib" onclick="cur=${s.id};show('lib');rView()">Open SDS</a>`:'Not in the database. Use the upload form to add it; our team sources the manufacturer SDS within one business day.'};
+$('upgo').onclick=()=>{$('upout').textContent=($('up1').value||'Product')+' submitted. It appears in the library as "pending review" and the PAA is notified.'};
+
+/* admins */
+function rAdm(){$('t_adm').innerHTML='<tr><th>Role</th><th>Holder (sample)</th><th>Access</th><th></th></tr>'+ADM.map((a,k)=>`<tr><td>${a[0]}</td><td>${a[1]}</td><td>${a[2]=='User'?'Read and print':'Edit, all 74 facilities'}</td><td>${k?`<button class="btn s" data-k="${k}">Remove</button>`:''}</td></tr>`).join('')+`<tr><td colspan="4" class="note">${ADM.filter(a=>a[2]=='Support').length} support administrators (minimum 12 required). No limit on users.</td></tr>`;
+ $('t_adm').querySelectorAll('button').forEach(b=>b.onclick=()=>{ADM.splice(+b.dataset.k,1);rAdm()})}
+$('aadd').onclick=()=>{const n=$('an').value.trim();if(!n)return;const sup=$('ar').value.startsWith('Support');ADM.push([$('ar').value,n,sup?'Support':'User']);$('an').value='';rAdm()};
+
+/* SOW */
+const SOWR=[['3.1.1','Comply with applicable 29 CFR standards','Service built around 29 CFR 1910.1200 (HazCom); SDS kept current and accessible'],['3.1.2','OSHA Hazard Communication Standard','GHS sections, pictograms, signal words; employee access at every site'],['3.1.3','SDS online database with large search engine','SDS library tab; vendor database of manufacturer SDS'],['3.1.4','Verify current OR/WA SDS inventory','Import of BLM SQLite3 file; inventory check against manufacturer revisions'],['3.1.5','Import or queue SDS to a facility (electronic binder)','Facility binders tab; "Add to a facility binder"'],['3.1.6','Create site-specific workbooks','Facility binders: workbook per facility'],['3.1.7','Offline and offsite access; print','Binders cached for offline use; print from any device'],['3.1.8','Download and print workbooks or single SDS','Workbook download and print; Print SDS'],['3.1.9','Access by phone, tablet or computer','Responsive web app; QR access on site'],['3.1.10','Auto-update / alert on GHS changes','Updates & archive tab'],['3.1.11','Notification when updated SDS available','Email and in-app alerts to administrators'],['3.1.12','Catalogue chemicals for 10 districts, 74 facilities; 4,500 to 6,500 SDS','Inventory tab; capacity not limited at 6,500'],['3.1.13','Modify end users without vendor permission','Administrators tab'],['3.1.14','1 PAA plus at least 12 rotating support admins','Administrators tab; unlimited admins'],['3.1.15','Admins edit all facilities','All administrators have edit access to every facility'],['3.1.16','Archive SDS no longer in use','Updates & archive tab'],['3.1.17','Sort, search, summarise by district, facility or chemical','Library filters; inventory by district'],['3.1.18','Export reports by product, manufacturer, CAS, revision date','Inventory: export reports'],['3.1.19','Export lists in PDF, Word, Excel, Adobe','CSV/Excel export; Word and PDF via print view; native .xlsx/.docx/.pdf in production'],['3.1.20','Routine data backup','Daily encrypted backups, 35-day retention, quarterly export to BLM'],['3.1.21','Archive out-of-date or removed SDS for compliance','Archive keeps superseded versions for the retention period (30 years where 1910.1020 applies)'],['3.1.22','Scan barcode/QR of a chemical','Scan & upload tab; phone camera'],['3.1.23','QR code for identification and site access','Facility QR codes'],['3.1.24','Upload product photo','Scan & upload tab'],['3.1.25','Users upload SDS not found','Upload form; reviewed and added to library'],['3.1.26','Print GHS secondary container labels','GHS labels tab']];
+$('t_sow').innerHTML='<tr><th>SOW</th><th>Requirement</th><th>How it is met</th><th>Status</th></tr>'+SOWR.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="pill p-ok">Met</span></td></tr>`).join('');
+
+/* nav */
+const nav=$('nav');function show(t){nav.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('on',s.id==t))}
+nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;show(b.dataset.t);history.replaceState(null,'','#'+b.dataset.t)});
+function fromHash(){const h=decodeURIComponent(location.hash.slice(1));if(h.startsWith('bind/')){const f=h.slice(5);const F=FAC.find(x=>x.n==f);if(F){show('bind');$('bd').value=F.d;facOpts($('bf'),F.d);$('bf').value=f;rBind()}}else if($(h)&&$(h).classList.contains('tab'))show(h)}
+addEventListener('hashchange',fromHash);
+rLib();rBind();rInv();rUpd();rLab();rAdm();fromHash();
+</script>
+</body>
+</html>
