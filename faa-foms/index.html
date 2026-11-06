@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAA FOMS Modernization</title>
+<meta name="description" content="Agentic Rx demonstration for FAA market survey 6973GH-27-R-FOMS: FOMS Mobile iPad app and web suite.">
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#1d2733;--muted:#5d6b7a;--line:#dde3ea;--brand:#0f5c6e;--brand2:#1a8aa3;--accent:#c2843a;--bad:#b23b3b;--ok:#2f7d4f;--warn:#c98a12;--soft:#e8f2f4;--c4:#2f7d4f;--c3:#7aa84a;--c2:#d39a2a;--c1:#b23b3b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}}
+:root[data-theme="dark"]{--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line);padding:0 12px;position:sticky;top:0;z-index:5}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 10px;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+main{max-width:1120px;margin:0 auto;padding:16px}
+.banner{background:var(--soft);border-left:4px solid var(--brand);padding:10px 12px;border-radius:6px;font-size:13px;margin-bottom:14px}
+.banner b{color:var(--brand)}
+.grid{display:grid;gap:12px}.k4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.k2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.kpi .v{font-size:28px;font-family:Georgia,serif;margin:4px 0}.kpi .s{font-size:12px;color:var(--muted)}
+h2{font-size:17px;margin:20px 0 6px}h3{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.ctl{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:12px}
+.ctl label{font-size:13px;color:var(--muted);display:block}.ctl output{float:right;color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{text-align:right}.tw{overflow-x:auto}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+.p-ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.p-warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}.p-bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.r{display:inline-block;width:24px;text-align:center;border-radius:4px;color:#fff;font-weight:700}
+svg{width:100%;height:auto;display:block}svg text{fill:var(--muted);font-size:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tab{display:none}.tab.on{display:block}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+ul.as{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--muted)}ul.as li{margin-bottom:3px}
+footer{max-width:1120px;margin:0 auto;padding:16px;color:var(--muted);font-size:12px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.t-rfp{background:color-mix(in srgb,var(--brand) 18%,transparent);color:var(--brand)}.t-real{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.t-sample{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}.t-model{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent)}
+.links{margin-top:6px;font-size:13px;display:flex;gap:14px;flex-wrap:wrap}.links a{color:var(--brand);text-decoration:none}.links a:hover{text-decoration:underline}
+</style><style>
+select,.inp{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:7px 12px;font:inherit;cursor:pointer}.btn.s{background:var(--card);color:var(--brand);border:1px solid var(--brand)}
+tr.click{cursor:pointer}tr.click:hover td,tr.sel td{background:var(--soft)}
+.ipad{border:12px solid #20262c;border-radius:26px;background:var(--bg);overflow:hidden;max-width:980px;margin:auto}
+.ipad .bar{display:flex;justify-content:space-between;align-items:center;background:var(--brand);color:#fff;padding:8px 12px;font-size:13px}
+.ipad .body{display:grid;grid-template-columns:260px 1fr;min-height:430px}
+.ipad .side{border-right:1px solid var(--line);background:var(--card);overflow:auto}
+.ipad .side div.it{padding:10px 12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:13px}.ipad .side div.it.on{background:var(--soft);border-left:4px solid var(--accent)}
+.ipad .pane{padding:12px;overflow:auto}
+.seg{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}.seg button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:5px 11px;font:inherit;font-size:13px;cursor:pointer}.seg button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.f2 label{font-size:11px;color:var(--muted);display:block}.f2 .inp{width:100%}
+.night{background:#000!important;color:#c33!important}.night *{color:#c33!important;border-color:#411!important}
+.msg{max-width:78%;padding:7px 10px;border-radius:12px;margin:5px 0;font-size:13px}.me{background:var(--brand);color:#fff;margin-left:auto}.them{background:var(--card);border:1px solid var(--line)}
+.gantt{position:relative}.gantt .ln{display:grid;grid-template-columns:120px 1fr;align-items:center;border-bottom:1px solid var(--line);height:34px;font-size:12px}
+.gantt .tr{position:relative;height:100%}.gantt .bk{position:absolute;top:6px;height:22px;border-radius:5px;font-size:11px;color:#fff;padding:3px 6px;white-space:nowrap;overflow:hidden}
+.cbar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.cbar>div{height:100%;background:var(--brand)}
+@media (max-width:700px){.ipad .body{grid-template-columns:1fr}.ipad .side{max-height:170px}}
+</style>
+</head>
+<body>
+<header>
+<h1>FOMS Modernization: Flight Operations Management System</h1>
+<p>Demonstration for FAA Flight Program Operations market survey 6973GH-27-R-FOMS (FOMS Mobile and Web Application Development, SOW FOMS-270000) · Agentic Rx LLC</p>
+<p class="links"><a href="../">← All Agentic Rx demonstrations</a><a href="#req">SOW task map</a><a href="https://agentic-rx.com" target="_blank" rel="noopener">agentic-rx.com</a></p>
+</header>
+<nav id="nav">
+<button data-t="ios" class="on">FOMS Mobile (iPad)</button>
+<button data-t="plan">Mission Planner</button>
+<button data-t="fist">FIST map</button>
+<button data-t="fits">FITS &amp; FIRPS</button>
+<button data-t="fbr">Fuel (FBR)</button>
+<button data-t="dev">Modernization &amp; DevSecOps</button>
+<button data-t="req">SOW task map</button>
+</nav>
+<main>
+<div class="banner"><b>Sample data.</b> Module names, use cases and tasks come from the FAA Statement of Work (FOMS-270000, updated 09/03/26). Aircraft tail numbers, crews, airports, fuel figures and metrics are <b>illustrative</b>, not FAA data. Built by Agentic Rx to show how we would approach the work.</div>
+
+<section class="tab on" id="ios">
+<h2>FOMS Mobile on iPad: itinerary, risk assessment, offline daily flight log</h2>
+<p class="sub">Crew members download an assigned itinerary, complete the risk assessment before flight release, and fill the daily flight log (DFL) offline in flight. Changes queue on the device and sync when a connection returns. Toggle <b>Offline</b> to see the queue.</p>
+<div class="ipad">
+<div class="bar"><span>FOMS Mobile · <span id="who">Capt. R. Alvarez (PIC)</span></span><span><label style="cursor:pointer"><input type="checkbox" id="off"> Offline (in flight)</label> · <span id="sync">Synced</span></span></div>
+<div class="body">
+<div class="side" id="itl"></div>
+<div class="pane" id="ipane">
+<div class="seg" id="iseg"><button data-v="risk" class="on">Risk assessment</button><button data-v="dfl">Daily flight log</button><button data-v="fuel">Fuel &amp; logbook</button><button data-v="ds">Datasheets / PDFs</button><button data-v="msg">Service Center</button></div>
+<div id="iv"></div>
+</div></div></div>
+<p class="note">Built in Swift/SwiftUI with on-device storage, background sync over REST, APN messaging and enterprise SSO with multi-factor authentication (SOW Appendix A, Development 1–10).</p>
+</section>
+
+<section class="tab" id="plan">
+<h2>Mission Planner: aircraft, crew and CAMP maintenance windows</h2>
+<p class="sub">Scheduling of aircraft, crew and missions with <b>Not-To-Exceed (NTE)</b> maintenance times pulled from the new CAMP maintenance system (SOW Web Development 1). Move the slider: missions that would push an aircraft past its NTE are flagged before they are assigned.</p>
+<div class="ctl card"><div><label>Planned hours per mission <output id="pho"></output></label><input type="range" id="ph" min="2" max="9" value="5"></div><div><label>Days in view <output id="dvo"></output></label><input type="range" id="dv" min="7" max="14" value="10"></div></div>
+<div class="card"><div class="gantt" id="gantt"></div><div class="legend"><span><i style="background:var(--brand)"></i>Flight inspection mission</span><span><i style="background:var(--accent)"></i>Crew training</span><span><i style="background:var(--bad)"></i>Exceeds CAMP NTE</span><span><i style="background:var(--muted)"></i>Scheduled maintenance (CAMP)</span></div></div>
+<div class="card" style="margin-top:12px"><h3>Aircraft status from CAMP</h3><div class="tw"><table id="camp"></table></div></div>
+</section>
+
+<section class="tab" id="fist">
+<h2>Flight Inspection Scheduling Tool (FIST): inspection tasks on the map</h2>
+<p class="sub">A geographical view of open inspection tasks (ILS, VOR, RNAV procedures, commissioning) and a proposed itinerary. Pick a base and the itinerary re-plans to the nearest due tasks.</p>
+<div class="row"><label>Base <select id="base"><option value="0">Oklahoma City (OKC)</option><option value="1">Atlanta (ATL)</option><option value="2">Sacramento (SMF)</option></select></label><label>Stops <select id="stops"><option>4</option><option selected>6</option><option>8</option></select></label></div>
+<div class="grid k2"><div class="card"><svg id="map" viewBox="0 0 640 360" role="img" aria-label="Map of inspection tasks"></svg><div class="legend"><span><i style="background:var(--bad)"></i>Overdue</span><span><i style="background:var(--warn)"></i>Due ≤30 days</span><span><i style="background:var(--ok)"></i>Scheduled</span><span><i style="background:var(--brand)"></i>Itinerary leg</span></div></div>
+<div class="card"><h3>Proposed itinerary</h3><div class="tw"><table id="itin"></table></div><p class="note" id="itsum"></p></div></div>
+</section>
+
+<section class="tab" id="fits">
+<h2>FITS &amp; FIRPS: inspection objects, tasks, costs and reports</h2>
+<p class="sub">Flight Inspection Tracking System: object and task status plus reimbursable costs. Click a task to see its Flight Inspection Report Processing (FIRPS) workflow.</p>
+<div class="grid k4" id="fk"></div>
+<div class="grid k2" style="margin-top:12px"><div class="card"><div class="tw"><table id="ftab"></table></div></div><div class="card"><h3 id="fh">Report workflow</h3><div id="fwf"></div></div></div>
+</section>
+
+<section class="tab" id="fbr">
+<h2>Fuel Billing &amp; Reconciliation (FBR)</h2>
+<p class="sub">Fuel tickets captured on the iPad are matched automatically to vendor invoices and card statements. Set the tolerance to see how many tickets clear without manual review.</p>
+<div class="ctl card"><div><label>Gallon tolerance <output id="tgo"></output></label><input type="range" id="tg" min="0" max="10" value="2"></div><div><label>Price tolerance <output id="tpo"></output></label><input type="range" id="tp" min="0" max="5" value="1"></div></div>
+<div class="grid k4" id="bk"></div>
+<div class="card" style="margin-top:12px"><div class="tw"><table id="btab"></table></div></div>
+</section>
+
+<section class="tab" id="dev">
+<h2>Modernization and DevSecOps</h2>
+<p class="sub">How we would report progress on the SOW's modernization tasks: JSP-to-React migration, JDK 26 baseline, Objective-C-to-Swift, automated UI regression, and vulnerability remediation.</p>
+<div class="grid k4" id="dk"></div>
+<div class="grid k2" style="margin-top:12px">
+<div class="card"><h3>Migration progress by module</h3><div id="mig"></div></div>
+<div class="card"><h3>Sprint burndown (2-week sprint)</h3><svg id="burn" viewBox="0 0 420 220"></svg><div class="legend"><span><i style="background:var(--muted)"></i>Ideal</span><span><i style="background:var(--brand)"></i>Actual</span></div></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Release pipeline</h3><div class="tw"><table id="pipe"></table></div></div>
+</section>
+
+<section class="tab" id="req">
+<h2>SOW task map</h2>
+<p class="sub">Where each FOMS-270000 use case is shown in this demonstration.</p>
+<div class="card tw"><table id="rq"></table></div>
+</section>
+</main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · UEI C8MAWGE5LU65 · CAGE 20S95 · info@agentic-rx.com · Sample data only; not FAA systems or data.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const IT=[{id:'FI-26-1184',d:'Nov 9',ac:'N67 (Challenger 605)',r:'OKC → MAF → ELP → ABQ',crew:'Alvarez, Chen, Okafor'},{id:'FI-26-1187',d:'Nov 10',ac:'N82 (King Air 350)',r:'OKC → TUL → XNA',crew:'Alvarez, Brooks'},{id:'FI-26-1190',d:'Nov 12',ac:'N67 (Challenger 605)',r:'ABQ → PHX → TUS → OKC',crew:'Alvarez, Chen, Okafor'},{id:'TR-26-0219',d:'Nov 14',ac:'N88 (King Air 350)',r:'OKC local (training)',crew:'Alvarez, Patel'}];
+let cur=0,view='risk',queue=0;
+function rIt(){$('itl').innerHTML=IT.map((t,i)=>`<div class="it ${i==cur?'on':''}" data-i="${i}"><b>${t.id}</b> · ${t.d}<br><span style="color:var(--muted)">${t.r}<br>${t.ac}</span></div>`).join('')}
+$('itl').addEventListener('click',e=>{const d=e.target.closest('.it');if(!d)return;cur=+d.dataset.i;rIt();rIv()});
+$('iseg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;view=b.dataset.v;[...$('iseg').children].forEach(x=>x.classList.toggle('on',x==b));rIv()});
+function edit(){if($('off').checked){queue++;}rSync()}
+function rSync(){$('sync').textContent=$('off').checked?(queue?queue+' change(s) queued':'Offline, nothing queued'):'Synced'}
+$('off').addEventListener('change',()=>{if(!$('off').checked&&queue){$('sync').textContent='Syncing '+queue+'…';setTimeout(()=>{queue=0;rSync()},700)}else rSync()});
+const RF=[['Weather at destination','Ceiling/visibility vs minimums',0,3],['Crew rest','Hours since last duty',0,3],['Mission complexity','Low-altitude inspection, terrain',0,3],['Aircraft status','Open discrepancies, MEL items',0,3],['Airport environment','Night, mountainous, unfamiliar',0,3]];
+function rIv(){const t=IT[cur];let h='';
+if(view=='risk'){h=`<h3>Risk assessment · ${t.id}</h3><p class="sub">Required before flight release (Appendix A, Enhancement 2).</p>`+RF.map((r,i)=>`<div style="margin:6px 0"><label style="font-size:13px">${r[0]} <span style="color:var(--muted)">(${r[1]})</span> <output id="ro${i}" style="float:right;font-weight:600"></output></label><input type="range" min="0" max="3" value="${[1,0,2,1,1][i]}" id="rr${i}"></div>`).join('')+`<div class="card" style="margin-top:8px"><b>Total risk: <span id="rt"></span></b> <span id="rp"></span><div class="note" id="rn"></div></div>`;$('iv').innerHTML=h;const up=()=>{let s=0;RF.forEach((r,i)=>{const v=+$('rr'+i).value;s+=v;$('ro'+i).textContent=['None','Low','Moderate','High'][v]});$('rt').textContent=s+' / 15';const lv=s<=5?['Low','p-ok','Release: PIC approval']:s<=9?['Elevated','p-warn','Release: supervisor approval and mitigation note required']:['High','p-bad','Release blocked: management approval and mitigation plan required'];$('rp').innerHTML=`<span class="pill ${lv[1]}">${lv[0]}</span>`;$('rn').textContent=lv[2]};RF.forEach((r,i)=>$('rr'+i).addEventListener('input',()=>{up();edit()}));up();return}
+if(view=='dfl'){const legs=t.r.split(' → ');h=`<h3>Daily flight log · ${t.id} · ${t.ac}</h3><p class="sub">Works offline in flight; mirrors the web DFL (Enhancement 3).</p><div class="tw"><table><tr><th>Leg</th><th>Out</th><th>Off</th><th>On</th><th>In</th><th class="n">Block</th><th>Inspection result</th></tr>`;for(let i=0;i<Math.max(1,legs.length-1);i++){const o=7+i*2;h+=`<tr><td>${legs[i]}${legs[i+1]?' → '+legs[i+1]:''}</td><td><input class="inp dfl" size="4" value="${String(o).padStart(2,'0')}:10"></td><td><input class="inp dfl" size="4" value="${String(o).padStart(2,'0')}:22"></td><td><input class="inp dfl" size="4" value="${String(o+1).padStart(2,'0')}:31"></td><td><input class="inp dfl" size="4" value="${String(o+1).padStart(2,'0')}:40"></td><td class="n">1.5</td><td><select class="inp dfl"><option>Satisfactory</option><option>Unsatisfactory</option><option>Restricted</option></select></td></tr>`}h+=`</table></div><div class="row" style="margin-top:8px"><button class="btn" id="dsave">Save DFL</button><span class="note" id="dmsg"></span></div>`;$('iv').innerHTML=h;document.querySelectorAll('.dfl').forEach(x=>x.addEventListener('change',edit));$('dsave').onclick=()=>{edit();$('dmsg').textContent=$('off').checked?'Saved on device; will sync when online.':'Saved and synced to FOMS ground system.'};return}
+if(view=='fuel'){h=`<h3>Fuel uplift &amp; aircraft logbook · ${t.ac}</h3><p class="sub">Captured once on the iPad, reconciled in FBR and with FPAMS (Development 5–6).</p><div class="f2"><div><label>Airport / FBO</label><input class="inp fx" value="${t.r.split(' → ')[1]||'OKC'} · Signature"></div><div><label>Gallons</label><input class="inp fx" value="612"></div><div><label>Price / gal</label><input class="inp fx" value="6.48"></div><div><label>Ticket no.</label><input class="inp fx" value="T-88213"></div><div><label>Hobbs out</label><input class="inp fx" value="4,412.6"></div><div><label>Hobbs in</label><input class="inp fx" value="4,418.1"></div><div><label>Cycles</label><input class="inp fx" value="3"></div><div><label>Discrepancy</label><input class="inp fx" value="None"></div></div><p class="note">Photo of fuel ticket attaches automatically; FBR matches it to the vendor invoice.</p>`;$('iv').innerHTML=h;document.querySelectorAll('.fx').forEach(x=>x.addEventListener('change',edit));return}
+if(view=='ds'){h=`<h3>Datasheets &amp; PDFs · ${t.id}</h3><p class="sub">Shared and synced with crew; low-light mode for night cockpit use (Enhancement 4–5).</p><div class="row"><button class="btn s" id="nm">Low-light mode</button></div><div id="pdf" class="card"><b>ILS RWY 17R · procedure datasheet</b><table style="margin-top:6px"><tr><th>Item</th><th>Value</th></tr><tr><td>Localizer frequency</td><td>110.3</td></tr><tr><td>Glide slope angle</td><td>3.00°</td></tr><tr><td>Threshold crossing height</td><td>55 ft</td></tr><tr><td>Last inspection</td><td>May 2026 (Satisfactory)</td></tr></table></div>`;$('iv').innerHTML=h;$('nm').onclick=()=>$('pdf').classList.toggle('night');return}
+if(view=='msg'){h=`<h3>Service Center messaging</h3><p class="sub">Real-time APN messaging (Development 3).</p><div class="card" id="chat"><div class="msg them">Service Center: ${t.id} release approved. Fuel at MAF prepaid.</div><div class="msg me">Copy. Wheels up 07:22, ETA MAF 08:31.</div></div><div class="row" style="margin-top:8px"><input class="inp" id="mi" placeholder="Message" style="flex:1"><button class="btn" id="ms">Send</button></div>`;$('iv').innerHTML=h;$('ms').onclick=()=>{const v=$('mi').value.trim();if(!v)return;$('chat').insertAdjacentHTML('beforeend',`<div class="msg me">${v.replace(/</g,'&lt;')}${$('off').checked?' <i>(queued)</i>':''}</div>`);$('mi').value='';edit()}}}
+const AC=[['N67','Challenger 605',4418,4460],['N82','King Air 350',8120,8150],['N88','King Air 350',6031,6100],['N74','Learjet 60',9902,9915]];
+const MS=[['N67',0,'FI-1184',0],['N67',3,'FI-1190',0],['N67',6,'FI-1201',0],['N82',1,'FI-1187',0],['N82',4,'FI-1196',0],['N82',8,'FI-1209',0],['N88',5,'Training',1],['N88',2,'FI-1192',0],['N74',0,'FI-1180',0],['N74',2,'FI-1188',0],['N74',7,'FI-1205',0]];
+function rPlan(){const ph=+$('ph').value,dv=+$('dv').value;$('pho').textContent=ph+' h';$('dvo').textContent=dv;let h=`<div class="ln" style="height:24px"><span></span><div class="tr">${Array.from({length:dv},(_,i)=>`<span style="position:absolute;left:${i/dv*100}%;font-size:10px;color:var(--muted)">Nov ${9+i}</span>`).join('')}</div></div>`;const rows=[];AC.forEach(a=>{let hrs=a[2];const items=MS.filter(m=>m[0]==a[0]&&m[1]<dv).sort((x,y)=>x[1]-y[1]);let bl='';items.forEach(m=>{hrs+=ph;const over=hrs>a[3];bl+=`<div class="bk" style="left:${m[1]/dv*100}%;width:${100/dv*0.92}%;background:${over?'var(--bad)':m[3]?'var(--accent)':'var(--brand)'}" title="${m[2]}">${m[2]}</div>`});if(a[3]-a[2]<20){const md=Math.min(dv-1,9);bl+=`<div class="bk" style="left:${md/dv*100}%;width:${100/dv*0.92}%;background:var(--muted)">CAMP mx</div>`}rows.push({a,hrs});h+=`<div class="ln"><span><b>${a[0]}</b> ${a[1]}</span><div class="tr">${bl}</div></div>`});$('gantt').innerHTML=h;
+$('camp').innerHTML='<tr><th>Tail</th><th>Type</th><th class="n">Current hours</th><th class="n">NTE (CAMP)</th><th class="n">Planned in view</th><th>Status</th></tr>'+rows.map(r=>{const rem=r.a[3]-r.hrs;return`<tr><td>${r.a[0]}</td><td>${r.a[1]}</td><td class="n">${r.a[2].toLocaleString()}</td><td class="n">${r.a[3].toLocaleString()}</td><td class="n">${(r.hrs-r.a[2])} h</td><td>${rem<0?'<span class="pill p-bad">Exceeds NTE by '+(-rem)+' h</span>':rem<10?'<span class="pill p-warn">'+rem+' h margin</span>':'<span class="pill p-ok">'+rem+' h margin</span>'}</td></tr>`}).join('')}
+['ph','dv'].forEach(i=>$(i).addEventListener('input',rPlan));
+const BASES=[[300,190,'OKC'],[470,215,'ATL'],[70,150,'SMF']];
+const TK=[['ILS 17R','OKC',308,196,0],['VOR','TUL',330,170,1],['RNAV 35','ICT',300,150,1],['ILS 22','AMA',240,190,0],['VOR/DME','MAF',230,240,1],['ILS 26L','ELP',170,250,2],['RNAV 08','ABQ',175,200,1],['ILS 25L','PHX',110,230,0],['VOR','TUS',115,260,2],['ILS 18R','DFW',330,230,1],['RNAV 13','HOU',350,280,1],['ILS 27R','ATL',470,215,0],['VOR','BHM',445,225,2],['ILS 18C','MEM',410,190,1],['RNAV 34','BNA',440,180,1],['ILS 16L','SMF',70,150,1],['VOR','RNO',95,145,0],['ILS 28R','SFO',55,165,2],['RNAV 24','LAX',80,230,1],['ILS 35R','DEN',230,140,0],['ILS 10','SLC',150,120,1],['VOR','LIT',380,200,2]];
+function rFist(){const b=BASES[+$('base').value],n=+$('stops').value;const pts=TK.map(t=>({t,d:Math.hypot(t[2]-b[0],t[3]-b[1])-(t[4]==0?60:t[4]==1?25:0)})).filter(p=>p.t[4]<2).sort((x,y)=>x.d-y.d).slice(0,n);let route=[],p=[b[0],b[1]],left=pts.slice();while(left.length){left.sort((x,y)=>Math.hypot(x.t[2]-p[0],x.t[3]-p[1])-Math.hypot(y.t[2]-p[0],y.t[3]-p[1]));const nx=left.shift();route.push(nx.t);p=[nx.t[2],nx.t[3]]}
+let s=`<rect x="20" y="40" width="600" height="290" rx="40" fill="var(--soft)" stroke="var(--line)"/><text x="40" y="66">Continental US (schematic)</text>`;let pp=[b[0],b[1]],nm=0;route.concat([[0,b[2],b[0],b[1]]]).forEach(t=>{s+=`<line x1="${pp[0]}" y1="${pp[1]}" x2="${t[2]}" y2="${t[3]}" stroke="var(--brand)" stroke-width="2" stroke-dasharray="5 3"/>`;nm+=Math.hypot(t[2]-pp[0],t[3]-pp[1])*3.1;pp=[t[2],t[3]]});
+TK.forEach(t=>{s+=`<circle cx="${t[2]}" cy="${t[3]}" r="6" fill="${['var(--bad)','var(--warn)','var(--ok)'][t[4]]}"/><text x="${t[2]+8}" y="${t[3]+4}">${t[1]}</text>`});s+=`<rect x="${b[0]-8}" y="${b[1]-8}" width="16" height="16" fill="var(--brand)"/>`;$('map').innerHTML=s;
+$('itin').innerHTML='<tr><th>#</th><th>Airport</th><th>Task</th><th>Status</th></tr>'+route.map((t,i)=>`<tr><td>${i+1}</td><td>${t[1]}</td><td>${t[0]}</td><td>${t[4]==0?'<span class="pill p-bad">Overdue</span>':'<span class="pill p-warn">Due ≤30 d</span>'}</td></tr>`).join('');$('itsum').textContent=`${route.length} tasks from ${b[2]}, about ${Math.round(nm).toLocaleString()} NM round trip (schematic distance). Overdue tasks are weighted first.`}
+['base','stops'].forEach(i=>$(i).addEventListener('change',rFist));
+const FT=[['FI-1180','ILS 17R','OKC','Periodic',0,'Report approved',3,0],['FI-1184','VOR/DME','MAF','Periodic',0,'Flight complete; report in review',2,0],['FI-1188','RNAV 08','ABQ','Commissioning',1,'Data reduction',1,18400],['FI-1190','ILS 25L','PHX','Special (complaint)',0,'Scheduled',0,0],['FI-1192','ILS 22','AMA','Periodic',0,'Scheduled',0,0],['FI-1196','RNAV 13','HOU','Commissioning',1,'Report approved',3,22750],['FI-1201','ILS 18R','DFW','Reimbursable (airport)',1,'Flight complete; report in review',2,9600]];
+const WF=['Flight complete','Data reduction','Report drafted','Technical review','Approved & disseminated'];let fsel=1;
+function rFits(){const re=FT.filter(f=>f[4]).reduce((a,f)=>a+f[7],0);$('fk').innerHTML=[['Open tasks',FT.filter(f=>f[6]<3).length,'across 7 facilities'],['Reports in review',FT.filter(f=>f[6]==2).length,'FIRPS queue'],['Reimbursable billed','$'+re.toLocaleString(),'sample costs'],['Avg report cycle','4.2 days','target ≤5 days']].map(k=>`<div class="card kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+$('ftab').innerHTML='<tr><th>Task</th><th>Facility</th><th>Type</th><th>Status</th><th class="n">Reimb. cost</th></tr>'+FT.map((f,i)=>`<tr class="click ${i==fsel?'sel':''}" data-i="${i}"><td>${f[0]}</td><td>${f[1]} ${f[2]}</td><td>${f[3]}</td><td>${f[5]}</td><td class="n">${f[7]?'$'+f[7].toLocaleString():'—'}</td></tr>`).join('');const f=FT[fsel];$('fh').textContent='FIRPS workflow · '+f[0]+' '+f[1]+' '+f[2];const st=f[5]=='Scheduled'?-1:f[6]+(f[6]>=2?1:0);$('fwf').innerHTML=WF.map((w,i)=>`<div style="display:flex;gap:8px;align-items:center;margin:6px 0"><span class="pill ${i<=st?'p-ok':'p-warn'}" style="min-width:22px;text-align:center">${i<=st?'✓':i+1}</span><span>${w}</span></div>`).join('')+`<p class="note">Approved reports are disseminated to the facility, the Service Area and, for reimbursable work, the billing contact.</p>`}
+$('ftab').addEventListener('click',e=>{const r=e.target.closest('tr[data-i]');if(!r)return;fsel=+r.dataset.i;rFits()});
+const FB=[['T-88213','MAF','Signature',612,6.48,612,6.48],['T-88214','ELP','Atlantic',540,6.31,545,6.31],['T-88219','ABQ','Cutter',498,6.55,498,6.71],['T-88222','OKC','Govt fuel farm',800,5.12,800,5.12],['T-88230','PHX','Swift',455,6.90,470,6.90],['T-88231','TUS','Atlantic',390,6.44,390,6.44],['T-88236','DFW','Signature',720,6.77,722,6.79],['T-88240','HOU','Million Air',610,6.62,0,0]];
+function rFbr(){const tg=+$('tg').value,tp=+$('tp').value;$('tgo').textContent=tg+'%';$('tpo').textContent=tp+'%';let ok=0,rv=0,mi=0,amt=0;const rows=FB.map(f=>{let st;if(!f[5]){st=['No invoice yet','p-warn'];mi++}else{const dg=Math.abs(f[5]-f[3])/f[3]*100,dp=Math.abs(f[6]-f[4])/f[4]*100;if(dg<=tg&&dp<=tp){st=['Auto-matched','p-ok'];ok++}else{st=['Review: '+(dg>tg?'gallons '+dg.toFixed(1)+'%':'')+(dp>tp?' price '+dp.toFixed(1)+'%':''),'p-bad'];rv++}}amt+=f[3]*f[4];return`<tr><td>${f[0]}</td><td>${f[1]} · ${f[2]}</td><td class="n">${f[3]}</td><td class="n">$${f[4].toFixed(2)}</td><td class="n">${f[5]||'—'}</td><td class="n">${f[6]?'$'+f[6].toFixed(2):'—'}</td><td><span class="pill ${st[1]}">${st[0]}</span></td></tr>`});
+$('bk').innerHTML=[['Tickets this week',FB.length,'from FOMS Mobile'],['Auto-matched',ok,Math.round(ok/FB.length*100)+'% no manual work'],['Needs review',rv,'routed to fuel billing'],['Fuel spend','$'+Math.round(amt).toLocaleString(),'sample week']].map(k=>`<div class="card kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');$('btab').innerHTML='<tr><th>Ticket</th><th>Airport · FBO</th><th class="n">Gal (iPad)</th><th class="n">$/gal (iPad)</th><th class="n">Gal (invoice)</th><th class="n">$/gal (invoice)</th><th>Result</th></tr>'+rows.join('')}
+['tg','tp'].forEach(i=>$(i).addEventListener('input',rFbr));
+function rDev(){$('dk').innerHTML=[['JSP pages migrated','38%','to ReactJS (target 100%)'],['JDK baseline','JDK 26','5 of 5 web modules planned'],['Swift share of iOS code','86%','legacy Objective-C → Swift'],['Open high/critical vulns','2','down from 14 at transition']].map(k=>`<div class="card kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+$('mig').innerHTML=[['FITS',55],['FMDFL',40],['FIST',30],['FIRPS',35],['FBR',30],['FOMS Mobile: UI tests',62]].map(m=>`<div style="margin:8px 0;font-size:13px">${m[0]} <span style="float:right">${m[1]}%</span><div class="cbar"><div style="width:${m[1]}%"></div></div></div>`).join('');
+const pts=[60,58,55,55,49,44,40,33,27,20,12],W=420,H=220,x=i=>40+i*36,y=v=>190-v*2.6;let s=`<line x1="40" y1="190" x2="400" y2="190" stroke="var(--line)"/><line x1="40" y1="${y(60)}" x2="400" y2="${y(0)}" stroke="var(--muted)" stroke-dasharray="4 3"/><polyline fill="none" stroke="var(--brand)" stroke-width="3" points="${pts.map((v,i)=>x(i)+','+y(v)).join(' ')}"/>`;pts.forEach((v,i)=>{s+=`<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="var(--brand)"/>`});s+=`<text x="40" y="210">Day 0</text><text x="370" y="210">Day 10</text><text x="4" y="${y(60)+4}">60 pts</text>`;$('burn').innerHTML=s;
+$('pipe').innerHTML='<tr><th>Stage</th><th>Tooling</th><th>Gate</th><th>Last run</th></tr>'+[['Build','Xcode / Maven, Docker','Compiles on supported iPadOS and JDK','<span class="pill p-ok">Pass</span>'],['Unit tests','XCTest, JUnit','≥80% coverage on changed code','<span class="pill p-ok">Pass (83%)</span>'],['UI regression','XCUITest, Playwright','Core mission workflows on 3 iPad models','<span class="pill p-ok">Pass</span>'],['Security scan','SonarQube, dependency scan','No new high/critical','<span class="pill p-warn">2 open (POA&amp;M)</span>'],['Accessibility','axe, VoiceOver','Section 508','<span class="pill p-ok">Pass</span>'],['Release','FAA MDM / change board','Product owner sign-off','<span class="pill p-warn">Awaiting CCB</span>']].map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}
+const RQ=[['Mobile: Itinerary download (Enhancement 1)','FOMS Mobile: itinerary list'],['Mobile: Risk Assessment before flight release (Enhancement 2)','FOMS Mobile: Risk assessment'],['Mobile: Offline Daily Flight Log and sync (Enhancement 3)','FOMS Mobile: DFL, Offline toggle, sync queue'],['Mobile: Datasheets; PDF sharing and low-light viewing (Enhancement 4–5)','FOMS Mobile: Datasheets / PDFs'],['Mobile: Unit testing; automated UI and regression testing (Development 1, 9)','Modernization: pipeline'],['Mobile: Dispatch; APN messaging with Service Center (Development 2–3)','FOMS Mobile: Service Center'],['Mobile: Other missions, roles and permissions; MFA and enterprise SSO (Development 4, 10)','Crew identity in app bar; role-based release rules'],['Mobile: Aircraft fuel and aircraft logbook with FPAMS reconciliation (Development 5–6)','FOMS Mobile: Fuel & logbook; Fuel (FBR)'],['Mobile: Objective-C → Swift and toolchain modernization (Development 8)','Modernization: Swift share'],['Web: FITS and FIRPS (Enhancement 1, 5)','FITS & FIRPS tab'],['Web: FMDFL dispatch and post-flight (Enhancement 2)','DFL sync to ground system'],['Web: FIST geographic scheduling (Enhancement 3)','FIST map'],['Web: Mission Planner (Enhancement 4)','Mission Planner'],['Web: FBR fuel billing and reconciliation (Development 6)','Fuel (FBR)'],['Web: CAMP integration and NTE times in planner (Development 1)','Mission Planner: CAMP status'],['Web: JDK 26 baseline; JSP replacement with ReactJS; UI refactor (Development 2–4)','Modernization & DevSecOps'],['Transition in (30 days) and transition out','Proposal: onboarding and turnover plan']];
+$('rq').innerHTML='<tr><th>SOW use case</th><th>Where shown</th></tr>'+RQ.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+const nav=$('nav');function show(t){nav.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('on',s.id==t))}
+nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;show(b.dataset.t);history.replaceState(null,'','#'+b.dataset.t)});
+addEventListener('hashchange',()=>{const h=location.hash.slice(1);if($(h)&&$(h).classList.contains('tab'))show(h)});if(location.hash&&$(location.hash.slice(1)))show(location.hash.slice(1));
+rIt();rIv();rPlan();rFist();rFits();rFbr();rDev();
+</script>
+</body>
+</html>
