@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlanta Region Data Explorer</title>
+<meta name="description" content="Agentic Rx demonstration for ARC RFP828: DataNexus replacement, Regional Housing Dashboard and Economic Mobility Dashboard.">
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#1d2733;--muted:#5d6b7a;--line:#dde3ea;--brand:#0f5c6e;--brand2:#1a8aa3;--accent:#c2843a;--bad:#b23b3b;--ok:#2f7d4f;--warn:#c98a12;--soft:#e8f2f4;--c4:#2f7d4f;--c3:#7aa84a;--c2:#d39a2a;--c1:#b23b3b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}}
+:root[data-theme="dark"]{--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line);padding:0 12px;position:sticky;top:0;z-index:5}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 10px;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+main{max-width:1120px;margin:0 auto;padding:16px}
+.banner{background:var(--soft);border-left:4px solid var(--brand);padding:10px 12px;border-radius:6px;font-size:13px;margin-bottom:14px}
+.banner b{color:var(--brand)}
+.grid{display:grid;gap:12px}.k4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.k2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.kpi .v{font-size:28px;font-family:Georgia,serif;margin:4px 0}.kpi .s{font-size:12px;color:var(--muted)}
+h2{font-size:17px;margin:20px 0 6px}h3{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.ctl{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:12px}
+.ctl label{font-size:13px;color:var(--muted);display:block}.ctl output{float:right;color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{text-align:right}.tw{overflow-x:auto}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+.p-ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.p-warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}.p-bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.r{display:inline-block;width:24px;text-align:center;border-radius:4px;color:#fff;font-weight:700}
+svg{width:100%;height:auto;display:block}svg text{fill:var(--muted);font-size:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tab{display:none}.tab.on{display:block}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+ul.as{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--muted)}ul.as li{margin-bottom:3px}
+footer{max-width:1120px;margin:0 auto;padding:16px;color:var(--muted);font-size:12px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.t-rfp{background:color-mix(in srgb,var(--brand) 18%,transparent);color:var(--brand)}.t-real{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.t-sample{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}.t-model{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent)}
+.links{margin-top:6px;font-size:13px;display:flex;gap:14px;flex-wrap:wrap}.links a{color:var(--brand);text-decoration:none}.links a:hover{text-decoration:underline}
+</style>
+<style>
+select,.inp{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:7px 12px;font:inherit;cursor:pointer}.btn.s{background:var(--card);color:var(--brand);border:1px solid var(--brand)}
+.tile{cursor:pointer;transition:opacity .15s}.tile:hover{opacity:.8}.sel{stroke:var(--ink);stroke-width:3}
+.chip{display:inline-block;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:2px 10px;margin:2px;font-size:12px}
+.prog{height:10px;background:var(--line);border-radius:6px;overflow:hidden}.prog>div{height:100%;background:var(--ok)}
+.ask{display:flex;gap:8px}.ask input{flex:1}
+</style>
+</head>
+<body>
+<header>
+<h1>Atlanta Region Data Explorer and Dashboards</h1>
+<p>Demonstration for ARC RFP828, Interactive Web Mapping and Dashboard Application Development · DataNexus replacement, Regional Housing Dashboard and Economic Mobility Dashboard · Agentic Rx LLC</p>
+<p class="links"><a href="../">← All Agentic Rx demonstrations</a><a href="#rfp">RFP requirements map</a><a href="https://agentic-rx.com" target="_blank" rel="noopener">agentic-rx.com</a></p>
+</header>
+<nav id="nav">
+<button data-t="dn" class="on">1 · DataNexus explorer</button>
+<button data-t="hs">2 · Housing dashboard</button>
+<button data-t="em">3 · Economic mobility</button>
+<button data-t="adm">Admin back end</button>
+<button data-t="plan">Schedule &amp; budget</button>
+<button data-t="rfp">RFP requirements map</button>
+</nav>
+<main>
+<div class="banner"><b>Sample data.</b> The 11 counties of the ARC region are real. Indicator values, housing goals and mobility measures are <b>illustrative</b>, shaped like ACS, HUD and ARC permit data, and are replaced with ARC's datasets at kick-off. The map is a simplified county tile layout; production uses ARC's GIS boundaries, Census tracts and legislative districts on an Esri or open-source basemap with aerial imagery.</div>
+
+<section class="tab on" id="dn">
+<h2>Explore any indicator, on a map, chart and table at once</h2>
+<p class="sub">Search the variable library, choose a geography and a classification, then click counties to select them. Map, scatterplot, histogram and table stay linked.</p>
+<div class="card"><div class="ask"><input id="nlq" class="inp" placeholder="Ask in plain English, e.g. 'show cost burdened renters' or 'compare income and transit access'"><button class="btn" id="nlgo">Ask</button></div><p class="note" id="nlout">AI assistant (optional in the RFP): maps your question to variables, suggests a binning method and explains the data source.</p></div>
+<div class="row" style="margin-top:10px"><input id="vs" class="inp" placeholder="Search 1,000+ indicators by keyword or source" style="flex:1 1 260px"><select id="var"></select><select id="geo"><option>County</option><option>City</option><option>Census tract</option><option>State House district</option><option>State Senate district</option><option>Super district</option></select><select id="bin"><option value="q">Quantile</option><option value="e">Equal interval</option><option value="n">Natural breaks</option></select><select id="ramp"><option value="b">Blues</option><option value="g">Greens</option><option value="o">Oranges</option></select></div>
+<div class="grid k2">
+<div class="card"><h3 id="mt"></h3><div id="map"></div><div class="legend" id="leg"></div><div class="row noprint" style="margin-top:8px"><button class="btn s" id="png">Export map (SVG/PNG)</button><button class="btn s" onclick="window.print()">Export PDF</button><button class="btn s" id="save">Save session (JSON)</button><label class="btn s">Restore session<input type="file" id="load" accept=".json" hidden></label></div></div>
+<div class="card"><h3>Scatterplot: <span id="sxl"></span> vs <select id="var2"></select></h3><div id="sc"></div><p class="note">Click a point or a county: it highlights everywhere. Dashed line = regional least-squares trend.</p></div>
+</div>
+<div class="grid k2" style="margin-top:12px">
+<div class="card"><h3>Histogram filter</h3><p class="sub">Drag the slider to keep only places at or above a value; the map and table update.</p><input type="range" id="hf" min="0" max="100" value="0" style="width:100%"><div id="hist"></div></div>
+<div class="card"><h3>Data tray <span class="note" id="trayn"></span></h3><div id="tray"></div><div class="row" style="margin-top:8px"><button class="btn" id="csv">Download CSV</button><button class="btn s" id="xlsx">Download XLSX</button><button class="btn s" id="gdb">Download geography + table (GDB)</button></div><p class="note" id="meta"></p></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Table</h3><div class="tw"><table id="tbl"></table></div></div>
+</section>
+
+<section class="tab" id="hs">
+<h2>Regional Housing Dashboard</h2>
+<p class="sub">Public-facing tracking of the Regional Housing Strategy: regional overview, county profiles, interactive map and goal tracking. Move the slider to see the production trajectory needed to hit the 2030 goal.</p>
+<div class="ctl card"><div><label>Annual permits needed growth to 2030 <output id="gro"></output></label><input type="range" id="gr" min="0" max="15" value="4"></div><div><label>Compare county <output id="cco"></output></label><select id="cc"></select></div></div>
+<div class="grid k4" id="hk"></div>
+<div class="grid k2" style="margin-top:12px">
+<div class="card"><h3>Housing production vs regional goal</h3><div id="hprod"></div><div class="legend"><span><i style="background:var(--brand)"></i>Permitted units</span><span><i style="background:var(--accent)"></i>Projected</span><span><i style="background:var(--bad)"></i>Goal pace</span></div></div>
+<div class="card"><h3>Cost burden by county (renters paying 30%+ of income)</h3><div id="hburden"></div></div>
+</div>
+<div class="grid k2" style="margin-top:12px">
+<div class="card"><h3>County profile</h3><div class="tw"><table id="hprof"></table></div></div>
+<div class="card"><h3>Housing Strategy tracking</h3><div id="htrack"></div></div>
+</div>
+</section>
+
+<section class="tab" id="em">
+<h2>Economic Mobility Dashboard</h2>
+<p class="sub">Same engine as the housing dashboard, configured for mobility: jobs reachable by transit, median earnings, upward-mobility rate and educational attainment. Concept to be finalised with ARC in the design phase.</p>
+<div class="grid k4" id="ek"></div>
+<div class="grid k2" style="margin-top:12px">
+<div class="card"><h3>Jobs reachable in 45 minutes by transit</h3><div id="ejobs"></div></div>
+<div class="card"><h3>Earnings vs educational attainment</h3><div id="esc"></div></div>
+</div>
+</section>
+
+<section class="tab" id="adm">
+<h2>Secure admin back end (no developer needed)</h2>
+<p class="sub">ARC staff add datasets, create indicators, set default charts and manage metadata and layers. Try adding an indicator: it appears in the explorer immediately.</p>
+<div class="grid k2">
+<div class="card"><h3>Add an indicator</h3>
+<div class="row"><input class="inp" id="an" placeholder="Field name, e.g. pct_ev_households"><input class="inp" id="aa" placeholder="Alias shown to users"></div>
+<div class="row"><input class="inp" id="as" placeholder="Source, e.g. ACS 2024 5-yr"><select id="at"><option>Percent</option><option>Count</option><option>Currency</option><option>Rate</option></select><select id="ac"><option>Choropleth + bar</option><option>Choropleth + trend line</option><option>Proportional symbol</option></select></div>
+<button class="btn" id="aadd">Publish indicator</button><p class="note" id="aout"></p></div>
+<div class="card"><h3>Dataset pipeline</h3><div class="tw"><table id="pipe"></table></div><p class="note">Scheduled jobs pull Census API, HUD and ARC permit feeds; ARC can also upload CSV, XLSX, shapefile or GeoPackage. Each run is validated and logged.</p></div>
+</div>
+</section>
+
+<section class="tab" id="plan">
+<h2>Delivery schedule (Jan to Dec 2027) and Exhibit B budget</h2>
+<div class="card"><div id="gantt"></div></div>
+<div class="card" style="margin-top:12px"><h3>Exhibit B (Amendment 1) budget</h3><div class="tw"><table id="bud"></table></div><p class="note">Within ARC's $50,000 maximum. Blended rate $95/hour, all-inclusive (overhead and profit 0%).</p></div>
+</section>
+
+<section class="tab" id="rfp">
+<h2>RFP828 Exhibit A requirements and where they are shown</h2>
+<div class="card"><div class="tw"><table id="req"></table></div></div>
+</section>
+</main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · UEI C8MAWGE5LU65 · Demonstration with sample data for ARC RFP828. Not ARC data.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const C=[{n:'Cherokee',x:1,y:0},{n:'Forsyth',x:3,y:0},{n:'Cobb',x:1,y:1},{n:'Fulton',x:2,y:1},{n:'Gwinnett',x:3,y:1},{n:'Douglas',x:0,y:2},{n:'DeKalb',x:3,y:2},{n:'Rockdale',x:4,y:2},{n:'Clayton',x:2,y:3},{n:'Fayette',x:1,y:3},{n:'Henry',x:3,y:3}];
+const V={pop:{a:'Total population',s:'ACS 2024 5-yr, B01003',t:'n',v:[282,268,780,1080,985,148,770,95,300,122,250].map(x=>x*1000)},
+inc:{a:'Median household income',s:'ACS 2024 5-yr, B19013',t:'$',v:[98,128,96,86,90,78,74,72,58,115,84].map(x=>x*1000)},
+burden:{a:'Renters cost-burdened (30%+)',s:'ACS 2024 5-yr, B25070',t:'%',v:[44,41,45,49,46,50,53,52,58,40,49]},
+transit:{a:'Jobs reachable by transit in 45 min',s:'ARC travel model / LEHD',t:'n',v:[12,9,85,310,70,22,160,15,95,8,30].map(x=>x*1000)},
+ba:{a:'Adults with a bachelor\'s degree or higher',s:'ACS 2024 5-yr, S1501',t:'%',v:[39,55,48,56,40,29,44,30,19,52,30]},
+permits:{a:'Residential units permitted, 2025',s:'ARC permit data',t:'n',v:[2600,3900,3300,6200,5100,800,2400,300,700,600,3100]},
+rent:{a:'Median gross rent',s:'ACS 2024 5-yr, B25064',t:'$',v:[1650,1820,1640,1720,1600,1420,1480,1400,1310,1700,1530]},
+mob:{a:'Upward mobility rate (index)',s:'Opportunity Insights (sample)',t:'%',v:[42,48,40,37,39,34,33,35,29,46,36]}};
+const LIB=Object.keys(V);
+let S={var:'burden',var2:'inc',sel:[],bin:'q',ramp:'b',hf:0,geo:'County',tray:['burden','inc']};
+const fmt=(k,x)=>V[k].t=='$'?'$'+Math.round(x).toLocaleString():V[k].t=='%'?x.toFixed(0)+'%':Math.round(x).toLocaleString();
+const RAMP={b:['#dbe9f6','#9ecae1','#4292c6','#08519c'],g:['#e5f5e0','#a1d99b','#41ab5d','#006d2c'],o:['#feedde','#fdae6b','#f16913','#a63603']};
+function breaks(v,m){const s=[...v].sort((a,b)=>a-b),mn=s[0],mx=s[s.length-1];if(m=='e')return[1,2,3].map(i=>mn+(mx-mn)*i/4);if(m=='q')return[1,2,3].map(i=>s[Math.floor(s.length*i/4)]);/* natural: largest gaps */const g=s.slice(1).map((x,i)=>[x-s[i],(x+s[i])/2]).sort((a,b)=>b[0]-a[0]).slice(0,3).map(x=>x[1]).sort((a,b)=>a-b);return g}
+function cls(x,b){return b.filter(t=>x>=t).length}
+function svg(w,h,b){return `<svg viewBox="0 0 ${w} ${h}">${b}</svg>`}
+function vis(i){const v=V[S.var].v;const mx=Math.max(...v),mn=Math.min(...v);return v[i]>=mn+(mx-mn)*S.hf/100}
+function rMap(){const v=V[S.var].v,b=breaks(v,S.bin),R=RAMP[S.ramp];$('mt').textContent=V[S.var].a+' by '+S.geo.toLowerCase();let g='';const W=520,cw=100,ch=78;
+ C.forEach((c,i)=>{const x=10+c.x*cw,y=10+c.y*ch,on=vis(i);g+=`<g class="tile" data-i="${i}" opacity="${on?1:.2}"><rect x="${x}" y="${y}" width="${cw-6}" height="${ch-6}" rx="8" fill="${R[cls(v[i],b)]}" class="${S.sel.includes(i)?'sel':''}"/><text x="${x+8}" y="${y+22}" style="fill:${cls(v[i],b)>=2?'#fff':'#111'};font-weight:600">${c.n}</text><text x="${x+8}" y="${y+44}" style="fill:${cls(v[i],b)>=2?'#fff':'#111'}">${fmt(S.var,v[i])}</text></g>`});
+ $('map').innerHTML=svg(W,330,g);$('map').querySelectorAll('.tile').forEach(t=>t.onclick=()=>toggle(+t.dataset.i));
+ const lo=[Math.min(...v)].concat(b);$('leg').innerHTML=R.map((c,k)=>`<span><i style="background:${c}"></i>${fmt(S.var,lo[k])}+</span>`).join('')+`<span>· ${({q:'Quantile',e:'Equal interval',n:'Natural breaks'})[S.bin]}</span>`}
+function toggle(i){S.sel=S.sel.includes(i)?S.sel.filter(x=>x!=i):S.sel.concat(i);rAll()}
+function rSc(){const a=V[S.var].v,b=V[S.var2].v,W=520,H=300,L=60,B=36;const ax=[Math.min(...a),Math.max(...a)],bx=[Math.min(...b),Math.max(...b)];const X=x=>L+(W-L-20)*(x-ax[0])/(ax[1]-ax[0]||1),Y=y=>H-B-(H-B-14)*(y-bx[0])/(bx[1]-bx[0]||1);
+ const n=a.length,ma=a.reduce((s,x)=>s+x,0)/n,mb=b.reduce((s,x)=>s+x,0)/n,sl=a.reduce((s,x,i)=>s+(x-ma)*(b[i]-mb),0)/a.reduce((s,x)=>s+(x-ma)**2,0);
+ let g=`<line x1="${L}" x2="${W-20}" y1="${H-B}" y2="${H-B}" stroke="${css('--line')}"/><line x1="${L}" x2="${L}" y1="10" y2="${H-B}" stroke="${css('--line')}"/><text x="${(W+L)/2}" y="${H-6}" text-anchor="middle">${V[S.var].a}</text><text x="12" y="${H/2}" transform="rotate(-90 12 ${H/2})" text-anchor="middle">${V[S.var2].a}</text>`;
+ g+=`<line x1="${X(ax[0])}" y1="${Y(mb+sl*(ax[0]-ma))}" x2="${X(ax[1])}" y2="${Y(mb+sl*(ax[1]-ma))}" stroke="${css('--accent')}" stroke-dasharray="5 4"/>`;
+ a.forEach((x,i)=>{const s=S.sel.includes(i);g+=`<circle class="tile" data-i="${i}" cx="${X(x)}" cy="${Y(b[i])}" r="${s?9:6}" fill="${s?css('--accent'):css('--brand')}" opacity="${vis(i)?1:.2}"><title>${C[i].n}</title></circle>`;if(s)g+=`<text x="${X(x)+10}" y="${Y(b[i])+4}">${C[i].n}</text>`});
+ $('sc').innerHTML=svg(W,H,g);$('sc').querySelectorAll('.tile').forEach(t=>t.onclick=()=>toggle(+t.dataset.i));$('sxl').textContent=V[S.var].a}
+function rHist(){const v=V[S.var].v,mx=Math.max(...v),mn=Math.min(...v),nb=8,cnt=Array(nb).fill(0);v.forEach(x=>cnt[Math.min(nb-1,Math.floor((x-mn)/(mx-mn||1)*nb))]++);const W=520,H=140,bw=(W-20)/nb,thr=S.hf/100*nb;let g='';cnt.forEach((c,k)=>{g+=`<rect x="${10+k*bw}" y="${H-20-c*28}" width="${bw-4}" height="${c*28}" fill="${k>=Math.floor(thr)?css('--brand'):css('--line')}"/>`});g+=`<text x="10" y="${H-4}">${fmt(S.var,mn)}</text><text x="${W-10}" y="${H-4}" text-anchor="end">${fmt(S.var,mx)}</text>`;$('hist').innerHTML=svg(W,H,g)}
+function rTbl(){const rows=C.map((c,i)=>i).filter(vis);const keys=S.tray;$('tbl').innerHTML='<tr><th>County</th>'+keys.map(k=>`<th class="n">${V[k].a}</th>`).join('')+'</tr>'+rows.map(i=>`<tr style="${S.sel.includes(i)?'background:var(--soft)':''}"><td>${C[i].n}</td>`+keys.map(k=>`<td class="n">${fmt(k,V[k].v[i])}</td>`).join('')+'</tr>').join('');
+ $('tray').innerHTML=keys.map(k=>`<span class="chip">${V[k].a} <a href="#" data-k="${k}" style="text-decoration:none">×</a></span>`).join('');$('trayn').textContent=keys.length+' variables';$('tray').querySelectorAll('a').forEach(a=>a.onclick=e=>{e.preventDefault();S.tray=S.tray.filter(x=>x!=a.dataset.k);rAll()});
+ $('meta').innerHTML='<b>Metadata:</b> '+V[S.var].a+' · Source: '+V[S.var].s+' · Field: '+S.var+' · Geography: '+S.geo}
+function opts(){const q=($('vs').value||'').toLowerCase();const L=LIB.filter(k=>!q||(V[k].a+' '+V[k].s).toLowerCase().includes(q));$('var').innerHTML=L.map(k=>`<option value="${k}" ${k==S.var?'selected':''}>${V[k].a}</option>`).join('');$('var2').innerHTML=LIB.map(k=>`<option value="${k}" ${k==S.var2?'selected':''}>${V[k].a}</option>`).join('')}
+function rAll(){rMap();rSc();rHist();rTbl()}
+$('vs').oninput=()=>{opts();if($('var').value){S.var=$('var').value;rAll()}};
+$('var').oninput=()=>{S.var=$('var').value;if(!S.tray.includes(S.var))S.tray.push(S.var);rAll()};$('var2').oninput=()=>{S.var2=$('var2').value;rSc()};
+$('bin').oninput=()=>{S.bin=$('bin').value;rMap()};$('ramp').oninput=()=>{S.ramp=$('ramp').value;rMap()};$('geo').oninput=()=>{S.geo=$('geo').value;rMap();rTbl()};
+$('hf').oninput=()=>{S.hf=+$('hf').value;rAll()};
+function dl(name,txt,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click()}
+function csvT(){return ['County,'+S.tray.map(k=>'"'+V[k].a+'"').join(',')].concat(C.map((c,i)=>c.n+','+S.tray.map(k=>V[k].v[i]).join(','))).join('\n')}
+$('csv').onclick=()=>dl('arc_data.csv',csvT(),'text/csv');$('xlsx').onclick=()=>dl('arc_data.xlsx.csv',csvT(),'text/csv');
+$('gdb').onclick=()=>{$('meta').innerHTML='<b>GDB export:</b> in production the server packages the selected geography with the joined table as a file geodatabase (.gdb.zip). Demo downloads GeoJSON-style CSV.';dl('arc_geography_join.csv',csvT(),'text/csv')};
+$('save').onclick=()=>dl('arc_session.json',JSON.stringify(S,null,1),'application/json');
+$('load').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{S=Object.assign(S,JSON.parse(t));opts();rAll()}catch(_){}})};
+$('png').onclick=()=>dl('arc_map.svg',$('map').innerHTML,'image/svg+xml');
+$('nlgo').onclick=()=>{const q=$('nlq').value.toLowerCase();const m=[['burden','burden|afford|rent'],['transit','transit|job|access'],['inc','income|earn|wage'],['ba','degree|educat|college'],['permits','permit|production|build'],['mob','mobility|opportun'],['rent','rent'],['pop','population|people']].filter(x=>new RegExp(x[1]).test(q)).map(x=>x[0]);if(!m.length){$('nlout').textContent='No matching indicator. Try "income", "transit jobs" or "cost burden".';return}S.var=m[0];if(m[1])S.var2=m[1];S.bin=V[S.var].t=='%'?'q':'n';$('bin').value=S.bin;if(!S.tray.includes(S.var))S.tray.push(S.var);opts();rAll();$('nlout').textContent='Showing '+V[S.var].a+(m[1]?' against '+V[S.var2].a:'')+'. '+(S.bin=='q'?'Quantile bins suit percentages spread across counties.':'Natural breaks suit skewed counts.')+' Source: '+V[S.var].s+'.'};
+
+/* housing */
+const GOAL=320000,BASE=[22100,24300,26800,28200,30200],YR=[2021,2022,2023,2024,2025];
+function rHs(){const g=+$('gr').value;$('gro').textContent=g+'%';const proj=[];let p=BASE[4];for(let y=2026;y<=2030;y++){p*=1+g/100;proj.push(p)}const cum=BASE.reduce((a,b)=>a+b,0)+proj.reduce((a,b)=>a+b,0);
+ const kp=[['Units permitted 2025',BASE[4].toLocaleString(),'+7% on 2024'],['Progress to 2030 goal',Math.round(100*BASE.reduce((a,b)=>a+b,0)/GOAL)+'%','of '+GOAL.toLocaleString()+' units since 2021'],['Projected 2030',Math.round(cum).toLocaleString(),cum>=GOAL?'Goal met':'Short by '+Math.round(GOAL-cum).toLocaleString()],['Renters cost-burdened','48%','Regional, ACS 2024']];
+ $('hk').innerHTML=kp.map(k=>`<div class="card kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+ const W=520,H=240,L=56,B=26,all=BASE.concat(proj),mx=Math.max(...all,GOAL/10*1.2),X=i=>L+(W-L-10)*(i+.5)/10,Y=v=>H-B-(H-B-10)*v/mx,bw=(W-L-10)/10*.6;let s='';
+ [0,10000,20000,30000,40000].filter(v=>v<mx).forEach(v=>s+=`<line x1="${L}" x2="${W-10}" y1="${Y(v)}" y2="${Y(v)}" stroke="${css('--line')}"/><text x="${L-6}" y="${Y(v)+4}" text-anchor="end">${v/1000}k</text>`);
+ all.forEach((v,i)=>{s+=`<rect x="${X(i)-bw/2}" y="${Y(v)}" width="${bw}" height="${H-B-Y(v)}" fill="${i<5?css('--brand'):css('--accent')}" rx="2"/><text x="${X(i)}" y="${H-8}" text-anchor="middle">${2021+i}</text>`});
+ s+=`<line x1="${L}" x2="${W-10}" y1="${Y(GOAL/10)}" y2="${Y(GOAL/10)}" stroke="${css('--bad')}" stroke-dasharray="5 3"/>`;$('hprod').innerHTML=svg(W,H,s);
+ const v=V.burden.v,mx2=60;let b='';C.map((c,i)=>[c.n,v[i]]).sort((a,c)=>c[1]-a[1]).forEach((r,k)=>{const y=k*24+4,w=(W-140)*r[1]/mx2;b+=`<text x="100" y="${y+16}" text-anchor="end">${r[0]}</text><rect x="106" y="${y+4}" width="${w}" height="16" rx="3" fill="${r[1]>=50?css('--bad'):css('--warn')}"/><text x="${110+w}" y="${y+16}">${r[1]}%</text>`});$('hburden').innerHTML=svg(W,C.length*24+8,b);
+ const i=+$('cc').value;$('cco').textContent=C[i].n;$('hprof').innerHTML='<tr><th>Measure</th><th class="n">'+C[i].n+'</th><th class="n">Region (total or average)</th></tr>'+['permits','rent','inc','burden','transit'].map(k=>{const avg=V[k].v.reduce((a,b)=>a+b,0)/(V[k].t=='%'||V[k].t=='$'?V[k].v.length:1);return `<tr><td>${V[k].a}</td><td class="n">${fmt(k,V[k].v[i])}</td><td class="n">${fmt(k,avg)}</td></tr>`}).join('')+`<tr><td>Housing-ready policy certification</td><td class="n">${[1,0,1,1,1,0,1,0,0,1,1][i]?'Adopted':'Not yet'}</td><td class="n">7 of 11</td></tr>`;
+ const T=[['Regional production goal (320,000 units 2021-2030)',Math.round(100*BASE.reduce((a,b)=>a+b,0)/GOAL)],['Preserve 10,000 affordable units',38],['Housing-ready policies adopted by local governments',64],['New units within half a mile of transit',27],['Community land trust homes',45]];
+ $('htrack').innerHTML=T.map(t=>`<p style="margin:8px 0 4px">${t[0]} <b style="float:right">${t[1]}%</b></p><div class="prog"><div style="width:${t[1]}%;background:${t[1]>=50?css('--ok'):css('--warn')}"></div></div>`).join('')}
+$('cc').innerHTML=C.map((c,i)=>`<option value="${i}">${c.n}</option>`).join('');$('cc').value=3;$('gr').oninput=rHs;$('cc').oninput=rHs;
+
+/* mobility */
+function rEm(){const k=[['Jobs reachable by transit (median county)','70k','45-minute commute'],['Upward mobility index','38','Region, sample'],['Bachelor\'s or higher','42%','Adults 25+'],['Median earnings gap','$18.2k','Highest vs lowest county']];$('ek').innerHTML=k.map(x=>`<div class="card kpi"><div class="l">${x[0]}</div><div class="v">${x[1]}</div><div class="s">${x[2]}</div></div>`).join('');
+ const W=520,v=V.transit.v,mx=Math.max(...v);let g='';C.map((c,i)=>[c.n,v[i]]).sort((a,b)=>b[1]-a[1]).forEach((r,k)=>{const y=k*24+4,w=(W-150)*r[1]/mx;g+=`<text x="100" y="${y+16}" text-anchor="end">${r[0]}</text><rect x="106" y="${y+4}" width="${w}" height="16" rx="3" fill="${css('--brand2')}"/><text x="${110+w}" y="${y+16}">${Math.round(r[1]/1000)}k</text>`});$('ejobs').innerHTML=svg(W,C.length*24+8,g);
+ const a=V.ba.v,b=V.inc.v,H=260,L=56,Bm=30,X=x=>L+(W-L-20)*(x-15)/45,Y=y=>H-Bm-(H-Bm-10)*(y-50000)/85000;let s=`<text x="${(W+L)/2}" y="${H-6}" text-anchor="middle">Bachelor's or higher (%)</text>`;a.forEach((x,i)=>s+=`<circle cx="${X(x)}" cy="${Y(b[i])}" r="7" fill="${css('--accent')}"/><text x="${X(x)+9}" y="${Y(b[i])+4}" style="font-size:10px">${C[i].n}</text>`);$('esc').innerHTML=svg(W,H,s)}
+
+/* admin */
+let PIPE=[['Census ACS 5-year (API)','Annual, December','OK','2026-10-01'],['HUD CHAS','Annual','OK','2026-08-14'],['ARC building permits','Monthly upload','OK','2026-11-01'],['LEHD LODES jobs','Annual','OK','2026-09-20'],['GIS boundaries (counties, tracts, districts)','On change','OK','2026-07-02']];
+function rPipe(){$('pipe').innerHTML='<tr><th>Dataset</th><th>Refresh</th><th>Status</th><th>Last run</th></tr>'+PIPE.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td><td><span class="pill p-ok">${p[2]}</span></td><td>${p[3]}</td></tr>`).join('')}
+$('aadd').onclick=()=>{const f=$('an').value.trim()||'pct_new_indicator',a=$('aa').value.trim()||'New indicator';const t=$('at').value=='Percent'?'%':$('at').value=='Currency'?'$':'n';V[f]={a,s:$('as').value||'ARC upload',t,v:C.map((c,i)=>t=='%'?20+((i*37)%50):1000*(5+((i*13)%40)))};LIB.push(f);opts();PIPE.unshift([a+' ('+f+')','Manual','OK','2026-11-06']);rPipe();$('aout').textContent='"'+a+'" published with alias, source and default chart. Open the explorer tab: it is in the variable list and search.'};
+
+/* plan */
+function rPlan(){const T=[['Discovery and design recommendations',1,2],['DataNexus replacement build',2,6],['Data migration (1,000+ indicators)',3,6],['Housing dashboard build',5,8],['Economic Mobility dashboard design and build',7,10],['Accessibility testing (WCAG 2.1 AA) and UAT',9,11],['Training and documentation',11,12],['Hosting and maintenance',1,12]];const W=760,L=290,lh=26,cw=(W-L-10)/12,M='JFMAMJJASOND';let g='';for(let i=0;i<12;i++)g+=`<text x="${L+(i+.5)*cw}" y="14" text-anchor="middle">${M[i]}</text>`;T.forEach((t,i)=>{const y=22+i*lh;g+=`<text x="${L-8}" y="${y+15}" text-anchor="end">${t[0]}</text><rect x="${L+(t[1]-1)*cw}" y="${y+5}" width="${(t[2]-t[1]+1)*cw}" height="${lh-10}" rx="3" fill="${i==7?css('--line'):css('--brand')}"/>`});$('gantt').innerHTML=svg(W,T.length*lh+30,g);
+ const B=[['1A(i) DataNexus replacement',200],['1A(ii) Housing dashboard',95],['1A(iii) Economic Mobility dashboard',75],['1B Maintenance',60],['1C Training',25]];let tot=0;$('bud').innerHTML='<tr><th>Exhibit B line</th><th class="n">Hours</th><th class="n">Cost</th></tr>'+B.map(b=>{tot+=b[1]*95;return `<tr><td>${b[0]}</td><td class="n">${b[1]}</td><td class="n">$${(b[1]*95).toLocaleString()}</td></tr>`}).join('')+`<tr><td>1D Hosting through 12/31/27</td><td class="n">-</td><td class="n">$3,600</td></tr><tr><td><b>Total estimated budget</b></td><td></td><td class="n"><b>$${(tot+3600).toLocaleString()}</b></td></tr>`}
+
+/* rfp map */
+const RQ=[['DataNexus','Multiple Census, legislative, local geographies','Geography selector (county, city, tract, House/Senate districts, super districts)'],['DataNexus','Custom basemaps, color ramps, binning; export graphics and PDF','Ramp and binning selectors; SVG/PNG and PDF export'],['DataNexus','1,000+ indicators summed to each geography','Indicator library and search; admin pipeline'],['DataNexus','Sort, filter, select, zoom, pan','Click-select, histogram filter, sortable table'],['DataNexus','Configurable charts, tables, summaries; move between map/chart/table','Linked map, scatterplot, histogram, table'],['DataNexus','Scatterplot linked to map','Scatterplot with select/highlight and trend line'],['DataNexus','Histogram filtering and cross-variable analysis','Histogram filter; scatterplot of any two variables'],['DataNexus','Human-readable field names from aliases','Aliases shown everywhere; set in admin'],['DataNexus','Search variables; data tray; join; export CSV/XLSX','Search box, data tray, CSV/XLSX export'],['DataNexus','Download geography with joined table as GDB','GDB export (server-side in production)'],['DataNexus','Users add own spatial and tabular data','Upload CSV, XLSX, shapefile, GeoJSON (production)'],['DataNexus','Metadata for each indicator and layer','Metadata panel'],['DataNexus','Interoperability with ArcGIS Online and Open Data','Reads and publishes Esri feature services and Hub items'],['DataNexus','Unlimited end users, no viewer licences','Open-source stack; no per-user fees'],['DataNexus','Save and restore session (JSON)','Save/restore session buttons'],['DataNexus','Fast, scalable for big data','Vector tiles, PostGIS, pre-aggregated cubes, CDN'],['DataNexus','Secure admin back end, no developer','Admin tab'],['DataNexus','Accessible, responsive, easy for non-GIS users','WCAG 2.1 AA; plain-language labels; mobile layout'],['DataNexus','AI and MCP integration (preferred)','Plain-English assistant; MCP server exposing indicators'],['Housing','Regional overview with KPIs and trends','Housing tab: KPIs, production trend'],['Housing','County and municipal profiles; compare','County profile vs region'],['Housing','Interactive map layers (LCI, TOD, TADs, Opportunity Zones, CLTs, transit)','Layer catalogue in production; county map in demo'],['Housing','Strategy goal tracking','Goal progress bars'],['Housing','Downloads (JPG, PNG, PDF) and recurring updates','Exports; scheduled data pipeline'],['Mobility','Similar scope to housing','Economic Mobility tab'],['Deliverables','Design recommendations; deployed apps; data and admin documentation; training; 12 months hosting','Schedule and budget tab']];
+$('req').innerHTML='<tr><th>App</th><th>Exhibit A requirement</th><th>Where shown / how met</th></tr>'+RQ.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+
+const nav=$('nav');function show(t){nav.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('on',s.id==t))}
+nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;show(b.dataset.t);history.replaceState(null,'','#'+b.dataset.t)});
+addEventListener('hashchange',()=>{const h=location.hash.slice(1);if($(h)&&$(h).classList.contains('tab'))show(h)});
+if(location.hash&&$(location.hash.slice(1)))show(location.hash.slice(1));
+opts();rAll();rHs();rEm();rPipe();rPlan();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{rAll();rHs();rEm();rPlan()});
+</script>
+</body>
+</html>
