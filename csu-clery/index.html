@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSU Clery Compliance Assistant</title>
+<meta name="description" content="Agentic Rx demonstration for CSU RFI CSUCO-RFI-00000845: AI-assisted Clery Act compliance with human review.">
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#1d2733;--muted:#5d6b7a;--line:#dde3ea;--brand:#0f5c6e;--brand2:#1a8aa3;--accent:#c2843a;--bad:#b23b3b;--ok:#2f7d4f;--warn:#c98a12;--soft:#e8f2f4;--c4:#2f7d4f;--c3:#7aa84a;--c2:#d39a2a;--c1:#b23b3b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}}
+:root[data-theme="dark"]{--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line);padding:0 12px;position:sticky;top:0;z-index:5}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 10px;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+main{max-width:1120px;margin:0 auto;padding:16px}
+.banner{background:var(--soft);border-left:4px solid var(--brand);padding:10px 12px;border-radius:6px;font-size:13px;margin-bottom:14px}
+.banner b{color:var(--brand)}
+.grid{display:grid;gap:12px}.k4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.k2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.kpi .v{font-size:28px;font-family:Georgia,serif;margin:4px 0}.kpi .s{font-size:12px;color:var(--muted)}
+h2{font-size:17px;margin:20px 0 6px}h3{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.ctl{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:12px}
+.ctl label{font-size:13px;color:var(--muted);display:block}.ctl output{float:right;color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{text-align:right}.tw{overflow-x:auto}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+.p-ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.p-warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}.p-bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.r{display:inline-block;width:24px;text-align:center;border-radius:4px;color:#fff;font-weight:700}
+svg{width:100%;height:auto;display:block}svg text{fill:var(--muted);font-size:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tab{display:none}.tab.on{display:block}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+ul.as{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--muted)}ul.as li{margin-bottom:3px}
+footer{max-width:1120px;margin:0 auto;padding:16px;color:var(--muted);font-size:12px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.t-rfp{background:color-mix(in srgb,var(--brand) 18%,transparent);color:var(--brand)}.t-real{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.t-sample{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}.t-model{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent)}
+.links{margin-top:6px;font-size:13px;display:flex;gap:14px;flex-wrap:wrap}.links a{color:var(--brand);text-decoration:none}.links a:hover{text-decoration:underline}
+</style><style>
+select,.inp{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:7px 12px;font:inherit;cursor:pointer}.btn.s{background:var(--card);color:var(--brand);border:1px solid var(--brand)}.btn.w{background:var(--warn)}.btn:disabled{opacity:.5;cursor:not-allowed}
+tr.click{cursor:pointer}tr.click:hover td,tr.sel td{background:var(--soft)}
+mark{background:color-mix(in srgb,var(--accent) 30%,transparent);color:inherit;border-radius:3px;padding:0 2px}
+.narr{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:14px;line-height:1.6}
+.sug{border-left:4px solid var(--brand);padding:6px 10px;margin:6px 0;background:var(--card);border-radius:6px}
+.bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden;display:inline-block;width:110px;vertical-align:middle}.bar>i{display:block;height:100%}
+.log{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>Clery Compliance Assistant: AI with human review</h1>
+<p>Demonstration for California State University RFI CSUCO-RFI-00000845, Artificial Intelligence Solution for Clery Act Compliance · Agentic Rx LLC</p>
+<p class="links"><a href="../">← All Agentic Rx demonstrations</a><a href="#map">RFI requirements map</a><a href="https://agentic-rx.com" target="_blank" rel="noopener">agentic-rx.com</a></p>
+</header>
+<nav id="nav">
+<button data-t="intake" class="on">Intake &amp; AI triage</button>
+<button data-t="queue">Review queue</button>
+<button data-t="log">Daily crime log</button>
+<button data-t="tw">Timely warnings</button>
+<button data-t="asr">ASR statistics</button>
+<button data-t="gov">AI governance &amp; audit</button>
+<button data-t="map">RFI requirements map</button>
+</nav>
+<main>
+<div class="banner"><b>Synthetic data only.</b> All incidents, names, locations and statistics are invented for illustration; no CSU or student data is used. Clery categories, geography types and the human-review rules follow the RFI and the Clery Act. In this design the AI <b>only recommends</b>: people confirm every classification, approve every report and approve every timely warning.</div>
+
+<section class="tab on" id="intake">
+<h2>Incident intake and AI-assisted Clery classification</h2>
+<p class="sub">Reports arrive from the online form, CSA submissions and the police records system. The assistant highlights the facts behind each suggestion, scores its confidence, and routes the case to a person. Select a report.</p>
+<div class="grid k2">
+<div class="card"><div class="tw"><table id="inc"></table></div></div>
+<div class="card" id="det"></div>
+</div>
+</section>
+
+<section class="tab" id="queue">
+<h2>Review queue: built to avoid false negatives</h2>
+<p class="sub">CSU's highest priority is not missing a reportable incident. The assistant never closes a case as "not Clery-reportable" by itself. Move the threshold: every case with any reportable signal below it goes to a <b>second reviewer</b>, not just the low-confidence positives.</p>
+<div class="ctl card"><div><label>Secondary-review threshold (confidence) <output id="tho"></output></label><input type="range" id="th" min="50" max="99" value="85"></div><div><label>Reports this term <output id="vo"></output></label><input type="range" id="vol" min="200" max="3000" step="50" value="1200"></div></div>
+<div class="grid k4" id="qk"></div>
+<div class="card" style="margin-top:12px"><h3>Cases by AI confidence and reviewer path</h3><svg id="qchart" viewBox="0 0 640 230"></svg><div class="legend"><span><i style="background:var(--brand)"></i>Single reviewer confirms</span><span><i style="background:var(--warn)"></i>Second reviewer required</span><span><i style="background:var(--bad)"></i>AI suggests "not reportable": second reviewer must agree (never auto-closed)</span></div></div>
+</section>
+
+<section class="tab" id="log">
+<h2>Daily crime log</h2>
+<p class="sub">Entries are drafted from confirmed cases and must be posted within two business days. A records officer approves each entry; every edit is kept in the history.</p>
+<div class="card tw"><table id="dcl"></table></div>
+</section>
+
+<section class="tab" id="tw">
+<h2>Timely warning identification</h2>
+<p class="sub">The assistant watches for serious or continuing threats (for example, a series of similar crimes) and drafts a warning. <b>It cannot send anything.</b> Sending requires approval by the designated official, and the draft excludes victim names by design.</p>
+<div class="grid k2"><div class="card"><h3>Pattern detected</h3><div id="pat"></div></div>
+<div class="card"><h3>Draft warning (needs approval)</h3><textarea id="twd" class="inp" rows="9" style="width:100%"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="twa">Approve as designated official</button><button class="btn s" id="tws" disabled>Send via campus alert system</button></div><p class="note" id="twn">Two-step: approve, then send. In this demo, sending is disabled.</p></div></div>
+</section>
+
+<section class="tab" id="asr">
+<h2>Annual Security Report statistics</h2>
+<p class="sub">Three-year Clery statistics by crime and geography, built only from confirmed classifications, with drill-down to source cases. Pick a geography.</p>
+<div class="row"><label>Geography <select id="geo"><option value="0">On campus (total)</option><option value="1">On campus: residence halls</option><option value="2">Noncampus property</option><option value="3">Public property</option></select></label></div>
+<div class="grid k2"><div class="card tw"><table id="asrt"></table></div><div class="card"><h3>Three-year trend</h3><svg id="asrc" viewBox="0 0 420 230"></svg><div class="legend"><span><i style="background:var(--muted)"></i>2023</span><span><i style="background:var(--brand2)"></i>2024</span><span><i style="background:var(--brand)"></i>2025</span></div></div></div>
+</section>
+
+<section class="tab" id="gov">
+<h2>AI governance, transparency and audit</h2>
+<div class="grid k2">
+<div class="card"><h3>Where AI assists, recommends, and where people decide</h3><div class="tw"><table id="roles"></table></div></div>
+<div class="card"><h3>Safeguards</h3><ul class="as">
+<li><b>Evidence-linked:</b> every suggestion cites the sentences it relied on; no citation, no suggestion.</li>
+<li><b>Hallucination control:</b> the model may only use facts in the case file and the Clery handbook rules; unsupported answers are blocked and flagged.</li>
+<li><b>Confidence scoring:</b> calibrated on a held-out labelled test set; low or conflicting scores trigger second review.</li>
+<li><b>No early stop:</b> a case stays open for re-review when new incidents or supplements are added.</li>
+<li><b>No training on CSU data</b> without CSU's prior written authorization; data stays in the United States.</li>
+<li><b>Bias checks:</b> quarterly review of overrides by category and geography.</li></ul></div></div>
+<div class="card" style="margin-top:12px"><h3>Audit log (who did what, when, and why)</h3><div class="tw log"><table id="aud"></table></div></div>
+</section>
+
+<section class="tab" id="map">
+<h2>RFI requirements map</h2>
+<p class="sub">Where each function in RFI Section 3 and the AI requirements in Section 5 appear in this demonstration.</p>
+<div class="card tw"><table id="rq"></table></div>
+</section>
+</main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · UEI C8MAWGE5LU65 · CAGE 20S95 · info@agentic-rx.com · Synthetic data only.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const INC=[
+{id:'25-0412',src:'Online form',dt:'Oct 28 23:40',loc:'Sierra Hall (residence hall), room 3xx',t:'Reporter states her laptop and wallet were taken from her room while she was at dinner. The <mark>door was locked</mark> and there are <mark>pry marks on the frame</mark>. Nothing else in the room was disturbed.',cat:'Burglary',conf:93,geo:'On campus: residence hall',ev:'Unlawful entry to a structure (pry marks on a locked door) to commit theft.',flags:[]},
+{id:'25-0415',src:'CSA report (coach)',dt:'Oct 29 10:15',loc:'Off-campus athletics hotel (school-sponsored trip)',t:'Student athlete told coach that during the away tournament another student <mark>touched her without consent</mark> in the hotel hallway. She did not want to name the other student.',cat:'Fondling (sex offense)',conf:78,geo:'Noncampus property (school-sponsored travel)',ev:'Touching of private body parts without consent; reported to a CSA; school-controlled travel.',flags:['VAWA/Title IX referral','Victim confidentiality']},
+{id:'25-0418',src:'Police RMS',dt:'Oct 30 01:05',loc:'Sidewalk adjacent to Main St entrance',t:'Officers cited a student for <mark>possession of a controlled substance</mark> on the public sidewalk next to campus. <mark>Arrest made</mark>.',cat:'Drug law arrest',conf:96,geo:'Public property',ev:'Arrest for drug law violation on public property adjacent to campus.',flags:[]},
+{id:'25-0421',src:'Online form',dt:'Oct 30 14:22',loc:'Library, 2nd floor',t:'Student reports another student has been <mark>sending repeated unwanted messages</mark> and <mark>waiting outside her classes</mark> for three weeks. She is afraid to walk to her car.',cat:'Stalking (VAWA)',conf:71,geo:'On campus',ev:'Course of conduct directed at a specific person that would cause a reasonable person to fear for safety.',flags:['VAWA/Title IX referral']},
+{id:'25-0423',src:'CSA report (RA)',dt:'Oct 31 22:50',loc:'Pine Hall lounge',t:'RA reports a loud argument; one student <mark>pushed</mark> another. No injuries and no weapon. Both students were separated.',cat:'Not Clery-reportable (simple assault) – needs confirmation',conf:62,geo:'On campus: residence hall',ev:'Simple assault is not a Clery crime unless it is a hate crime; check for bias indicators.',flags:['Possible hate-crime check']},
+{id:'25-0426',src:'Online form',dt:'Nov 1 09:30',loc:'Parking lot C',t:'Car window <mark>smashed</mark> and a backpack taken from the back seat overnight.',cat:'Not Clery-reportable (larceny from vehicle)',conf:88,geo:'On campus',ev:'Theft from a motor vehicle is larceny, not burglary or motor vehicle theft, under Clery definitions.',flags:[]}];
+let sel=0;const decided={};
+const AUD=[['Nov 1 09:31','system','25-0426','AI suggestion generated (88%) with 2 cited passages'],['Oct 31 23:02','system','25-0423','Routed to second reviewer: possible hate-crime indicator check'],['Oct 30 14:40','J. Ruiz (Clery coordinator)','25-0421','Confirmed Stalking; Title IX referral sent'],['Oct 29 10:31','system','25-0415','Victim name withheld from all downstream drafts']];
+function geoPill(g){return `<span class="pill p-ok">${g}</span>`}
+function rInc(){$('inc').innerHTML='<tr><th>Case</th><th>Source</th><th>AI suggestion</th><th>Conf.</th><th>Status</th></tr>'+INC.map((c,i)=>`<tr class="click ${i==sel?'sel':''}" data-i="${i}"><td>${c.id}<br><span style="color:var(--muted)">${c.dt}</span></td><td>${c.src}</td><td>${c.cat}</td><td><span class="bar"><i style="width:${c.conf}%;background:${c.conf>=85?'var(--ok)':c.conf>=70?'var(--warn)':'var(--bad)'}"></i></span> ${c.conf}%</td><td>${decided[c.id]?'<span class="pill p-ok">'+decided[c.id]+'</span>':c.conf<85||/Not Clery/.test(c.cat)?'<span class="pill p-warn">2nd review</span>':'<span class="pill p-warn">Needs review</span>'}</td></tr>`).join('');rDet()}
+$('inc').addEventListener('click',e=>{const r=e.target.closest('tr[data-i]');if(!r)return;sel=+r.dataset.i;rInc()});
+function rDet(){const c=INC[sel];$('det').innerHTML=`<h3>Case ${c.id} · ${c.src}</h3><p class="sub">${c.dt} · ${c.loc}</p><div class="narr">${c.t}</div>
+<div class="sug"><b>Suggested category:</b> ${c.cat} <span class="pill ${c.conf>=85?'p-ok':c.conf>=70?'p-warn':'p-bad'}">${c.conf}% confidence</span><br><b>Suggested geography:</b> ${c.geo}<br><b>Why:</b> ${c.ev} <span style="color:var(--muted)">(highlighted text)</span>${c.flags.length?'<br><b>Flags:</b> '+c.flags.map(f=>'<span class="pill p-warn">'+f+'</span>').join(' '):''}</div>
+<div class="row" style="margin-top:8px"><button class="btn" data-a="Confirmed">Confirm</button><button class="btn s" data-a="Overridden">Override…</button><button class="btn w" data-a="Sent to 2nd review">Send to second reviewer</button></div>
+<p class="note">${/Not Clery/.test(c.cat)?'Because the suggestion is "not reportable", a second reviewer must agree before the case can be closed. This is the false-negative safeguard.':'The classification counts only after a person confirms it. The case stays open for supplements.'}</p>`;
+$('det').querySelectorAll('button').forEach(b=>b.onclick=()=>{let a=b.dataset.a;if(a=="Overridden")a="Overridden by reviewer";decided[c.id]=a;AUD.unshift(['Nov 6 '+new Date().toTimeString().slice(0,5),'Demo reviewer',c.id,a+' ('+c.cat+')']);rInc();rAud()})}
+function rQ(){const th=+$('th').value,v=+$('vol').value;$('tho').textContent=th+'%';$('vo').textContent=v.toLocaleString();
+const bins=[];for(let b=50;b<100;b+=5){const w=Math.exp(-Math.pow((b-88)/12,2));bins.push({b,w})}const tw=bins.reduce((a,x)=>a+x.w,0);let single=0,second=0,neg=0;
+let s='';const W=600/bins.length;bins.forEach((x,i)=>{const n=Math.round(v*x.w/tw);const nn=Math.round(n*0.35);const pos=n-nn;const two=x.b<th?pos:0;const one=pos-two;single+=one;second+=two;neg+=nn;const sc=0.55;let y=200;[[one,'var(--brand)'],[two,'var(--warn)'],[nn,'var(--bad)']].forEach(([k,c])=>{const h=k*sc;s+=`<rect x="${30+i*W}" y="${y-h}" width="${W-6}" height="${h}" fill="${c}"/>`;y-=h});s+=`<text x="${30+i*W}" y="218">${x.b}%</text>`});
+s+=`<line x1="${30+(th-50)/5*W}" y1="20" x2="${30+(th-50)/5*W}" y2="200" stroke="var(--ink)" stroke-dasharray="4 3"/><text x="${34+(th-50)/5*W}" y="30">threshold</text>`;$('qchart').innerHTML=s;
+$('qk').innerHTML=[['Single-review confirmations',single.toLocaleString(),'high confidence, reportable'],['Second review',(second+neg).toLocaleString(),'below threshold or "not reportable"'],['Auto-closed by AI','0','by design: no false-negative auto-close'],['Reviewer hours saved','~'+Math.round(single*0.25).toLocaleString(),'15 min saved per confirmed case (estimate)']].map(k=>`<div class="card kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('')}
+['th','vol'].forEach(i=>$(i).addEventListener('input',rQ));
+const DCL=[['25-0412','Burglary','Sierra Hall','Oct 28 23:40','Oct 29 08:10','Open',1],['25-0418','Drug law arrest','Main St sidewalk','Oct 30 01:05','Oct 30 08:00','Closed – arrest',1],['25-0421','Stalking','Library','Oct 30 14:22','Oct 31 09:15','Open – referred',1],['25-0426','Larceny (not Clery)','Lot C','Nov 1 09:30','Nov 1 10:05','Open',0],['25-0429','Motor vehicle theft','Lot F','Nov 4 07:55','—','Draft',2]];
+function rDcl(){$('dcl').innerHTML='<tr><th>Case</th><th>Nature</th><th>General location</th><th>Occurred</th><th>Reported</th><th>Disposition</th><th>Posting</th><th></th></tr>'+DCL.map((d,i)=>`<tr><td>${d[0]}</td><td>${d[1]}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[4]}</td><td>${d[5]}</td><td>${d[6]==1?'<span class="pill p-ok">Posted ≤2 business days</span>':d[6]==2?'<span class="pill p-warn">Draft · due Nov 6</span>':'<span class="pill p-ok">Posted (log only)</span>'}</td><td>${d[6]==2?`<button class="btn s" data-i="${i}">Approve entry</button>`:''}</td></tr>`).join('');$('dcl').querySelectorAll('button').forEach(b=>b.onclick=()=>{DCL[+b.dataset.i][6]=1;DCL[+b.dataset.i][4]='Nov 6';AUD.unshift(['Nov 6 '+new Date().toTimeString().slice(0,5),'Demo records officer',DCL[+b.dataset.i][0],'Daily crime log entry approved']);rDcl();rAud()})}
+function rTw(){$('pat').innerHTML=`<p><span class="pill p-bad">Possible continuing threat</span></p><table><tr><th>Case</th><th>Date</th><th>Location</th><th>Method</th></tr><tr><td>25-0398</td><td>Oct 22</td><td>Sierra Hall</td><td>Pried door</td></tr><tr><td>25-0405</td><td>Oct 25</td><td>Sierra Hall</td><td>Pried door</td></tr><tr><td>25-0412</td><td>Oct 28</td><td>Sierra Hall</td><td>Pried door</td></tr></table><p class="note">3 residence-hall burglaries in 7 days with the same method. Suggested for the timely-warning decision; a person decides whether it meets the standard.</p>`;
+$('twd').value='TIMELY WARNING – Residence hall burglaries\n\nBetween October 22 and October 28, three burglaries were reported in Sierra Hall. In each case a locked room door was forced open while residents were away, and electronics were taken.\n\nSafety tips: lock your door every time you leave, report damaged doors or locks, and report suspicious people to University Police at (xxx) xxx-xxxx.\n\nThis notice is issued under the Clery Act to help prevent similar crimes.';
+$('twa').onclick=()=>{$('tws').disabled=true;$('twn').textContent='Approved by designated official (demo). Sending stays disabled in this demonstration; in production it hands off to the campus alert system with an audit record.';AUD.unshift(['Nov 6 '+new Date().toTimeString().slice(0,5),'Demo designated official','TW-25-07','Timely warning draft approved; send step pending']);rAud()}}
+const CR=['Murder/Non-negligent manslaughter','Rape','Fondling','Robbery','Aggravated assault','Burglary','Motor vehicle theft','Arson','Dating violence','Stalking','Drug law arrests','Liquor law referrals'];
+const BASE=[[0,4,3,1,2,18,3,0,5,7,22,64],[0,3,2,0,1,14,0,0,3,4,6,58],[0,1,2,0,1,2,1,0,1,1,3,9],[0,0,1,2,3,1,4,0,1,1,17,6]];
+function rAsr(){const g=+$('geo').value,b=BASE[g];const yrs=[b.map(x=>Math.round(x*1.15)),b.map(x=>Math.round(x*1.05)),b];$('asrt').innerHTML='<tr><th>Crime</th><th class="n">2023</th><th class="n">2024</th><th class="n">2025</th></tr>'+CR.map((c,i)=>`<tr><td>${c}</td>${yrs.map(y=>`<td class="n">${y[i]}</td>`).join('')}</tr>`).join('');
+const pick=[2,5,6,9,10];const mx=Math.max(1,...pick.flatMap(i=>yrs.map(y=>y[i])));let s='';pick.forEach((ci,k)=>{yrs.forEach((y,j)=>{const h=y[ci]/mx*160;s+=`<rect x="${30+k*78+j*20}" y="${190-h}" width="18" height="${h}" fill="${['var(--muted)','var(--brand2)','var(--brand)'][j]}"/>`});s+=`<text x="${30+k*78}" y="208">${CR[ci].split(' ')[0]}</text>`});$('asrc').innerHTML=s}
+$('geo').addEventListener('change',rAsr);
+function rAud(){$('aud').innerHTML='<tr><th>When</th><th>Who</th><th>Case</th><th>Action and basis</th></tr>'+AUD.slice(0,10).map(a=>`<tr>${a.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}
+$('roles').innerHTML='<tr><th>Step</th><th>AI role</th><th>Human role</th></tr>'+[['Intake','Extracts date, location, people (de-identified), narrative facts','Reviews intake; corrects facts'],['Clery category','Recommends with confidence and cited evidence','Confirms or overrides every classification'],['Geography','Recommends from campus map and address data','Confirms'],['Not reportable','Recommends only','Second reviewer must agree before closing'],['Daily crime log','Drafts entry','Records officer approves posting'],['Timely warning','Detects patterns; drafts notice','Designated official decides and approves'],['ASR statistics','Aggregates confirmed cases only','Clery coordinator approves the report']].map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+const RQ=[['3A Incident intake and case management','Intake & AI triage; review queue'],['3B Clery classification assistance (category, geography, CSA review, consistency; advisory only; human review; institutional control)','Intake & AI triage; AI governance'],['3C Daily crime log (management, automated updates, workflow, audit history)','Daily crime log; audit log'],['3D Timely warnings and emergency notifications, with safeguards against automated sending','Timely warnings (approval required, sending disabled)'],['3E Annual Security Report support (aggregation, statistics, trends)','ASR statistics'],['3F Analytics and compliance monitoring','Review queue metrics; ASR trends'],['5 AI functionality: confidence scoring, hallucination controls, human review','Intake (confidence, evidence); AI governance safeguards'],['5 Human oversight of classifications, reports and warnings','AI governance: roles table'],['Addendum: avoid false negatives; no early stop on first incident','Review queue (no auto-close); case stays open for supplements']];
+$('rq').innerHTML='<tr><th>RFI requirement</th><th>Where shown</th></tr>'+RQ.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+const nav=$('nav');function show(t){nav.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('on',s.id==t))}
+nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;show(b.dataset.t);history.replaceState(null,'','#'+b.dataset.t)});
+addEventListener('hashchange',()=>{const h=location.hash.slice(1);if($(h)&&$(h).classList.contains('tab'))show(h)});if(location.hash&&$(location.hash.slice(1)))show(location.hash.slice(1));
+rInc();rQ();rDcl();rTw();rAsr();rAud();
+</script>
+</body>
+</html>
