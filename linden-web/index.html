@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linden Website Operations</title>
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#1d2733;--muted:#5d6b7a;--line:#dde3ea;--brand:#0f5c6e;--brand2:#1a8aa3;--accent:#c2843a;--bad:#b23b3b;--ok:#2f7d4f;--warn:#c98a12;--soft:#e8f2f4;--c4:#2f7d4f;--c3:#7aa84a;--c2:#d39a2a;--c1:#b23b3b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}}
+:root[data-theme="dark"]{--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line);padding:0 12px;position:sticky;top:0;z-index:5}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 10px;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+main{max-width:1120px;margin:0 auto;padding:16px}
+.banner{background:var(--soft);border-left:4px solid var(--brand);padding:10px 12px;border-radius:6px;font-size:13px;margin-bottom:14px}
+.banner b{color:var(--brand)}
+.grid{display:grid;gap:12px}.k4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.k2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.kpi .v{font-size:28px;font-family:Georgia,serif;margin:4px 0}.kpi .s{font-size:12px;color:var(--muted)}
+h2{font-size:17px;margin:20px 0 6px}h3{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.ctl{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:12px}
+.ctl label{font-size:13px;color:var(--muted);display:block}.ctl output{float:right;color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{text-align:right}.tw{overflow-x:auto}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+.p-ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.p-warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}.p-bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.r{display:inline-block;width:24px;text-align:center;border-radius:4px;color:#fff;font-weight:700}
+svg{width:100%;height:auto;display:block}svg text{fill:var(--muted);font-size:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tab{display:none}.tab.on{display:block}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+ul.as{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--muted)}ul.as li{margin-bottom:3px}
+footer{max-width:1120px;margin:0 auto;padding:16px;color:var(--muted);font-size:12px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.t-rfp{background:color-mix(in srgb,var(--brand) 18%,transparent);color:var(--brand)}.t-real{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.t-sample{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}.t-model{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent)}
+.links{margin-top:6px;font-size:13px;display:flex;gap:14px;flex-wrap:wrap}.links a{color:var(--brand);text-decoration:none}.links a:hover{text-decoration:underline}
+</style><style>.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:6px 11px;font:inherit;cursor:pointer}select,.inp{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}</style>
+</head>
+<body>
+<header>
+<h1>Website Operations: City of Linden, NJ</h1>
+<p>Demonstration for the City of Linden RFQ, Website Services: Content Management and Cybersecurity Protection (contracts beginning January 1, 2027) · Agentic Rx LLC</p>
+<p class="links"><a href="../">← All Agentic Rx demonstrations</a><a href="https://agentic-rx.com" target="_blank" rel="noopener">agentic-rx.com</a></p>
+</header>
+<nav id="nav"><button data-t="cr" class="on">Content requests</button><button data-t="sec">Security &amp; patching</button><button data-t="bk">Backups &amp; uptime</button><button data-t="rep">Quarterly report</button></nav>
+<main>
+<div class="banner"><b>Sample data.</b> Request types, turnaround targets and security controls are those in our proposal; all requests, figures and events are illustrative, not City data.</div>
+<section class="tab on" id="cr"><h2>Content requests and turnaround</h2><p class="sub">Departments submit by email or form. Emergency alerts post the same business day (within 2 hours in business hours); routine updates within 2 business days. Add a request to see the clock start.</p>
+<div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><select id="dep"><option>Office of Emergency Management</option><option>City Clerk</option><option>Public Works</option><option>Recreation</option><option>Tax Collector</option></select><select id="typ"><option>Emergency alert</option><option>Meeting agenda</option><option>Public notice</option><option>News item</option><option>Form / document</option></select><button class="btn" id="add">Add request</button></div>
+<div class="grid k4" id="ck"></div><div class="card tw" style="margin-top:12px"><table id="crt"></table></div></section>
+<section class="tab" id="sec"><h2>Security and patching</h2><p class="sub">Monthly patch cycle tested on staging; critical security patches within 48 hours. Web application firewall in front of the site.</p><div class="grid k4" id="sk"></div><div class="grid k2" style="margin-top:12px"><div class="card tw"><h3>Components</h3><table id="pt"></table></div><div class="card"><h3>Requests blocked by the firewall, last 14 days</h3><svg id="waf" viewBox="0 0 420 200"></svg><div class="legend"><span><i style="background:var(--brand)"></i>Bots / scanners</span><span><i style="background:var(--bad)"></i>Login attacks</span></div></div></div></section>
+<section class="tab" id="bk"><h2>Backups and uptime</h2><div class="grid k4" id="bkk"></div><div class="card tw" style="margin-top:12px"><table id="bkt"></table></div></section>
+<section class="tab" id="rep"><h2>Quarterly report to the City</h2><p class="sub">What the City receives each quarter (sample Q1 2027).</p><div class="card tw"><table id="rpt"></table></div></section>
+</main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · UEI C8MAWGE5LU65 · info@agentic-rx.com · Sample data only.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const REQ=[['R-1041','Office of Emergency Management','Emergency alert','Snow emergency: parking ban',1.2,'Posted'],['R-1040','City Clerk','Meeting agenda','Council agenda Jan 19',20,'Posted'],['R-1039','Public Works','Public notice','Bulk pickup schedule',30,'Posted'],['R-1038','Recreation','News item','Winter programs registration',8,'In review'],['R-1037','Tax Collector','Form / document','Q1 tax bill FAQ (accessible PDF)',0,'In progress']];
+function rCr(){const tgt=t=>t=='Emergency alert'?2:16;$('crt').innerHTML='<tr><th>Request</th><th>Department</th><th>Type</th><th>Item</th><th>Target</th><th>Elapsed (business hrs)</th><th>Status</th></tr>'+REQ.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${tgt(r[2])} h</td><td>${r[4]}</td><td><span class="pill ${r[5]=='Posted'?(r[4]<=tgt(r[2])?'p-ok':'p-bad'):'p-warn'}">${r[5]}</span></td></tr>`).join('');const p=REQ.filter(r=>r[5]=='Posted'),ok=p.filter(r=>r[4]<=tgt(r[2])).length;$('ck').innerHTML=[['Open requests',REQ.length-p.length,'in queue'],['Posted on time',ok+'/'+p.length,'against targets'],['Emergency alerts','≤2 h','same business day'],['Accessibility checks','100%','headings, alt text, PDFs']].map(k=>`<div class="card kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('')}
+$('add').onclick=()=>{REQ.unshift(['R-'+(1042+REQ.length-5),$('dep').value,$('typ').value,'New request',0,'New']);rCr()};
+function rSec(){$('sk').innerHTML=[['Critical patches','≤48 h','from release'],['Plugins current','14/14','after Jan cycle'],['Editors with MFA','100%','11 accounts'],['Open vulnerabilities','0','last scan Jan 28']].map(k=>`<div class="card kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+$('pt').innerHTML='<tr><th>Component</th><th>Version</th><th>Status</th></tr>'+[['WordPress core','6.x (current)','Up to date'],['Theme (child)','2.4','Up to date'],['Forms plugin','5.8','Patched in 26 h (critical)'],['Calendar plugin','3.1','Up to date'],['Removed: unused plugins','6','Attack surface reduced']].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td><span class="pill p-ok">${r[2]}</span></td></tr>`).join('');
+const a=[410,380,520,460,700,640,390,420,880,510,470,450,600,530],b=[40,35,60,22,140,90,30,28,210,55,48,40,75,61];let s='';a.forEach((v,i)=>{const h1=v/1100*170,h2=b[i]/1100*170;s+=`<rect x="${20+i*28}" y="${180-h1}" width="20" height="${h1}" fill="var(--brand)"/><rect x="${20+i*28}" y="${180-h1-h2}" width="20" height="${h2}" fill="var(--bad)"/>`});s+='<text x="20" y="196">14 days ago</text><text x="330" y="196">today</text>';$('waf').innerHTML=s}
+function rBk(){$('bkk').innerHTML=[['Uptime (90 days)','99.97%','1-min checks'],['Backups','Daily','encrypted, off-site, 30-day retention'],['Last test restore','Passed','Jan 15, 2027 · 22 min'],['SSL certificate','62 days','auto-renew on']].map(k=>`<div class="card kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');$('bkt').innerHTML='<tr><th>Date</th><th>Event</th><th>Result</th></tr>'+[['Jan 28','Daily backup (files + database)','Completed, 1.8 GB'],['Jan 21','Uptime alert: host latency','Resolved in 6 min; City notified'],['Jan 15','Quarterly test restore to staging','Passed; written report filed'],['Jan 9','Malware and file-integrity scan','Clean']].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}
+$('rpt').innerHTML='<tr><th>Measure</th><th>Q1 2027 (sample)</th><th>Target</th></tr>'+[['Uptime','99.97%','99.9%'],['Content requests completed','168','—'],['On-time (routine ≤2 business days)','97%','95%'],['Emergency alerts posted ≤2 h','100%','100%'],['Patches applied','31 (2 critical ≤48 h)','All'],['Requests blocked by firewall','7,180','—'],['Backups successful / test restore','90/90 · passed','100% · quarterly'],['Accessibility issues fixed','23','All found']].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+const nav=$('nav');function show(t){nav.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('on',s.id==t))}nav.addEventListener('click',e=>{const b=e.target.closest('button');if(b)show(b.dataset.t)});
+rCr();rSec();rBk();
+</script>
+</body>
+</html>
