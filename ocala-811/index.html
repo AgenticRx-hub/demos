@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ocala 811 Ticket Management</title>
+<meta name="description" content="Agentic Rx demonstration for City of Ocala ELE/270009: 811 ticket management software for citywide use.">
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#1d2733;--muted:#5d6b7a;--line:#dde3ea;--brand:#0f5c6e;--brand2:#1a8aa3;--accent:#c2843a;--bad:#b23b3b;--ok:#2f7d4f;--warn:#c98a12;--soft:#e8f2f4;--c4:#2f7d4f;--c3:#7aa84a;--c2:#d39a2a;--c1:#b23b3b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}}
+:root[data-theme="dark"]{--bg:#0f1418;--card:#182027;--ink:#e6edf2;--muted:#9aa8b5;--line:#2a3640;--brand:#58b6c9;--brand2:#7fd0e0;--accent:#e0a75e;--bad:#e07272;--ok:#6cc08e;--warn:#e7b44a;--soft:#1d2c33;--c4:#6cc08e;--c3:#a6cf6f;--c2:#e7b44a;--c1:#e07272}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 16px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line);padding:0 12px;position:sticky;top:0;z-index:5}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 10px;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+main{max-width:1120px;margin:0 auto;padding:16px}
+.banner{background:var(--soft);border-left:4px solid var(--brand);padding:10px 12px;border-radius:6px;font-size:13px;margin-bottom:14px}
+.banner b{color:var(--brand)}
+.grid{display:grid;gap:12px}.k4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.k2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.kpi .v{font-size:28px;font-family:Georgia,serif;margin:4px 0}.kpi .s{font-size:12px;color:var(--muted)}
+h2{font-size:17px;margin:20px 0 6px}h3{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.ctl{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:12px}
+.ctl label{font-size:13px;color:var(--muted);display:block}.ctl output{float:right;color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{text-align:right}.tw{overflow-x:auto}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+.p-ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.p-warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}.p-bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.r{display:inline-block;width:24px;text-align:center;border-radius:4px;color:#fff;font-weight:700}
+svg{width:100%;height:auto;display:block}svg text{fill:var(--muted);font-size:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tab{display:none}.tab.on{display:block}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+ul.as{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--muted)}ul.as li{margin-bottom:3px}
+footer{max-width:1120px;margin:0 auto;padding:16px;color:var(--muted);font-size:12px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.t-rfp{background:color-mix(in srgb,var(--brand) 18%,transparent);color:var(--brand)}.t-real{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.t-sample{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}.t-model{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent)}
+.links{margin-top:6px;font-size:13px;display:flex;gap:14px;flex-wrap:wrap}.links a{color:var(--brand);text-decoration:none}.links a:hover{text-decoration:underline}
+</style>
+<style>
+select,.inp{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:7px 12px;font:inherit;cursor:pointer}.btn.s{background:var(--card);color:var(--brand);border:1px solid var(--brand)}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--soft)}
+.phone{width:300px;border:10px solid #222;border-radius:30px;padding:12px;background:var(--card);margin:auto}
+.cbar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.cbar>div{height:100%}
+</style>
+</head>
+<body>
+<header>
+<h1>811 Ticket Management: City of Ocala</h1>
+<p>Demonstration for Solicitation ELE/270009 (ProRFx RFP10052600000142), 811 Ticket Management Software for Citywide Use · Sunshine 811 locate requests for all City-owned underground utilities · Agentic Rx LLC, Tampa</p>
+<p class="links"><a href="../">← All Agentic Rx demonstrations</a><a href="#req">Requirements map</a><a href="https://agentic-rx.com" target="_blank" rel="noopener">agentic-rx.com</a></p>
+</header>
+<nav id="nav">
+<button data-t="q" class="on">Ticket queue</button>
+<button data-t="t">Ticket detail</button>
+<button data-t="m">Map</button>
+<button data-t="f">Field app</button>
+<button data-t="r">Reports &amp; compliance</button>
+<button data-t="a">Routing &amp; admin</button>
+<button data-t="req">Requirements map</button>
+</nav>
+<main>
+<div class="banner"><b>Sample data.</b> The City's utility types (water, sanitary sewer, stormwater, electric, fiber/telecommunications, traffic signals, street lighting) come from the solicitation. Ticket numbers, addresses, locators and volumes are <b>illustrative</b>. At kick-off the system connects to the City's Sunshine 811 ticket feed and GIS utility layers.</div>
+
+<section class="tab on" id="q">
+<h2>Today's locate tickets</h2>
+<p class="sub">Every Sunshine 811 ticket is imported automatically, split into one task per City facility type, routed to the right crew and given a due-date clock. Move the sliders to see how staffing affects on-time compliance.</p>
+<div class="ctl card">
+<div><label>Tickets received per day <output id="vo"></output></label><input type="range" id="vol" min="20" max="250" value="90"></div>
+<div><label>Locators in the field <output id="lo"></output></label><input type="range" id="loc" min="2" max="20" value="8"></div>
+<div><label>Tickets cleared electronically (no conflict) <output id="ao"></output></label><input type="range" id="auto" min="0" max="60" value="25"></div>
+</div>
+<div class="grid k4" id="qk"></div>
+<div class="card" style="margin-top:12px"><div class="row"><select id="fd"><option value="">All departments</option></select><select id="fs"><option value="">All statuses</option><option>Emergency</option><option>Due today</option><option>Open</option><option>Overdue</option><option>Responded</option></select></div><div class="tw"><table id="tq"></table></div></div>
+</section>
+
+<section class="tab" id="t">
+<h2 id="tt"></h2>
+<div class="grid k2">
+<div class="card"><h3>Ticket</h3><div class="tw"><table id="tinfo"></table></div><h3 style="margin-top:12px">Audit trail</h3><div class="tw"><table id="taud"></table></div></div>
+<div class="card"><h3>Facility tasks and positive response</h3><div class="tw"><table id="ttask"></table></div><div class="row" style="margin-top:8px"><select id="pr"><option>1 - Marked</option><option>2 - Clear / no conflict</option><option>3 - Not complete, more time needed</option><option>4 - Ongoing job</option></select><button class="btn" id="prgo">Post response to Sunshine 811</button><button class="btn s" onclick="window.print()">Ticket packet (PDF)</button></div><p class="note" id="prout"></p></div>
+</div>
+</section>
+
+<section class="tab" id="m">
+<h2>Dig sites and City utility layers</h2>
+<p class="sub">Tickets plotted with the City's utility layers. Toggle layers; red outlines are emergencies, amber are due today.</p>
+<div class="row" id="lyr"></div>
+<div class="card"><div id="map"></div></div>
+</section>
+
+<section class="tab" id="f">
+<h2>Field app (phone or tablet, works offline)</h2>
+<div class="grid k2"><div class="phone" id="ph"></div><div class="card"><h3>What the locator does</h3><ul class="as"><li>Sees assigned tasks sorted by due time, with navigation to the dig site.</li><li>Opens the map with City layers at the excavation area.</li><li>Records marks: facility, paint colour (APWA code), flags, offsets, notes.</li><li>Takes geotagged photos and a sketch; signs off.</li><li>Posts the positive response; works offline and syncs when back in coverage.</li></ul></div></div>
+</section>
+
+<section class="tab" id="r">
+<h2>Performance, compliance and claims support</h2>
+<div class="grid k2">
+<div class="card"><h3>On-time positive response by department (last 30 days)</h3><div id="rdep"></div></div>
+<div class="card"><h3>Ticket volume and on-time rate, 12 months</h3><div id="rtr"></div></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Scheduled reports</h3><div class="tw"><table id="rrep"></table></div></div>
+</section>
+
+<section class="tab" id="a">
+<h2>Routing rules and administration</h2>
+<p class="sub">City administrators set routing by facility type and service area, due-time rules, escalation and users, without the vendor.</p>
+<div class="card"><div class="tw"><table id="arules"></table></div></div>
+<div class="grid k2" style="margin-top:12px"><div class="card"><h3>Escalation</h3><ul class="as"><li>Emergency ticket: SMS and email to on-call locator and supervisor within 1 minute.</li><li>4 hours before due: reminder to assignee.</li><li>At due time with no response: supervisor alert; ticket flagged overdue.</li></ul></div><div class="card"><h3>Security and records</h3><ul class="as"><li>US-hosted, encrypted at rest and in transit; daily backups.</li><li>Single sign-on with City accounts; role-based access; full audit log.</li><li>Records retained per Chapter 119 F.S. and the City's retention schedule; City owns and can export all data.</li></ul></div></div>
+</section>
+
+<section class="tab" id="req">
+<h2>Solicitation requirements and where they are shown</h2>
+<div class="card"><div class="tw"><table id="rq"></table></div></div>
+</section>
+</main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · UEI C8MAWGE5LU65 · Demonstration with sample data for City of Ocala ELE/270009. Not City data.</footer>
+<script>
+const $=id=>document.getElementById(id);const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const DEP=[['Water','Water Resources','#2b7bb9'],['Sanitary sewer','Water Resources','#7a5c2e'],['Stormwater','Public Works','#2e9c8f'],['Electric','Ocala Electric Utility','#c0392b'],['Fiber / telecom','Ocala Fiber Network','#e67e22'],['Traffic signals','Public Works','#8e44ad'],['Street lighting','Ocala Electric Utility','#d4ac0d']];
+const ST=['SW 17th St','NE 25th Ave','SE Fort King St','NW 10th St','SW College Rd','E Silver Springs Blvd','SE 3rd Ave','NW Pine Ave','SW 42nd St','NE 14th St','SE Maricamp Rd','NW Blitchton Rd'];
+const LOC=['J. Rivera','M. Thompson','K. Patel','D. Wilson','A. Brooks','S. Nguyen','T. Carter','L. Gomez'];
+let T=[];function gen(){T=[];for(let i=0;i<24;i++){const em=i%9==0,dep=[...new Set([0,3,4,i%7,(i*3)%7])].slice(0,2+(i%3));const due=em?'Within 2 h':i%4==0?'Today 17:00':i%5==0?'Overdue':'Tomorrow 17:00';T.push({id:'26'+(1100+i).toString().slice(-4)+'-0'+(400+i*7),addr:(100+i*37)+' '+ST[i%ST.length],ex:['Fence install','Irrigation','Fiber drop','Driveway','Water service','Sign post','Pole set','Directional bore'][i%8],em,due,st:em?'Emergency':due=='Overdue'?'Overdue':due.startsWith('Today')?'Due today':i%6==0?'Responded':'Open',tasks:dep.map((d,k)=>({d,loc:LOC[(i+k)%LOC.length],s:i%6==0?'Marked':k==0&&i%3==0?'Clear':'Assigned'})),x:40+((i*53)%640),y:30+((i*97)%330)})}}gen();
+let cur=0;
+function rQ(){const v=+$('vol').value,l=+$('loc').value,a=+$('auto').value;$('vo').textContent=v;$('lo').textContent=l;$('ao').textContent=a+'%';
+ const work=v*(1-a/100)*1.0,cap=l*14,ontime=Math.min(99.5,100*Math.min(1,cap/Math.max(work,1))*0.985);const back=Math.max(0,Math.round(work-cap));
+ $('qk').innerHTML=[['Tickets today',v,'From Sunshine 811'],['On-time positive response',ontime.toFixed(1)+'%',ontime>=97?'Meets target':'Below 97% target'],['Cleared electronically',Math.round(v*a/100),'No City facilities in dig area'],['Carry-over backlog',back,back?'Add locators or auto-clear':'None']].map((k,i)=>`<div class="card kpi"><div class="l">${k[0]}</div><div class="v" style="${i==1?'color:'+(ontime>=97?css('--ok'):css('--bad')):''}">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+ const fd=$('fd').value,fs=$('fs').value;const L=T.filter(t=>(!fd||t.tasks.some(x=>DEP[x.d][1]==fd))&&(!fs||t.st==fs));
+ $('tq').innerHTML='<tr><th>Ticket</th><th>Address</th><th>Work type</th><th>Facilities</th><th>Due</th><th>Status</th></tr>'+L.map(t=>`<tr class="click" data-i="${T.indexOf(t)}"><td>${t.id}</td><td>${t.addr}</td><td>${t.ex}</td><td>${t.tasks.map(x=>DEP[x.d][0]).join(', ')}</td><td>${t.due}</td><td><span class="pill ${t.st=='Emergency'||t.st=='Overdue'?'p-bad':t.st=='Due today'?'p-warn':'p-ok'}">${t.st}</span></td></tr>`).join('');
+ $('tq').querySelectorAll('tr.click').forEach(r=>r.onclick=()=>{cur=+r.dataset.i;rT();show('t')})}
+$('fd').innerHTML+=[...new Set(DEP.map(d=>d[1]))].map(d=>`<option>${d}</option>`).join('');['vol','loc','auto','fd','fs'].forEach(i=>$(i).oninput=rQ);
+function rT(){const t=T[cur];$('tt').textContent='Ticket '+t.id+' · '+t.addr;$('tinfo').innerHTML=[['Received','06 Nov 2026 08:12 (Sunshine 811 feed)'],['Type',t.em?'Emergency':'Normal'],['Excavator','Sample Excavating LLC, 352-555-0142'],['Work',t.ex],['Due',t.due],['Area','Marked white-lined area, 150 ft radius']].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+ $('ttask').innerHTML='<tr><th>Facility</th><th>Department</th><th>Locator</th><th>Status</th></tr>'+t.tasks.map(x=>`<tr><td><span style="display:inline-block;width:10px;height:10px;background:${DEP[x.d][2]};border-radius:2px;margin-right:6px"></span>${DEP[x.d][0]}</td><td>${DEP[x.d][1]}</td><td>${x.loc}</td><td>${x.s}</td></tr>`).join('');
+ $('taud').innerHTML=[['08:12','Ticket imported from Sunshine 811'],['08:12','Split into '+t.tasks.length+' facility tasks; routed by service area'],['08:13','Assigned: '+t.tasks.map(x=>x.loc).join(', ')],['10:41','Photos (3) and marks recorded by '+t.tasks[0].loc]].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');$('prout').textContent=''}
+$('prgo').onclick=()=>{const t=T[cur];t.st='Responded';t.tasks.forEach(x=>x.s='Marked');$('prout').textContent='Positive response "'+$('pr').value+'" posted for all '+t.tasks.length+' facilities at '+new Date().toTimeString().slice(0,5)+'. Logged in the audit trail.';rT();rQ();$('taud').innerHTML+=`<tr><td>now</td><td>Positive response posted: ${$('pr').value}</td></tr>`};
+let ON=DEP.map(()=>true);
+function rM(){$('lyr').innerHTML=DEP.map((d,i)=>`<label class="note" style="margin-right:10px"><input type="checkbox" data-i="${i}" ${ON[i]?'checked':''}> <span style="color:${d[2]}">■</span> ${d[0]}</label>`).join('');$('lyr').querySelectorAll('input').forEach(c=>c.onchange=()=>{ON[+c.dataset.i]=c.checked;rM()});
+ const W=720,H=400;let g=`<rect x="0" y="0" width="${W}" height="${H}" fill="${css('--soft')}"/>`;for(let k=0;k<8;k++){g+=`<line x1="${k*95}" y1="0" x2="${k*95+40}" y2="${H}" stroke="${css('--line')}" stroke-width="9"/><line x1="0" y1="${k*55}" x2="${W}" y2="${k*55+20}" stroke="${css('--line')}" stroke-width="9"/>`}
+ DEP.forEach((d,i)=>{if(!ON[i])return;const o=(i-3)*3;for(let k=0;k<8;k++){if((k+i)%3==0)g+=`<line x1="0" y1="${k*55+o}" x2="${W}" y2="${k*55+20+o}" stroke="${d[2]}" stroke-width="2" stroke-dasharray="${i%2?'6 3':''}" opacity=".85"/>`;if((k+i)%4==1)g+=`<line x1="${k*95+o}" y1="0" x2="${k*95+40+o}" y2="${H}" stroke="${d[2]}" stroke-width="2" stroke-dasharray="${i%2?'6 3':''}" opacity=".85"/>`}});
+ T.forEach((t,i)=>{g+=`<g class="click" data-i="${i}" style="cursor:pointer"><circle cx="${t.x}" cy="${t.y}" r="16" fill="${css('--card')}" stroke="${t.st=='Emergency'||t.st=='Overdue'?css('--bad'):t.st=='Due today'?css('--warn'):css('--brand')}" stroke-width="3" opacity=".9"/><text x="${t.x}" y="${t.y+4}" text-anchor="middle" style="font-size:10px">${i+1}</text></g>`});
+ $('map').innerHTML=`<svg viewBox="0 0 ${W} ${H}">${g}</svg>`;$('map').querySelectorAll('g.click').forEach(c=>c.onclick=()=>{cur=+c.dataset.i;rT();show('t')})}
+function rF(){const L=T.filter(t=>t.tasks.some(x=>x.loc=='J. Rivera')).slice(0,5);$('ph').innerHTML='<h3>My tickets · J. Rivera</h3>'+L.map(t=>`<div class="card" style="padding:8px;margin:6px 0"><b>${t.addr}</b><br><span class="note">${t.id} · ${t.due}</span><br><span class="pill ${t.em?'p-bad':'p-ok'}">${t.em?'Emergency':t.st}</span></div>`).join('')+'<p class="note">Offline: 5 tickets cached · last sync 10:42</p><button class="btn" style="width:100%">Record marks + photos</button>'}
+function rR(){const D=[...new Set(DEP.map(d=>d[1]))],v=[98.6,97.9,96.2,99.1];let g='',W=520;D.forEach((d,i)=>{const y=i*30+4,w=(W-200)*v[i]/100;g+=`<text x="180" y="${y+18}" text-anchor="end">${d}</text><rect x="186" y="${y+5}" width="${w}" height="18" rx="3" fill="${v[i]>=97?css('--ok'):css('--warn')}"/><text x="${190+w}" y="${y+18}">${v[i]}%</text>`});$('rdep').innerHTML=`<svg viewBox="0 0 ${W} ${D.length*30+8}">${g}</svg>`;
+ const M='NDJFMAMJJASO',vol=[1650,1500,1580,1720,1990,2240,2310,2280,2190,2050,1960,1880],ot=[95.1,95.8,96.0,96.4,96.9,97.2,97.6,97.8,98.1,98.0,98.3,98.4],H=220,L=50,B=26,X=i=>L+(W-L-40)*(i+.5)/12,Y=x=>H-B-(H-B-10)*x/2600,Y2=x=>H-B-(H-B-10)*(x-90)/10;let s='';vol.forEach((x,i)=>s+=`<rect x="${X(i)-12}" y="${Y(x)}" width="24" height="${H-B-Y(x)}" fill="${css('--brand2')}" opacity=".6"/><text x="${X(i)}" y="${H-8}" text-anchor="middle">${M[i]}</text>`);s+=`<polyline points="${ot.map((x,i)=>X(i)+','+Y2(x)).join(' ')}" fill="none" stroke="${css('--ok')}" stroke-width="2.5"/><text x="${W-36}" y="${Y2(ot[11])-6}">${ot[11]}%</text>`;$('rtr').innerHTML=`<svg viewBox="0 0 ${W} ${H}">${s}</svg>`;
+ $('rrep').innerHTML='<tr><th>Report</th><th>Audience</th><th>Frequency</th><th>Format</th></tr>'+[['On-time compliance by department','Department heads','Weekly','PDF, email'],['Overdue and emergency tickets','Supervisors','Daily 07:00','Email, SMS'],['Locator workload and productivity','Operations managers','Weekly','Dashboard, CSV'],['Damage and claims ticket packet','Risk Management / Legal','On demand','PDF with photos and audit trail'],['Volume trends and hot spots','City Manager / Council','Monthly','PDF, map']].map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}
+function rA(){$('arules').innerHTML='<tr><th>Facility type</th><th>Department</th><th>Service areas</th><th>Default crew</th><th>Due rule</th></tr>'+DEP.map((d,i)=>`<tr><td>${d[0]}</td><td>${d[1]}</td><td>${['Citywide','Citywide','Citywide','OEU territory','Fiber footprint','Signalised intersections','Citywide'][i]}</td><td>${LOC[i%LOC.length]} + backup</td><td>2 full business days; emergency 2 h</td></tr>`).join('')}
+const RQ=[['Receive and manage 811 locate requests','Automatic Sunshine 811 import; ticket queue'],['All City underground utilities (water, sewer, stormwater, electric, fiber/telecom, traffic signals, street lighting)','One task per facility type; routing table'],['Track and document locates','Ticket detail, field app, photos, marks, audit trail'],['Regulatory compliance (Chapter 556 F.S.) and positive response','Due-date clocks, escalation, positive response posting'],['Faster response times','Auto-routing, mobile app, electronic clears'],['Locate accuracy','Map with City GIS layers at the dig site'],['Reporting and data transparency','Reports tab; scheduled reports; exports'],['Implementation','Discovery, configuration, pilot, citywide go-live (proposal)'],['Ongoing system support and maintenance','Help desk, updates, hosting, quarterly reviews (proposal)']];
+$('rq').innerHTML='<tr><th>Requirement (from the solicitation summary)</th><th>Where shown / how met</th></tr>'+RQ.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+const nav=$('nav');function show(t){nav.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('on',s.id==t))}
+nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;show(b.dataset.t);history.replaceState(null,'','#'+b.dataset.t)});
+addEventListener('hashchange',()=>{const h=location.hash.slice(1);if($(h)&&$(h).classList.contains('tab'))show(h)});if(location.hash&&$(location.hash.slice(1)))show(location.hash.slice(1));
+rQ();rT();rM();rF();rR();rA();
+</script>
+</body>
+</html>
