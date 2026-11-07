@@ -720,7 +720,7 @@ function wireDocs(){const go=document.getElementById('dqGo');if(!go)return;const
   const sc=d.pages.map((p,i)=>{const t=(p.h+' '+p.b).toLowerCase();return {i,s:q.reduce((a,w)=>a+(t.split(w).length-1),0),p}}).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
   out.innerHTML=sc.length?sc.map(x=>{const sent=x.p.b.split(/(?<=\.)\s|\n/).find(s=>q.some(w=>s.toLowerCase().includes(w)))||x.p.b.slice(0,200);return `<p>${esc(sent)} <a class="cite" href="#docs?d=${d.id}&p=${x.i+1}">p.${x.i+1} ${esc(x.p.h)}</a></p>`}).join(''):'<p class="muted">Nothing in this document matches. Try other words.</p>'};
  go.onclick=ask;document.getElementById('dq').onkeydown=e=>{if(e.key==='Enter')ask()}}
-const NCIDS={};let QS=new URLSearchParams();
+const NCIDS={cta:225,box:226,handbook:228,privacy:227};let QS=new URLSearchParams();
 
 /* ---------- Membership ---------- */
 const EXPERTISE=['Labelling and packaging','Traceability and serialisation','Electronic product information','Antimicrobial stewardship','Veterinary medicines','Environment and manufacturing emissions','Clinical trials and scientific advice','Pharmacovigilance','Substandard and falsified medicines','Surveillance and data','Phage therapy and novel products','Behavioural science','Reliance and harmonisation','Inspections and GMP'];
