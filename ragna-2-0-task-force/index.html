@@ -109,11 +109,39 @@ textarea.inp{font-family:var(--mono);font-size:13px;resize:vertical}
 .ab span{font-size:12.5px;color:var(--muted)}.ab.hl{border-color:var(--accent);background:var(--accent-soft)}
 @media (max-width:760px){.shell{grid-template-columns:1fr}nav{position:static;flex-direction:row;flex-wrap:wrap}nav .grp{width:100%;margin:6px 4px 0}}
 @media (prefers-reduced-motion:no-preference){main>*{animation:in .25s ease both}@keyframes in{from{transform:translateY(4px)}}}
+
+.shell.wn{grid-template-columns:230px minmax(0,1fr) 270px;max-width:1500px}
+.newsrail{align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;max-height:calc(100vh - 100px);overflow:auto}
+.newsrail h2{font-size:18px}.nl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}.nl li{border-bottom:1px solid var(--line);padding-bottom:9px;font-size:13.5px;line-height:1.4}.nl a{color:var(--ink);text-decoration:none;font-weight:600}.nl a:hover{color:var(--accent);text-decoration:underline}.nl small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted);margin:3px 4px 0 0}
+.maptools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}.inp.sm{width:auto;padding:6px 8px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}.seg button{font:inherit;font-size:13px;border:0;background:var(--panel);color:var(--ink);padding:6px 11px;cursor:pointer;border-right:1px solid var(--line)}.seg button:last-child{border-right:0}.seg button.on{background:var(--accent);color:var(--panel);font-weight:600}.seg button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.mapwrap{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:14px}.map{background:var(--bg);border-radius:8px;overflow:hidden;min-height:200px}.map svg{display:block;touch-action:none}.map path.cty{cursor:pointer;transition:opacity .15s}.map path.cty:hover{opacity:.75}.map path.sel{stroke:var(--gold);stroke-width:2}
+.ptl{font-size:11px;font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--panel);stroke-width:3px}
+.mpanel{border:1px solid var(--line);border-radius:8px;padding:12px;max-height:520px;overflow:auto;font-size:14px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted);margin-top:10px}.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}.legend i.dot{border-radius:50%;background:var(--accent);border:2px solid var(--panel);box-shadow:0 0 0 1px var(--accent)}
+.fbars{display:flex;flex-direction:column;gap:6px;margin:10px 0}.fb{display:grid;grid-template-columns:1fr;gap:2px;font-size:12.5px}.fb small{color:var(--muted);font-size:11.5px}
+.inits{display:flex;flex-direction:column;gap:10px;margin-top:8px}.init{border-top:1px solid var(--line);padding-top:8px}.init small{display:block;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}.init p{margin:4px 0 0;font-size:13.5px}
+.docgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}.doc{display:flex;flex-direction:column}.toc{margin:6px 0;padding-left:20px;font-size:14px}.toc li{margin:3px 0}.toc li.on a{font-weight:700;color:var(--ink)}
+.docbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px}.docbtns .btn{text-decoration:none;text-align:center}
+.reader{display:grid;grid-template-columns:250px minmax(0,1fr);gap:16px}.rtoc{align-self:start;position:sticky;top:90px}
+.page{min-height:300px}.page p{max-width:72ch}.pnum{font-family:var(--mono);font-size:12px;color:var(--muted);float:right}
+.fs{border:0;padding:0;margin:14px 0 0}.chip.ck{display:inline-flex;gap:6px;align-items:center}.chip.ck input{accent-color:var(--accent);margin:0}.chip.ck:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.consent{background:var(--accent-soft);border-radius:8px;padding:8px 12px;margin-top:12px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.person{display:flex;gap:12px;align-items:flex-start}.av.lg{width:44px;height:44px;font-size:15px;flex:0 0 44px}
+.vt{display:flex;flex-direction:column}.vrow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid var(--line)}
+.legal h2{margin-top:16px}.legal p{max-width:72ch}
+.cg{position:fixed;inset:0;z-index:50;background:rgba(10,25,22,.55);display:grid;place-items:center;padding:16px}.cgb{background:var(--panel);color:var(--ink);border-radius:12px;max-width:560px;width:100%;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.3);max-height:90vh;overflow:auto}
+@media (max-width:1250px){.shell.wn{grid-template-columns:230px minmax(0,1fr)}.shell.wn .newsrail{grid-column:2;position:static;max-height:none}}
+@media (max-width:900px){.mapwrap,.reader{grid-template-columns:1fr}.rtoc{position:static}}
+@media (max-width:760px){.shell.wn{grid-template-columns:1fr}.shell.wn .newsrail{grid-column:auto}}
+.chk2{display:block;padding:5px 0 5px 24px;text-indent:-24px;cursor:pointer}.chk2 input{width:16px;margin:0 8px 0 0;vertical-align:-2px;accent-color:var(--accent)}
+td{white-space:normal}.mtab td:nth-child(2){white-space:nowrap}
 </style>
 
 <header class="top">
   <div class="brand"><b>Ragna 2.0 Task Force Demo</b><span>Prototype by Agentic Rx · not an official RAGNA site</span></div>
-  <a class="btn" href="members/" id="signin" hidden>Member sign-in</a><label class="role" for="roleSel" id="roleWrap">Viewing as
+  <span id="pubBtns" hidden style="display:flex;gap:8px"><a class="btn ghost" href="#join" style="text-decoration:none">Join</a><a class="btn" href="#signin" style="text-decoration:none">Member sign-in</a></span><label class="role" for="roleSel" id="roleWrap">Viewing as
     <select id="roleSel">
       <option value="admin">Secretariat admin</option>
       <option value="member" selected>Network member</option>
@@ -124,16 +152,17 @@ textarea.inp{font-family:var(--mono);font-size:13px;resize:vertical}
 </header>
 
 <div class="band" id="bandM">Members area (demo). In the live portal this page opens only after Nextcloud sign-in, and every file and list on it is loaded from Nextcloud with the member's own rights. <a href="../">Public site</a></div>
-<div class="band" id="bandP" hidden style="background:var(--accent-soft)">Public site. Meeting material, the member directory, chat, tasks and the AI assistant are in the members area. <a href="members/">Member sign-in</a></div>
+<div class="band" id="bandP" hidden style="background:var(--accent-soft)">Public site. Meeting material, the member directory, chat, tasks and the AI assistant are in the members area. <a href="#signin">Member sign-in</a> · <a href="#join">Join</a></div>
 <div class="shell">
   <nav id="nav" aria-label="Portal sections"></nav>
   <main id="view"></main>
+  <aside id="news" class="newsrail" aria-label="AMR news" hidden></aside>
 </div>
 
 <script>
 const IS_PUBLIC=!/\/members\/?($|index\.html)/.test(location.pathname);const PUBLIC_IDS=['start','help','schedule','cta','guide','build'];const S={role:IS_PUBLIC?'public':'member'};const SIGNIN='https://agenticrx-hub.github.io/demos/ragna/';
 if(!IS_PUBLIC){try{const r=localStorage.getItem('ragna-role');if(r&&r!=='public')S.role=r}catch(e){}}
-if(IS_PUBLIC){document.getElementById('roleWrap').hidden=true;document.getElementById('signin').hidden=false;document.getElementById('bandM').hidden=true;document.getElementById('bandP').hidden=false;document.title='Ragna 2.0 Task Force Demo';}
+if(IS_PUBLIC){document.getElementById('roleWrap').hidden=true;document.getElementById('pubBtns').hidden=false;document.getElementById('bandM').hidden=true;document.getElementById('bandP').hidden=false;document.title='Ragna 2.0 Task Force Demo';}
 const roleSel=document.getElementById('roleSel');roleSel.value=S.role;
 
 const ROLES={admin:'Secretariat admin',member:'Network member',observer:'Observer',public:'Not signed in'};
@@ -149,24 +178,35 @@ const PAGES=[
  {id:'start',label:'Welcome',nc:'Dashboard',grp:'Network'},
  {id:'help',label:'How to use this site',nc:'Guide',grp:'Network'},
  {id:'schedule',label:'Schedule',nc:'Calendar',grp:'Network'},
+ {id:'map',label:'RAGNA BOX map',nc:'Tables',grp:'Network'},
+ {id:'docs',label:'Document library',nc:'Files + Office',grp:'Network'},
  {id:'meetings',label:'Presentations & documents',nc:'Files',grp:'Network'},
  {id:'deepdives',label:'Deep dives',nc:'Files',grp:'Network'},
  {id:'box',label:'RAGNA BOX Project',nc:'Group folder',grp:'Network'},
  {id:'cta',label:'Call to action',nc:'Collectives',grp:'Network'},
  {id:'guide',label:'Call to Action guide',nc:'Collectives + Forms',grp:'Network'},
+ {id:'join',label:'Join the network',nc:'Forms',grp:'Membership'},
+ {id:'signin',label:'Member sign-in',nc:'Login',grp:'Membership'},
+ {id:'directory',label:'Member directory',nc:'Contacts',grp:'Membership'},
  {id:'nchelp',label:'Member guide: Nextcloud',nc:'Help',grp:'Members only'},
- {id:'directory',label:'Member directory',nc:'Contacts',grp:'Members only'},
+ {id:'profile',label:'My profile & privacy',nc:'Settings',grp:'Members only'},
  {id:'chat',label:'Chat',nc:'Talk',grp:'Members only'},
  {id:'tasks',label:'Tasks',nc:'Deck',grp:'Members only'},
  {id:'board',label:'Whiteboard',nc:'Collaboard link',grp:'Members only'},
+ {id:'admin',label:'Admin controls',nc:'Admin',grp:'Secretariat'},
  {id:'ops',label:'Operations dashboard',nc:'Dashboard',grp:'Secretariat'},
  {id:'access',label:'Roles & permissions',nc:'Admin',grp:'Secretariat'},
  {id:'ask',label:'Ask the library',nc:'Assistant',grp:'AI assistant'},
  {id:'digest',label:'Meeting digest',nc:'Assistant',grp:'AI assistant'},
  {id:'minutes',label:'Minutes drafter',nc:'Assistant',grp:'AI assistant'},
  {id:'compare',label:'Labelling comparer',nc:'Assistant',grp:'AI assistant'},
- {id:'build',label:'How it is built',nc:'Plan',grp:'About this demo'}
+ {id:'build',label:'How it is built',nc:'Plan',grp:'About'},
+ {id:'privacy',label:'Privacy notice',nc:'Legal',grp:'About'},
+ {id:'terms',label:'Terms of use',nc:'Legal',grp:'About'}
 ];
+const PUBLIC_ONLY=['join','signin'];
+function pubIds(){const v=VIS();return ['start','help','schedule','cta','guide','join','signin','build','privacy','terms'].concat(v.map==='public'?['map']:[],v.docs==='public'?['docs']:[],v.directory==='public'?['directory']:[])}
+function shown(id){return IS_PUBLIC?pubIds().includes(id):!PUBLIC_ONLY.includes(id)}
 
 const MEET26=[
  ['2026-01-21','RAGNA meeting','Digital · Teams'],
@@ -528,15 +568,303 @@ function wireGuides(id){
   v.querySelectorAll('[data-fd]').forEach(c=>c.onchange=()=>{let d=doneGet();const i=+c.dataset.fd;d=c.checked?[...new Set([...d,i])]:d.filter(x=>x!==i);doneSet(d);render()})}
 }
 R.help=helpHTML;R.nchelp=ncHTML;
+/* ---------- v3: map, documents, membership, admin, news, privacy ---------- */
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const VIS_DEF={map:'public',mapInput:'members',maturity:'public',directory:'members',docs:'members',news:'public'};
+function VIS(){return Object.assign({},VIS_DEF,LS.get('ragna-vis',{}))}
+const NEWS_URL='https://raw.githubusercontent.com/AgenticRx-hub/demos/main/ragna-2-0-task-force/news.json';
+
+/* RAGNA BOX data: summarised from the RAGNA BOX mapping (Flourish) */
+const FACT=[['ID','Antimicrobial identification & marking'],['USE','Appropriate use & dosing'],['EPI','Digital product information'],['TRACE','Product integrity & traceability'],['ENV','Environmental information & disposal'],['PACK','Packaging & labelling harmonisation'],['PAT','Patient information & safe use']];
+const FACTN=Object.fromEntries(FACT);
+const STATUS_SCORE={'Implemented':3,'Implemented (phased)':2,'Phased rollout':2,'Under implementation':2,'Ongoing':2,'Agreed, adoption pending':2,'Pilot':1,'Interim':1,'Guidance':1,'Emerging':1,'Study':1,'Partner state, adoption unconfirmed':1,'Member state, adoption unconfirmed':0};
+const NORDIC=[['USE','NORA dosing','Ongoing','Harmonising antibiotic dosing guidelines across the Nordic countries, running to 2027.'],['PACK','Vnr article number','Implemented','Common Nordic article number on every pack, in use since 1977.']];
+const EAC_IMPL=['PACK','EAC labelling guidelines','Implemented','Harmonised East African Community rules on container labels, product characteristics and patient leaflets; English plus any partner-state language.'];
+const EAC_PART=['PACK','EAC labelling guidelines','Partner state, adoption unconfirmed','Takes part in the EAC harmonisation programme; national adoption of the labelling guidelines not confirmed.'];
+const BOX={
+ ARG:{n:'Argentina',num:'032',e:[['TRACE','Traceability scheme','Implemented','Unique code on each pack and a central database since 2011; antibiotics added in 2012.']]},
+ AUS:{n:'Australia',num:'036',e:[['USE','Advisory label','Implemented','Pharmacy label reads "Take for the number of days advised by your prescriber".']]},
+ BGD:{n:'Bangladesh',num:'050',e:[['ID','Packaging overhaul','Implemented','Antibiotic packs redesigned with clear visual identification; launched November 2022.']]},
+ BRA:{n:'Brazil',num:'076',e:[['ID','Red band and retained prescription','Implemented','Red band on prescription packs; antimicrobials sold only against a prescription the pharmacy keeps (RDC 471/2021, amended 2025).']]},
+ BDI:{n:'Burundi',num:'108',e:[EAC_PART]},
+ CAN:{n:'Canada',num:'124',e:[['USE','Antimicrobial precautionary statements','Phased rollout','Standard wording on prudent antibiotic use in product monographs, including patient information, since November 2015.'],['EPI','Electronic labelling','Interim','Prescription labels may link to an electronic platform limited to approved documents such as the product monograph.'],['TRACE','Automated identifiers','Guidance','Serialisation not mandatory; 2D matrix barcodes supported for traceability and authenticity.']]},
+ COD:{n:'DR Congo',num:'180',e:[['PACK','EAC labelling guidelines','Member state, adoption unconfirmed','Joined the EAC in 2022; not yet shown to take part in the harmonisation programme.']]},
+ DNK:{n:'Denmark',num:'208',e:NORDIC},FIN:{n:'Finland',num:'246',e:NORDIC},ISL:{n:'Iceland',num:'352',e:NORDIC},NOR:{n:'Norway',num:'578',e:NORDIC},
+ SWE:{n:'Sweden',num:'752',e:NORDIC.concat([['PACK','English-only pack pilot','Pilot','Shared English-only packs allowed for selected small-volume hospital medicines since January 2025.']])},
+ GHA:{n:'Ghana',num:'288',e:[['TRACE','Packaging quality index','Study','2026 study built a checklist to flag suspicious antimicrobial packs in pharmacies.']]},
+ IND:{n:'India',num:'356',e:[['ID','Red Line','Implemented','Red vertical line on about two dozen antibiotic packs since 2016, warning against use without a prescription.'],['ID','Blue strip','Emerging','Draft rule (January 2026) for a blue strip on all antimicrobial labels.'],['TRACE','QR codes','Implemented','QR code required on the top 300 brands; extended to all antimicrobials from July 2028.']]},
+ IDN:{n:'Indonesia',num:'360',e:[['TRACE','2D barcodes','Under implementation','Barcode verifies registration; serialisation phased in to 2027.']]},
+ JPN:{n:'Japan',num:'392',e:[['EPI','Electronic package inserts','Implemented','Paper inserts replaced by electronic ones opened by scanning the pack barcode; paper removed July 2023.']]},
+ JOR:{n:'Jordan',num:'400',e:[['EPI','Electronic product information','Implemented','FHIR-based electronic product information in the national health app.']]},
+ KEN:{n:'Kenya',num:'404',e:[EAC_IMPL]},
+ NLD:{n:'Netherlands',num:'528',e:[['PAT','Pictograms','Implemented','Approved list of pictograms with fixed wording on packs.']]},
+ NGA:{n:'Nigeria',num:'566',e:[['TRACE','Mobile Authentication Service','Implemented','Scratch code on anti-malarial and antibiotic packs; text it to check the pack is genuine (since 2012).']]},
+ PAK:{n:'Pakistan',num:'586',e:[['TRACE','Barcode mandate','Under implementation','2D barcode and serial number required on medicines manufactured from October 2026.']]},
+ RWA:{n:'Rwanda',num:'646',e:[EAC_PART]},
+ SAU:{n:'Saudi Arabia',num:'682',e:[['TRACE','RSD track and trace','Implemented','2D barcode on every pack since 2018; the public can check a product in the SFDA app.']]},
+ SGP:{n:'Singapore',num:'702',pt:[1.35,103.8],e:[['USE','Pictograms for older adults','Emerging','Study proposed 35 pictograms for medication labels for older adults.']]},
+ SOM:{n:'Somalia',num:'706',e:[['PACK','EAC labelling guidelines','Member state, adoption unconfirmed','Joined the EAC in 2024; not yet shown to take part in the harmonisation programme.']]},
+ KOR:{n:'South Korea',num:'410',e:[['EPI','e-leaflet pilot','Pilot','Voluntary e-leaflet scheme for injectables used only in medical institutions (official January 2024).']]},
+ SSD:{n:'South Sudan',num:'728',e:[EAC_PART]},
+ ESP:{n:'Spain',num:'724',e:[['USE','Pack-size reform','Under implementation','Larger antibiotic packs withdrawn so pack size matches a typical course (April 2026).']]},
+ TZA:{n:'Tanzania',num:'834',e:[EAC_IMPL]},
+ TUR:{n:'Turkey',num:'792',e:[['TRACE','ITS track and trace','Implemented','2D DataMatrix on every pack since 2010; public app checks whether a medicine is authorised.']]},
+ UGA:{n:'Uganda',num:'800',e:[EAC_IMPL]},
+ USA:{n:'United States',num:'840',e:[['TRACE','DSCSA','Implemented (phased)','Electronic package-level tracing of prescription drugs; small-dispenser exemptions to November 2027.']]},
+ EU:{n:'European Union',pt:[50.5,9],e:[['ID','AMR symbol on leaflets','Agreed, adoption pending','Pharmaceutical reform requires antimicrobial leaflets to carry the global AMR symbol plus prudent-use and disposal information; provisional agreement December 2025.']]},
+ GLOBAL:{n:'Global (commercial)',pt:[30,-40],e:[['PAT','myHealthbox eLeaflet','Implemented','Commercial platform hosting official leaflets with GS1 Digital Link codes; a private service, not a regulator initiative.']]}
+};
+const LEVELS=[['No data','#d9e3e0'],['1 · Emerging','#cfe8df'],['2 · Developing','#8ccbb6'],['3 · Established','#3f9c80'],['4 · Advanced','#0f5c4b']];
+function boxData(){const d=JSON.parse(JSON.stringify(BOX));LS.get('ragna-map-sub',[]).filter(s=>s.state==='approved').forEach(s=>{(d[s.iso]=d[s.iso]||{n:s.country,num:s.num,e:[]}).e.push([s.f,s.t,s.st,s.d+' (member submission)'])});return d}
+function factors(c){const f={};FACT.forEach(([k])=>f[k]=null);c.e.forEach(([k,,st])=>{const sc=STATUS_SCORE[st]??1;if(f[k]===null||sc>f[k].s)f[k]={s:sc,st}});return f}
+function level(c){const t=Object.values(factors(c)).reduce((a,b)=>a+(b?b.s:0),0);return t===0?0:t<=2?1:t<=4?2:t<=7?3:4}
+let MAPST={cat:'ALL',view:'init',sel:null};
+function loadScript(src){return new Promise((ok,no)=>{if(document.querySelector(`script[src="${src}"]`))return ok();const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
+let WORLD=null;
+async function world(){if(WORLD)return WORLD;await loadScript('https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js');await loadScript('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js');
+ const t=await (await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json')).json();WORLD=topojson.feature(t,t.objects.countries).features;return WORLD}
+function mapHTML(){
+ const v=VIS(),showMat=v.maturity==='public'||!IS_PUBLIC,canIn=!IS_PUBLIC&&(v.mapInput==='members'?can.upload(S.role):S.role==='admin');
+ return `<div><h1>RAGNA BOX map</h1><p class="lede">Labelling and packaging initiatives for antimicrobials around the world, and an indicative maturity level built from seven contributing factors. Click a country for details.</p></div>
+ <div class="card"><div class="maptools"><label class="lbl" for="mCat" style="margin:0">Focus</label><select id="mCat" class="inp sm"><option value="ALL">All factors</option>${FACT.map(f=>`<option value="${f[0]}" ${MAPST.cat===f[0]?'selected':''}>${f[1]}</option>`).join('')}</select>
+ ${showMat?`<div class="seg" role="group" aria-label="Map view"><button data-mv="init" class="${MAPST.view==='init'?'on':''}">Initiatives</button><button data-mv="mat" class="${MAPST.view==='mat'?'on':''}">Maturity level</button></div>`:''}</div>
+ <div class="mapwrap"><div id="map" class="map" role="img" aria-label="World map of RAGNA BOX initiatives"><p class="muted" style="padding:20px">Loading map…</p></div><aside id="mPanel" class="mpanel"></aside></div>
+ <div id="mLeg" class="legend"></div>
+ <p class="muted" style="font-size:12.5px;margin:10px 0 0">Source: RAGNA BOX mapping, summarised. Maturity is computed from status per factor (implemented 3, rolling out 2, pilot or study 1) and is indicative, not an official assessment.</p></div>
+ ${canIn?`<div class="card"><h2>Add or update an entry</h2><p class="muted" style="margin:0 0 10px">Members can submit an initiative for their country. The Secretariat reviews it before it appears on the map.</p>
+ <div class="row2"><div><label class="lbl" for="sC">Country</label><select id="sC" class="inp"></select></div><div><label class="lbl" for="sF">Contributing factor</label><select id="sF" class="inp">${FACT.map(f=>`<option value="${f[0]}">${f[1]}</option>`).join('')}</select></div>
+ <div><label class="lbl" for="sT">Initiative</label><input id="sT" class="inp" placeholder="e.g. AMR symbol on packs"></div><div><label class="lbl" for="sS">Status</label><select id="sS" class="inp">${Object.keys(STATUS_SCORE).map(s=>`<option>${s}</option>`).join('')}</select></div></div>
+ <label class="lbl" for="sD" style="margin-top:10px">Short description and source</label><textarea id="sD" class="inp" rows="3" placeholder="What it requires, since when, link to the rule or guidance"></textarea>
+ <div style="margin-top:10px;display:flex;gap:10px;align-items:center"><button class="btn" id="sGo">Submit for review</button><span id="sMsg" class="muted"></span></div>
+ ${nc('Submissions go to a Nextcloud Tables list; Secretariat approval publishes them to the map')}</div>`:(IS_PUBLIC?`<div class="card"><strong>Members can add entries.</strong> <a href="#signin">Sign in</a> or <a href="#join">request access</a> to submit your country's initiatives.</div>`:'')}
+ <div class="card"><h2>All countries</h2><div class="tw"><table class="mtab"><thead><tr><th>Country</th>${showMat?'<th>Level</th>':''}<th>Factors with activity</th><th>Initiatives</th></tr></thead><tbody id="mTab"></tbody></table></div></div>`;
+}
+function panelHTML(iso,D){const c=D[iso];if(!c)return `<p class="muted">No RAGNA BOX entry yet for this country.</p>`;const f=factors(c),lv=level(c),showMat=VIS().maturity==='public'||!IS_PUBLIC;
+ return `<h3 class="aih" style="margin-top:0">${esc(c.n)}</h3>${showMat?`<span class="pill" style="background:${LEVELS[lv][1]};color:${lv>2?'#fff':'#14302b'}">Maturity ${LEVELS[lv][0]}</span>
+ <div class="fbars">${FACT.map(([k,l])=>`<div class="fb"><span>${l}</span><div class="bar"><span style="width:${f[k]?f[k].s/3*100:0}%"></span></div><small>${f[k]?esc(f[k].st):'—'}</small></div>`).join('')}</div>`:''}
+ <div class="inits">${c.e.map(e=>`<div class="init"><small>${FACTN[e[0]]}</small><strong>${esc(e[1])}</strong> <span class="pill gold">${esc(e[2])}</span><p>${esc(e[3])}</p></div>`).join('')}</div>`}
+async function wireMap(){
+ const D=boxData(),el=document.getElementById('map');if(!el)return;
+ document.getElementById('mCat').onchange=e=>{MAPST.cat=e.target.value;render()};
+ document.querySelectorAll('[data-mv]').forEach(b=>b.onclick=()=>{MAPST.view=b.dataset.mv;render()});
+ const showMat=VIS().maturity==='public'||!IS_PUBLIC;if(!showMat)MAPST.view='init';
+ const has=c=>MAPST.cat==='ALL'?c.e.length>0:c.e.some(e=>e[0]===MAPST.cat);
+ const rows=Object.entries(D).filter(([,c])=>has(c)).sort((a,b)=>level(b[1])-level(a[1])||a[1].n.localeCompare(b[1].n));
+ document.getElementById('mTab').innerHTML=rows.map(([iso,c])=>`<tr><td><a href="javascript:void 0" data-iso="${iso}">${esc(c.n)}</a></td>${showMat?`<td>${LEVELS[level(c)][0]}</td>`:''}<td>${Object.entries(factors(c)).filter(([,v])=>v).map(([k])=>`<span class="pill">${FACTN[k]}</span>`).join(' ')}</td><td>${c.e.map(e=>esc(e[1])).join('; ')}</td></tr>`).join('');
+ const panel=document.getElementById('mPanel');const sel=iso=>{MAPST.sel=iso;panel.innerHTML=panelHTML(iso,D);el.querySelectorAll('path.cty').forEach(p=>p.classList.toggle('sel',p.dataset.iso===iso))};
+ document.querySelectorAll('[data-iso]').forEach(a=>a.onclick=()=>{sel(a.dataset.iso);panel.scrollIntoView({block:'nearest',behavior:'smooth'})});
+ const cs=getComputedStyle(document.documentElement),CAT=cs.getPropertyValue('--accent').trim(),EMPTY=cs.getPropertyValue('--line').trim();
+ document.getElementById('mLeg').innerHTML=MAPST.view==='mat'?LEVELS.map(l=>`<span><i style="background:${l[1]}"></i>${l[0]}</span>`).join(''):`<span><i style="background:${CAT}"></i>${MAPST.cat==='ALL'?'Has at least one initiative':FACTN[MAPST.cat]}</span><span><i style="background:${EMPTY}"></i>No entry</span><span><i class="dot"></i>Region or global</span>`;
+ panel.innerHTML=MAPST.sel?panelHTML(MAPST.sel,D):`<p class="muted">Select a country on the map or in the table.</p><p class="muted">${rows.length} countries and regions shown.</p>`;
+ let feats;try{feats=await world()}catch(e){el.innerHTML='<p class="muted" style="padding:20px">The map could not load. The table below has the same data.</p>';return}
+ if(!document.body.contains(el))return;
+ const byNum={};Object.entries(D).forEach(([iso,c])=>{if(c.num)byNum[c.num]=iso});
+ const sc=document.getElementById('sC');if(sc&&!sc.options.length){sc.innerHTML=feats.map(f=>f.properties.name).sort().map(n=>`<option>${esc(n)}</option>`).join('')}
+ const W=el.clientWidth||700,H=Math.round(W*0.52);el.innerHTML='';
+ const svg=d3.select(el).append('svg').attr('viewBox',`0 0 ${W} ${H}`).attr('width','100%');const g=svg.append('g');
+ const proj=d3.geoNaturalEarth1().fitSize([W,H],{type:'FeatureCollection',features:feats.filter(f=>f.properties.name!=='Antarctica')}),path=d3.geoPath(proj);
+ const fill=iso=>{const c=iso&&D[iso];if(!c||!has(c))return EMPTY;return MAPST.view==='mat'?LEVELS[level(c)][1]:CAT};
+ g.selectAll('path').data(feats.filter(f=>f.properties.name!=='Antarctica')).join('path').attr('class','cty').attr('d',path)
+  .attr('data-iso',f=>byNum[f.id]||'').attr('fill',f=>fill(byNum[f.id])).attr('stroke','var(--panel)').attr('stroke-width',0.5)
+  .on('click',(e,f)=>{const iso=byNum[f.id];if(iso)sel(iso);else{panel.innerHTML=`<h3 class="aih" style="margin-top:0">${esc(f.properties.name)}</h3><p class="muted">No RAGNA BOX entry yet.</p>`}})
+  .append('title').text(f=>{const iso=byNum[f.id],c=iso&&D[iso];return f.properties.name+(c?` · ${c.e.length} initiative${c.e.length>1?'s':''}`:'')});
+ Object.entries(D).filter(([,c])=>c.pt&&has(c)).forEach(([iso,c])=>{const[x,y]=proj([c.pt[1],c.pt[0]]);const m=g.append('g').attr('class','pt').attr('transform',`translate(${x},${y})`).style('cursor','pointer').on('click',()=>sel(iso));
+  m.append('circle').attr('r',7).attr('fill',MAPST.view==='mat'?LEVELS[level(c)][1]:CAT).attr('stroke','var(--panel)').attr('stroke-width',2);m.append('text').attr('x',10).attr('y',4).attr('class','ptl').text(c.n);m.append('title').text(c.n)});
+ svg.call(d3.zoom().scaleExtent([1,6]).on('zoom',e=>g.attr('transform',e.transform)));
+ if(MAPST.sel)sel(MAPST.sel);
+ const go=document.getElementById('sGo');if(go)go.onclick=()=>{const t=document.getElementById('sT').value.trim(),d=document.getElementById('sD').value.trim(),cn=sc.value;const msg=document.getElementById('sMsg');
+  if(!t||!d){msg.textContent='Please add the initiative name and a short description.';return}
+  const f=feats.find(x=>x.properties.name===cn),iso=Object.keys(D).find(k=>D[k].num&&f&&D[k].num===f.id)||('X'+(f?f.id:cn));
+  const L=LS.get('ragna-map-sub',[]);L.push({id:Date.now(),iso,country:cn,num:f?f.id:null,f:document.getElementById('sF').value,t,st:document.getElementById('sS').value,d,by:ROLES[S.role],at:new Date().toISOString(),state:'pending'});LS.set('ragna-map-sub',L);
+  msg.textContent='Thank you. Sent to the Secretariat for review.';document.getElementById('sT').value='';document.getElementById('sD').value=''};
+}
+
+/* ---------- Documents ---------- */
+function mkDocs(){
+ const cta={id:'cta',t:'RAGNA Call to Action (2024)',folder:'04 Call to Action and Public',file:'RAGNA Call to Action 2024.md',
+  pages:[{h:'About the Call to Action',b:'In 2024 RAGNA set out five recommendations to the United Nations General Assembly high-level meeting on antimicrobial resistance. Each recommendation describes what regulators and their partners can do. The pages that follow give the recommendation text and suggested actions by type of organisation.'}].concat(RECS.map(r=>({h:`${r.n}. ${r.t}`,b:r.d+'\n\nSuggested actions:\n'+Object.entries(r.for).map(([k,v])=>`• ${ORGS[k]}: ${v}`).join('\n')}))),
+  sum:'Five recommendations from RAGNA to the 2024 UN high-level meeting on AMR: One Health regulatory governance; quality, safety and environmental assessment at registration; access with prudent use, including labelling and prescription-only supply; monitoring and surveillance of sales, use and treatment failure; and equitable R&D with flexible regulatory pathways.'};
+ const D=BOX;const box={id:'box',t:'RAGNA BOX labelling landscape 2026',folder:'03 RAGNA BOX Project',file:'RAGNA BOX labelling landscape 2026.md',
+  pages:FACT.map(([k,l])=>{const it=[];Object.values(D).forEach(c=>c.e.filter(e=>e[0]===k).forEach(e=>it.push(`• ${c.n}: ${e[1]} (${e[2]}). ${e[3]}`)));return {h:l,b:it.length?it.join('\n'):'No initiatives recorded yet. This is a gap the workstream may want to explore.'}}),
+  sum:`Overview of ${Object.keys(D).length} countries and regions. Product traceability and packaging harmonisation have the most activity; environmental information and disposal has no recorded initiative yet. Implemented examples include Brazil's red band, India's Red Line, Japan's electronic inserts and national track-and-trace schemes in Turkey, Saudi Arabia and Argentina.`};
+ const hb={id:'handbook',t:'Member handbook: using the portal',folder:'06 Templates and Reference',file:'Member handbook.md',
+  pages:NC_APPS.map(a=>({h:`${a[0]}: ${a[1]}`,b:a[2]+'\n\nTip: '+a[3]})),
+  sum:'How each Nextcloud app is used by the Task Force: shared folders and live editing in Files, the meeting calendar, Talk chat rooms, Deck task boards, the Collectives wiki, Forms and Polls, and the on-server AI Assistant.'};
+ const pv={id:'privacy',t:'Privacy notice (draft v1.0)',folder:'04 Call to Action and Public',file:'Privacy notice v1.0.md',pages:PRIVACY.map(p=>({h:p[0],b:p[1]})),sum:'Who processes members\' personal data, why, on what legal basis, where it is hosted, how long it is kept and how members exercise their GDPR rights. Draft for review by the data protection contacts of member agencies.'};
+ return [cta,box,hb,pv];
+}
+function docsHTML(){
+ const v=VIS();if(IS_PUBLIC&&v.docs!=='public')return `<h1>Document library</h1>`+lock('The document library');
+ if(!IS_PUBLIC&&!can.view(S.role))return `<h1>Document library</h1>`+lock('The document library');
+ const L=mkDocs(),d=L.find(x=>x.id===QS.get('d'));
+ if(!d)return `<div><h1>Document library</h1><p class="lede">Every document is stored in Nextcloud. Read it here with an AI summary and links to each section, open the original, or edit it together in real time.</p></div>
+  <div class="docgrid">${L.map(x=>`<div class="card doc"><span class="pill">${esc(x.folder)}</span><h2 style="margin-top:8px">${esc(x.t)}</h2><p class="muted" style="margin:0 0 8px"><strong>AI summary:</strong> ${esc(x.sum)}</p>
+  <details><summary>${x.pages.length} sections</summary><ol class="toc">${x.pages.map((p,i)=>`<li><a href="#docs?d=${x.id}&p=${i+1}">${esc(p.h)}</a> <span class="muted">p.${i+1}</span></li>`).join('')}</ol></details>
+  <div class="docbtns"><a class="btn" href="#docs?d=${x.id}&p=1">Read</a>${docLinks(x)}</div></div>`).join('')}</div>
+  <div class="card"><h2>Real-time editing</h2><ul class="clean"><li><strong>Word, Excel and PowerPoint files</strong> open in Nextcloud Office in the browser. Several people edit at once and see each other's cursors.</li><li><strong>Notes and minutes (.md)</strong> open in Nextcloud Text, also live and shared.</li><li>Every save keeps a version. Comments and @mentions notify colleagues.</li></ul>${nc('Collabora Online (Nextcloud Office) and Text are installed on the demo server')}</div>`;
+ const p=Math.min(Math.max(+QS.get('p')||1,1),d.pages.length),pg=d.pages[p-1];
+ return `<div><p class="muted" style="margin:0"><a href="#docs">Document library</a> › ${esc(d.folder)}</p><h1>${esc(d.t)}</h1></div>
+ <div class="reader"><aside class="card rtoc"><h3 class="lbl">Sections</h3><ol class="toc">${d.pages.map((x,i)=>`<li class="${i+1===p?'on':''}"><a href="#docs?d=${d.id}&p=${i+1}">${esc(x.h)}</a> <span class="muted">p.${i+1}</span></li>`).join('')}</ol>
+ <div class="docbtns" style="flex-direction:column;align-items:stretch">${docLinks(d)}</div></aside>
+ <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+ <div class="card"><p class="muted" style="margin:0 0 6px"><strong>AI summary</strong></p><p style="margin:0">${esc(d.sum)}</p></div>
+ <article class="card page"><div class="pnum">Page ${p} of ${d.pages.length}</div><h2>${esc(pg.h)}</h2>${pg.b.split('\n').filter(Boolean).map(l=>`<p>${esc(l)}</p>`).join('')}
+ <div class="pager" style="margin-top:14px">${p>1?`<a href="#docs?d=${d.id}&p=${p-1}"><small>Previous page</small>${esc(d.pages[p-2].h)}</a>`:'<span></span>'}${p<d.pages.length?`<a class="nx" href="#docs?d=${d.id}&p=${p+1}"><small>Next page</small>${esc(d.pages[p].h)}</a>`:''}</div></article>
+ <div class="card"><h2>Ask this document</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="dq" class="inp" style="flex:1 1 240px" placeholder="e.g. What does it say about labelling?"><button class="btn" id="dqGo">Ask</button></div><div id="dqOut" class="aiout" style="margin-top:10px"></div>
+ <p class="muted" style="font-size:12.5px;margin:8px 0 0">Demo: finds the most relevant pages and quotes them with page links. In the live portal the on-server Assistant writes the answer and cites pages the same way.</p></div></div></div>`;
+}
+function docLinks(d){const id=(LS.get('ragna-ncids',{})[d.id])||(NCIDS[d.id]);const href=id?`${NC_URL}/f/${id}`:`${NC_URL}/apps/files/files?dir=${encodeURIComponent('/'+d.folder)}`;
+ return `<a class="btn ghost" href="${href}" target="_blank" rel="noopener">Open original</a><a class="btn ghost" href="${href}" target="_blank" rel="noopener" title="Opens in Nextcloud; everyone with access edits the same copy live">Edit together live</a>`}
+function wireDocs(){const go=document.getElementById('dqGo');if(!go)return;const d=mkDocs().find(x=>x.id===QS.get('d'));
+ const ask=()=>{const q=document.getElementById('dq').value.toLowerCase().split(/\W+/).filter(w=>w.length>3);const out=document.getElementById('dqOut');if(!q.length){out.innerHTML='<p class="muted">Type a question with a few key words.</p>';return}
+  const sc=d.pages.map((p,i)=>{const t=(p.h+' '+p.b).toLowerCase();return {i,s:q.reduce((a,w)=>a+(t.split(w).length-1),0),p}}).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+  out.innerHTML=sc.length?sc.map(x=>{const sent=x.p.b.split(/(?<=\.)\s|\n/).find(s=>q.some(w=>s.toLowerCase().includes(w)))||x.p.b.slice(0,200);return `<p>${esc(sent)} <a class="cite" href="#docs?d=${d.id}&p=${x.i+1}">p.${x.i+1} ${esc(x.p.h)}</a></p>`}).join(''):'<p class="muted">Nothing in this document matches. Try other words.</p>'};
+ go.onclick=ask;document.getElementById('dq').onkeydown=e=>{if(e.key==='Enter')ask()}}
+const NCIDS={};let QS=new URLSearchParams();
+
+/* ---------- Membership ---------- */
+const EXPERTISE=['Labelling and packaging','Traceability and serialisation','Electronic product information','Antimicrobial stewardship','Veterinary medicines','Environment and manufacturing emissions','Clinical trials and scientific advice','Pharmacovigilance','Substandard and falsified medicines','Surveillance and data','Phage therapy and novel products','Behavioural science','Reliance and harmonisation','Inspections and GMP'];
+const SAMPLE_PEOPLE=[
+ {n:'Sample member A',a:'Human medicines regulator',c:'Sweden',r:'Task Force',x:['Labelling and packaging','Reliance and harmonisation']},
+ {n:'Sample member B',a:'Veterinary medicines regulator',c:'Germany',r:'Member',x:['Veterinary medicines','Surveillance and data']},
+ {n:'Sample member C',a:'Human medicines regulator',c:'Japan',r:'Member',x:['Phage therapy and novel products','Clinical trials and scientific advice']},
+ {n:'Sample member D',a:'Human medicines regulator',c:'Brazil',r:'Member',x:['Antimicrobial stewardship','Labelling and packaging']},
+ {n:'Sample member E',a:'International organisation',c:'Global',r:'Observer',x:['Surveillance and data','Environment and manufacturing emissions']},
+ {n:'Sample member F',a:'Human medicines regulator',c:'Saudi Arabia',r:'Member',x:['Traceability and serialisation','Substandard and falsified medicines']}
+];
+let DIRF='';
+function joinHTML(){
+ return `<div><h1>Join the Ragna 2.0 Task Force</h1><p class="lede">Regulatory agencies and invited experts can request membership. The Secretariat reviews every request and replies by email, usually within two weeks.</p></div>
+ <form class="card" id="jf" novalidate><div class="row2">
+ <div><label class="lbl" for="jN">Full name *</label><input id="jN" class="inp" autocomplete="name" required></div>
+ <div><label class="lbl" for="jE">Work email *</label><input id="jE" type="email" class="inp" autocomplete="email" required></div>
+ <div><label class="lbl" for="jA">Organisation *</label><input id="jA" class="inp" autocomplete="organization" required></div>
+ <div><label class="lbl" for="jC">Country *</label><input id="jC" class="inp" autocomplete="country-name" required></div>
+ <div><label class="lbl" for="jT">Job title</label><input id="jT" class="inp" autocomplete="organization-title"></div>
+ <div><label class="lbl" for="jM">Membership type *</label><select id="jM" class="inp"><option>Member agency representative</option><option>Observer organisation</option><option>Invited expert</option></select></div></div>
+ <fieldset class="fs"><legend class="lbl">Areas of expertise (choose any)</legend><div class="chips">${EXPERTISE.map((x,i)=>`<label class="chip ck"><input type="checkbox" value="${esc(x)}" name="jx"> ${esc(x)}</label>`).join('')}</div></fieldset>
+ <label class="lbl" for="jB" style="margin-top:12px">Short introduction (optional)</label><textarea id="jB" class="inp" rows="3" style="font-family:var(--body)"></textarea>
+ <label class="chk2"><input type="checkbox" id="jDir"> Show my name, organisation, country and expertise to other members in the member directory (you can change this later)</label>
+ <div class="consent"><label class="chk2"><input type="checkbox" id="jP" required> I have read the <a href="#privacy" target="_blank">Privacy notice</a> and agree that the Secretariat processes my data to handle this request and, if accepted, to run my membership. *</label>
+ <label class="chk2"><input type="checkbox" id="jTm" required> I accept the <a href="#terms" target="_blank">Terms of use</a>. *</label></div>
+ <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px"><button class="btn" type="submit">Send request</button><span id="jMsg" class="muted" role="status"></span></div>
+ ${nc('In the live portal this form is a Nextcloud Form. Accepted members get a Nextcloud account in the right groups. <a href="'+NC_URL+'/apps/forms/s/XqoCTnqkKTtRMSmKKTHXWx4s" target="_blank" rel="noopener">Official access request form</a>')}</form>`;
+}
+function wireJoin(){const f=document.getElementById('jf');if(!f)return;f.onsubmit=e=>{e.preventDefault();const g=id=>document.getElementById(id);const m=g('jMsg');
+ const req=['jN','jE','jA','jC'].find(id=>!g(id).value.trim());if(req){m.textContent='Please fill in the required fields.';g(req).focus();return}
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(g('jE').value.trim())){m.textContent='Please enter a valid work email.';g('jE').focus();return}
+ if(!g('jP').checked||!g('jTm').checked){m.textContent='Please accept the Privacy notice and the Terms of use.';return}
+ const L=LS.get('ragna-join',[]);const ref='RQ-'+String(Date.now()).slice(-6);
+ L.push({ref,n:g('jN').value.trim(),e:g('jE').value.trim(),a:g('jA').value.trim(),c:g('jC').value.trim(),t:g('jT').value.trim(),m:g('jM').value,x:[...f.querySelectorAll('input[name=jx]:checked')].map(i=>i.value),b:g('jB').value.trim(),dir:g('jDir').checked,consent:{privacy:'v1.0',terms:'v1.0',at:new Date().toISOString()},state:'pending'});LS.set('ragna-join',L);
+ f.innerHTML=`<h2>Request received</h2><p>Your reference is <strong>${ref}</strong>. The Secretariat will review it and reply by email. You can ask for your request to be deleted at any time.</p><p class="muted">Demo: the request is stored in this browser and appears under Admin controls on the members site.</p>`}}
+function signinHTML(){
+ return `<div><h1>Member sign-in</h1><p class="lede">Members sign in to the Nextcloud portal with the account the Secretariat created for them.</p></div>
+ <div class="grid2"><div class="card"><h2>Sign in to the portal</h2><ol class="clean" style="padding-left:20px"><li>Open the portal and enter your account name and password</li><li>Confirm with your two-factor app if you turned it on</li><li>The first time, accept the Terms of use and Privacy notice</li></ol><p style="margin:12px 0 0"><a class="btn" href="${NC_URL}/login" target="_blank" rel="noopener" style="text-decoration:none">Go to portal sign-in</a></p><p class="muted" style="font-size:13px">Forgot your password? Use "Forgot password?" on the sign-in page.</p></div>
+ <div class="card"><h2>Preview the members area</h2><p>For this demo you can look around the members area without an account, switching roles from the top bar.</p><a class="btn ghost" href="members/">Open members area (demo)</a><h2 style="margin-top:16px">Not a member yet?</h2><a class="btn ghost" href="#join">Request membership</a></div></div>`}
+function directoryHTML(){
+ const v=VIS();
+ if(IS_PUBLIC&&v.directory!=='public')return `<h1>Member directory</h1>`+lock('The member directory');
+ if(!IS_PUBLIC&&v.directory==='admin'&&S.role!=='admin')return `<h1>Member directory</h1><div class="locked"><strong>Restricted by the Secretariat.</strong> The directory is currently visible to Secretariat admins only.</div>`;
+ if(!IS_PUBLIC&&!can.directory(S.role))return `<h1>Member directory</h1>`+lock('The member directory');
+ const ppl=SAMPLE_PEOPLE.map(p=>Object.assign({s:1},p)).concat(LS.get('ragna-join',[]).filter(j=>j.state==='approved'&&j.dir).map(j=>({n:j.n,a:j.a,c:j.c,r:j.m.startsWith('Observer')?'Observer':'Member',x:j.x,e:j.e})));
+ const f=DIRF;const list=ppl.filter(p=>!f||p.x.includes(f));
+ return `<div><h1>Member directory</h1><p class="lede">People and agencies in the network, with their areas of expertise. Only members who opted in are listed; email addresses are shown to members only.</p></div>
+ <div class="card"><label class="lbl">Filter by expertise</label><div class="chips"><button class="chip ${!f?'on':''}" data-xf="">All</button>${EXPERTISE.map(x=>`<button class="chip ${f===x?'on':''}" data-xf="${esc(x)}">${esc(x)}</button>`).join('')}</div></div>
+ <div class="pgrid">${list.map(p=>`<div class="card person"><div class="av lg">${esc((w=>(w[0][0]+(w.length>1?w[w.length-1][0]:'')).toUpperCase())(p.n.split(' ')))}</div><div><strong>${esc(p.n)}</strong> ${p.s?'<span class="pill gold">sample</span>':''}<br><span class="muted">${esc(p.a)} · ${esc(p.c)}</span><br><span class="pill">${esc(p.r)}</span><div class="chips" style="margin-top:6px">${p.x.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>${p.e&&!IS_PUBLIC?`<a href="mailto:${esc(p.e)}" style="font-size:13px">${esc(p.e)}</a>`:''}</div></div>`).join('')||'<p class="muted">Nobody listed with that expertise yet.</p>'}</div>
+ <div class="card"><h2>Agencies represented</h2><div class="tw"><table><thead><tr><th>Agency</th><th>Country / region</th><th>Sector</th><th>Role</th></tr></thead><tbody>
+ ${AGENCIES.map(a=>`<tr><td>${esc(a[0])}</td><td>${esc(a[1])}</td><td>${a[2]}</td><td><span class="pill ${a[3]==='Observer'?'gold':''}">${a[3]}</span></td></tr>`).join('')}</tbody></table></div>
+ ${nc('Profiles come from Nextcloud user profiles (expertise as a profile field); visibility is set by the Secretariat under Admin controls')}</div>`}
+function wireDir(){document.querySelectorAll('[data-xf]').forEach(b=>b.onclick=()=>{DIRF=b.dataset.xf;render()})}
+function profileHTML(){
+ const me=LS.get('ragna-me',{n:'Demo user',a:'Your agency',c:'Your country',x:['Labelling and packaging'],dir:true,email:false});const cons=LS.get('ragna-consent',null);
+ return `<div><h1>My profile and privacy</h1><p class="lede">The personal information the portal holds about you, who can see it, and your choices.</p></div>
+ <div class="grid2"><div class="card"><h2>My details</h2><div class="row2"><div><label class="lbl" for="pN">Name</label><input id="pN" class="inp" value="${esc(me.n)}"></div><div><label class="lbl" for="pA">Organisation</label><input id="pA" class="inp" value="${esc(me.a)}"></div><div><label class="lbl" for="pC">Country</label><input id="pC" class="inp" value="${esc(me.c)}"></div></div>
+ <label class="lbl" style="margin-top:12px">Areas of expertise</label><div class="chips">${EXPERTISE.map(x=>`<label class="chip ck"><input type="checkbox" name="px" value="${esc(x)}" ${me.x.includes(x)?'checked':''}> ${esc(x)}</label>`).join('')}</div>
+ <h2 style="margin-top:16px">Visibility</h2><label class="chk"><input type="checkbox" id="pDir" ${me.dir?'checked':''}> List me in the member directory</label><label class="chk"><input type="checkbox" id="pEm" ${me.email?'checked':''}> Show my work email to other members</label>
+ <div style="display:flex;gap:10px;align-items:center;margin-top:8px"><button class="btn" id="pSave">Save</button><span id="pMsg" class="muted" role="status"></span></div></div>
+ <div class="card"><h2>My data and rights</h2><p style="margin-top:0">Under the GDPR you can access, correct, export or delete your data, and withdraw consent at any time.</p>
+ <p class="muted">Consent: ${cons?`Terms ${esc(cons.v)} accepted ${new Date(cons.at).toLocaleString('en-GB')}`:'not recorded in this browser'}</p>
+ <div class="docbtns" style="flex-direction:column;align-items:flex-start"><button class="btn ghost" id="pDl">Download my data (JSON)</button><button class="btn ghost" id="pWd">Withdraw consent</button><button class="btn ghost" id="pDel" style="border-color:var(--lock);color:var(--lock)">Ask the Secretariat to delete my account</button></div>
+ <p class="muted" style="font-size:13px">Read the <a href="#privacy">Privacy notice</a> and <a href="#terms">Terms of use</a>.</p>${nc('Settings › Personal info and Privacy; data export via the user_migration app')}</div></div>`}
+function wireProfile(){const s=document.getElementById('pSave');if(!s)return;const g=id=>document.getElementById(id);
+ s.onclick=()=>{LS.set('ragna-me',{n:g('pN').value,a:g('pA').value,c:g('pC').value,x:[...document.querySelectorAll('input[name=px]:checked')].map(i=>i.value),dir:g('pDir').checked,email:g('pEm').checked});g('pMsg').textContent='Saved.'};
+ g('pDl').onclick=()=>{const blob=new Blob([JSON.stringify({profile:LS.get('ragna-me',{}),consent:LS.get('ragna-consent',null),exported:new Date().toISOString()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my-ragna-data.json';a.click()};
+ g('pWd').onclick=()=>{try{localStorage.removeItem('ragna-consent')}catch(e){}render()};
+ g('pDel').onclick=()=>{g('pMsg').textContent='';g('pDel').outerHTML='<p class="muted">Deletion request sent to the Secretariat (demo). You will get an email confirmation.</p>'}}
+
+/* ---------- Admin controls ---------- */
+function adminHTML(){
+ if(S.role!=='admin')return `<h1>Admin controls</h1><div class="locked"><strong>Secretariat admins only.</strong> Switch "Viewing as" to Secretariat admin to see this page.</div>`;
+ const v=VIS(),J=LS.get('ragna-join',[]),M=LS.get('ragna-map-sub',[]);
+ const OPT={map:[['public','Everyone'],['members','Members only']],maturity:[['public','Everyone'],['members','Members only']],mapInput:[['members','Members'],['admin','Secretariat only']],directory:[['public','Everyone'],['members','Members'],['admin','Secretariat only']],docs:[['public','Everyone'],['members','Members only']],news:[['public','Everyone'],['members','Members only'],['off','Off']]};
+ const LBL={map:'RAGNA BOX map',maturity:'Maturity levels on the map',mapInput:'Who can submit map entries',directory:'Member directory',docs:'Document library',news:'AMR news feed'};
+ return `<div><h1>Admin controls</h1><p class="lede">Choose who can see each part of the site, and review membership requests and map submissions.</p></div>
+ <div class="card"><h2>Visibility</h2><div class="vt">${Object.keys(OPT).map(k=>`<div class="vrow"><span>${LBL[k]}</span><div class="seg">${OPT[k].map(o=>`<button data-vk="${k}" data-vv="${o[0]}" class="${v[k]===o[0]?'on':''}">${o[1]}</button>`).join('')}</div></div>`).join('')}</div>
+ <p class="muted" style="font-size:13px;margin:10px 0 0">Demo: settings are saved in this browser and change what the public and members pages show here. In the live portal they are stored in Nextcloud and apply to everyone.</p></div>
+ <div class="card"><h2>Membership requests <span class="pill">${J.filter(j=>j.state==='pending').length} pending</span></h2>${J.length?`<div class="tw"><table><thead><tr><th>Ref</th><th>Name</th><th>Organisation</th><th>Expertise</th><th>Consent</th><th>Status</th></tr></thead><tbody>${J.map((j,i)=>`<tr><td class="num">${j.ref}</td><td>${esc(j.n)}<br><small class="muted">${esc(j.e)}</small></td><td>${esc(j.a)}, ${esc(j.c)}<br><small class="muted">${esc(j.m)}</small></td><td>${j.x.map(esc).join(', ')||'—'}</td><td><small>${new Date(j.consent.at).toLocaleDateString('en-GB')}</small></td><td>${j.state==='pending'?`<button class="btn" data-ja="${i}" data-js="approved">Approve</button> <button class="btn ghost" data-ja="${i}" data-js="declined">Decline</button>`:`<span class="pill ${j.state==='approved'?'':'lock'}">${j.state}</span>`}</td></tr>`).join('')}</tbody></table></div>`:'<p class="muted">No requests yet. Try the Join form on the public site.</p>'}</div>
+ <div class="card"><h2>Map submissions <span class="pill">${M.filter(j=>j.state==='pending').length} pending</span></h2>${M.length?`<div class="tw"><table class="mtab"><thead><tr><th>Country</th><th>Factor</th><th>Initiative</th><th>Status</th><th>By</th><th></th></tr></thead><tbody>${M.map((s,i)=>`<tr><td>${esc(s.country)}</td><td>${FACTN[s.f]}</td><td>${esc(s.t)}<br><small class="muted">${esc(s.d)}</small></td><td>${esc(s.st)}</td><td><small>${esc(s.by)}</small></td><td>${s.state==='pending'?`<button class="btn" data-ma="${i}" data-ms="approved">Approve</button> <button class="btn ghost" data-ma="${i}" data-ms="declined">Decline</button>`:`<span class="pill ${s.state==='approved'?'':'lock'}">${s.state}</span>`}</td></tr>`).join('')}</tbody></table></div>`:'<p class="muted">No submissions yet. Members can add entries on the RAGNA BOX map page.</p>'}
+ ${nc('Groups and app permissions in Administration settings; requests via Forms; map entries via Tables with an approval column')}</div>`}
+function wireAdmin(){document.querySelectorAll('[data-vk]').forEach(b=>b.onclick=()=>{const v=LS.get('ragna-vis',{});v[b.dataset.vk]=b.dataset.vv;LS.set('ragna-vis',v);render()});
+ document.querySelectorAll('[data-ja]').forEach(b=>b.onclick=()=>{const L=LS.get('ragna-join',[]);L[+b.dataset.ja].state=b.dataset.js;LS.set('ragna-join',L);render()});
+ document.querySelectorAll('[data-ma]').forEach(b=>b.onclick=()=>{const L=LS.get('ragna-map-sub',[]);L[+b.dataset.ma].state=b.dataset.ms;LS.set('ragna-map-sub',L);render()})}
+
+/* ---------- Privacy, terms, consent ---------- */
+const PRIVACY=[
+ ['Who is responsible','The Ragna 2.0 Task Force Secretariat is the controller for personal data processed in this portal. Contact: the Secretariat\'s data protection contact [to be confirmed]. Agentic Rx operates the platform as a processor under a written data processing agreement.'],
+ ['What data we process','Account and profile: name, work email, organisation, country, job title, membership type and areas of expertise. Usage: sign-in times, IP address, and an audit log of shares and edits. Content you choose to upload or write, such as documents, comments and chat messages. We do not ask for special category data.'],
+ ['Why and on what legal basis','To run the network: manage membership, meetings, shared documents and communication (Article 6(1)(e) or (f) GDPR, public task or legitimate interests of the network, depending on the member agency). To list you in the member directory and show your email to members (Article 6(1)(a), consent, which you can withdraw at any time). To keep the service secure (Article 6(1)(f)).'],
+ ['Where data is stored','The member portal runs on a dedicated server in Toronto, Canada. Canada benefits from an EU adequacy decision for organisations covered by its federal privacy law; any other transfer is covered by standard contractual clauses or another valid safeguard. The public website is hosted on GitHub Pages, which logs visitor IP addresses for security; it does not collect member data.'],
+ ['Who can see it','Other members see only what you allow in your profile. The Secretariat sees membership details. The platform operator can access data only to run and support the service. We never sell data or use it for advertising. The AI assistant runs on the portal\'s own server; documents are not sent to outside AI companies.'],
+ ['How long we keep it','Membership data: for as long as you are a member, then deleted within 12 months unless you ask sooner. Declined access requests: 6 months. Security logs: 90 days. Meeting records follow the network\'s records schedule.'],
+ ['Your rights','You can ask to access, correct, delete or export your data, restrict or object to processing, and withdraw consent (Articles 15 to 22 GDPR). Use My profile and privacy or contact the Secretariat. You may also complain to the data protection authority in your country.'],
+ ['Cookies','The portal uses only essential cookies for sign-in and security. The public website stores small settings in your browser (for example your consent record) and uses no tracking or advertising cookies.'],
+ ['Changes','We will tell members about material changes to this notice and ask for consent again where needed. Version 1.0, draft for review by the data protection contacts of member agencies.']
+];
+const TERMS=[
+ ['Who may use the portal','Representatives of member agencies, observer organisations and invited experts approved by the Secretariat. Accounts are personal; do not share your password.'],
+ ['Confidentiality','Material marked for members only must not be shared outside the network without the author\'s permission. Discussions follow the network\'s practice of open exchange without attribution unless agreed.'],
+ ['Acceptable use','Use the portal only for Task Force work. Do not upload unlawful content, malware or personal data that is not needed. Uploading another person\'s personal data requires a lawful basis.'],
+ ['Content and ownership','You keep the rights to what you contribute and allow the network to store and share it with members for Task Force purposes. Published outputs follow the licence agreed by the Task Force.'],
+ ['Availability','The service is provided as is. We aim for high availability and keep daily backups but do not guarantee uninterrupted access.'],
+ ['Ending access','You can leave at any time. The Secretariat may suspend accounts that breach these terms.'],
+ ['Changes','We may update these terms and will notify members. Version 1.0, draft.']
+];
+function legalHTML(title,arr,lede){return `<div><h1>${title}</h1><p class="lede">${lede}</p><p class="ex">Template for review by the Task Force and member agencies' data protection contacts. Not legal advice.</p></div>
+ <div class="card legal">${arr.map((s,i)=>`<h2 id="s${i+1}">${i+1}. ${esc(s[0])}</h2><p>${esc(s[1])}</p>`).join('')}</div>`}
+function consentGate(){if(IS_PUBLIC||LS.get('ragna-consent',null)||document.getElementById('cg'))return;
+ document.body.insertAdjacentHTML('beforeend',`<div class="cg" id="cg" role="dialog" aria-modal="true" aria-labelledby="cgH"><div class="cgb"><h2 id="cgH">Before you enter the members area</h2>
+ <p>The Ragna 2.0 Task Force Secretariat processes your name, work email, organisation, country, role and areas of expertise to run the network, and keeps a security log of sign-ins and shares. Data is stored on a dedicated server in Canada. You can access, correct, export or delete your data at any time.</p>
+ <label class="chk2"><input type="checkbox" id="cg1"> I have read the <a href="../#privacy" target="_blank" rel="noopener">Privacy notice</a></label>
+ <label class="chk2"><input type="checkbox" id="cg2"> I accept the <a href="../#terms" target="_blank" rel="noopener">Terms of use</a>, including confidentiality of members-only material</label>
+ <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px"><button class="btn" id="cgOk" disabled>Agree and continue</button><a class="btn ghost" href="../">Back to public site</a></div></div></div>`);
+ const ok=document.getElementById('cgOk'),u=()=>ok.disabled=!(document.getElementById('cg1').checked&&document.getElementById('cg2').checked);document.getElementById('cg1').onchange=u;document.getElementById('cg2').onchange=u;
+ ok.onclick=()=>{LS.set('ragna-consent',{v:'1.0',at:new Date().toISOString()});document.getElementById('cg').remove()};setTimeout(()=>document.getElementById('cg1').focus(),50)}
+
+/* ---------- News rail ---------- */
+let NEWS=null;
+async function newsRail(){const el=document.getElementById('news');if(!el)return;const v=VIS().news;
+ if(v==='off'||(v==='members'&&IS_PUBLIC)){el.hidden=true;document.querySelector('.shell').classList.remove('wn');return}el.hidden=false;document.querySelector('.shell').classList.add('wn');
+ if(!NEWS){el.innerHTML='<h2>AMR news</h2><p class="muted">Loading…</p>';try{NEWS=await (await fetch(NEWS_URL+'?t='+Math.floor(Date.now()/600000))).json()}catch(e){try{NEWS=await (await fetch((IS_PUBLIC?'':'../')+'news.json')).json()}catch(e2){NEWS={items:[]}}}}
+ const it=(NEWS.items||[]).slice(0,12);
+ el.innerHTML=`<h2>AMR news</h2><p class="muted" style="font-size:12px;margin:-4px 0 10px">${NEWS.updated?'Updated '+new Date(NEWS.updated).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' by the news agent':'The news agent has not run yet.'}</p>
+ ${NEWS.digest?`<div class="tip" style="font-size:13px">${esc(NEWS.digest)}</div>`:''}
+ <ul class="nl">${it.map(n=>`<li><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a><small>${esc(n.source||'')}${n.date?' · '+new Date(n.date).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):''}</small>${(n.tags||[]).length?`<div>${n.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>`:''}</li>`).join('')||'<li class="muted">No headlines yet.</li>'}</ul>
+ <p class="muted" style="font-size:11.5px">Headlines from public RSS feeds on antimicrobial resistance, collected every 6 hours. Links open the original source.</p>`}
+
+R.map=mapHTML;R.docs=docsHTML;R.join=joinHTML;R.signin=signinHTML;R.directory=directoryHTML;R.profile=profileHTML;R.admin=adminHTML;
+R.privacy=()=>legalHTML('Privacy notice',PRIVACY,'How the Ragna 2.0 Task Force handles personal information, in line with the EU General Data Protection Regulation (GDPR).');
+R.terms=()=>legalHTML('Terms of use',TERMS,'The rules for using the Ragna 2.0 Task Force portal and website.');
+function wireV3(id){if(id==='map')wireMap();if(id==='docs')wireDocs();if(id==='join')wireJoin();if(id==='directory')wireDir();if(id==='profile')wireProfile();if(id==='admin')wireAdmin();consentGate();newsRail()}
+
 
 function render(){
-  let id=(location.hash||'#start').slice(1); if(!R[id]||(IS_PUBLIC&&!PUBLIC_IDS.includes(id)))id='start';
+  let [id,q]=(location.hash||'#start').slice(1).split('?');QS=new URLSearchParams(q||''); if(!R[id]||!shown(id))id='start';
   let g='';const nav=document.getElementById('nav');nav.innerHTML='';
-  PAGES.filter(p=>!IS_PUBLIC||PUBLIC_IDS.includes(p.id)).forEach(p=>{if(p.grp!==g){g=p.grp;nav.insertAdjacentHTML('beforeend',`<div class="grp">${g}</div>`)}
+  PAGES.filter(p=>shown(p.id)).forEach(p=>{if(p.grp!==g){g=p.grp;nav.insertAdjacentHTML('beforeend',`<div class="grp">${g}</div>`)}
     nav.insertAdjacentHTML('beforeend',`<a href="#${p.id}" class="${p.id===id?'on':''}"><span>${p.label}</span><span class="nc">${p.nc}</span></a>`)});
-  const VIS=PAGES.filter(p=>!IS_PUBLIC||PUBLIC_IDS.includes(p.id));const ix=VIS.findIndex(p=>p.id===id),pv=VIS[ix-1],nx=VIS[ix+1];
-  document.getElementById('view').innerHTML=`<p class="eyebrow">Section ${ix+1} of ${VIS.length}</p>`+R[id]()+`<nav class="pager" aria-label="Previous and next">${pv?`<a href="#${pv.id}"><small>Previous</small>${pv.label}</a>`:'<span></span>'}${nx?`<a class="nx" href="#${nx.id}"><small>Next</small>${nx.label}</a>`:''}</nav>`;window.scrollTo(0,0);
-  wireAI(id);wireGuides(id);
+  const VP=PAGES.filter(p=>shown(p.id));const ix=VP.findIndex(p=>p.id===id),pv=VP[ix-1],nx=VP[ix+1];
+  document.getElementById('view').innerHTML=`<p class="eyebrow">Section ${ix+1} of ${VP.length}</p>`+R[id]()+`<nav class="pager" aria-label="Previous and next">${pv?`<a href="#${pv.id}"><small>Previous</small>${pv.label}</a>`:'<span></span>'}${nx?`<a class="nx" href="#${nx.id}"><small>Next</small>${nx.label}</a>`:''}</nav>`;window.scrollTo(0,0);
+  wireAI(id);wireGuides(id);wireV3(id);
   if(id==='guide')wireGuide();
 }
 roleSel.addEventListener('change',()=>{S.role=roleSel.value;try{localStorage.setItem('ragna-role',S.role)}catch(e){}render()});
