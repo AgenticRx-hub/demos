@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>RAGNA Member Portal</title><meta name="robots" content="noindex">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Ragna 2.0 Task Force Demo</title><meta name="robots" content="noindex">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -97,7 +97,7 @@ textarea.inp{font-family:var(--mono);font-size:13px;resize:vertical}
 </style>
 
 <header class="top">
-  <div class="brand"><b>RAGNA</b><span>Member portal prototype by Agentic Rx · not an official RAGNA site</span></div>
+  <div class="brand"><b>Ragna 2.0 Task Force Demo</b><span>Prototype by Agentic Rx · not an official RAGNA site</span></div>
   <a class="btn" href="members/" id="signin" hidden>Member sign-in</a><label class="role" for="roleSel" id="roleWrap">Viewing as
     <select id="roleSel">
       <option value="admin">Secretariat admin</option>
@@ -118,7 +118,7 @@ textarea.inp{font-family:var(--mono);font-size:13px;resize:vertical}
 <script>
 const IS_PUBLIC=!/\/members\/?($|index\.html)/.test(location.pathname);const PUBLIC_IDS=['start','schedule','cta','guide','build'];const S={role:IS_PUBLIC?'public':'member'};const SIGNIN='https://agenticrx-hub.github.io/demos/ragna/';
 if(!IS_PUBLIC){try{const r=localStorage.getItem('ragna-role');if(r&&r!=='public')S.role=r}catch(e){}}
-if(IS_PUBLIC){document.getElementById('roleWrap').hidden=true;document.getElementById('signin').hidden=false;document.getElementById('bandM').hidden=true;document.getElementById('bandP').hidden=false;document.title='RAGNA Network';}
+if(IS_PUBLIC){document.getElementById('roleWrap').hidden=true;document.getElementById('signin').hidden=false;document.getElementById('bandM').hidden=true;document.getElementById('bandP').hidden=false;document.title='Ragna 2.0 Task Force Demo';}
 const roleSel=document.getElementById('roleSel');roleSel.value=S.role;
 
 const ROLES={admin:'Secretariat admin',member:'Network member',observer:'Observer',public:'Not signed in'};
