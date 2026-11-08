@@ -1,12 +1,37 @@
 {
- "updated": "2026-11-08T07:22:35.242Z",
- "digest": "30 AMR headlines in the last two weeks; most about one health (2), surveillance (2), r&d (1).",
+ "updated": "2026-11-08T13:10:44.392Z",
+ "digest": "30 AMR headlines in the last two weeks; most about surveillance (6), one health (2), r&d (1).",
  "items": [
+  {
+   "title": "Research report: Bacteriological profile and antimicrobial resistance",
+   "link": "https://news.google.com/rss/articles/CBMikAJBVV95cUxPNkhVRl9BM0NnYV9tQV9JYTF0OGxXNVRBQzNFWnRKV2Z5bUJiT3lidW4wSkVXQ2RyWW85VDJqTmFCSks5UUxIdFZNWDZRQnRyaVFsbU9IUHhjRnBpVkE4X0NGWWV3MFVPYzV2WVJhemtpUDlsLVZkcmNISEdVaVdQLXFxZGxWX2g3V0JmT09kVnlKY0tMUGR0NGlmcGFUREZoRHdJQ0xUUV9BOVdCZWxlQ0pwOVEzSVRUNGRyQmJIN1N5dnd1YWtzekFWTExpbjc5OHFDMm1OYkNJdk1MM2swTUkyekh4NThhbUJ0cUxhVXc2aE1SWG9yclJoWHpZMXZlcUJqUEF0Y0JZS1FGWUZSWQ?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-08T12:07:49.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
+  {
+   "title": "Genomic Surveillance Links Resistant Foodborne Bacteria Between Food and Humans",
+   "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQQzJoZi1FQzlJN19ZU0VfSEdibVlXampSd2JNTG5ZLUQzUGhnck1pNWVQTEpYOGwzR0V4Z0EzbTdVWkt4TnBxMnNqUzNlUnVzRGVOWlE1bVdXTVRzbTNadEZIbEF3ZmxLWVVjYWloLVJpaFV0VkN2c25PbjNzZmNoMHYyTXhwZDV1eHRaYjBjSHZoRk4xS2ZPVkRPQWJOVU0tZ1lCUUdScw?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-08T12:07:47.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
   {
    "title": "Hospital Review Evaluates Piperacillin-Tazobactam Use and Microbial Resistance in Palestine",
    "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPVFJZejhySXdvUEJ5SjVkekhYd29PbnZXZ25wa3M2Y0hsWWx1Q2dUbTl1eGF1bm5rZGdnNDFBa1FmbWZkQzJKYzlvdndrSzlGdUo2MnZEdC00eFRSa3ZfT2VDNjU2MnNpTlBKY1dORFlQTlZwOHY5NkI0STg3M0hnS2l6cDQwdjNyZklTT0lEMGJkaEEtNWZ5c2h1UWs2MWZGbEZ4b3hBd0h0dlRNV0F3Z1M2d0FXN0U?oc=5",
    "source": "Bioengineer.org",
    "date": "2026-11-08T07:06:35.000Z",
+   "tags": []
+  },
+  {
+   "title": "Staphylococcus Aureus and Drug Resistance Rise Along Ethiopian Camel Milk Supply Chain",
+   "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNk1lMjZkTFBCc3pfVGNxYWpuRHBlbXRHalhSVlNMdDJaMW9rUjRZVjNEX0xfSXgzOHhBcmxST3N4SUNZMnhTMk84QnBqR3Rhc0NLdFVXU2RhTjM0MjFPLW93bHlpek1pUVEzVWtCaTdXT1l5UjV5S3ZOYlZKMVNxai1zYTh2eWdNclo3algtN0tDT0tmSmg3WGszR2ZybXpJdTNkMk90dGxJNlNMaEJtZA?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-08T03:10:46.000Z",
    "tags": []
   },
   {
@@ -35,13 +60,6 @@
    "tags": [
     "Surveillance"
    ]
-  },
-  {
-   "title": "Staphylococcus Aureus and Drug Resistance Rise Along Ethiopian Camel Milk Supply Chain",
-   "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNk1lMjZkTFBCc3pfVGNxYWpuRHBlbXRHalhSVlNMdDJaMW9rUjRZVjNEX0xfSXgzOHhBcmxST3N4SUNZMnhTMk84QnBqR3Rhc0NLdFVXU2RhTjM0MjFPLW93bHlpek1pUVEzVWtCaTdXT1l5UjV5S3ZOYlZKMVNxai1zYTh2eWdNclo3algtN0tDT0tmSmg3WGszR2ZybXpJdTNkMk90dGxJNlNMaEJtZA?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-07T18:18:27.000Z",
-   "tags": []
   },
   {
    "title": "New Web Tool Maps Antimicrobial Resistance Data Privately in the Browser",
@@ -90,18 +108,20 @@
    "tags": []
   },
   {
-   "title": "Drug-resistant germs are 'growing threat' to US, causing more than 50,000 deaths annually: CDC",
-   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPZ0o2cFplaXlYYjFjOXZyczV0eXphY3hPVW81dTRRNlhCSTgxTloxT0tEVkRCX1kxT01vYkRPLW0xbTFMR1QyX0xETnBtTmFac1dKUHhCZkJRTll0ODB6SG45MzhpQ2N0MzZJU214OVRzZjhLTkhHWTM3WUttT3k0a0k3UV9iV0pKMFRwMEtRSXZCX1A1d09qVVdXdVdOSGvSAaQBQVVfeXFMUExheC1kN3pRM0VMYjN4RzE5OXlCMlB4d0NKSVhVcGplZkcxLXZCUTZ2OWF6Yzc1YnBmLTNLdkEwck5WZ2piZTBJMERnYU1qOXRxNTZGUDBjWEIwWTdIaEpVYXBxd0RHOE9tekxsRTR1TzNIWmxNX1BuVUlIUUZjR3JDcWxHTk1jdmtTTk41X3dWY1JxQUlIVTVabkVEMUVEVVhRVGo?oc=5",
-   "source": "ABC News - Breaking News, Latest News and Videos",
-   "date": "2026-11-06T23:57:49.000Z",
-   "tags": []
-  },
-  {
    "title": "Bridging generalizability and reproducibility in machine learning-based antimicrobial resistance prediction",
    "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBxU1RYRVN4MFl3bzRBaFNkRmdVUHNtU1RLM2pENkxWclBJQWs0RW9nc3hGNmdRdHRkTm1YV1RUbUJIaDl2a2xrLWZOLXJmXzdSY1Q2YVR0aHp1amxwN2FobER6dw?oc=5",
    "source": "ASM Journals",
    "date": "2026-11-06T22:16:46.000Z",
    "tags": []
+  },
+  {
+   "title": "NCDC, Robert Koch Institute Move to Strengthen AMR Surveillance in Nigeria",
+   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNUl9GTlVWalVQUWJKUE1RaXk2MFFTeDc5SnBVZzJ6QXd2Y1l5dmNic3UwY1oyUWYwSmQ4OERkWFpVLUFpMEZVdFFXN1JSSEZ6LXNDNTRncFBPZVJneWU4WFBCdWFzUWt1UlJGSzEzU0V1Y1pVM1BsQnUyS0ZiSFVwak9nQkRZOVZ3R05abUFYR2J3cXpkSW05SUVMQ29JZw?oc=5",
+   "source": "TVC News",
+   "date": "2026-11-06T19:49:00.000Z",
+   "tags": [
+    "Surveillance"
+   ]
   },
   {
    "title": "AI biosensors for antimicrobial resistance need claim-specific validation, review warns",
@@ -167,18 +187,20 @@
    "tags": []
   },
   {
-   "title": "Antimicrobial resistance complicates neonatal sepsis care at Tanzanian referral hospital",
-   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNdm4zZWxKMTNScnBQYXVpS0sxaWdvc3FPYTFkLWhGN1VubmdZRndrMkt5dzR3MXBCVjBlQkJaak5tUzhDS0tQMXZxeWVGQndNWWtzMW5KcVhxa2xVaC1NOHA1RGRncTF5T3o2YmF3elVkdFZtZzJKUGk5aklHeGNaSkxZVzVUYV83anpkazJiYjk3UjMtUmN2N3VfdTVxUWZYVnlmajdTS2xxTV9RMDlLRjhOZw?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-04T17:17:14.000Z",
-   "tags": []
-  },
-  {
    "title": "Antibiotic-Resistant Bacteria Are Traveling From Farms to Forks Worldwide",
    "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPVEUzQW1KM0NpVWpBTUVJcERpUlhQLU9pMDVyTGxjNTJCSFZZWWRGVDh3czBfaDlCeXhtZ3NmWXJqSWlxYktfeFZvaFJzUzJwb05EV3N3NDFaeWRCOGNfVlFnZUJBZ2pTRjgzb1kzTlFYOWpfRFpMZ3VPX0pFMlNxcTdzNXBBSXZYeU1WVEFsOUx4NnNra0xEdFZKcXFoRk0?oc=5",
    "source": "Bioengineer.org",
    "date": "2026-11-04T11:55:36.000Z",
    "tags": []
+  },
+  {
+   "title": "AI-powered biosensors aim to speed antimicrobial resistance detection from clinic to global surveillance",
+   "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPdGExZXZXR3V0OXpBa2hNbTUyckU2YTFfRDFDY1RhX28wX2FYbTZmdmZKQkEzaXNMVzRGR3prZEoyTll5M0ZQdjlYaW1ZQlkyOERMMmowVXlCN3R1TmRXX0tGRXkyaFBsaXk0RTRWT2d5T0paZnhKeHVaSmFYWExfZE1jZjgzTWNVV3FqYkFMaTFBS0Y4blUzSGt6cHNBYnd3cXlwX1dWeU95V2ZpZGJYSU9VR0hwZ20waUF4YWNDX0VnTzVIdmp6TA?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-04T10:57:12.000Z",
+   "tags": [
+    "Surveillance"
+   ]
   },
   {
    "title": "Advances in Computational Approaches to Antimicrobial Resistance",
@@ -206,20 +228,6 @@
    "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQcFk1R3oyNnZzT0g2ajNkRG1GQXR1VFlaNElJTzdET1pnMmNZbWg3ck9IYnFveU0xRXh2dDMtV1hSaUpaY0Rjb0ItS0dvd2VzU0RMdkdRQ2lES0RmVGxlUFlJcEgzRjdPYlgyRXJHd1J4NlUzd09iSWY1WldZVUJNWkFHSXdzckZvT3hJ?oc=5",
    "source": "Drug Topics",
    "date": "2026-11-03T17:36:02.000Z",
-   "tags": []
-  },
-  {
-   "title": "In Andhra’s tribal belt, ICMR sanctions Rs 76 lakh to study meropenem resistance",
-   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPZFBmcFctNFRUaDNjTk9nUUR4c0NhcTV1QmpKY3ByTFZ3UVFGcWFGZ2dVUi1PYkVkd1Q4U2tCNzNQNFdjNmxBRTZhTFNxV081N2dnaFRTRGlWSzllV1dsdFpSQTlHbENUd1FUejJobXcwSldFNUVCMzk3RmNlTURjSGRZXzI0NVNEaUR1Q2h3dlE2TXQ0MzAzWTNNbHZVRlVadEJpbG9mZ0xyYWdxVmtDZ3RONC15Wk9wLTZn?oc=5",
-   "source": "The South First",
-   "date": "2026-11-03T07:31:05.000Z",
-   "tags": []
-  },
-  {
-   "title": "International Conference on Current Trends in Antimicrobial Resistance: European and Regional Perspectives",
-   "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBtcC1jWVJIeVNURDIyUkJYQk1yQ2U5Yk1kbTA0Y3M2NzhZNENsOTBnaExRdTV4ZEJ5a1dxQXhDbUo3WWZRblZQNXY5R0JnNzhkSE9oaDBjRFRaWEJzamRHOHlsanlZaE9TM3c?oc=5",
-   "source": "Yerevan State Medical University",
-   "date": "2026-11-02T06:50:01.000Z",
    "tags": []
   }
  ]
