@@ -1,21 +1,28 @@
 {
- "updated": "2026-11-08T13:10:44.392Z",
+ "updated": "2026-11-08T19:01:53.437Z",
  "digest": "30 AMR headlines in the last two weeks; most about surveillance (6), one health (2), r&d (1).",
  "items": [
   {
-   "title": "Research report: Bacteriological profile and antimicrobial resistance",
-   "link": "https://news.google.com/rss/articles/CBMikAJBVV95cUxPNkhVRl9BM0NnYV9tQV9JYTF0OGxXNVRBQzNFWnRKV2Z5bUJiT3lidW4wSkVXQ2RyWW85VDJqTmFCSks5UUxIdFZNWDZRQnRyaVFsbU9IUHhjRnBpVkE4X0NGWWV3MFVPYzV2WVJhemtpUDlsLVZkcmNISEdVaVdQLXFxZGxWX2g3V0JmT09kVnlKY0tMUGR0NGlmcGFUREZoRHdJQ0xUUV9BOVdCZWxlQ0pwOVEzSVRUNGRyQmJIN1N5dnd1YWtzekFWTExpbjc5OHFDMm1OYkNJdk1MM2swTUkyekh4NThhbUJ0cUxhVXc2aE1SWG9yclJoWHpZMXZlcUJqUEF0Y0JZS1FGWUZSWQ?oc=5",
+   "title": "Study Identifies Multidrug Resistant Salmonella in Northwest Ethiopia Slaughtered Cattle",
+   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQYU45N3dCMVk2c1NOdWNYWkJ5RnpJWjF0MnNTdHlvUzlSd0VsdUNQdGpodHlvS3hNb0pvdEFRRGxqM21XQWdJalJEejBVR3dxc3BUaFAtbGxrMmpHNmZzRWs0emNZVk5KT0JRTTVtc2ZCMWZCMXJhVU9kSVBCYnZZZkYyZzk4X0hPWnptWWFWNURRZk9FTzlUbmhvM3IyMXZTSWZseU8yN3FlRnFMcXRyUGIxbw?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-08T12:07:49.000Z",
-   "tags": [
-    "Surveillance"
-   ]
+   "date": "2026-11-08T17:49:02.000Z",
+   "tags": []
   },
   {
    "title": "Genomic Surveillance Links Resistant Foodborne Bacteria Between Food and Humans",
    "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQQzJoZi1FQzlJN19ZU0VfSEdibVlXampSd2JNTG5ZLUQzUGhnck1pNWVQTEpYOGwzR0V4Z0EzbTdVWkt4TnBxMnNqUzNlUnVzRGVOWlE1bVdXTVRzbTNadEZIbEF3ZmxLWVVjYWloLVJpaFV0VkN2c25PbjNzZmNoMHYyTXhwZDV1eHRaYjBjSHZoRk4xS2ZPVkRPQWJOVU0tZ1lCUUdScw?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-08T12:07:47.000Z",
+   "date": "2026-11-08T15:54:57.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
+  {
+   "title": "Research report: Bacteriological profile and antimicrobial resistance",
+   "link": "https://news.google.com/rss/articles/CBMikAJBVV95cUxPNkhVRl9BM0NnYV9tQV9JYTF0OGxXNVRBQzNFWnRKV2Z5bUJiT3lidW4wSkVXQ2RyWW85VDJqTmFCSks5UUxIdFZNWDZRQnRyaVFsbU9IUHhjRnBpVkE4X0NGWWV3MFVPYzV2WVJhemtpUDlsLVZkcmNISEdVaVdQLXFxZGxWX2g3V0JmT09kVnlKY0tMUGR0NGlmcGFUREZoRHdJQ0xUUV9BOVdCZWxlQ0pwOVEzSVRUNGRyQmJIN1N5dnd1YWtzekFWTExpbjc5OHFDMm1OYkNJdk1MM2swTUkyekh4NThhbUJ0cUxhVXc2aE1SWG9yclJoWHpZMXZlcUJqUEF0Y0JZS1FGWUZSWQ?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-08T12:07:32.000Z",
    "tags": [
     "Surveillance"
    ]
@@ -101,13 +108,6 @@
    "tags": []
   },
   {
-   "title": "Genomic Analysis Uncovers High Resistance Rates in Saudi ICU Urinary Isolates",
-   "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPTDFFV1YwQTMzc0dHeEFoVGVVZm5HU1lWeDdGX1E3U1I5S3JSbDM3U0ZOcW50aEFmWk9IMFhSazNGRXRUdEo0cGJ5S2hkZTVtZkRRdnJQTDlZOWQwNmFPa2hrUDhsVG92Q1lhTDNRSzdWbzVmeTJ0aE1CRHZJc1RRcEhKX2xOZE9TVFFLTngtZlgxT0pPWjZ5NUlJRExPNVFXeDNYUA?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-07T08:47:24.000Z",
-   "tags": []
-  },
-  {
    "title": "Bridging generalizability and reproducibility in machine learning-based antimicrobial resistance prediction",
    "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBxU1RYRVN4MFl3bzRBaFNkRmdVUHNtU1RLM2pENkxWclBJQWs0RW9nc3hGNmdRdHRkTm1YV1RUbUJIaDl2a2xrLWZOLXJmXzdSY1Q2YVR0aHp1amxwN2FobER6dw?oc=5",
    "source": "ASM Journals",
@@ -128,13 +128,6 @@
    "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQRVFvaG8tRDU2VWVCeW93Tmd4alpfZl94QW1yY0RVUUI2WkNvWnpHS0FCZ2xOT0tpcGs3MWwxNHFORjIzMHJrUkQ1RXpHT09tLVQ2U3pFT3duSWNBX2NhSFAwbDV3TVhnOXF5YmxXbmxKZzlISkc2aHl2ZFdNM3BfVzUxZThqR1BUSUNBaDhMOHlVM3U4UzFoUUQ3UHZCS01keDlaaWwyVDgzN1pRYUxqSg?oc=5",
    "source": "Bioengineer.org",
    "date": "2026-11-06T18:32:57.000Z",
-   "tags": []
-  },
-  {
-   "title": "Genome Sequencing Uncovers Virulence and Multidrug Resistance in Salmonella Typhimurium",
-   "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOeUxKYkxZeE1XbjRDWEJ0eFlJNUx3QXBFUXh1ME1MVDZFYnhzOFhVQzE4bWZ2UDQyNHNza3hRYU1zeUdhQ1BkRnlMd2VXMGtYOWl5U3Zrb0lvWEFodzVVb0NDOUVHVUUzNzdZcVRRZGlQZExPcEpEMHFwWHF0eWlzLWZhcVQ2dk1sTno2Um5KVUprY0ZfckJka25fMDRRb3hHeTBzNVBZYmh3aGxxUGIwZXZR?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-06T17:07:12.000Z",
    "tags": []
   },
   {
@@ -228,6 +221,13 @@
    "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQcFk1R3oyNnZzT0g2ajNkRG1GQXR1VFlaNElJTzdET1pnMmNZbWg3ck9IYnFveU0xRXh2dDMtV1hSaUpaY0Rjb0ItS0dvd2VzU0RMdkdRQ2lES0RmVGxlUFlJcEgzRjdPYlgyRXJHd1J4NlUzd09iSWY1WldZVUJNWkFHSXdzckZvT3hJ?oc=5",
    "source": "Drug Topics",
    "date": "2026-11-03T17:36:02.000Z",
+   "tags": []
+  },
+  {
+   "title": "In Andhra’s tribal belt, ICMR sanctions Rs 76 lakh to study meropenem resistance",
+   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPZFBmcFctNFRUaDNjTk9nUUR4c0NhcTV1QmpKY3ByTFZ3UVFGcWFGZ2dVUi1PYkVkd1Q4U2tCNzNQNFdjNmxBRTZhTFNxV081N2dnaFRTRGlWSzllV1dsdFpSQTlHbENUd1FUejJobXcwSldFNUVCMzk3RmNlTURjSGRZXzI0NVNEaUR1Q2h3dlE2TXQ0MzAzWTNNbHZVRlVadEJpbG9mZ0xyYWdxVmtDZ3RONC15Wk9wLTZn?oc=5",
+   "source": "The South First",
+   "date": "2026-11-03T07:31:05.000Z",
    "tags": []
   }
  ]
