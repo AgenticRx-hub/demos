@@ -1,12 +1,35 @@
 {
- "updated": "2026-11-08T19:01:53.437Z",
- "digest": "30 AMR headlines in the last two weeks; most about surveillance (6), one health (2), r&d (1).",
+ "updated": "2026-11-09T01:28:46.040Z",
+ "digest": "30 AMR headlines in the last two weeks; most about surveillance (7), one health (2), r&d (1).",
  "items": [
+  {
+   "title": "Antimicrobial-Resistant Bacteria Found in Ethiopia’s Fermented Enset Staples",
+   "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQZkZKd2NtOVI3aWRGaGJkQVBCUWpQcW5MVlJqNkx1Q3I4R3hvM0trVWpxYVpKVENlcHJMUjA3eXFtUW1reXlQcXdzUVc4cG1qOEJYak9VQUpvaS13WjZ5Z1NyYThrVEdYT0p4bG93WjlSekU2LTByM0ZoekV5bHgzdXNnQjRyalpadlFxZGRHNUFFVEttcWFsT3RHN3Q2a2YxbVE?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-09T00:46:34.000Z",
+   "tags": []
+  },
+  {
+   "title": "Nifuratel Targets Proton Motive Force to Fight Staphylococcus epidermidis Infections",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMTd0ZlQxZG85bjBaV3BQdTBuQ2xYb2xwOVRVQmx3a2tKOGtXZUF4b2RSU1RuYlAzeFRSbkE3aVA1eUJWNnp1ekk0OEhaWUhaVXE3MEhMVkE5eHgyM2YxS3NSRDF5UnRYYmt3b0lsbHViRW9hbXM1MDNiMU1CaXNPY0RuMzZUY214aEhuV2xnaEZxeEJ0Q1RKWDNtNG0tWE1POG1lLTljNVNKV3VSakE?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-08T23:50:39.000Z",
+   "tags": []
+  },
+  {
+   "title": "Six-Year NICU Surveillance Tracks Device-Associated Infection Pathogens",
+   "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNRVNxbGlLcXliaElnYmREVnd0R0tSRElVS21JZmRTQ2Yyb2libWVCX2hNZWJTYlBhc0hRQlVXOC1aVjJwbHl4TVJVQnpMVFhGNlVsaEFIZjlndmY4a0FsUUtVOExmZjg1RUI0WHVLNkdsQWdxV3RRWkxOelh3eGFOQWliWmZackJyaWZPc2JTWEEwRlctTzZTc2F4N1E?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-08T19:59:26.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
   {
    "title": "Study Identifies Multidrug Resistant Salmonella in Northwest Ethiopia Slaughtered Cattle",
    "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQYU45N3dCMVk2c1NOdWNYWkJ5RnpJWjF0MnNTdHlvUzlSd0VsdUNQdGpodHlvS3hNb0pvdEFRRGxqM21XQWdJalJEejBVR3dxc3BUaFAtbGxrMmpHNmZzRWs0emNZVk5KT0JRTTVtc2ZCMWZCMXJhVU9kSVBCYnZZZkYyZzk4X0hPWnptWWFWNURRZk9FTzlUbmhvM3IyMXZTSWZseU8yN3FlRnFMcXRyUGIxbw?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-08T17:49:02.000Z",
+   "date": "2026-11-08T17:48:50.000Z",
    "tags": []
   },
   {
@@ -87,24 +110,17 @@
    ]
   },
   {
-   "title": "PCI Organises State-Level Antimicrobial Resistance Awareness Programme",
-   "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNZXAxZWdCaGlyYnI1ZlJ3UFdPVVg5dzB5cmN2dm9ET2N3aTdBR0VnUlE3Um9XdzREUU5hbkF0UFVzTGpPamppelo3dHM3d3hQdGZrZGtHV2RxVDIyVlNzZ3hFWmhXNXhkNkwyOUxXQkg1cWVLRE9PUnJRUk9ibnZkZjV4VEF2NEVhNWU2WmRNdDQ3S1VfVkYtWnk0Q29WcEJFWW5lQmlpeGdvMG9oNjZxYtIBsAFBVV95cUxNZXAxZWdCaGlyYnI1ZlJ3UFdPVVg5dzB5cmN2dm9ET2N3aTdBR0VnUlE3Um9XdzREUU5hbkF0UFVzTGpPamppelo3dHM3d3hQdGZrZGtHV2RxVDIyVlNzZ3hFWmhXNXhkNkwyOUxXQkg1cWVLRE9PUnJRUk9ibnZkZjV4VEF2NEVhNWU2WmRNdDQ3S1VfVkYtWnk0Q29WcEJFWW5lQmlpeGdvMG9oNjZxYg?oc=5",
-   "source": "SMEStreet",
-   "date": "2026-11-07T12:28:37.000Z",
-   "tags": []
-  },
-  {
-   "title": "Acinetobacter and Klebsiella lead ventilator-associated pneumonia in Indian ICUs, review finds",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNeUdnTDUxdEl0UmxXMVJvNTZDY2RHNWtPSkRWbW1SMXBILWs4eVpBU3QwMlRwV3gxNjlDSFN1Q0k4UlRZLWpUSW1MYTh3aVNPUjlfWC1SeFBLcXdhYlI4U0RyQnVvOXh2dVczVFRURjRwUG1sNVlja1VyMDNfamlaTWx2T3pkcmZlMktxQXlVRzhVaUNHaXZtcWt4aDR6THJTZ2h3bU4zSXFKT0hldHp5SExQWjJVNXZXSWc?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-07T12:28:19.000Z",
-   "tags": []
-  },
-  {
    "title": "Genomic study links Campylobacter in children to abattoir sources",
    "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQRlE0bnY3eFQyX2NlMndkUWxtbzl2YjlHYTlKcjJQRGpFYnQ2aEtMbm1mTlR2TE8wcjVxTE5kc0lPZk12MzFFTVo2MWs5dzNUNmU5clJZS1I5QmpqRHYwakY1Rmt3V2ptTEVrdVRTaUNQWmlXT0NOOFpvT2k3c1k1dEhrcnZDLVI2VGp0aHVna3ZjMzNM?oc=5",
    "source": "Bioengineer.org",
    "date": "2026-11-07T11:58:15.000Z",
+   "tags": []
+  },
+  {
+   "title": "Collective Efforts Needed To Combat Antimicrobial Resistance: PCI President Dr. Montu Kumar M. Patel.",
+   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPWndkQkZFcW9MR2QyaHlJaUQxQkg5c3hUTEFadjU3RXMyWFB1ZzZUU09LY2UzVmtRazFxVENOUDdpLWRWdHBscG96SXE0UXcydDAzWFZhSkpQQnRSUmhyWFhhb3RyaEY1MFVhUmRsemNNZFZPVXFWMGJIYldobXE4QVdseVpqRTNROE5pOFdST2p6ZEpaVnhKc3lNLS16Uk9LbmFPX0s0R0d2bHJtSmIwNzE4cmF5c3JYWlFDdGJRWEZ1N25xMExmZkhR?oc=5",
+   "source": "TRIPURA STAR NEWS",
+   "date": "2026-11-07T08:30:53.000Z",
    "tags": []
   },
   {
@@ -152,13 +168,6 @@
    "tags": []
   },
   {
-   "title": "Biofilm-Forming Acinetobacter baumannii Strains Show Widespread Drug Resistance",
-   "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPMVc2dDJKQTRYTzdaa3RtM2RsRldibGVGY3B2Znd4Z2ZHTXhaYTN2RDEwcUFha1ZqMVhUc29ua2drRGpPek5xU2dDUmpFLURfWlBxdlNmT3RyVERXa2tKWG9hVW5GVWt5S1VJRVRWQXE5dWlWNnhtNVV1OU5qYXNKT01aMmV2M0NCLVJyYzNHVkNsYUliX2xPelBSalkwby1LdEZoRmF1Yw?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-05T22:07:07.000Z",
-   "tags": []
-  },
-  {
    "title": "CF, Bronchiectasis Antimicrobial Resistance Varies Widely by Region",
    "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPLW4tNTdOQndvbzNobFdXSmdmVVNJWTJlTm5CclN0V09xZkZ4QWd4aWUwZE1zUktWTUZXZEsxSXJ5VFVOaUFKc19jcVZnSnQ0MHNteFJBVUV3OFotanR3Q20xdGxUdVo4TU9BOFh3cDdtNndJX0RyLUJyN0t0cVdVOUphcktKa0YwT0tQSzVDVjNvSjZJMFhJ?oc=5",
    "source": "The American Journal of Managed Care",
@@ -166,10 +175,10 @@
    "tags": []
   },
   {
-   "title": "Why Tetracycline Resistance Persists on Low-Use Dairy Farms",
-   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPNmRHb3NnNExsZWQtc2x3S1pJXzRQWklHQnJtWjJDSFR2RHNiWW80NWJEdk1qeWVTVGkwQUItamJ0aS1uZjkyZUFjYlVSRE9oS2RQZlhDM3pYSnlPZllUMVRGc3kyY3Y5ZGo5VUpHQnZJNHdIRnVfSWZKNC1DbE9ydWV3WmZrWUVjOVdKNXJiZUU1WjNkMWlhRg?oc=5",
-   "source": "Bovine Veterinarian",
-   "date": "2026-11-05T14:35:38.000Z",
+   "title": "Most nurses at Ugandan hospital miss at least one of the Five Rights of antimicrobial administration, survey finds",
+   "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOeUpzQmw5d1NjZExYWDdZV3JIeXRvU0trZXJ2Z3EtbkxGOGRlQ0ZpaGdkTktNZ1k1NTZOM19vOHpabWswMjgyME1kNnB0QS00VklJNDY1WG1YQnVQWjhRV0xpemZyM2d2NHo0cWZFbTNQV19EYU01SXlwV2trYnlBVXFzd1NwR3BISG5pTnB6V01kZVZhcnBQSncyZHlOdDhndEhlLVFzTTc3U256S2Z6MnkzRmh2YzQ5OVhfMW5KYnlJQThQT2Nhc2Y3RU4zVWtpYk94MQ?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-04T22:28:15.000Z",
    "tags": []
   },
   {
@@ -207,13 +216,6 @@
    "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNeXdVeThnWHFONG9Sa09vdmtRMThIYmJUVktvcXJUdXg3ZUd0X3dRYm96ZWhEZko3dUJwcm1RQlVONWctWEptZUJSbDRCZlNhNEU4UFJKNHNOS09qSVJGTldCb1VCMEpYNnJJNFdzV1E1WTBRVFpiTGV1d0RRVkVMZEs0d3VxR0lDRmNqd3lFV18?oc=5",
    "source": "UNEP - UN Environment Programme",
    "date": "2026-11-04T04:47:53.000Z",
-   "tags": []
-  },
-  {
-   "title": "Mussels and sea squirts harbor antimicrobial resistance genes in Mediterranean waters",
-   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQRGlWS2V2azR3alNlMGlRWXZ6TEYxcWZ4bl9mT3lIYnlZbkUwYlFmWWZtV1dETUtqeGZ1MnYyb19oR0tRSk1ld1FubzlmdlZhUTZKczI5VXpJYk1aU2otUC1wZ1M4cHc2M1pVVk5DU0lpbFV5ODlxMmV1T3pSbGxxbWxhOUJqQy1EWkczUmtZLXY2bkhzeXk4VnU2dWd5a2hGWk5keHhlb1FpRVU2YzBB?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-03T23:32:45.000Z",
    "tags": []
   },
   {
