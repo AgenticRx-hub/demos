@@ -1,13 +1,36 @@
 {
- "updated": "2026-11-10T13:25:19.450Z",
- "digest": "30 AMR headlines in the last two weeks; most about surveillance (3), regulation (1), one health (1).",
+ "updated": "2026-11-10T19:15:15.275Z",
+ "digest": "30 AMR headlines in the last two weeks; most about regulation (2), r&d (2), surveillance (2).",
  "items": [
+  {
+   "title": "Hospitalized Older Adults Face Worsening Antimicrobial Inadequacy Despite Negative Blood Cultures",
+   "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNc0JSYmdxR0c5SUQ5c2o2NktnMDgyUTdrZ1FMZ1l3UzFPSzIyc2JlN2QyVUc2ZHZyaGpQUmxNSWJXalNybjlvRHR2ZkxBcFl1YlR4MUlWU2V1bl9SWmE1WVZiWnZRZ0FPYVhLNFZ1RE9NOTRWeHpPMkxRSWtsd0t2eE9Yb19XYmVzQ3gwcU1qZ1NYZ0lmSGNFbDdtekNjUmZiTjZYYnRGMDBFQjF4bV9UWEhTMDRtYnJEZ1UwczFFcw?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-10T15:38:59.000Z",
+   "tags": []
+  },
+  {
+   "title": "Study Finds Infectious Disease and Antimicrobial Resistance Deaths Declined in India",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPRFpfcFdpVjVxWm9LMDRKQm9xOVBRNTRRbHliWDhDVWpGS0lpdWZmQVRjWFNsajVQTTVUa0FsaDJweDlxMTdiSzRheU9oSlVjU3ZWR2UyZnNBaUVqTUxPb0FCa3Y3S2ZjSDFWRi0zdTVRUUFWZGFXY2RSdFR6VWFMME9peWNBQ3U1cTk3YnktclNSYm95RTItQldoX08wZjI4el9kVjRzWXdlR1FDZmc?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-10T14:48:54.000Z",
+   "tags": []
+  },
   {
    "title": "Late-Onset Neonatal E. Coli Infections Exhibit Higher Resistance in Single-Center Study",
    "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQck42clV0a1FXSjVab2lyVHptekJUMDVjeHR3cE8xYlpaZDV1Q2JtbmsyNVpvUnRzLW05MnZlWFQ1NVFPRnJ2dkZsRVZSaTNhWnJKT0N1X19FZUVETWVPeUNRTjBldnlBU1FLaEI0QktmYW5MTHdPOEsxMDVYWDljU0x5Z3ByQWVMVk0tSVIzYWtnNVdzam1SNUNVLU12ZGJxQVlOcFRIZ0NYcGhaQmpMcw?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-10T12:59:19.000Z",
+   "date": "2026-11-10T12:58:49.000Z",
    "tags": []
+  },
+  {
+   "title": "bioMérieux VITEK PRO receives FDA clearance and IVDR CE marking",
+   "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPNkZ0VW9qUHdnMHFac09UdE52WDVCZERXSFYzbW9zaHZLa0ZnUHgwZlNHYjFfZ2RSSm5ucklaZ0FLNWVlUjFLN1FJSndPNDRMdnN3cFloLUkzRFFSejI5V0VLS3g3aUFsQVQ4YUk1TUtTelRwcWlCdFB5WTVEQm9kc2t2Tl9xamhnUlRVTEZTSElKd2FwT2I2VGlnZk9OcmxlOEd3?oc=5",
+   "source": "SelectScience",
+   "date": "2026-11-10T11:39:17.000Z",
+   "tags": [
+    "Regulation"
+   ]
   },
   {
    "title": "FIBIOHRC Joins €8.85 Million European Project for Rapid Diagnostic Device Against Antimicrobial Resistance",
@@ -114,6 +137,13 @@
    "tags": []
   },
   {
+   "title": "The history and future of antibiotics in our food",
+   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPeVJJeWFxY181ckw0VmhZMnVmeFIwaHF3ZGYtVjdXUEdTLW9HNzlacW5XWFpIaXFUOWM1ZGx2X1J5dk9jcVlqdDhYREZRUlZPNG9KLVZGbzd0WnZqbDNnMG9wNG9aYmtEU2lJWlJ4Q19HejB0bXlfMGZ3VXViVDdVOFQwbW5kQmZMQmoyNFlBeG5Zckhj?oc=5",
+   "source": "Food Safety News",
+   "date": "2026-11-09T09:04:23.000Z",
+   "tags": []
+  },
+  {
    "title": "Sheep in Northern China Harbor Multidrug-Resistant Klebsiella",
    "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOUG5rRUc3Y1IweVFUVWNIdXZTRHRvUHY4aC1EUGlEZ1p0ZTdkbnNoYTk3VHpub3JkUTVieHF5LXRxM3RZUjVualhpV0lFSFhKX3RoMjgwVUZGS3VqTEV2SDYtZXJZejk4dmFQMWkxQTFQakhFZnRVcjY1Y1k2YVNlOVZaRkR2VUhrR0RfazB1NA?oc=5",
    "source": "Bioengineer.org",
@@ -128,10 +158,10 @@
    "tags": []
   },
   {
-   "title": "Antimicrobial-Resistant Bacteria Found in Ethiopia’s Fermented Enset Staples",
-   "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQZkZKd2NtOVI3aWRGaGJkQVBCUWpQcW5MVlJqNkx1Q3I4R3hvM0trVWpxYVpKVENlcHJMUjA3eXFtUW1reXlQcXdzUVc4cG1qOEJYak9VQUpvaS13WjZ5Z1NyYThrVEdYT0p4bG93WjlSekU2LTByM0ZoekV5bHgzdXNnQjRyalpadlFxZGRHNUFFVEttcWFsT3RHN3Q2a2YxbVE?oc=5",
+   "title": "Ukraine’s War Intensifies Carbapenem-Resistant Bacteria Threat Across Europe",
+   "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOcVdjRGprbk1rODBENUVGUWlQVUhWQjFMVzdWOFpaZUdpYW9zU3lXNVhqX3BNTUpVQnZUNWd2WFVWUElOcHRtdmNsVmRlUnBWQVd1cW1qelRXRzNEOVFMTUd3SFQ2LW8zZlZQck9MODN1d21wcHJtX3B1Q2RkemdFLWl0bnpRQkxZdUh3NTR5TWF0dndXRzRQa1lxdzd1M19YeVE?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-09T01:15:59.000Z",
+   "date": "2026-11-08T22:15:09.000Z",
    "tags": []
   },
   {
@@ -140,6 +170,15 @@
    "source": "Bioengineer.org",
    "date": "2026-11-08T17:48:50.000Z",
    "tags": []
+  },
+  {
+   "title": "Genome Analysis Uncovers Resistance Genes and Prophages in Hospital Pathogen",
+   "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOZU15bzlqbWdDcTcwQkVLTTRHYXlENC1lNTRHNjNQVVJEbzZ5VFBUaXRLN2gzWFNBRHN0NGF5NE8wdzk1N2JDY2tMOVU3UkRfTFhlS1NxdkhJdk0xaWtqcjVRYjlWVkE3NEFjLU8tTmctWE5YeHdvQW9BR2VxVVZreFdCTHpHeGVmMWQwN2RZN1dmaWRfaTVQTmM3NmFDcUNZLThN?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-07T22:23:37.000Z",
+   "tags": [
+    "R&D"
+   ]
   },
   {
    "title": "New Web Tool Maps Antimicrobial Resistance Data Privately in the Browser",
@@ -185,43 +224,6 @@
    "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQRVFvaG8tRDU2VWVCeW93Tmd4alpfZl94QW1yY0RVUUI2WkNvWnpHS0FCZ2xOT0tpcGs3MWwxNHFORjIzMHJrUkQ1RXpHT09tLVQ2U3pFT3duSWNBX2NhSFAwbDV3TVhnOXF5YmxXbmxKZzlISkc2aHl2ZFdNM3BfVzUxZThqR1BUSUNBaDhMOHlVM3U4UzFoUUQ3UHZCS01keDlaaWwyVDgzN1pRYUxqSg?oc=5",
    "source": "Bioengineer.org",
    "date": "2026-11-06T18:32:57.000Z",
-   "tags": []
-  },
-  {
-   "title": "The CDC considers these superbugs showing up in NC as urgent threats.",
-   "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQU1U3QzBwR0dvbURsdm5GeE41VUIzb0FEZWoxOVlJS2N5eDZ2ZXNwMmRmZUlyeG16YWNxRzBJRmdYZnBGeHhkUHktYTgyeTNvU2tQLThYS2JxSEhxUWVJNUxsQ3pGOHFJdVlENUdxY001V0RORFlKazctbHc3S2F5OU5yaGJhYndHV2hMb2F0elpCT1BZX3YwSld5MC1ITjB2UVNEU2VYeWRpMTdKaUQ3SXRBbjlqMDd6dzdNVTJBSnVsYWRoNXdzX3lpR0txTTI2?oc=5",
-   "source": "NewsBreak: Local News & Alerts",
-   "date": "2026-11-06T15:51:22.000Z",
-   "tags": []
-  },
-  {
-   "title": "AVMA updates report on antimicrobial stewardship, species by species",
-   "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQRkZMcHhnMGtKLWlIbHo3SjVmRVFSZHJvaFRFTUw4VDhRVnVPVlU1SDdvQzF1SUUtblI2ZXFxV1M3QWpmTXM0Tm5YdFU1Zl9hdmd3ZGdCc3dveXdHT1dZTUx6UklvVy1wM0lKRGUzT09KbGRFMnljd1hYUE93S2RVMlR6U3R2RldxR2Z4SUU5dUI?oc=5",
-   "source": "American Veterinary Medical Association",
-   "date": "2026-11-06T13:15:00.000Z",
-   "tags": [
-    "Surveillance"
-   ]
-  },
-  {
-   "title": "The CDC considers this illness with NC cases as a serious public health threat.",
-   "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNSlIxVVA2UHMtZ20xNjRjdXBtaWxjYi1wU0NmZ2hyNm1XSzlKU2l3MzIyMVNfa0w1a0Y5WlFIVWp2MlNpU2ZyU2stSUx4UDJ5Z0lncDNCRHZ1a0doYjRTbkhTRlVtSDhrS0Z1NV9CWnFvSDVnQ2hWcXJiUXhjTkQ3cmZfcWRtVGM?oc=5",
-   "source": "Charlotte Observer",
-   "date": "2026-11-06T13:00:00.000Z",
-   "tags": []
-  },
-  {
-   "title": "Current Trends in Antimicrobial Resistance at an International Conference",
-   "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBMcm9nWXNGT19ONkp2QVE4MjBEczNWRmYyUjlKZWZ3dEwyc3RwUi1aXzlkaGZJWnBrVHZmU3hWWjBpZzRHenlzTGZmRHdESmJ5MjNYSGxPQXU5VFZwdUJSdWMzNjJhc0FWWnc?oc=5",
-   "source": "Yerevan State Medical University",
-   "date": "2026-11-06T08:00:00.000Z",
-   "tags": []
-  },
-  {
-   "title": "The Sydney doctors fighting our body’s resistance to certain medication",
-   "link": "https://news.google.com/rss/articles/CBMihAJBVV95cUxPS3BEMU5WMnB5eTVBRXgtV2s1QUxVMlBTOTUxVzdJWVBtUXNEVUhrVDc1QVk0cUZLdjhzTFhBLTBETWZaNmhDUW9kU2tXRkdwSHpBVmJhWlQtVU9vS1Z4eHEwTnlTblc1bW9qQjhZeWRVNzQ0ZW9FRUpNZzRScDJieXZqekd3QjdNTHZLMy0waGxOU3pvdTkzUjJPWHdHdE10NXNHTERDd2I0SFlPY0lIU21BVlBQdk1NdlNFYXZuaGI1cXp5ZXl1cUo1ZGpYaFBhRkNfa19DRGlCRHk0M2lNdHFTT2s1M0RYcWpjVS1rdkllRVZJeVdORkMwVXQtdE5VRTNsUQ?oc=5",
-   "source": "The Australian",
-   "date": "2026-11-06T04:36:00.000Z",
    "tags": []
   }
  ]
