@@ -1,7 +1,21 @@
 {
- "updated": "2026-11-09T19:14:04.634Z",
- "digest": "30 AMR headlines in the last two weeks; most about surveillance (7), regulation (1), one health (1).",
+ "updated": "2026-11-10T01:23:09.699Z",
+ "digest": "30 AMR headlines in the last two weeks; most about surveillance (6), regulation (1), one health (1).",
  "items": [
+  {
+   "title": "Serovar 15 and Multidrug Resistance Rise in Chinese Swine Pathogen",
+   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPV1haSk5lSHNpWGhUUFZ5SnJWd3Z3U29oaHl6ak1GZ0MzRTV2OE9UTXB5bXAtXzFJZ2NETXFRR0p0dGpEUTJjd2I1YXFrcXpuako2TkV2UWNRSndmdWVDeXZOWm4tQ0YxX2ZGczR1V2lkTnBNc24tRW1OZjNnNHVyTmZGckthUDlHcXJEYk94cWJqbWtwclE?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-09T23:59:14.000Z",
+   "tags": []
+  },
+  {
+   "title": "Computational Screening Identifies Three Enterobacter cloacae Proteins as Potential Antimicrobial Targets",
+   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQbUVNOTFNTXZrUGlTLWlSUmwtbTdzZUZIU2xFMWE3bkt6OFNJYWEtZll1TW1ENUUzYTZ0ei1JUE1wdnR2V1lYXzVOd1RGbjVoSlo3T3Y5a0oxY3AteWJKQ29GSG45YkVOaENxMmo5bTlCTVF4aEMxR1J4RjdHTmFEMU1XT1NCVVVBODJUbnB5RF9ZbFdTbndCV0w0VHVyLWVHTlktREdETkJITFRBdksyNHBUUWMyeExMNXpybmpzSkNYTEFjaWdzc3N3?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-09T22:45:35.000Z",
+   "tags": []
+  },
   {
    "title": "Agriland editor nominated for global award on AMR reporting",
    "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOc1pkSy1MV0lrc1l3NnBjakhNd0xDRnktWmVIOGJjZTF6Sy16TlZGRW92LXgtTklraEl6LTJzc2ZEUW9vTVFOYW1wQmJnd2FDODh1aU8yVy1QcjR4OUpfWkxDMVpEeTl4ZlBZU1pSWEhHU0UwcnNUa09MOHRQSUtvb1AwUkhtTkI2V2lHaEh6OTdyWEJj?oc=5",
@@ -15,7 +29,7 @@
    "title": "Salmonella and Multidrug Resistance Detected in Ethiopian Beef Slaughter and Retail Networks",
    "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPanlYcnZYV19ZN2tfMlFORTZUZ0NKR25WUjdFTlpoU0w4aGR0MWM3Y0Utc2xROGxEbk1uV0RjSVNkTVBvM19TVTR1ZFQ0Rm1xa3R6N0hWdWRxdVYwd0ZneGhZLTBaYTBucUF0eGJZa3dBT1ZTU2xWZHk0Mkg0Tk5LZ1hIYldCWWJ2Wld4dEZvVFFZZy1CQ0tVWkZvVGZLYV9zSENZYUs0ak1Ob0Z2QjZic05tNVZObEow?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-09T14:54:01.000Z",
+   "date": "2026-11-09T14:53:40.000Z",
    "tags": []
   },
   {
@@ -23,6 +37,13 @@
    "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNMVRYSEx3dGtSeTdWN0RqSVBva2ZrV1NjUXhuSGFDeHdhU1JaQnJCbVEtTDRnOHZKdVpHR1VITEhYaUN1cXhoX3BlblJJbE96TFdybjlFUE9HVjB4dExELVMtN3BUbTBUS2VRZ25IbUtQS2xQd3pVSFhLX1JwR2M1MEZiNnFBYnZvc0U0c0pzbVF3X1RKWFFoXzhqdWZwVVlyYkVBanZwTTBZLUh6NEZXbWRzZ09sdw?oc=5",
    "source": "Bioengineer.org",
    "date": "2026-11-09T14:18:35.000Z",
+   "tags": []
+  },
+  {
+   "title": "Antibiotic resistance kills 35,000 in the EU yearly, making standard treatments unreliable",
+   "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1paXUtRlV6X0JYckFrWG84T3N4Rndjb25wVWZtSmJHblc4Y084VU1IZUFwTF9PcEtuUGxDR1EtTy1MTDVQbmVpOGxhZUpzSWFyc1lraWl5ZmRvOGZQZWxyam1ldW5MMmNObVJ5cUZxeFA5RUpmRExXSzFhRFU?oc=5",
+   "source": "PravdaReport",
+   "date": "2026-11-09T13:18:00.000Z",
    "tags": []
   },
   {
@@ -207,29 +228,6 @@
    "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBxU1RYRVN4MFl3bzRBaFNkRmdVUHNtU1RLM2pENkxWclBJQWs0RW9nc3hGNmdRdHRkTm1YV1RUbUJIaDl2a2xrLWZOLXJmXzdSY1Q2YVR0aHp1amxwN2FobER6dw?oc=5",
    "source": "ASM Journals",
    "date": "2026-11-06T22:16:46.000Z",
-   "tags": []
-  },
-  {
-   "title": "AI biosensors for antimicrobial resistance need claim-specific validation, review warns",
-   "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQRVFvaG8tRDU2VWVCeW93Tmd4alpfZl94QW1yY0RVUUI2WkNvWnpHS0FCZ2xOT0tpcGs3MWwxNHFORjIzMHJrUkQ1RXpHT09tLVQ2U3pFT3duSWNBX2NhSFAwbDV3TVhnOXF5YmxXbmxKZzlISkc2aHl2ZFdNM3BfVzUxZThqR1BUSUNBaDhMOHlVM3U4UzFoUUQ3UHZCS01keDlaaWwyVDgzN1pRYUxqSg?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-06T18:32:57.000Z",
-   "tags": []
-  },
-  {
-   "title": "AVMA updates report on antimicrobial stewardship, species by species",
-   "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQRkZMcHhnMGtKLWlIbHo3SjVmRVFSZHJvaFRFTUw4VDhRVnVPVlU1SDdvQzF1SUUtblI2ZXFxV1M3QWpmTXM0Tm5YdFU1Zl9hdmd3ZGdCc3dveXdHT1dZTUx6UklvVy1wM0lKRGUzT09KbGRFMnljd1hYUE93S2RVMlR6U3R2RldxR2Z4SUU5dUI?oc=5",
-   "source": "American Veterinary Medical Association",
-   "date": "2026-11-06T13:15:00.000Z",
-   "tags": [
-    "Surveillance"
-   ]
-  },
-  {
-   "title": "The CDC considers this illness with NC cases as a serious public health threat.",
-   "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNSlIxVVA2UHMtZ20xNjRjdXBtaWxjYi1wU0NmZ2hyNm1XSzlKU2l3MzIyMVNfa0w1a0Y5WlFIVWp2MlNpU2ZyU2stSUx4UDJ5Z0lncDNCRHZ1a0doYjRTbkhTRlVtSDhrS0Z1NV9CWnFvSDVnQ2hWcXJiUXhjTkQ3cmZfcWRtVGM?oc=5",
-   "source": "Charlotte Observer",
-   "date": "2026-11-06T13:00:00.000Z",
    "tags": []
   }
  ]
