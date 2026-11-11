@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Rx Supply and Regulatory Console</title>
+<meta name="description" content="Agentic Rx demonstration for the OECS Pharmaceutical Procurement Service: FEFO inventory, cold chain, recall traceability, regulatory dossier tracking and regulatory application support. Sample data only.">
+<style>
+:root{--bg:#f4f2ec;--card:#fff;--fg:#17212c;--muted:#5d6874;--line:#e2ddd2;--navy:#0F2A47;--gold:#B8914A;--green:#2f6b3f;--greenbg:#e5f0e6;--red:#a3362b;--redbg:#f7e4e1;--amber:#8a6412;--amberbg:#f6ecd6;--blue:#24578f;--bluebg:#e3edf8;--code:#f7f5f0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--green:#7cc48d;--greenbg:#18301f;--red:#f08a7e;--redbg:#3a1d1a;--amber:#e3bd6a;--amberbg:#33290f;--blue:#8db8e8;--bluebg:#16283d;--code:#0f1a27;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;border-bottom:3px solid var(--gold);padding:18px 16px 0}
+.in{max-width:1160px;margin:0 auto}
+.brand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end}
+.brand h1{margin:0;font:600 23px Georgia,serif}.brand p{margin:2px 0 0;color:#d6c290;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.brand .r{font-size:12.5px;color:#cfd8e2;text-align:right}
+nav{display:flex;gap:4px;overflow-x:auto;margin-top:14px}
+nav button{background:none;border:0;color:#cfd8e2;font:500 14px system-ui;padding:10px 13px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{color:#fff;border-bottom-color:var(--gold)}
+main{padding:18px 16px 40px}section{display:none}section.on{display:block}
+h2{font:600 21px Georgia,serif;margin:4px 0 6px}h3{font:600 15px system-ui;margin:0 0 8px}
+.lede{color:var(--muted);margin:0 0 16px;max-width:880px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;min-width:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.g2>*,.g3>*,.g4>*{min-width:0}
+@media (max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr 1fr}}@media (max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.kpi{font:600 26px Georgia,serif}.kl{color:var(--muted);font-size:12.5px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12.5px}td.n,th.n{text-align:right}.tw{overflow-x:auto}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.ok{background:var(--greenbg);color:var(--green)}.bad{background:var(--redbg);color:var(--red)}.warn{background:var(--amberbg);color:var(--amber)}.info{background:var(--bluebg);color:var(--blue)}
+select,input[type=text],input[type=number]{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
+button.b{background:var(--navy);color:#fff;border:0;border-radius:6px;padding:8px 12px;font:500 13.5px system-ui;cursor:pointer}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-bottom:12px}.row label{font-size:12.5px;color:var(--muted);display:block}
+.note{font-size:12.5px;color:var(--muted);border-left:3px solid var(--gold);padding:6px 10px;background:var(--code);margin-top:10px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:6px;padding:12px;white-space:pre-wrap;font:12.5px/1.5 ui-monospace,Consolas,monospace;margin:0}
+.dot{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle}
+.mx td{text-align:center}.mx td:first-child{text-align:left}
+ul.t{margin:0;padding-left:18px}ul.t li{margin-bottom:4px}
+a{color:var(--blue)}
+footer{color:var(--muted);font-size:12.5px;text-align:center;padding:20px 16px;border-top:1px solid var(--line)}
+svg text{font-family:system-ui,sans-serif;fill:var(--muted);font-size:11px}
+tr.sel td{background:var(--bluebg)}
+</style>
+</head>
+<body>
+<header><div class="in">
+ <div class="brand"><div><h1>Supply and Regulatory Console</h1><p>Agentic Rx Inc. · Barbados</p></div>
+ <div class="r">Demonstration for the OECS Pharmaceutical Procurement Service (OECS-PPS)<br>Sample data only: products, lots, customers and figures are illustrative</div></div>
+ <nav role="tablist" id="tabs">
+  <button data-t="ov" aria-selected="true">Overview</button>
+  <button data-t="inv">Inventory (FEFO)</button>
+  <button data-t="cold">Cold chain</button>
+  <button data-t="rec">Recall trace</button>
+  <button data-t="dos">Regulatory dossiers</button>
+  <button data-t="reg">Regulatory support</button>
+ </nav>
+</div></header>
+<main><div class="in">
+
+<section id="ov" class="on">
+ <h2>One distributor, with the systems to prove what it supplies</h2>
+ <p class="lede">Agentic Rx Inc. supplies medicines, medical supplies and dialysis products from a Pharmacy Council-approved warehouse in Christ Church, Barbados, and builds the digital systems that health regulators and procurement services use. This console shows how we would manage OECS-PPS stock and documentation: every lot tracked first-expiry-first-out, cold-chain readings checked automatically, any lot traceable to every customer in minutes, and every manufacturer document (GMP, WHO-format CPP, authorisation letters) tracked to expiry.</p>
+ <div class="g4">
+  <div class="card"><div class="kl">Source partners</div><div class="kpi">4</div><div class="kl">Pinnacle Rx · Bioquímica Panamericana (Bayer, Nipro) · Intercontinental Pharma · Gland Pharma</div></div>
+  <div class="card"><div class="kl">Lots in stock (sample)</div><div class="kpi" id="kLots">–</div><div class="kl" id="kLots2"></div></div>
+  <div class="card"><div class="kl">Documents complete (sample)</div><div class="kpi" id="kDocs">–</div><div class="kl">GMP, CPP, licence, authorisation, CoA</div></div>
+  <div class="card"><div class="kl">Cold-chain excursions, 7 days</div><div class="kpi" id="kExc">–</div><div class="kl">2–8 °C store, readings every 15 minutes</div></div>
+ </div>
+ <div class="g2">
+  <div class="card"><h3>What Agentic Rx offers OECS-PPS</h3>
+   <ul class="t">
+    <li><b>Supply:</b> OTC medicines (GoodSense/Perrigo via Pinnacle Rx; Bayer OTC via Bioquímica Panamericana), prescription and wound-care products (Intercontinental Pharma), haemodialysis and laboratory supplies (Nipro), heparin (Gland Pharma).</li>
+    <li><b>Good distribution practice:</b> SOP ARX-GDP-001 (receipt, storage, FEFO, recall, disposal) and ARX-QA-004 (complaints), run through the inventory system shown here.</li>
+    <li><b>Documentation on request:</b> CoA, GMP, WHO-format CPP and licences per product, tracked and refreshed before expiry.</li>
+    <li><b>Technology and regulatory support:</b> the same team built the Barbados Medical Products Authority consultation portal and the RAGNA 2.0 Task Force member platform (see Regulatory support).</li>
+   </ul></div>
+  <div class="card"><h3>How the console maps to the OECS-PPS prequalification form</h3>
+   <div class="tw"><table><thead><tr><th>Form item</th><th>Where it is shown</th></tr></thead><tbody>
+    <tr><td>E3 Storage, distribution, product receipt SOPs</td><td>Inventory (FEFO), Cold chain</td></tr>
+    <tr><td>E3 Product recalls, disposal</td><td>Recall trace, Inventory (quarantine)</td></tr>
+    <tr><td>E5 Prequalified manufacturers</td><td>Regulatory dossiers</td></tr>
+    <tr><td>E7 Product documentation on request</td><td>Regulatory dossiers</td></tr>
+    <tr><td>E9 WHO-format CPPs</td><td>Regulatory dossiers (CPP column)</td></tr>
+   </tbody></table></div></div>
+ </div>
+</section>
+
+<section id="inv">
+ <h2>Inventory: first-expiry-first-out, by lot</h2>
+ <p class="lede">Every receipt is booked by lot and expiry, linked to its Certificate of Analysis. Picks always take the earliest-expiring released lot. Lots inside the alert window are flagged, and quarantined or recalled lots cannot be picked.</p>
+ <div class="row">
+  <div><label for="fZone">Storage</label><select id="fZone"><option value="">All</option><option>Ambient 15–25 °C</option><option>Cold 2–8 °C</option><option>Quarantine</option></select></div>
+  <div><label for="fAlert">Expiry alert window (months)</label><input id="fAlert" type="number" min="1" max="24" value="6" style="width:90px"></div>
+  <div><label for="fQ">Search</label><input id="fQ" type="text" placeholder="product, lot, partner"></div>
+ </div>
+ <div class="card"><div class="tw"><table id="invT"><thead><tr><th>Product</th><th>Manufacturer / source</th><th>Lot</th><th>Expiry</th><th class="n">On hand</th><th>Storage</th><th>Status</th><th>FEFO</th></tr></thead><tbody></tbody></table></div></div>
+ <div class="g2">
+  <div class="card"><h3>Build a pick list for an OECS-PPS order</h3>
+   <div class="row"><div><label for="pProd">Product</label><select id="pProd"></select></div><div><label for="pQty">Quantity</label><input id="pQty" type="number" value="600" min="1" style="width:110px"></div><button class="b" id="pGo">Allocate FEFO</button></div>
+   <div id="pOut" class="kl">Choose a product and quantity.</div></div>
+  <div class="card"><h3>Expiry profile (units by months to expiry)</h3><svg id="expChart" viewBox="0 0 460 190" width="100%" role="img" aria-label="Units by months to expiry"></svg></div>
+ </div>
+</section>
+
+<section id="cold">
+ <h2>Cold chain: 2–8 °C store, last 7 days</h2>
+ <p class="lede">Data loggers record the cold store every 15 minutes. Readings outside 2–8 °C for more than 30 minutes open an excursion record automatically; the pharmacist assesses the affected lots and releases or quarantines them, and the decision is kept with the lot history.</p>
+ <div class="card"><svg id="tChart" viewBox="0 0 900 240" width="100%" role="img" aria-label="Cold store temperature"></svg></div>
+ <div class="card"><h3>Excursion log</h3><div class="tw"><table id="excT"><thead><tr><th>Start</th><th>Duration</th><th>Peak</th><th>Lots affected</th><th>Assessment</th></tr></thead><tbody></tbody></table></div></div>
+</section>
+
+<section id="rec">
+ <h2>Recall trace: any lot to every customer in one step</h2>
+ <p class="lede">Choose a lot. The console shows where it came from, where every unit went, and what is still in our warehouse, then drafts the recall notice for each customer and the notification to the regulator.</p>
+ <div class="row"><div><label for="rLot">Lot</label><select id="rLot"></select></div><button class="b" id="rGo">Trace lot</button></div>
+ <div class="g2">
+  <div class="card"><h3>Lot history</h3><div id="rHist" class="kl">–</div></div>
+  <div class="card"><h3>Shipped to</h3><div class="tw"><table id="rShip"><thead><tr><th>Date</th><th>Customer</th><th>Country</th><th class="n">Units</th></tr></thead><tbody></tbody></table></div></div>
+ </div>
+ <div class="card"><h3>Draft recall notice</h3><pre id="rNote">–</pre></div>
+</section>
+
+<section id="dos">
+ <h2>Regulatory dossiers: manufacturer documents and registrations</h2>
+ <p class="lede">For each product line we hold the manufacturer's GMP certificate, WHO-format Certificate of Pharmaceutical Product, the authorisation letter naming Agentic Rx as distributor, and batch Certificates of Analysis. Expiry dates drive reminders 90 days ahead. The status shown is illustrative; the live tracker records the real status per document.</p>
+ <div class="card"><div class="tw"><table class="mx" id="dosT"><thead><tr><th>Product line (manufacturer · NRA)</th><th>Source partner</th><th>GMP</th><th>WHO CPP</th><th>Authorisation letter</th><th>CoA per batch</th><th>Section 2</th></tr></thead><tbody></tbody></table></div>
+  <p class="note">Status key: <span class="pill ok">Held</span> on file and in date · <span class="pill warn">Requested</span> asked of the partner, awaiting · <span class="pill bad">Expiring</span> within 90 days · <span class="pill info">Per batch</span> supplied with each shipment.</p></div>
+ <div class="card"><h3>Product registration status by OECS-PPS Member State (sample)</h3>
+  <div class="row"><div><label for="dProd">Product</label><select id="dProd"></select></div></div>
+  <div class="tw"><table id="cty"><thead><tr><th>Member State</th><th>Status</th><th>Submitted</th><th>Next action</th></tr></thead><tbody></tbody></table></div></div>
+</section>
+
+<section id="reg">
+ <h2>Regulatory support: application management for regulators and procurement services</h2>
+ <p class="lede">Alongside supply, Agentic Rx builds the systems regulators use to consult, register and coordinate. We propose to support OECS-PPS and national regulators with a product registration and supplier prequalification workflow built on the same approach as our work below.</p>
+ <div class="g2">
+  <div class="card"><h3>Barbados Medical Products Authority: bmpra.com</h3>
+   <p style="margin-top:0">Designed, built and host the national public consultation portal for the Medical Products Act, 2026: a section-by-section guide to the Act, a page-by-page viewer for the draft Medical Products and Clinical Trial Regulations, medicines lists and document library, WHO benchmarking page, an AI assistant that answers with references, and a public comment tool that routes submissions to the consultation inbox.</p>
+   <p class="kl">Client: Barbados Medical Products Authority with the Barbados Drug Service, Ministry of Health and Wellness · <a href="https://bmpra.com" target="_blank" rel="noopener">www.bmpra.com</a></p></div>
+  <div class="card"><h3>RAGNA 2.0 Task Force: member portal and secure collaboration</h3>
+   <p style="margin-top:0">Designed and built the public website and a role-based member portal for the Regulatory Agencies Global Network against AMR, coordinated with Läkemedelsverket (Swedish Medical Products Agency), and deployed a self-hosted collaboration platform: document management with in-browser editing, video meetings and chat, calendars, task boards, Secretariat/Member/Observer roles, two-factor sign-in and an on-server AI assistant.</p>
+   <p class="kl"><a href="../ragna-2-0-task-force/" target="_blank" rel="noopener">RAGNA 2.0 Task Force demonstration</a></p></div>
+ </div>
+ <div class="card"><h3>Proposed support for OECS-PPS and Member State regulators</h3>
+  <div class="tw"><table><thead><tr><th>Service</th><th>What it does</th><th>Built on</th></tr></thead><tbody>
+   <tr><td>Supplier prequalification workflow</td><td>Online Section 1 and Section 2 forms, document upload, completeness checks against the Summary of Required Documents, reviewer queue and decision letters</td><td>bmpra.com comment routing; RAGNA document management</td></tr>
+   <tr><td>Product registration tracker</td><td>Per-product dossier (GMP, CPP, labels, CoA), status by Member State, expiry reminders and renewal tasks</td><td>This console's dossier tracker</td></tr>
+   <tr><td>Regulator collaboration space</td><td>Shared, access-controlled workspace for Member State regulators: meetings, documents, decisions and tasks</td><td>RAGNA 2.0 member platform</td></tr>
+   <tr><td>Public consultation and guidance</td><td>Plain-language guides, consultation portals and an assistant that answers from the official texts with references</td><td>bmpra.com</td></tr>
+   <tr><td>Supply visibility</td><td>Stock, expiry and cold-chain reporting from distributors to OECS-PPS on agreed intervals</td><td>Inventory and cold-chain modules shown here</td></tr>
+  </tbody></table></div>
+  <p class="note">Data stays in the region on infrastructure the client controls; access is role-based with two-factor sign-in, following the Barbados Data Protection Act, 2019-29.</p></div>
+</section>
+
+</div></main>
+<footer>Agentic Rx Inc. · 41B Blue Waters, Rockley, Christ Church, Barbados · CAIPO Co. No. 55000 · info@agentic-rx.com · agentic-rx.com<br>Demonstration only. Products are real lines we source; lots, quantities, customers, readings and statuses are invented sample data.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const tabs=[...document.querySelectorAll('#tabs button')];
+function show(t){tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===t));try{history.replaceState(null,'','#'+t)}catch(e){}}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));if(location.hash&&$(location.hash.slice(1)))show(location.hash.slice(1));
+const TODAY=new Date('2026-11-11');
+const mAway=d=>(new Date(d)-TODAY)/2629800000;
+// ---- inventory sample ----
+const INV=[
+ ['Aleve naproxen sodium 220 mg tablets, 100','Bayer HealthCare · via Bioquímica Panamericana','BX24417','2027-03-31',1440,'Ambient 15–25 °C','Released'],
+ ['Aleve naproxen sodium 220 mg tablets, 100','Bayer HealthCare · via Bioquímica Panamericana','BX25102','2028-01-31',2880,'Ambient 15–25 °C','Released'],
+ ['Claritin loratadine 10 mg tablets, 30','Bayer HealthCare · via Bioquímica Panamericana','CL25033','2027-09-30',1200,'Ambient 15–25 °C','Released'],
+ ['Bayer Aspirin 325 mg tablets, 100','Bayer HealthCare · via Bioquímica Panamericana','AS24871','2027-02-28',960,'Ambient 15–25 °C','Released'],
+ ['GoodSense ibuprofen 200 mg caplets, 100','Perrigo · via Pinnacle Rx','LP13135-4471','2027-05-31',3456,'Ambient 15–25 °C','Released'],
+ ['GoodSense ibuprofen 200 mg caplets, 100','Perrigo · via Pinnacle Rx','LP13135-4590','2028-06-30',5184,'Ambient 15–25 °C','Released'],
+ ['GoodSense acetaminophen 500 mg caplets, 100','Perrigo · via Pinnacle Rx','LP1102-3302','2027-01-31',1728,'Ambient 15–25 °C','Released'],
+ ['GoodSense loratadine 10 mg tablets, 365','Perrigo · via Pinnacle Rx','LP61288-0912','2027-11-30',576,'Ambient 15–25 °C','Released'],
+ ['Heparin sodium injection 5,000 IU/mL, 10 mL vial','Gland Pharma · direct','HP2507A','2027-07-31',2500,'Ambient 15–25 °C','Released'],
+ ['Heparin sodium injection 5,000 IU/mL, 10 mL vial','Gland Pharma · direct','HP2411C','2026-12-31',340,'Ambient 15–25 °C','Released'],
+ ['ELISIO-17H dialyzer','Nipro · via Bioquímica Panamericana','EL25-0381','2029-04-30',720,'Ambient 15–25 °C','Released'],
+ ['SafeTouch fistula needle 16G','Nipro · via Bioquímica Panamericana','ST25-1172','2029-08-31',4000,'Ambient 15–25 °C','Released'],
+ ['Insulin glargine 100 U/mL pen','Licensed manufacturer · via Intercontinental Pharma','IG2509','2027-04-30',300,'Cold 2–8 °C','Released'],
+ ['Hepatitis B vaccine 20 mcg/mL vial','Licensed manufacturer · via Intercontinental Pharma','HB2504','2027-02-28',200,'Cold 2–8 °C','Released'],
+ ['Silver alginate wound dressing 10x10 cm','Licensed manufacturer · via Intercontinental Pharma','WD2508','2028-08-31',1500,'Ambient 15–25 °C','Released'],
+ ['Hepatitis B vaccine 20 mcg/mL vial','Licensed manufacturer · via Intercontinental Pharma','HB2502','2027-01-31',40,'Quarantine','Hold: excursion review'],
+ ['Bayer Aspirin 325 mg tablets, 100','Bayer HealthCare · via Bioquímica Panamericana','AS24310','2026-12-31',96,'Quarantine','Hold: damaged cartons']
+];
+const zoneOf=r=>r[5];
+function renderInv(){
+ const z=$('fZone').value,a=+$('fAlert').value||6,q=$('fQ').value.toLowerCase();
+ const rows=INV.filter(r=>(!z||r[5]===z)&&(!q||r.join(' ').toLowerCase().includes(q)));
+ const order={};INV.filter(r=>r[6]==='Released').sort((x,y)=>new Date(x[3])-new Date(y[3])).forEach(r=>{order[r[0]]=order[r[0]]||[];order[r[0]].push(r[2])});
+ $('invT').tBodies[0].innerHTML=rows.sort((x,y)=>x[0].localeCompare(y[0])||new Date(x[3])-new Date(y[3])).map(r=>{
+  const m=mAway(r[3]);const st=r[6]!=='Released'?`<span class="pill bad">${r[6]}</span>`:m<a?`<span class="pill warn">Expires in ${Math.max(0,m).toFixed(1)} mo</span>`:`<span class="pill ok">Released</span>`;
+  const f=r[6]==='Released'?(order[r[0]].indexOf(r[2])+1):'–';
+  return `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="n">${r[4].toLocaleString()}</td><td>${r[5]}</td><td>${st}</td><td>${f===1?'<span class="pill info">Pick first</span>':f}</td></tr>`}).join('');
+ // chart
+ const b=[0,0,0,0,0];INV.filter(r=>r[6]==='Released').forEach(r=>{const m=mAway(r[3]);b[m<3?0:m<6?1:m<12?2:m<24?3:4]+=r[4]});
+ const lab=['<3','3–6','6–12','12–24','24+'],mx=Math.max(...b);let s='';
+ b.forEach((v,i)=>{const h=v/mx*130,x=30+i*86;s+=`<rect x="${x}" y="${160-h}" width="60" height="${h}" rx="3" fill="${i<2?'var(--amber)':'var(--gold)'}"/><text x="${x+30}" y="${155-h}" text-anchor="middle">${v.toLocaleString()}</text><text x="${x+30}" y="178" text-anchor="middle">${lab[i]} mo</text>`});
+ $('expChart').innerHTML=s;
+}
+['fZone','fAlert','fQ'].forEach(i=>$(i).oninput=renderInv);
+const prods=[...new Set(INV.map(r=>r[0]))];
+$('pProd').innerHTML=prods.map(p=>`<option>${p}</option>`).join('');
+$('pGo').onclick=()=>{let need=+$('pQty').value;const p=$('pProd').value;const lots=INV.filter(r=>r[0]===p&&r[6]==='Released').sort((x,y)=>new Date(x[3])-new Date(y[3]));let out=[];
+ for(const l of lots){if(need<=0)break;const t=Math.min(need,l[4]);out.push(`<tr><td>${l[2]}</td><td>${l[3]}</td><td class="n">${t.toLocaleString()}</td></tr>`);need-=t}
+ $('pOut').innerHTML=`<table><thead><tr><th>Lot</th><th>Expiry</th><th class="n">Pick</th></tr></thead><tbody>${out.join('')}</tbody></table>`+(need>0?`<p><span class="pill bad">Short by ${need.toLocaleString()} units</span> raise a purchase order with the source partner.</p>`:'<p><span class="pill ok">Fully allocated</span> earliest expiry first; quarantined lots excluded.</p>')};
+// ---- cold chain ----
+const T=[];let seed=7;const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280};
+for(let i=0;i<672;i++){let v=4.8+Math.sin(i/9)*0.9+(rnd()-0.5)*0.6;if(i>=301&&i<=306)v=8.6+(i-301)*0.25;if(i===307)v=7.4;if(i>=520&&i<=521)v=8.3;T.push(+v.toFixed(2))}
+function renderCold(){const W=900,H=240,x0=40,y0=20,w=840,h=180,lo=0,hi=12;const X=i=>x0+i/(T.length-1)*w,Y=v=>y0+h-(v-lo)/(hi-lo)*h;
+ let s=`<rect x="${x0}" y="${Y(8)}" width="${w}" height="${Y(2)-Y(8)}" fill="var(--greenbg)"/>`;
+ [0,2,4,6,8,10,12].forEach(v=>s+=`<text x="${x0-8}" y="${Y(v)+4}" text-anchor="end">${v}°</text>`);
+ for(let d=0;d<=7;d++)s+=`<text x="${x0+d*w/7}" y="${H-12}" text-anchor="middle">${['Nov 4','Nov 5','Nov 6','Nov 7','Nov 8','Nov 9','Nov 10','Nov 11'][d]}</text>`;
+ s+=`<polyline fill="none" stroke="var(--blue)" stroke-width="1.6" points="${T.map((v,i)=>X(i)+','+Y(v)).join(' ')}"/>`;
+ T.forEach((v,i)=>{if(v>8||v<2)s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="2.6" fill="var(--red)"/>`});
+ $('tChart').innerHTML=s;
+ const ex=[['Nov 7, 03:15','90 min','10.1 °C','HB2502 (40 vials)','Exceeded stability allowance: quarantined, manufacturer consulted'],['Nov 9, 10:00','30 min','8.3 °C','IG2509, HB2504','Door-open event within 30-minute tolerance: released, no action']];
+ $('excT').tBodies[0].innerHTML=ex.map(r=>`<tr>${r.map((c,i)=>`<td>${i===4?(c.startsWith('Exceeded')?'<span class="pill bad">Quarantined</span> ':'<span class="pill ok">Released</span> ')+c:c}</td>`).join('')}</tr>`).join('');
+ $('kExc').textContent='1';
+}
+// ---- recall ----
+const SHIP={'BX24417':[['2026-09-18','Grenada Pharmaceutical Procurement (sample)','Grenada',480],['2026-10-02','Private pharmacy chain (sample)','Barbados',360],['2026-10-21','Ministry of Health central stores (sample)','Saint Lucia',300]],
+ 'LP13135-4471':[['2026-08-30','Medical stores (sample)','St Vincent and the Grenadines',1152],['2026-10-12','Private pharmacy (sample)','Barbados',576]],
+ 'HP2507A':[['2026-10-05','SILS Dialysis (sample order)','Barbados',500],['2026-10-28','Dialysis unit (sample)','Antigua and Barbuda',300]],
+ 'IG2509':[['2026-10-30','Central medical stores (sample)','Dominica',120]]};
+$('rLot').innerHTML=Object.keys(SHIP).map(l=>`<option>${l}</option>`).join('');
+$('rGo').onclick=()=>{const l=$('rLot').value,r=INV.find(x=>x[2]===l),sh=SHIP[l];const out=sh.reduce((a,b)=>a+b[3],0);
+ $('rHist').innerHTML=`<b>${r[0]}</b><br>Lot ${l}, expiry ${r[3]}<br>Source: ${r[1]}<br>Received with Certificate of Analysis; released by the responsible pharmacist.<br>Shipped: ${out.toLocaleString()} units to ${sh.length} customers · In stock: ${r[4].toLocaleString()} units (placed on hold)`;
+ $('rShip').tBodies[0].innerHTML=sh.map(s=>`<tr><td>${s[0]}</td><td>${s[1]}</td><td>${s[2]}</td><td class="n">${s[3].toLocaleString()}</td></tr>`).join('');
+ $('rNote').textContent=`PRODUCT RECALL NOTICE (DRAFT)\n\nProduct: ${r[0]}\nLot: ${l}   Expiry: ${r[3]}\nSource: ${r[1]}\n\nAgentic Rx Inc. is recalling the lot above at the request of the manufacturer. Please stop supplying or using it, quarantine remaining stock and confirm the quantity on hand to info@agentic-rx.com within 24 hours. We will arrange collection and replacement.\n\nCustomers notified: ${sh.map(s=>s[1]+' ('+s[2]+')').join('; ')}\nRegulators notified: Barbados Drug Service and the medicines regulator of each country listed; OECS-PPS informed.\n\nResponsible pharmacist: Agentic Rx Inc., 41B Blue Waters, Rockley, Christ Church, Barbados`};
+// ---- dossiers ----
+const DOS=[['Bayer OTC (Aleve, Bayer Aspirin, Claritin) · Bayer HealthCare LLC, USA · US FDA (WLA)','Bioquímica Panamericana','Requested','Requested','Requested','Per batch','Pending'],
+ ['GoodSense OTC (ibuprofen, acetaminophen, loratadine) · Perrigo, USA · US FDA (WLA)','Pinnacle Rx','Requested','Requested','Requested','Per batch','Pending'],
+ ['Haemodialysis and blood collection · Nipro Corporation, Japan · PMDA/MHLW','Bioquímica Panamericana','Requested','Requested','Requested','Per batch','Pending'],
+ ['Heparin sodium injection · Gland Pharma Ltd, India · CDSCO','Direct','Held','Requested','Held','Per batch','Pending'],
+ ['Rx, vaccines and wound care · various US FDA-approved makers','Intercontinental Pharma','Requested','Requested','Requested','Per batch','Pending']];
+const pill=v=>v==='Held'?'<span class="pill ok">Held</span>':v==='Requested'?'<span class="pill warn">Requested</span>':v==='Expiring'?'<span class="pill bad">Expiring</span>':v==='Per batch'?'<span class="pill info">Per batch</span>':'<span class="pill warn">'+v+'</span>';
+$('dosT').tBodies[0].innerHTML=DOS.map(r=>`<tr><td>${r[0]}</td><td style="text-align:left">${r[1]}</td>${r.slice(2).map(v=>`<td>${pill(v)}</td>`).join('')}</tr>`).join('');
+const held=DOS.reduce((a,r)=>a+r.slice(2,5).filter(v=>v==='Held').length,0),tot=DOS.length*3;$('kDocs').textContent=held+' / '+tot;
+const CTY=['Anguilla','Antigua and Barbuda','British Virgin Islands','Dominica','Grenada','Montserrat','St Kitts and Nevis','Saint Lucia','St Vincent and the Grenadines'];
+const ST=[['Not required (OECS-PPS tender)','info'],['Submitted','warn'],['Registered','ok'],['Not started','bad']];
+$('dProd').innerHTML=DOS.map((r,i)=>`<option value="${i}">${r[0].split(' · ')[0]}</option>`).join('');
+function renderCty(){const i=+$('dProd').value;$('cty').tBodies[0].innerHTML=CTY.map((c,j)=>{const s=ST[(i+j*2)%4];return `<tr><td>${c}</td><td><span class="pill ${s[1]}">${s[0]}</span></td><td>${s[0]==='Submitted'?'2026-10-'+(10+j):'–'}</td><td>${s[0]==='Not started'?'Prepare dossier when CPP received':s[0]==='Submitted'?'Answer regulator queries':s[0]==='Registered'?'Renewal reminder set':'Supply under OECS-PPS listing'}</td></tr>`}).join('')}
+$('dProd').onchange=renderCty;
+$('kLots').textContent=INV.length;$('kLots2').textContent=INV.filter(r=>r[6]!=='Released').length+' on hold · '+INV.filter(r=>r[6]==='Released'&&mAway(r[3])<6).length+' inside 6-month alert';
+renderInv();renderCold();renderCty();$('rGo').click();$('pGo').click();
+</script>
+</body>
+</html>
