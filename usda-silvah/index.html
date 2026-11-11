@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SILVAH 8 Repair Workbench</title>
+<meta name="description" content="Agentic Rx demonstration for USDA Forest Service RFI 12760426Q0195 (SILVAH software coding): how we would find, fix and prove the three known SILVAH 8 defects. Illustrative logic and sample data only.">
+<style>
+:root{--bg:#f4f2ec;--card:#fff;--fg:#17212c;--muted:#5d6874;--line:#e2ddd2;--navy:#0F2A47;--gold:#B8914A;--green:#2f6b3f;--greenbg:#e5f0e6;--red:#a3362b;--redbg:#f7e4e1;--amber:#8a6412;--amberbg:#f6ecd6;--code:#f7f5f0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--card:#152232;--fg:#e7edf3;--muted:#9aa8b6;--line:#26384b;--navy:#0a1b2e;--gold:#d4b46e;--green:#7cc48d;--greenbg:#18301f;--red:#f08a7e;--redbg:#3a1d1a;--amber:#e3bd6a;--amberbg:#33290f;--code:#0f1a27;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;border-bottom:3px solid var(--gold);padding:18px 16px 0}
+.in{max-width:1120px;margin:0 auto}
+.brand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end}
+.brand h1{margin:0;font:600 24px Georgia,serif;letter-spacing:.03em}
+.brand p{margin:2px 0 0;color:#d6c290;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.brand .r{font-size:12.5px;color:#cfd8e2;text-align:right}
+nav{display:flex;gap:4px;overflow-x:auto;margin-top:14px}
+nav button{background:none;border:0;color:#cfd8e2;font:500 14px system-ui;padding:10px 14px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{color:#fff;border-bottom-color:var(--gold)}
+main{padding:18px 16px 40px}
+section{display:none}section.on{display:block}
+h2{font:600 21px Georgia,serif;margin:4px 0 6px}
+h3{font:600 15px system-ui;margin:0 0 8px}
+.lede{color:var(--muted);margin:0 0 16px;max-width:860px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+.kpi{font:600 26px Georgia,serif}.kl{color:var(--muted);font-size:12.5px}
+.delta{font-size:13px;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:600;font-size:12.5px}
+.tw{overflow-x:auto}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:600}
+.ok{background:var(--greenbg);color:var(--green)}.bad{background:var(--redbg);color:var(--red)}.warn{background:var(--amberbg);color:var(--amber)}
+.tog{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.tog button{background:var(--card);color:var(--fg);border:0;padding:8px 14px;font:500 13.5px system-ui;cursor:pointer}
+.tog button.on{background:var(--navy);color:#fff}
+label.s{display:block;font-size:13px;color:var(--muted);margin:10px 0 2px}
+input[type=range]{width:100%}
+.note{font-size:12.5px;color:var(--muted);border-left:3px solid var(--gold);padding:6px 10px;background:var(--code);margin-top:10px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:6px;padding:12px;overflow-x:auto;font:12.5px/1.5 ui-monospace,Consolas,monospace;margin:0}
+.del{color:var(--red)}.add{color:var(--green)}
+svg text{font-family:system-ui,sans-serif}
+.flow .node rect{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+.flow .node.hit rect{stroke:var(--gold);stroke-width:3}
+.flow .node.end rect{fill:var(--code)}
+.flow .node.end.hit rect{fill:var(--amberbg)}
+.flow .node.thin.hit rect{fill:var(--greenbg);stroke:var(--green)}
+.flow text{fill:var(--fg);font-size:12px}
+.flow .edge{stroke:var(--muted);stroke-width:1.4;fill:none}
+.flow .edge.hit{stroke:var(--gold);stroke-width:3.2}
+.flow .edge.bug{stroke:var(--red);stroke-dasharray:6 4}
+.flow .lbl{font-size:11px;fill:var(--muted)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;padding:10px 0 10px 40px;position:relative;border-bottom:1px solid var(--line)}
+.steps li:before{content:counter(s);position:absolute;left:0;top:10px;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;text-align:center;font:600 13px/26px system-ui}
+.steps li:last-child{border-bottom:0}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:4px}.bar>i{display:block;height:100%;background:var(--gold)}
+footer{color:var(--muted);font-size:12.5px;text-align:center;padding:20px 16px;border-top:1px solid var(--line)}
+a{color:inherit}
+</style>
+</head>
+<body>
+<header><div class="in">
+ <div class="brand">
+  <div><h1>SILVAH 8 Repair Workbench</h1><p>Agentic Rx LLC · Technology · Health Systems</p></div>
+  <div class="r">USDA Forest Service · RFI 12760426Q0195 (SILVAH software coding)<br>Illustrative logic and sample data only, not Forest Service code or data</div>
+ </div>
+ <nav role="tablist" id="tabs">
+  <button role="tab" data-t="ov" aria-selected="true">Overview</button>
+  <button role="tab" data-t="mid">1 · Middle plot merge</button>
+  <button role="tab" data-t="rx">2 · Thinning path</button>
+  <button role="tab" data-t="fsveg">3 · FSVEG interface</button>
+  <button role="tab" data-t="reg">Regression harness</button>
+  <button role="tab" data-t="plan">Plan &amp; SLA</button>
+ </nav>
+</div></header>
+<main><div class="in">
+
+<!-- OVERVIEW -->
+<section id="ov" class="on">
+ <h2>Repair SILVAH 8, prove every fix against known-good runs</h2>
+ <p class="lede">The Forest Service's 4 November answers narrow this work to repairing SILVAH 8, a Windows desktop application of about 81 C++ files built in Visual Studio 2019, with no version control and no automated test suite. This workbench shows how Agentic Rx would handle each of the three defects the Government named, and how every change is checked against the reference stand files before it reaches the scientists.</p>
+ <div class="grid3">
+  <div class="card"><div class="kl">Defect 1</div><h3>Middle plot not in the stand table</h3><p style="margin:0">The 16 ft radius middle plot feeds stump-sprout prediction but its sapling-layer trees are never merged into the overall stand table.</p><p><button class="go" data-go="mid">Open the merge →</button></p></div>
+  <div class="card"><div class="kl">Defect 2</div><h3>Thinning prescriptions unreachable</h3><p style="margin:0">A wrong branch in the prescription flow chart means the program cannot reach a thinning recommendation.</p><p><button class="go" data-go="rx">Trace the decision path →</button></p></div>
+  <div class="card"><div class="kl">Defect 3</div><h3>FSVEG interface broken</h3><p style="margin:0">The link to FSVEG stopped working when the Government restricted command-line SQL calls.</p><p><button class="go" data-go="fsveg">See the replacement →</button></p></div>
+ </div>
+ <div class="card">
+  <h3>How we work on the code (from the Government's answers)</h3>
+  <div class="grid2">
+   <ul style="margin:0;padding-left:18px">
+    <li>Put the delivered source under Git on day one, so every change is reviewed, reversible and documented, alongside the existing in-code comments.</li>
+    <li>Rebuild in Visual Studio with the 2019 (v142) toolset first, then confirm it runs on the Windows versions in use before changing any logic.</li>
+    <li>Turn the known-good SILVAH files into an automated regression suite, so each fix is compared with the reference outputs.</li>
+   </ul>
+   <ul style="margin:0;padding-left:18px">
+    <li>Any AI coding assistant runs on our own machines only, with no cloud upload of SILVAH code. That matches the Forest Service's condition.</li>
+    <li>Scientists confirm the silvicultural rules. We never change an equation or a threshold without their written agreement.</li>
+    <li>Deliverables: full source, build scripts, tests and an installer, with Government rights to all of them.</li>
+   </ul>
+  </div>
+ </div>
+ <p class="note">Everything on this page is illustrative. The thresholds, decision order, tree tallies and file names are sample values chosen to show the method. The real rules come from the SILVAH 8 source code and the Forest Service scientists after award.</p>
+</section>
+
+<!-- MIDDLE PLOT -->
+<section id="mid">
+ <h2>Defect 1: merge the 16 ft middle plot into the stand table</h2>
+ <p class="lede">Sapling-layer trees (1.0 to 5.9 in. dbh) are tallied on a fixed-area 16 ft radius plot at each sample point. One tree on one plot represents 43,560 ÷ (π × 16²) = <b>54.16 trees per acre</b>. Once that tally is averaged over the sample points, it should become the sapling rows of the stand table, so that density, stocking and the prescription all see it.</p>
+ <div class="tog" role="group" aria-label="Version"><button id="mOld">SILVAH 8 as delivered</button><button id="mNew" class="on">After repair</button></div>
+ <div class="grid3" style="margin-top:14px">
+  <div class="card"><div class="kl">Trees per acre</div><div class="kpi" id="kT">–</div><div class="delta" id="dT"></div></div>
+  <div class="card"><div class="kl">Basal area (ft²/ac)</div><div class="kpi" id="kB">–</div><div class="delta" id="dB"></div></div>
+  <div class="card"><div class="kl">Stocking index (illustrative)</div><div class="kpi" id="kR">–</div><div class="delta" id="dR"></div></div>
+ </div>
+ <div class="grid2">
+  <div class="card"><h3>Stand table by 1 in. class: sample stand "Ridge 14"</h3><div class="tw"><table id="st"><thead><tr><th>dbh class (in.)</th><th>Layer</th><th>Trees/ac</th><th>BA ft²/ac</th><th>Source</th></tr></thead><tbody></tbody></table></div></div>
+  <div class="card"><h3>Middle plot tally (8 sample points)</h3>
+   <label class="s" for="nPts">Sample points in the stand: <b id="nPv">8</b></label><input id="nPts" type="range" min="4" max="20" value="8">
+   <label class="s" for="sMul">Sapling density on the middle plots: <b id="sMv">1.0×</b></label><input id="sMul" type="range" min="0" max="30" value="10">
+   <div class="tw"><table id="mt" style="margin-top:8px"><thead><tr><th>dbh class</th><th>Saplings tallied</th><th>Per acre (÷ points × 54.16)</th></tr></thead><tbody></tbody></table></div>
+   <pre style="margin-top:10px"><span class="kl">// sketch of the fix (StandTable.cpp, after award)</span>
+const double MIDPLOT_EF = 43560.0 / (M_PI * 16.0 * 16.0); // 54.16
+for (const auto&amp; t : plot.middleTrees)       // saplings 1.0–5.9 in.
+<span class="del">-   sproutModel.add(t);                      // used only for sprouts</span>
+<span class="add">+   { sproutModel.add(t);
++     stand.addTally(t.dbhClass, t.species,
++                    MIDPLOT_EF / stand.nPoints()); }</span></pre>
+  </div>
+ </div>
+ <p class="note">Sample tallies are invented. The stocking index here is a simple illustrative ratio (basal area relative to a full-stocking curve). SILVAH's own relative density equations and species weights will be used unchanged.</p>
+</section>
+
+<!-- THINNING PATH -->
+<section id="rx">
+ <h2>Defect 2: restore the branch that leads to thinning</h2>
+ <p class="lede">The prescription logic is a flow chart: the program asks a series of questions about the stand and follows the answer down to a treatment. The Government reports that SILVAH 8 "cannot reach Thinning prescriptions." Below is a simplified chart in that style. Set the stand conditions and compare the path the defective build takes with the path after the repair.</p>
+ <div class="grid2">
+  <div class="card">
+   <div class="tog" role="group" aria-label="Build"><button id="rOld">SILVAH 8 as delivered</button><button id="rNew" class="on">After repair</button></div>
+   <label class="s" for="iInt">Interfering plants on sample plots: <b id="iIntv">10%</b></label><input id="iInt" type="range" min="0" max="80" value="10">
+   <label class="s" for="iRD">Overstory relative density: <b id="iRDv">78%</b></label><input id="iRD" type="range" min="20" max="120" value="78">
+   <label class="s" for="iD">Mean stand diameter (in.): <b id="iDv">9.5</b></label><input id="iD" type="range" min="40" max="200" value="95">
+   <label class="s" for="iReg">Plots with adequate advance regeneration: <b id="iRegv">30%</b></label><input id="iReg" type="range" min="0" max="100" value="30">
+   <div style="margin-top:14px"><div class="kl">Recommended treatment</div><div class="kpi" id="rxOut">–</div><div id="rxWhy" class="kl"></div></div>
+   <div style="margin-top:10px"><button id="presetThin">Load a stand that should be thinned</button></div>
+  </div>
+  <div class="card"><svg class="flow" id="flow" viewBox="0 0 545 450" width="100%" role="img" aria-label="Prescription decision flow chart"></svg></div>
+ </div>
+ <div class="card"><h3>What we would do in the code</h3>
+<pre><span class="kl">// illustrative: Prescription.cpp, maturity node</span>
+if (stand.relDensity &gt;= RD_THRESHOLD) {
+    if (stand.isMature())
+        return regenAdequate() ? Rx::RemovalCut : Rx::ShelterwoodSeedCut;
+<span class="del">-   return regenAdequate() ? Rx::RemovalCut : Rx::ShelterwoodSeedCut; // immature branch copied from mature</span>
+<span class="add">+   return Rx::Thinning;                                               // immature, well-stocked stand</span>
+}</pre>
+  <p class="note">The real cause will be confirmed from the source after award. We reproduce the fault with a reference stand that should be thinned, add it to the regression suite as a failing test, then fix the code until it passes without changing any other reference result.</p>
+ </div>
+</section>
+
+<!-- FSVEG -->
+<section id="fsveg">
+ <h2>Defect 3: replace the command-line SQL link to FSVEG</h2>
+ <p class="lede">SILVAH 8 reached FSVEG by shelling out to a command-line SQL client, which Forest Service policy now blocks. The fix is to move the query inside the application through an approved, authenticated connection, and to keep a file-import fallback so users are never stranded.</p>
+ <div class="grid2">
+  <div class="card"><h3><span class="pill bad">Today: blocked</span></h3>
+<pre><span class="kl">// illustrative</span>
+std::string cmd = "sqlplus " + user + "/" + pwd + "@FSVEG @stand.sql "
+                + standId + " &gt; out.csv";
+system(cmd.c_str());          <span class="del">// blocked: command-line SQL restricted</span>
+importCsv("out.csv");         <span class="del">// credentials on the command line, temp file</span></pre>
+  </div>
+  <div class="card"><h3><span class="pill ok">After repair</span></h3>
+<pre><span class="kl">// illustrative: in-process, parameterised, no shell</span>
+FsvegSession s = FsvegSession::open(authToken);   <span class="add">// FS-approved sign-in</span>
+auto q = s.prepare(
+  "SELECT plot, species, dbh, tpa FROM tree_view WHERE setting_id = ?");
+q.bind(1, settingId);                              <span class="add">// no string-built SQL</span>
+for (auto&amp; row : q.execute()) stand.addTree(row);</pre>
+  </div>
+ </div>
+ <div class="card"><h3>Connection options to confirm with Forest Service IT</h3>
+  <div class="tw"><table><thead><tr><th>Option</th><th>How</th><th>Sign-in</th><th>Status</th></tr></thead><tbody>
+   <tr><td>A. Direct database connection</td><td>ODBC / Oracle client library called from C++, read-only views</td><td>FS credentials or PIV</td><td><span class="pill warn">Needs FS IT approval</span></td></tr>
+   <tr><td>B. FS web service</td><td>HTTPS call to an approved FSVeg/NRM service, results parsed in-process</td><td>FS single sign-on</td><td><span class="pill warn">If a service exists</span></td></tr>
+   <tr><td>C. File import (fallback)</td><td>User exports from FSVeg; SILVAH imports the file with validation</td><td>None in SILVAH</td><td><span class="pill ok">Always available</span></td></tr>
+  </tbody></table></div>
+  <p class="note">The Government noted that a user would need to sign in to a Forest Service application and that the requirement is not yet known. We would agree the option with FS IT in the first two weeks and ship option C regardless.</p>
+ </div>
+</section>
+
+<!-- REGRESSION -->
+<section id="reg">
+ <h2>Regression harness: every build compared with known-good runs</h2>
+ <p class="lede">The Forest Service validates new versions by comparing them with known-good runs and hand calculations. We automate exactly that: each reference stand file runs through the build, and its outputs are compared with the accepted values within a tolerance agreed with the scientists. A change only merges when every row is green, or when a difference is the intended result of a fix and the scientists have signed it off.</p>
+ <div class="card">
+  <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:end">
+   <div class="tog" role="group" aria-label="Build"><button id="gOld">SILVAH 8 as delivered</button><button id="gNew" class="on">After repair</button></div>
+   <div style="flex:1;min-width:220px"><label class="s" for="tol">Tolerance on trees/ac and basal area: <b id="tolv">1.0%</b></label><input id="tol" type="range" min="1" max="50" value="10"></div>
+   <div><div class="kl">Passing</div><div class="kpi" id="gSum">–</div></div>
+  </div>
+  <div class="tw"><table id="gt" style="margin-top:10px"><thead><tr><th>Reference file</th><th>Expected treatment</th><th>Build treatment</th><th>TPA expected</th><th>TPA build</th><th>BA expected</th><th>BA build</th><th>Result</th></tr></thead><tbody></tbody></table></div>
+  <p class="note">File names and values are invented. "Expected" values in the repaired build reflect the intended fixes (sapling rows merged, thinning reachable), and the scientists approve them before they become the new reference.</p>
+ </div>
+</section>
+
+<!-- PLAN -->
+<section id="plan">
+ <h2>Delivery plan, staffing and service levels</h2>
+ <p class="lede">A fixed-price plan in milestones, each ending in something the Forest Service can run and check.</p>
+ <div class="grid2">
+  <div class="card"><h3>Milestones (indicative, about 6 months)</h3>
+   <ol class="steps">
+    <li><b>Weeks 1–3 · Intake and reproducible build.</b> Source into Git, rebuild with the 2019 toolset, installer reproduced, defects reproduced on reference files.</li>
+    <li><b>Weeks 3–6 · Regression baseline.</b> Known-good files converted into automated tests and the baseline signed off by the scientists.</li>
+    <li><b>Weeks 6–12 · Fixes 1 and 2.</b> Middle-plot merge and thinning path, with walkthroughs with the scientists.</li>
+    <li><b>Weeks 10–16 · Fix 3.</b> FSVEG connection agreed with FS IT and built; file-import fallback shipped.</li>
+    <li><b>Weeks 16–22 · Validation and release.</b> Side-by-side runs, hand-calculation checks, signed installer, source, build scripts and tests delivered.</li>
+    <li><b>Warranty.</b> 90 days of defect fixes after acceptance.</li>
+   </ol>
+  </div>
+  <div class="card"><h3>Proposed staffing</h3>
+   <div class="tw"><table><thead><tr><th>Labor category</th><th>FTE</th></tr></thead><tbody>
+    <tr><td>Project manager / technical lead</td><td>0.25</td></tr>
+    <tr><td>Senior C++ / Windows desktop developer</td><td>1.0</td></tr>
+    <tr><td>C++ developer (data and interfaces)</td><td>0.5</td></tr>
+    <tr><td>QA / test engineer (regression suite)</td><td>0.5</td></tr>
+    <tr><td>Forest biometrics adviser (as needed)</td><td>0.1</td></tr>
+   </tbody></table></div>
+   <h3 style="margin-top:16px">Service levels we would commit to</h3>
+   <div class="tw"><table><thead><tr><th>Priority</th><th>Response</th><th>Fix or workaround</th></tr></thead><tbody>
+    <tr><td>Critical (crash, wrong prescription)</td><td>4 business hours</td><td>3 business days</td></tr>
+    <tr><td>High (wrong value, feature blocked)</td><td>1 business day</td><td>7 business days</td></tr>
+    <tr><td>Normal</td><td>2 business days</td><td>Next scheduled build</td></tr>
+   </tbody></table></div>
+  </div>
+ </div>
+</section>
+
+</div></main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · Florida LLC L26000203929 · SAM UEI C8MAWGE5LU65 · CAGE 20S95 · info@agentic-rx.com · agentic-rx.com<br>Demonstration for market research only. Illustrative logic and invented sample data; not Forest Service code, data or rules.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+// tabs
+const tabs=[...document.querySelectorAll('#tabs button')];
+function show(t){tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===t));try{history.replaceState(null,'','#'+t)}catch(e){}window.scrollTo(0,0)}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
+document.querySelectorAll('.go').forEach(b=>b.onclick=()=>show(b.dataset.go));
+if(location.hash&&$(location.hash.slice(1)))show(location.hash.slice(1));
+function tog(a,b,cb){$(a).onclick=()=>{$(a).classList.add('on');$(b).classList.remove('on');cb()};$(b).onclick=()=>{$(b).classList.add('on');$(a).classList.remove('on');cb()}}
+const ba=d=>0.005454*d*d;
+
+// ---------- 1. middle plot ----------
+const EF=43560/(Math.PI*256);
+const over=[[6,20],[7,18],[8,16],[9,14],[10,12],[11,11],[12,10],[13,8],[14,7],[15,6],[16,5],[17,4],[18,3],[20,2]];
+const midBase=[[1,22],[2,15],[3,10],[4,6],[5,4]];
+let mNew=true;
+function fullBA(q){return 40+9*q} // illustrative full-stocking curve
+function stats(rows){let t=0,b=0;rows.forEach(r=>{t+=r.tpa;b+=r.tpa*ba(r.d)});const q=Math.sqrt(b/t/0.005454);return {t,b,rd:100*b/fullBA(q)}}
+function renderMid(){
+ const n=+$('nPts').value, m=+$('sMul').value/10;
+ $('nPv').textContent=n;$('sMv').textContent=m.toFixed(1)+'×';
+ const mid=midBase.map(([d,c])=>({d,c:Math.round(c*m*n/8),}));
+ mid.forEach(r=>r.tpa=r.c*EF/n);
+ $('mt').tBodies[0].innerHTML=mid.map(r=>`<tr><td>${r.d}</td><td>${r.c}</td><td>${r.tpa.toFixed(1)}</td></tr>`).join('');
+ const ov=over.map(([d,t])=>({d,tpa:t,layer:'Overstory',src:'Overstory plots'}));
+ const sap=mid.map(r=>({d:r.d,tpa:r.tpa,layer:'Sapling',src:'Middle plot (16 ft)'}));
+ const before=stats(ov), after=stats(ov.concat(sap)), s=mNew?after:before;
+ $('kT').textContent=s.t.toFixed(0);$('kB').textContent=s.b.toFixed(1);$('kR').textContent=s.rd.toFixed(0)+'%';
+ const f=(a,b,p)=>{const d=a-b;return mNew?`<span style="color:var(--green)">${d>=0?'+':''}${d.toFixed(p)} vs. as delivered</span>`:`<span style="color:var(--red)">${(after.t-before.t).toFixed(0)} sapling trees/ac missing</span>`};
+ $('dT').innerHTML=f(after.t,before.t,0);$('dB').innerHTML=mNew?f(after.b,before.b,1):'';$('dR').innerHTML=mNew?f(after.rd,before.rd,1):'';
+ const rows=(mNew?sap:[]).concat(ov);
+ $('st').tBodies[0].innerHTML=(mNew?'':sap.map(r=>`<tr style="opacity:.55"><td>${r.d}</td><td>Sapling</td><td>—</td><td>—</td><td><span class="pill bad">not merged</span></td></tr>`).join(''))+
+  rows.map(r=>`<tr><td>${r.d}</td><td>${r.layer}</td><td>${r.tpa.toFixed(1)}</td><td>${(r.tpa*ba(r.d)).toFixed(2)}</td><td>${r.layer==='Sapling'?'<span class="pill ok">merged</span>':r.src}</td></tr>`).join('');
+}
+tog('mOld','mNew',()=>{mNew=$('mNew').classList.contains('on');renderMid()});
+['nPts','sMul'].forEach(i=>$(i).oninput=renderMid);
+
+// ---------- 2. flow chart ----------
+let rNew=true;
+const N={
+ q1:{x:260,y:30,t:['Interfering plants','above threshold?']},
+ a1:{x:80,y:110,t:['Control interfering','plants first'],end:1},
+ q2:{x:340,y:110,t:['Relative density','≥ 60%?']},
+ q3:{x:160,y:200,t:['Regeneration','adequate?']},
+ a3y:{x:65,y:300,t:['Release /','overstory removal'],end:1},
+ a3n:{x:195,y:300,t:['Fence or plant;','re-evaluate'],end:1},
+ q4:{x:400,y:200,t:['Stand mature','(mean dbh ≥ 14 in.)?']},
+ q5:{x:345,y:300,t:['Regeneration','adequate?']},
+ a5y:{x:275,y:400,t:['Removal cut'],end:1},
+ a5n:{x:420,y:400,t:['Shelterwood','seed cut'],end:1},
+ thin:{x:478,y:300,t:['Thinning'],end:1,thin:1}
+};
+const E=[['q1','a1','yes'],['q1','q2','no'],['q2','q3','no'],['q2','q4','yes'],['q3','a3y','yes'],['q3','a3n','no'],['q4','q5','yes'],['q4','thin','no'],['q5','a5y','yes'],['q5','a5n','no']];
+function path(){
+ const I=+$('iInt').value,R=+$('iRD').value,D=+$('iD').value/10,G=+$('iReg').value;
+ const p=['q1'];let why=[];
+ if(I>=30){p.push('a1');why.push(`interfering plants ${I}% ≥ 30%`);return {p,why}}
+ p.push('q2');why.push(`interfering plants ${I}% < 30%`);
+ const adequate=G>=50;
+ if(R<60){p.push('q3');why.push(`density ${R}% < 60%`);p.push(adequate?'a3y':'a3n');why.push(`regeneration ${G}% ${adequate?'≥':'<'} 50%`);return {p,why}}
+ p.push('q4');why.push(`density ${R}% ≥ 60%`);
+ const mature=D>=14;
+ if(mature||!rNew){p.push('q5');why.push(mature?`mean dbh ${D.toFixed(1)} in. ≥ 14`:`mean dbh ${D.toFixed(1)} in. < 14, but the defective branch still goes to the mature path`);p.push(adequate?'a5y':'a5n');why.push(`regeneration ${G}% ${adequate?'≥':'<'} 50%`);return {p,why,bug:!mature}}
+ p.push('thin');why.push(`mean dbh ${D.toFixed(1)} in. < 14: immature, well-stocked`);return {p,why};
+}
+function renderFlow(){
+ $('iIntv').textContent=$('iInt').value+'%';$('iRDv').textContent=$('iRD').value+'%';$('iDv').textContent=(+$('iD').value/10).toFixed(1);$('iRegv').textContent=$('iReg').value+'%';
+ const r=path(),hit=new Set(r.p);const W=120,H=40;let s='';
+ const ehit=(a,b)=>{if(r.bug&&a==="q4"&&b==="q5")return false;const i=r.p.indexOf(a);return i>=0&&r.p[i+1]===b};
+ E.forEach(([a,b,l])=>{const A=N[a],B=N[b];s+=`<path class="edge${ehit(a,b)?' hit':''}" d="M${A.x},${A.y+H/2} C${A.x},${(A.y+B.y)/2+10} ${B.x},${(A.y+B.y)/2-10} ${B.x},${B.y-H/2}"/>`;s+=`<text class="lbl" x="${(A.x+B.x)/2+4}" y="${(A.y+B.y)/2+4}">${l}</text>`});
+ if(!rNew){const A=N.q4,B=N.q5;s+=`<path class="edge bug${r.bug?' hit':''}" style="${r.bug?'stroke:var(--red)':''}" d="M${A.x+20},${A.y+H/2} C${A.x+40},${A.y+60} ${B.x+50},${B.y-40} ${B.x+30},${B.y-H/2}"/><text class="lbl" x="${B.x-150}" y="${B.y-34}" style="fill:var(--red)">defect: no → mature path</text>`}
+ for(const k in N){const n=N[k];const cls='node'+(hit.has(k)?' hit':'')+(n.end?' end':'')+(n.thin?' thin':'');s+=`<g class="${cls}"><rect x="${n.x-W/2}" y="${n.y-H/2}" width="${W}" height="${H}" rx="${n.end?18:5}"/>`;n.t.forEach((t,i)=>s+=`<text x="${n.x}" y="${n.y+(n.t.length===1?4:i*14-3)}" text-anchor="middle">${t}</text>`);s+='</g>'}
+ $('flow').innerHTML=s;
+ const last=N[r.p[r.p.length-1]].t.join(' ');
+ $('rxOut').textContent=last;$('rxOut').style.color=r.bug?'var(--red)':'';
+ $('rxWhy').innerHTML=r.why.join(' → ')+(r.bug?'<br><b style="color:var(--red)">Thinning was the correct answer for this stand. The defective build cannot reach it.</b>':'');
+}
+tog('rOld','rNew',()=>{rNew=$('rNew').classList.contains('on');renderFlow()});
+['iInt','iRD','iD','iReg'].forEach(i=>$(i).oninput=renderFlow);
+$('presetThin').onclick=()=>{$('iInt').value=10;$('iRD').value=85;$('iD').value=95;$('iReg').value=30;renderFlow()};
+
+// ---------- regression ----------
+let gNew=true;
+const REF=[
+ ['ALLEG_OAK_01.sil','Shelterwood seed cut',412,96.4,0,'Shelterwood seed cut'],
+ ['RIDGE_14.sil','Thinning',398,104.8,1,'Removal cut'],
+ ['COVE_HW_07.sil','Removal cut',356,88.1,0,'Removal cut'],
+ ['NHW_PLATEAU_03.sil','Thinning',522,112.6,1,'Shelterwood seed cut'],
+ ['MIXOAK_FENCE_02.sil','Control interfering plants',288,72.0,0,'Control interfering plants'],
+ ['YP_BOTTOM_11.sil','Fence or plant; re-evaluate',214,51.3,0,'Fence or plant; re-evaluate'],
+ ['CHERRY_MAPLE_05.sil','Thinning',604,118.2,1,'Removal cut'],
+ ['APPAL_OAK_09.sil','Release / overstory removal',176,46.9,0,'Release / overstory removal']
+];
+function renderReg(){
+ const tol=+$('tol').value/10;$('tolv').textContent=tol.toFixed(1)+'%';let pass=0;
+ $('gt').tBodies[0].innerHTML=REF.map(([f,rx,t,b,thin,bugRx],i)=>{
+  const sapMissing=gNew?0:(t*0.18);
+  const jitter=[0.2,-0.4,0.3,-0.6,0.1,0.8,-0.3,0.5][i]/100;
+  const tb=(t-sapMissing)*(1+jitter), bb=(b-(gNew?0:b*0.025))*(1-jitter/2);
+  const brx=gNew?rx:bugRx;
+  const okT=Math.abs(tb-t)/t*100<=tol, okB=Math.abs(bb-b)/b*100<=tol, okR=brx===rx, ok=okT&&okB&&okR; if(ok)pass++;
+  const c=(v,o)=>`<td style="color:${o?'':'var(--red)'}">${v}</td>`;
+  return `<tr><td>${f}</td><td>${rx}</td>${c(brx,okR)}<td>${t}</td>${c(tb.toFixed(0),okT)}<td>${b.toFixed(1)}</td>${c(bb.toFixed(1),okB)}<td><span class="pill ${ok?'ok':'bad'}">${ok?'Pass':'Fail'}</span></td></tr>`}).join('');
+ $('gSum').textContent=pass+' / '+REF.length;$('gSum').style.color=pass===REF.length?'var(--green)':'var(--red)';
+}
+tog('gOld','gNew',()=>{gNew=$('gNew').classList.contains('on');renderReg()});
+$('tol').oninput=renderReg;
+
+document.querySelectorAll('button').forEach(b=>{if(!b.closest('nav')&&!b.closest('.tog')){b.style.cssText='background:var(--navy);color:#fff;border:0;border-radius:6px;padding:8px 12px;font:500 13.5px system-ui;cursor:pointer'}});
+renderMid();renderFlow();renderReg();
+</script>
+</body>
+</html>
