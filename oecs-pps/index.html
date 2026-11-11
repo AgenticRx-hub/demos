@@ -49,11 +49,13 @@ tr.sel td{background:var(--bluebg)}
  <div class="r">Demonstration for the OECS Pharmaceutical Procurement Service (OECS-PPS)<br>Sample data only: products, lots, customers and figures are illustrative</div></div>
  <nav role="tablist" id="tabs">
   <button data-t="ov" aria-selected="true">Overview</button>
+  <button data-t="pq">Prequalification tracker</button>
+  <button data-t="ma">Market authorisation</button>
   <button data-t="inv">Inventory (FEFO)</button>
   <button data-t="cold">Cold chain</button>
   <button data-t="rec">Recall trace</button>
   <button data-t="dos">Regulatory dossiers</button>
-  <button data-t="reg">Regulatory support</button>
+  <button data-t="reg">Our work</button>
  </nav>
 </div></header>
 <main><div class="in">
@@ -62,7 +64,7 @@ tr.sel td{background:var(--bluebg)}
  <h2>One distributor, with the systems to prove what it supplies</h2>
  <p class="lede">Agentic Rx Inc. supplies medicines, medical supplies and dialysis products from a Pharmacy Council-approved warehouse in Christ Church, Barbados, and builds the digital systems that health regulators and procurement services use. This console shows how we would manage OECS-PPS stock and documentation: every lot tracked first-expiry-first-out, cold-chain readings checked automatically, any lot traceable to every customer in minutes, and every manufacturer document (GMP, WHO-format CPP, authorisation letters) tracked to expiry.</p>
  <div class="g4">
-  <div class="card"><div class="kl">Source partners</div><div class="kpi">4</div><div class="kl">Pinnacle Rx · Bioquímica Panamericana (Bayer, Nipro) · Intercontinental Pharma · Gland Pharma</div></div>
+  <div class="card"><div class="kl">Source partners</div><div class="kpi">7</div><div class="kl">Pinnacle Rx · Bioquímica Panamericana (Bayer, Nipro, Megalabs) · Intercontinental Pharma · Gland Pharma · Ben and Mona’s · Lain Trading · NOW Foods</div></div>
   <div class="card"><div class="kl">Lots in stock (sample)</div><div class="kpi" id="kLots">–</div><div class="kl" id="kLots2"></div></div>
   <div class="card"><div class="kl">Documents complete (sample)</div><div class="kpi" id="kDocs">–</div><div class="kl">GMP, CPP, licence, authorisation, CoA</div></div>
   <div class="card"><div class="kl">Cold-chain excursions, 7 days</div><div class="kpi" id="kExc">–</div><div class="kl">2–8 °C store, readings every 15 minutes</div></div>
@@ -70,10 +72,10 @@ tr.sel td{background:var(--bluebg)}
  <div class="g2">
   <div class="card"><h3>What Agentic Rx offers OECS-PPS</h3>
    <ul class="t">
-    <li><b>Supply:</b> OTC medicines (GoodSense/Perrigo via Pinnacle Rx; Bayer OTC via Bioquímica Panamericana), prescription and wound-care products (Intercontinental Pharma), haemodialysis and laboratory supplies (Nipro), heparin (Gland Pharma).</li>
+    <li><b>Supply:</b> OTC medicines (GoodSense/Perrigo via Pinnacle Rx; Bayer OTC via Bioquímica Panamericana), prescription and wound-care products (Intercontinental Pharma), haemodialysis and laboratory supplies (Nipro), heparin (Gland Pharma, Lain Trading), dialysis and HIV products (Ben and Mona’s), diabetes care (Lain Trading).</li>
     <li><b>Good distribution practice:</b> SOP ARX-GDP-001 (receipt, storage, FEFO, recall, disposal) and ARX-QA-004 (complaints), run through the inventory system shown here.</li>
     <li><b>Documentation on request:</b> CoA, GMP, WHO-format CPP and licences per product, tracked and refreshed before expiry.</li>
-    <li><b>Technology and regulatory support:</b> the same team built the Barbados Medical Products Authority consultation portal and the RAGNA 2.0 Task Force member platform (see Regulatory support).</li>
+    <li><b>Technology and regulatory support:</b> the same team built the Barbados Medical Products Authority consultation portal and the RAGNA 2.0 Task Force member platform (see Our work).</li>
    </ul></div>
   <div class="card"><h3>How the console maps to the OECS-PPS prequalification form</h3>
    <div class="tw"><table><thead><tr><th>Form item</th><th>Where it is shown</th></tr></thead><tbody>
@@ -84,6 +86,31 @@ tr.sel td{background:var(--bluebg)}
     <tr><td>E9 WHO-format CPPs</td><td>Regulatory dossiers (CPP column)</td></tr>
    </tbody></table></div></div>
  </div>
+</section>
+
+<section id="pq">
+ <h2>Prequalification tracker: everything OECS-PPS asks for</h2>
+ <p class="lede">Every document and answer requested in the OECS-PPS Supplier Prequalification (Section 1) and the per-manufacturer Section 2, with its status, owner and the file that answers it. Change a status and it is saved in this browser; export the list as CSV for the team.</p>
+ <div class="g4">
+  <div class="card"><div class="kl">Items ready</div><div class="kpi" id="pqReady">–</div><div class="kl" id="pqReady2"></div></div>
+  <div class="card"><div class="kl">Requested from partners</div><div class="kpi" id="pqReq">–</div><div class="kl">Awaiting manufacturer or partner</div></div>
+  <div class="card"><div class="kl">To do</div><div class="kpi" id="pqTodo">–</div><div class="kl">Owner assigned</div></div>
+  <div class="card"><div class="kl">Expiring within 90 days</div><div class="kpi" id="pqExp">–</div><div class="kl" id="pqExp2">Renew before submission</div></div>
+ </div>
+ <div class="card">
+  <div class="row"><div><label for="pqF">Show</label><select id="pqF"><option value="">All items</option><option>Section 1</option><option>Supporting document</option><option>Section 2</option></select></div>
+   <div><label for="pqS">Status</label><select id="pqS"><option value="">Any status</option><option>Ready</option><option>Requested</option><option>To do</option><option>Not applicable</option></select></div>
+   <button class="b" id="pqCsv">Export CSV</button><button class="b" id="pqReset" style="background:var(--muted)">Reset statuses</button></div>
+  <div style="height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px"><div id="pqBar" style="height:100%;width:0;background:var(--green)"></div></div>
+  <div class="tw"><table id="pqT"><thead><tr><th>Ref</th><th>What OECS-PPS asks for</th><th>Our evidence</th><th>Owner</th><th>Expires</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  <p class="note">Statuses reflect the submission prepared on 11 November 2026. Items marked To do are honest gaps (for example, no cGDP certificate or audited accounts yet for a company incorporated in March 2026).</p></div>
+</section>
+
+<section id="ma">
+ <h2>Market authorisation and manufacturer documents, by source</h2>
+ <p class="lede">Section 2 asks, for each manufacturer, for proof the product is authorised for sale by its national regulator, plus GMP evidence, a WHO-format CPP, the manufacturing licence and a letter authorising Agentic Rx to distribute. This grid tracks each item per manufacturer and source partner. Click a cell to move it to the next status.</p>
+ <div class="card"><div class="tw"><table class="mx" id="maT"><thead><tr><th>Manufacturer / products · NRA</th><th>Source partner</th><th>Marketing authorisation</th><th>GMP</th><th>WHO CPP</th><th>Mfg licence</th><th>Distributor letter</th><th>Barbados registration</th><th>Section 2</th></tr></thead><tbody></tbody></table></div>
+  <p class="note">Status key: <span class="pill ok">Held</span> on file · <span class="pill warn">Requested</span> asked of the partner · <span class="pill bad">To request</span> not yet asked · <span class="pill info">In progress</span> application under way. Saved in this browser.</p></div>
 </section>
 
 <section id="inv">
@@ -132,15 +159,22 @@ tr.sel td{background:var(--bluebg)}
 </section>
 
 <section id="reg">
- <h2>Regulatory support: application management for regulators and procurement services</h2>
- <p class="lede">Alongside supply, Agentic Rx builds the systems regulators use to consult, register and coordinate. We propose to support OECS-PPS and national regulators with a product registration and supplier prequalification workflow built on the same approach as our work below.</p>
- <div class="g2">
-  <div class="card"><h3>Barbados Medical Products Authority: bmpra.com</h3>
-   <p style="margin-top:0">Designed, built and host the national public consultation portal for the Medical Products Act, 2026: a section-by-section guide to the Act, a page-by-page viewer for the draft Medical Products and Clinical Trial Regulations, medicines lists and document library, WHO benchmarking page, an AI assistant that answers with references, and a public comment tool that routes submissions to the consultation inbox.</p>
-   <p class="kl">Client: Barbados Medical Products Authority with the Barbados Drug Service, Ministry of Health and Wellness · <a href="https://bmpra.com" target="_blank" rel="noopener">www.bmpra.com</a></p></div>
-  <div class="card"><h3>RAGNA 2.0 Task Force: member portal and secure collaboration</h3>
-   <p style="margin-top:0">Designed and built the public website and a role-based member portal for the Regulatory Agencies Global Network against AMR, coordinated with Läkemedelsverket (Swedish Medical Products Agency), and deployed a self-hosted collaboration platform: document management with in-browser editing, video meetings and chat, calendars, task boards, Secretariat/Member/Observer roles, two-factor sign-in and an on-server AI assistant.</p>
-   <p class="kl"><a href="../ragna-2-0-task-force/" target="_blank" rel="noopener">RAGNA 2.0 Task Force demonstration</a></p></div>
+ <h2>Our work</h2>
+ <div class="card" style="border-left:4px solid var(--gold)"><h3>Custom tool built for OECS-PPS (add-on service)</h3>
+  <p style="margin-top:0">This Supply and Regulatory Console was built specifically for the OECS Pharmaceutical Procurement Service: prequalification tracker, market authorisation tracker, FEFO inventory by lot, cold-chain monitoring, recall trace and regulatory dossiers. It is offered as an optional add-on alongside supply and can be configured for OECS-PPS and Member State regulators.</p>
+  <p class="kl"><a href="https://agenticrx-hub.github.io/demos/oecs-pps/" target="_blank" rel="noopener">agenticrx-hub.github.io/demos/oecs-pps</a></p></div>
+ <h3 style="margin-top:18px">Other projects with useful applications for OECS-PPS</h3>
+ <p class="lede">Systems we have built for other regulators, health agencies and programmes that apply directly to regional procurement and regulation.</p>
+ <div class="g3">
+  <div class="card"><h3>Barbados Medical Products Authority</h3><p style="margin-top:0">National consultation portal for the Medical Products Act, 2026, with regulations viewer, medicines lists, AI assistant with references and public comment routing.</p><p class="kl">Use for OECS-PPS: guidance portals and consultations · <a href="https://bmpra.com" target="_blank" rel="noopener">bmpra.com</a></p></div>
+  <div class="card"><h3>RAGNA 2.0 Task Force</h3><p style="margin-top:0">Member portal and secure collaboration platform for a global network of medicines regulators: documents, meetings, tasks and role-based access.</p><p class="kl">Use: Member State regulator workspace · <a href="https://agenticrx-hub.github.io/demos/ragna-2-0-task-force/" target="_blank" rel="noopener">demo</a></p></div>
+  <div class="card"><h3>CARPHA Digital Health</h3><p style="margin-top:0">Regional digital health demonstration for the Caribbean Public Health Agency.</p><p class="kl">Use: regional reporting and dashboards · <a href="https://agenticrx-hub.github.io/demos/carpha-digital-health/" target="_blank" rel="noopener">demo</a></p></div>
+  <div class="card"><h3>CARPHA RIEWSS</h3><p style="margin-top:0">Regional early warning and surveillance dashboard.</p><p class="kl">Use: demand signals and outbreak-driven stock planning · <a href="https://agenticrx-hub.github.io/demos/carpha-riewss/" target="_blank" rel="noopener">demo</a></p></div>
+  <div class="card"><h3>WHO Sudan NMSF</h3><p style="margin-top:0">National medical supplies capacity assessment tool.</p><p class="kl">Use: warehouse and supply chain assessment · <a href="https://agenticrx-hub.github.io/demos/who-sudan-nmsf/" target="_blank" rel="noopener">demo</a></p></div>
+  <div class="card"><h3>RFID warehouse inventory</h3><p style="margin-top:0">RFID-based warehouse inventory management system.</p><p class="kl">Use: central store stock control · <a href="https://agenticrx-hub.github.io/demos/census-rfid-wims/" target="_blank" rel="noopener">demo</a></p></div>
+  <div class="card"><h3>HR records digitisation</h3><p style="margin-top:0">Records digitisation and document management.</p><p class="kl">Use: dossier and file management · <a href="https://agenticrx-hub.github.io/demos/medt-hr-records/" target="_blank" rel="noopener">demo</a></p></div>
+  <div class="card"><h3>Healthcare data audit</h3><p style="margin-top:0">Coding and billing audit analytics.</p><p class="kl">Use: procurement data quality checks · <a href="https://agenticrx-hub.github.io/demos/va-coding-audit/" target="_blank" rel="noopener">demo</a></p></div>
+  <div class="card"><h3>All demonstrations</h3><p style="margin-top:0">Index of every tool and dashboard we have built.</p><p class="kl"><a href="https://agenticrx-hub.github.io/demos/" target="_blank" rel="noopener">agenticrx-hub.github.io/demos</a></p></div>
  </div>
  <div class="card"><h3>Proposed support for OECS-PPS and Member State regulators</h3>
   <div class="tw"><table><thead><tr><th>Service</th><th>What it does</th><th>Built on</th></tr></thead><tbody>
@@ -244,6 +278,74 @@ function renderCty(){const i=+$('dProd').value;$('cty').tBodies[0].innerHTML=CTY
 $('dProd').onchange=renderCty;
 $('kLots').textContent=INV.length;$('kLots2').textContent=INV.filter(r=>r[6]!=='Released').length+' on hold · '+INV.filter(r=>r[6]==='Released'&&mAway(r[3])<6).length+' inside 6-month alert';
 renderInv();renderCold();renderCty();$('rGo').click();$('pGo').click();
+// ---- prequalification tracker ----
+const PQ=[
+['Section 1','A1–A3','Product categories: pharmaceuticals, medical supplies, lab reagents/consumables/equipment, peritoneal and haemodialysis','Section 1 form; Product List','I. Hinds','','Ready'],
+['Section 1','B1','Company profile: name, year, legal entity, business licence, wholesaler licence','Section 1 form; Certificate of Incorporation; BDS approval DS.6209','I. Hinds','','Ready'],
+['Section 1','B3','Warehouse size, pictures and floor plan','Warehouse Floor Plan (Annex D)','U. Hinds','','Ready'],
+['Section 1','B3','Warehouse photographs','To take and attach','U. Hinds','','To do'],
+['Section 1','C1','Human resource policies (manual, SOP or policy)','In development','I. Abdus-Sabur','','To do'],
+['Section 1','C2','Gender equality policy','Not yet adopted','I. Abdus-Sabur','','To do'],
+['Section 1','C3','Organisational structure of supply chain staff','Organogram','I. Hinds','','Ready'],
+['Section 1','C4','Code of Ethics or ethics policy','Not yet adopted','I. Hinds','','To do'],
+['Section 1','C5','Personnel for key functions','Section 1 form (focal points)','I. Hinds','','Ready'],
+['Section 1','D1–D5','Accounting standard, audits and three years of financial data','GAAP; first fiscal year not yet complete','I. Abdus-Sabur','','Not applicable'],
+['Section 1','E1','Certificate of Good Distribution Practice (cGDP)','Premises approved by Barbados Pharmacy Council / BDS; no cGDP certificate yet','T. Richards','','To do'],
+['Section 1','E2','Quality manual or quality policy','SOP ARX-GDP-001; quality manual to compile','T. Richards','','To do'],
+['Section 1','E3','SOPs: storage, distribution, receipt, recalls, disposal, complaints','SOP ARX-GDP-001 and SOP ARX-QA-004, signed and approved','U. Hinds','','Ready'],
+['Section 1','E5','List of prequalified manufacturers','Manufacturers listed; documents requested (see Market authorisation)','U. Hinds','','Requested'],
+['Section 1','E7','Product documentation on request (CoA, approvals, QC, specifications)','Per product from partners','U. Hinds','','Requested'],
+['Section 1','E9','WHO-format Certificates of Pharmaceutical Product (optional)','Requested from manufacturers','U. Hinds','','Requested'],
+['Section 1','F','Two customer references','SILS Dialysis; Barbados Drug Service / BMPRA','I. Hinds','','Ready'],
+['Section 1','Cert.','Signed certification with company stamp','Signed U. Hinds, stamped','U. Hinds','','Ready'],
+['Supporting document','Tax','Tax Clearance Certificate (Barbados Revenue Authority)','BRA Certificate No. 20004','I. Abdus-Sabur','2027-01-08','Ready'],
+['Supporting document','Tax','VAT Certificate of Registration (BRA)','BRA Cert. No. 11177, effective 1 Oct 2026','I. Abdus-Sabur','','Ready'],
+['Supporting document','NIS','National Insurance Certificate of Clearance','NIS clearance dated 19 Oct 2026','I. Abdus-Sabur','','Ready'],
+['Supporting document','CAIPO','Certificate of Incorporation and Certificate of Good Standing','CAIPO Co. No. 55000; Good Standing 23 Oct 2026','I. Hinds','','Ready'],
+['Supporting document','Licence','Wholesaler licence / warehouse approval','Barbados Drug Service DS.6209/2/A/5Vol1','U. Hinds','','Ready'],
+['Supporting document','Products','Product list by category and source','Product List','I. Hinds','','Ready'],
+['Supporting document','Add-on','Technology and regulatory support offer','Annex T and this console','I. Hinds','','Ready'],
+['Section 2','Per mfr','Section 2 Manufacturer form for each manufacturer','Completed as documents arrive','U. Hinds','','Requested'],
+['Section 2','Per mfr','Marketing authorisation in country of manufacture','See Market authorisation tab','U. Hinds','','Requested'],
+['Section 2','Per mfr','GMP certificate and manufacturing licence','See Market authorisation tab','U. Hinds','','Requested'],
+['Section 2','Per mfr','Letter authorising Agentic Rx to distribute','See Market authorisation tab','I. Hinds','','Requested']];
+const LSK='arx-oecs-pq-v1',LMK='arx-oecs-ma-v1';
+let pqSt={},maSt={};try{pqSt=JSON.parse(localStorage.getItem(LSK)||'{}');maSt=JSON.parse(localStorage.getItem(LMK)||'{}')}catch(e){}
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const PC={'Ready':'ok','Requested':'warn','To do':'bad','Not applicable':'info'};
+const pqStat=i=>pqSt[i]||PQ[i][6];
+function renderPQ(){const f=$('pqF').value,s=$('pqS').value;let rows='';
+ PQ.forEach((r,i)=>{const st=pqStat(i);if(f&&r[0]!==f)return;if(s&&st!==s)return;
+  const ex=r[5]?(mAway(r[5])<3?`<span class="pill bad">${r[5]}</span>`:r[5]):'–';
+  rows+=`<tr><td>${r[1]}</td><td>${r[2]}<div class="kl">${r[0]}</div></td><td>${r[3]}</td><td>${r[4]}</td><td>${ex}</td><td><select data-i="${i}" aria-label="Status">${Object.keys(PC).map(o=>`<option${o===st?' selected':''}>${o}</option>`).join('')}</select> <span class="pill ${PC[st]}">${st}</span></td></tr>`});
+ $('pqT').tBodies[0].innerHTML=rows;
+ const all=PQ.map((_,i)=>pqStat(i)),app=all.filter(x=>x!=='Not applicable').length,rd=all.filter(x=>x==='Ready').length;
+ $('pqReady').textContent=rd;$('pqReady2').textContent=`of ${app} applicable items (${Math.round(rd/app*100)}%)`;
+ $('pqReq').textContent=all.filter(x=>x==='Requested').length;$('pqTodo').textContent=all.filter(x=>x==='To do').length;
+ const ex=PQ.filter(r=>r[5]&&mAway(r[5])<3);$('pqExp').textContent=ex.length;$('pqExp2').textContent=ex.length?ex.map(r=>r[2].split(' (')[0]+' · '+r[5]).join('; '):'None';
+ $('pqBar').style.width=(rd/app*100)+'%';
+ $('pqT').querySelectorAll('select').forEach(el=>el.onchange=()=>{pqSt[el.dataset.i]=el.value;save(LSK,pqSt);renderPQ()});}
+$('pqF').onchange=renderPQ;$('pqS').onchange=renderPQ;
+$('pqReset').onclick=()=>{pqSt={};maSt={};save(LSK,pqSt);save(LMK,maSt);renderPQ();renderMA()};
+$('pqCsv').onclick=()=>{const q=v=>'"'+String(v).replace(/"/g,'""')+'"';const csv=[['Group','Ref','Requirement','Evidence','Owner','Expires','Status'].map(q).join(',')].concat(PQ.map((r,i)=>[r[0],r[1],r[2],r[3],r[4],r[5],pqStat(i)].map(q).join(','))).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='OECS-PPS prequalification tracker.csv';a.click()};
+// ---- market authorisation grid ----
+const MA=[
+['Bayer HealthCare (Bayer OTC) · US FDA','Bioquímica Panamericana',['Requested','Requested','Requested','Requested','Requested','To request','To request']],
+['Perrigo (GoodSense OTC) · US FDA','Pinnacle Rx',['Requested','Requested','Requested','Requested','Requested','To request','To request']],
+['Nipro Corporation (dialysis, lab) · PMDA Japan','Bioquímica Panamericana',['Requested','Requested','Requested','Requested','Requested','To request','To request']],
+['Megalabs (generics) · national regulator','Bioquímica Panamericana',['To request','To request','To request','To request','To request','In progress','To request']],
+['Gland Pharma (heparin) · CDSCO India','Gland Pharma; Lain Trading',['Requested','Requested','Requested','Requested','Requested','To request','To request']],
+['Ben and Mona’s (dialysis, HIV) · to confirm','Ben and Mona’s',['To request','To request','To request','To request','To request','In progress','To request']],
+['Lain Trading (heparin, diabetes, GLP-1) · to confirm','Lain Trading',['To request','To request','To request','To request','To request','To request','To request']],
+['ICP lines (Rx, specialty, peritoneal, wound care) · US FDA','Intercontinental Pharma',['Requested','Requested','To request','To request','Requested','To request','To request']],
+['Mason Vitamins · US FDA','Pinnacle Rx',['To request','To request','To request','To request','To request','In progress','To request']],
+['NOW Foods (supplements, dermatology) · US FDA','NOW Foods',['To request','To request','To request','To request','To request','To request','To request']]];
+const MC={'Held':'ok','Requested':'warn','To request':'bad','In progress':'info'},ORD=['To request','Requested','In progress','Held'];
+function renderMA(){$('maT').tBodies[0].innerHTML=MA.map((r,i)=>`<tr><td>${r[0]}</td><td>${r[1]}</td>${r[2].map((s,j)=>{const st=maSt[i+'-'+j]||s;return `<td><button class="pill ${MC[st]}" style="border:0;cursor:pointer" data-k="${i}-${j}" data-s="${st}">${st}</button></td>`}).join('')}</tr>`).join('');
+ $('maT').querySelectorAll('button').forEach(b=>b.onclick=()=>{maSt[b.dataset.k]=ORD[(ORD.indexOf(b.dataset.s)+1)%ORD.length];save(LMK,maSt);renderMA()});}
+renderPQ();renderMA();
+
 </script>
 </body>
 </html>
