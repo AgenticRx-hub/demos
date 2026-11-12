@@ -1,12 +1,37 @@
 {
- "updated": "2026-11-12T01:31:42.934Z",
- "digest": "30 AMR headlines in the last two weeks; most about regulation (3), r&d (2), surveillance (2).",
+ "updated": "2026-11-12T07:38:55.390Z",
+ "digest": "30 AMR headlines in the last two weeks; most about surveillance (4), regulation (1), one health (1).",
  "items": [
+  {
+   "title": "Commentary Urges Methodological Validation for Somali Intensive Care Pathogen Resistance Data",
+   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPTGVjT1JEbnFFV2x5MW5KNnM1OGFXNUVXSG9YVjh6Z0hqa0tqWWc5eDVzSWl1WWgycHRHUVRQVlR0Y0RaeldxT2xkZElZZkxzVXA4WUFmZ2NZbWJTaG1pSHVVcm1pYTZvV3RJTWtUaVMtdlRodlFMTTBZdFZfLTZCd0wtTkNjQWhFcXVCbWtfb0VJMDd1SnJoX1VQR24yM3E0Z3FlSEc4WDFOYkYtbXp6N2Z2eWJDY1BuX0E?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-12T04:58:02.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
+  {
+   "title": "Sharp rise in life-threatening antibiotic-resistant infections",
+   "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNS3dvSUNWZFNhM29YcGM1enZYZjE3ZGdINFlDajNTNkJaSVZjT3VnakFURnhiOTlPd1Itcmh3TkFsQ1paUVV2YThPUWFGYXd5UXkydW1BSXRtTDlra21PZW01OVYyWjVpcWNlc2FiRGlGVEtNWjNDeHZVSmRyMXZqUVJzaXIteTBuNE5TcGdXSVZEbkxINGQyTDdaYmJiNWlvYnc?oc=5",
+   "source": "Radio Royal",
+   "date": "2026-11-12T03:41:10.000Z",
+   "tags": []
+  },
+  {
+   "title": "Tribune reporter wins first prize in Nigeria AMR Media Awards",
+   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQUDJTQl9NcEUyeTlmNjl5cTBrbUFwOGlZV3JPUDBNOXR5eUowaVVoNkNKVWY5REtXb29pMmFXY1N3X0cyLTY1TjJoTGNSSmYzRnBnSnU0X0ZOLXdBTmJfTzhCQldYYmZCTGF5Q1RlUDJzTTNfWW5aakVLemtJZFRpSGgtWHBwRFg0TlZiWDQ0WnpNdnMx?oc=5",
+   "source": "Tribune Online",
+   "date": "2026-11-12T02:20:00.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
   {
    "title": "How Microbial Citadel Architecture Drives Antimicrobial Tolerance and Drug Resistance",
    "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOVDlydzhvaXNia01LcHRFRkhhN1Y1c04xTnZWdlJxcHpreDJxeWVOd0ZxUmNPYkxvMHQ3RmlDZXZBWGp3dmNXUWoycXFFckFZU0llZ2hOQ3I5WU5scklpbnVrZ2J3SEt5di1rV2MxbDYwMVhvUWswZ3ZJYzhMYXByTEhKcDYyb3ljNDA4RkdGenRMQkxEc2ZVSEF1ZWpSakt0Vi00c0Jid1BhaTFZSy04?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-12T00:34:19.000Z",
+   "date": "2026-11-12T00:37:54.000Z",
    "tags": []
   },
   {
@@ -17,6 +42,20 @@
    "tags": []
   },
   {
+   "title": "Hospital Sinks Harbor Antibiotic Resistance Genes and Pathogens in Spatial Gradients",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPWi1HM09oS0l6V3Bud1huTGZ2SHYwcU1lM04xMkR2WDRLaWl4N3VnX3NFc2l2MWdyZi1seWIzb2VPVF9XNFFFVzJfUVVrcnpmd01fUWN1Vm9HVzNRY2NXUXN6QmRtbnIyWUJHVXZ0cTJIM0VvdWx6ZU5ZeWxkdGhHZVBEazhpS3dqcGRXS3ZDcWpqY2dqWHdkQ1ZEcFp2TnpNdjVINm9mSEJvTUZ3b2c?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-11T23:37:54.000Z",
+   "tags": []
+  },
+  {
+   "title": "Food-Derived Kurthia gibsonii Genome Reveals Resistance Region Similar to Other Bacteria",
+   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQd2w2YVNPNGluYzNTT2tjQ2VWX1NkVFdhbzdSSjF4TGs3WFRucEJ6WFVYdEt0dVk3c0RXNFNTTjlLYmNPcFhxc01Fak5GcDE0M1kzYlFHUnNGbGlBOGYtZTVnb3RkWjg2Wk5oZHktREJYRi1BNEJFaWlFSkJraHdyTVRTbzg4NDY0V1JubC1zNmo5djVLY2xtQ0ZOMlpaQXVaODBhYWo4Z3VRMXNHTlc3cTBRZw?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-11T21:42:54.000Z",
+   "tags": []
+  },
+  {
    "title": "Cornell gets $7.5M to improve antibiotic tracking in animals",
    "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxONEVqSV9ya2luZnZWQjBsal85cUZBNHhiamc1Qm14T3d5MWJzTm5wcVNuTkZuc2ZJQ1VKbHJULTV1bTZaR040VXN0cWRFS1dVSXdHcVZhY1lvYjg0QWh0cURfVUp1WU5DS1U4N2tEQ0ZyeGJJcnpEU2UxMXpQLUhsVG93UWFoRldjXzhoVHpSTF9oYWhhX0gydGc3bmFkaFdsbWc?oc=5",
    "source": "Fingerlakes1.com",
@@ -24,13 +63,6 @@
    "tags": [
     "One Health"
    ]
-  },
-  {
-   "title": "Food-Derived Kurthia gibsonii Genome Reveals Resistance Region Similar to Other Bacteria",
-   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQd2w2YVNPNGluYzNTT2tjQ2VWX1NkVFdhbzdSSjF4TGs3WFRucEJ6WFVYdEt0dVk3c0RXNFNTTjlLYmNPcFhxc01Fak5GcDE0M1kzYlFHUnNGbGlBOGYtZTVnb3RkWjg2Wk5oZHktREJYRi1BNEJFaWlFSkJraHdyTVRTbzg4NDY0V1JubC1zNmo5djVLY2xtQ0ZOMlpaQXVaODBhYWo4Z3VRMXNHTlc3cTBRZw?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-11T19:47:08.000Z",
-   "tags": []
   },
   {
    "title": "Klebsiella Pneumoniae Evolves Polymyxin Resistance Within Patients Lacking Prior Drug Exposure",
@@ -188,45 +220,11 @@
    ]
   },
   {
-   "title": "Hospitalized Older Adults Face Worsening Antimicrobial Inadequacy Despite Negative Blood Cultures",
-   "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNc0JSYmdxR0c5SUQ5c2o2NktnMDgyUTdrZ1FMZ1l3UzFPSzIyc2JlN2QyVUc2ZHZyaGpQUmxNSWJXalNybjlvRHR2ZkxBcFl1YlR4MUlWU2V1bl9SWmE1WVZiWnZRZ0FPYVhLNFZ1RE9NOTRWeHpPMkxRSWtsd0t2eE9Yb19XYmVzQ3gwcU1qZ1NYZ0lmSGNFbDdtekNjUmZiTjZYYnRGMDBFQjF4bV9UWEhTMDRtYnJEZ1UwczFFcw?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-10T15:38:59.000Z",
-   "tags": []
-  },
-  {
    "title": "Study Finds Infectious Disease and Antimicrobial Resistance Deaths Declined in India",
    "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPRFpfcFdpVjVxWm9LMDRKQm9xOVBRNTRRbHliWDhDVWpGS0lpdWZmQVRjWFNsajVQTTVUa0FsaDJweDlxMTdiSzRheU9oSlVjU3ZWR2UyZnNBaUVqTUxPb0FCa3Y3S2ZjSDFWRi0zdTVRUUFWZGFXY2RSdFR6VWFMME9peWNBQ3U1cTk3YnktclNSYm95RTItQldoX08wZjI4el9kVjRzWXdlR1FDZmc?oc=5",
    "source": "Bioengineer.org",
    "date": "2026-11-10T14:48:54.000Z",
    "tags": []
-  },
-  {
-   "title": "bioMérieux VITEK PRO receives FDA clearance and IVDR CE marking",
-   "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPNkZ0VW9qUHdnMHFac09UdE52WDVCZERXSFYzbW9zaHZLa0ZnUHgwZlNHYjFfZ2RSSm5ucklaZ0FLNWVlUjFLN1FJSndPNDRMdnN3cFloLUkzRFFSejI5V0VLS3g3aUFsQVQ4YUk1TUtTelRwcWlCdFB5WTVEQm9kc2t2Tl9xamhnUlRVTEZTSElKd2FwT2I2VGlnZk9OcmxlOEd3?oc=5",
-   "source": "SelectScience",
-   "date": "2026-11-10T11:39:17.000Z",
-   "tags": [
-    "Regulation"
-   ]
-  },
-  {
-   "title": "FIBIOHRC Joins €8.85 Million European Project for Rapid Diagnostic Device Against Antimicrobial Resistance",
-   "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxOOWw0STJNQ2tjQVZsNTVIeDZOcnRnZk5vVTdHRGpyYlJYeEV5aklzUV9ULTB4SWZpNm1zV1c4VXd0ZnU5Z0RRZWhPT29MNHMyZlhhYTFtTTRCdFdPQ3ZfS1NtdXZ3WEh0Q2RvVHZnMjNkc2o4UWVJSjZyd0FoWXVjemtPam9ZU2lPbnBhYklkaG0tdklvSWxJUU9DcnhZbFRwSWRsWEdvNHU0b042T0VXX3pxd2Job1Q3a0c1NElmN2liNUxORFMtTHFsbWFNQ1ZoTy1tZFg5aS0zYmxvSVFWRmFxdHhOT212?oc=5",
-   "source": "La Voz de Madrid",
-   "date": "2026-11-10T09:24:55.000Z",
-   "tags": [
-    "R&D"
-   ]
-  },
-  {
-   "title": "BioMérieux: FDA clearance and CE marking for Vitek Pro, launch planned for 2027",
-   "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQa2NLRE9TNlVOVnZ5WWpsazJ4b01HTVRvM2xZTlYxR3N4ZDNaeFFGMHkxdjUtNGE4ODJEdHpGR2FZd3ZObHZSaE0ya1RSWnpsSG1jNnljVDNFZUV0UUM3T2NsdWdLVlJLUk00cWY0ZWNNVDA0dHhMR0RLNUQyOWw5dmd1NkQ3R2RXTHNjbE0zRXVaMHJHVkUzU2lKZlQtbzdaY1ZNWkZhYl9fMXhLQ2FySS0ySXM3ZGtaY2loLVpUSEZ6Yk9pRXlCNnlfSVJZUzlTLWc?oc=5",
-   "source": "Idéal Investisseur",
-   "date": "2026-11-10T08:09:00.000Z",
-   "tags": [
-    "Regulation"
-   ]
   }
  ]
 }
