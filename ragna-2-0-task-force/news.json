@@ -1,233 +1,26 @@
 {
- "updated": "2026-11-13T07:36:24.640Z",
- "digest": "30 AMR headlines in the last two weeks; most about surveillance (4), r&d (3), regulation (1).",
+ "updated": "2026-11-13T13:28:19.893Z",
+ "digest": "3 AMR headlines in the last two weeks.",
  "items": [
   {
-   "title": "Intensive Care Stewardship Framework Balances Antimicrobial Efficacy and Resistance Prevention",
-   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPdG9VSkwzbUd0Rmd4YXZKQ0xzUEUxVFRaM24wYnBjMWVkY1kwclBZMGVuR3Znd01pY1pyaUFNN3o5YmVGQXhlQk9DYzd5UVM4VGZtVnR3Q3JkNy05ajhQY0hZWU1sME5OMEd0T21YZGQ1NlNjQW1CTjRvRFVkaFdBTXZRT1NUcFZGSVVTVXJSenROV0ZEZkJXUUlBSGp2dnhtZWg2TG9jQkdXdjEwRzZJQVAtRnFhQWRBX21J?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-13T06:56:06.000Z",
+   "title": "Independent evaluation of global COVID-19 response announced",
+   "link": "https://www.who.int/news/item/09-07-2020-independent-evaluation-of-global-covid-19-response-announced",
+   "source": "WHO news",
+   "date": "2020-07-09T13:40:54.000Z",
    "tags": []
   },
   {
-   "title": "Study Finds Antibiotic-Resistant Escherichia Coli on Retail Eggshells in the UAE",
-   "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQM3M5c2ZHYzQ2UDNuNHN6cTAwdEJ6aGtlYWI5Slh0SzZnQ09EZHkyTWtzczlhc0tMbGZmU1J4eGJKelhKZUFmcThiTERWczRmamdkLWl4UWx5eS1mTFNvMDUxdlptMnZTMTRDQlhlZ3ZHeXR2NzQ4cGNsb21aR1JseXg1bGp1c1VUVnNlQVVfaGw4LUpjekU3cG1xZXdmcmlRWF9SSUVUT0U?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-13T06:15:03.000Z",
+   "title": "WHO calls on malaria-endemic countries to strengthen monitoring of antimalarial drug efficacy",
+   "link": "https://www.who.int/news/item/11-12-2010-who-calls-on-malaria-endemic-countries-to-strengthen-monitoring-of-antimalarial-drug-efficacy",
+   "source": "WHO news",
+   "date": "2020-01-10T12:27:45.000Z",
    "tags": []
   },
   {
-   "title": "Machine Learning and Deep Learning Advance Antimicrobial Resistance Prediction",
-   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOeEk2a0pYbU82Rm10c3pjTTIyWndZZG44aUJUM0hXaFJycFBpUURuRkRwNGNsZmhFTXJVSndJcmxlLUtKMEhtY0lCZEQxZXgxb0FhdDZYVUx5MnVtTjk3SXBTa2htbm1xYTFlZUhWaWJ0SE1rU21VTjBtQVpIQUtpQ3duWEJhZ0MtRnVWM2dIcGc0NjBkYk9tVEhGMUMzMmZ3Y3FGaWJ3?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-13T04:47:57.000Z",
-   "tags": []
-  },
-  {
-   "title": "INQUIRER.net’s Mayon bacteria report wins 3rd place in global awards",
-   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPSk91VzMtR3JERjNZUHotLU1CQWpBa0d6bmJCTmh4ZGw1cDhDUm5mbXZ2ODhWVTNJa2lORUVyc0lZZFVJel81cFF1Y2VlaERGQ28wMEpvRV9EWksxWHJNQTJoaFRaR21NcndYXzRTZHBJc0VSVXd6M2Vqcm9EcS10NTEwX3NJeUVoVnNfQ01XT1NHdFpHc3hlVWJDM3o5MnE3U1E2V1NodHJTWDhh0gGyAUFVX3lxTE5yeVl2VUxucXhNX0FpWlhpc05YQkxqUjgtQzRMN1pCMXhReWs1Nm5GZmlsMTkyR2tJc0FsQ1NaeER4U3BKRHZNajAxV29BMGxRWmVydjNRQTUxdjVSRGN1a05uUFdSb3NpQTBwVU40a0hqdmZRb2Ytenp3bnY4cC15Q04teUlVVXQxUmw4cTZ2WmVFaXRIaExhWGJZUkJJVHNKR0NHMndocHRwMHRtcmgya2c?oc=5",
-   "source": "Inquirer.net",
-   "date": "2026-11-13T04:40:00.000Z",
-   "tags": [
-    "Surveillance"
-   ]
-  },
-  {
-   "title": "Pseudomonas aeruginosa Isolates in Ilam Show Complete Resistance to Aztreonam",
-   "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQa01JRXduckg0RXBBeW12Tjh4ZFpReWZCTWtSOWczS0dRckVVZEpUcW5pUUdfZkpya05SbGVWNTU2MWZmOGR4MTFPZVpJQW9NVFNSY3dXYVh4M2psNEpvRkZqYnA5bVU0YnMzN2stOW1ib0Z4ajBMR05ZenVlMUYwZmtvWFJlYjZMV21weUNxcUhrNVJlQ0g5VXJLdzcwZ1ExSVdBTQ?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-13T03:55:28.000Z",
-   "tags": []
-  },
-  {
-   "title": "South Korean Soybean Root Bacteria Show Extensive Nationwide Antibiotic Resistance",
-   "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOT29EWnpTb2YyYldIVDhGbV9rall0RVdhZUFObTVqUnI1TTIta3ZEdi0zMnR4TVVkbGNoTzRGRVhjbzh3eVdWaHcwdEpaTVl3djlCeVZhZk1DN29jZU8xTUwxUVowQVgxNkpBekk2bG5XYndoRlRpQmFManpEUmpaR2k3Y2tiRG5qTzRjelQ4XzFnRXp5WU1YTi1tOHR6UDR0am1RNjhpTHRQS2M?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-13T02:47:36.000Z",
-   "tags": []
-  },
-  {
-   "title": "Health Managers Refine Community Antimicrobial Stewardship Strategy to Address System Challenges",
-   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPcXVQV3QyN21Qay1PeUM4WWhEalhUYVZuemhEcy01U25tQVdrSW9lRFhueGtyTGR6ZWtSN0EwOHFZY1QtNG1MSGRzRFpGRVNUalI4bVhyczZPQkJ3R3pybldQRlJsY25nQU9iNjJ2enFXN0NQRkkyU3NSZUN0dVRyMzhWSFEtMlJibUhielQxRnpNZWEtTXAwM1prRERIOTJzRW9Id1MyT1J1QlVta2hNMGQ0QUZmdDNub3JQcmNn?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-13T02:08:10.000Z",
-   "tags": []
-  },
-  {
-   "title": "Clinical Klebsiella Isolates in Togo Carry Silent Antimicrobial Resistance Genes",
-   "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNWHZxVzZuUXRZV09aXzRERGxvbXJ4TjBGR0wzNEtZNG5DeFhQR0lVb2VEcGFiMnBGc3RSTUJhZjZuS0ZoMzh0NkNkczg3Zm4yck85ZXRfU18xQ1lrb0JXX3ppYmg3c3ZJLTZDZGQ2Q2xUVDFxVUhzWGlYUHk2LW1rb2MySDRJeDJWUEF3YU9zV2ExSTZ1OEw4VUxVV09sQ3dRVHpsNVRWZjQ?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-13T01:27:16.000Z",
-   "tags": []
-  },
-  {
-   "title": "Global Scoping Review Identifies Substantial Antibiotic Resistance in Urinary Tract Infections",
-   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNSDR1ZzdvcHdkbkpDWFZQeGs5R2VKZ0NWX2JUYkFYT2hQck5wRS12VjBaY3hhRDBVbXBEUFZocGRnRGdVYlAtRmFRSDRTeXdPOUo1M1hKOEpwc1ROa2JjS0gzLWVRT1JUQUZ6bEVjekNLTzJNb28zdVAyeE5hdXlIcVBWTmUzd3VMQlBObUVlanF4UnBtNVMzN1N4OUtBdzdWenFmUHljSUtUSzZVZ21qRXJnNXVhbTRpVnJn?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T23:26:56.000Z",
-   "tags": []
-  },
-  {
-   "title": "Indian Clinical Isolates Show High Carbapenemase Prevalence Dominated by blaNDM Genes",
-   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQLXB5SlNtdVU2LXhjZjA2dzV6ZjRDeDJIWTMzM2ljSjJOSUV1dVVpbjlZemZHQTM0cl9FYjFUWWttTEJZWmxGT2IzczVTOXdvSGtjbnlGRjltS2UwWUpjZGFXSl93cHotamdZQVlqa25xRjRfbE1jUXY1bS1sOW1vUk5Rc1NEY3RoOXAwMkFtZm5rb19zWnFKS1kyRHJQa0NiUERoMV9nb2hkc2x2UnpZ?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T20:51:52.000Z",
-   "tags": [
-    "Regulation"
-   ]
-  },
-  {
-   "title": "Molecular Testing Advances Sexually Transmitted Infection and Endometrial Cancer Care",
-   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNNUxGOTZYaTRFV0RpcXQyVkVPNXhwa0FTVGVoZmItbVhvSmExbFdYcHZoem5UMlp4Mzd3eHU3OGktOWt4eU5UTTZ4Tmw1SnNuVEJqNnd1TjUtckhPVGs2Y1N3RnBoZEZ2SjBLUnh6SU53T0RKV2lQOTc2ZG5JeExqOVZCRV9EdE9LR2I2RHBXMGcyUHJCRDNlZVR4by05TDhHMFNKVU9SMGpSS2RZTGdN?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T18:35:59.000Z",
-   "tags": [
-    "R&D"
-   ]
-  },
-  {
-   "title": "Health Ministry: 1,635 hospitals conduct AMR control program",
-   "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNZjlTUHhJb01aRW9rckhJckNXQjlnZUVmS2ZBZm5PUkR3R2l1MkgyLUNmYzFOSUE0OEt6dlMwb1BEdklWZmpLNy02bUM0c1Rrc05WZW0zRDYwLWp0ZGQ4b3M5N0tmLWN6Q2U4LTFtY1lLQW85Ykp6T3pZNW13MTFFVUZzWEZhd3kwWjZUR21kbl9Ga2pkWXJ0ZXAzeHHSAaIBQVVfeXFMUFJrc2hyTUZXNmNtRzRCTTN5aUFMZWwwbGhfcHBvVWFZU1E3X3p5MW0tdUlMUHdzQnp1ZHdOTmZEVC1CemJmM0hJNVd0aC04M2RoaXJjRVg1VHJHWV9yQnVFSlBMdGZEbE00SjZvX0lnc2pnVnhoUkpEYkRhdDVMdjI4ZzhVMmN0SXdfQTg4YXdHU2Z3X3dkRU1UNFhXZHVPMnNR?oc=5",
-   "source": "ANTARA News",
-   "date": "2026-11-12T16:09:14.000Z",
-   "tags": []
-  },
-  {
-   "title": "Urogenital Neisseria meningitidis in China Shares Global Lineages and Drug Resistance",
-   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQcTc0TTdJbUY2QWVOcDhwcDVvN1JEemt6VzlWUFpNd2RCbnpKdXp2SnFiX3JZblRDOEVvZDZBcG9mNEhla3dCeTMwTGg3dkg3MkhKX0dwUlB6MlBjRWdkOFM3U2tteEoxNVlFNkVvYmthNllNdzJhcVU5aGlBMU45SnhYZHpvLTg3aGtsRzZyZFBIbzRwT0l0T1MyaDk4bzU3N2NYT1Z1SUkzRzZOUzNn?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T15:03:47.000Z",
-   "tags": []
-  },
-  {
-   "title": "The history and future of antibiotics in our food",
-   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPeVJJeWFxY181ckw0VmhZMnVmeFIwaHF3ZGYtVjdXUEdTLW9HNzlacW5XWFpIaXFUOWM1ZGx2X1J5dk9jcVlqdDhYREZRUlZPNG9KLVZGbzd0WnZqbDNnMG9wNG9aYmtEU2lJWlJ4Q19HejB0bXlfMGZ3VXViVDdVOFQwbW5kQmZMQmoyNFlBeG5Zckhj?oc=5",
-   "source": "Food Safety News",
-   "date": "2026-11-12T13:12:38.000Z",
-   "tags": []
-  },
-  {
-   "title": "Multidrug-Resistant Salmonella in Nigerian Poultry Carries Linked ESBL and Non-ESBL Genes",
-   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQSUsySW4yeEE3dnE3TWV2STBsRmhmSUdiMVEyMjR6Qmx5WjFUTHd1YTd3Q3VpNHhRank1YzZid3VzcFhPcHhQWEtpWGpyZ2RfcktFOVl3dEhfZXk2Ym5FaFBJVjlqV0ZLZ0ZIOFFMRzVvVTRmM0lzc21RZXJiZWtfOUd3aG5yeDJnZWhlYkJqTWhOdDBTcnRrUTVINTc2NTRsblBSRVktNURyQ0tYYy1ndEJYc1k?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T12:33:17.000Z",
-   "tags": []
-  },
-  {
-   "title": "Professor awarded medal for research into antimicrobial resistance",
-   "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNbE5OV0JKMnBKRXJ5OGt1aWFPdnV1aVZCRmdhVWFKdGNveFVQNGYyR2lrWHdzeGhUdV8wTXJKYklTQ0FUYVVhMTV4V0xBT1FMWldGanI3Vkp5ZF9VTG5XVWNrcEFsTFhXRnN2RWFvU3E3c0duWnRKdmhIMW8tbXNJR1lELXc2MEE4blVEMUc4YmxBWlFiTHJTbHJiWGRKTld4bllIdTl4Skc2d0dVV182NHlhaWRJcW4xRzBnUy1RVmI3WGtkeVFuemVLYU9iS09mbnc?oc=5",
-   "source": "The Pharmacist",
-   "date": "2026-11-12T11:52:59.000Z",
-   "tags": []
-  },
-  {
-   "title": "Phage therapy shows promise against antimicrobial resistance, says expert",
-   "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxOX2h6ZG92LWhBS29RMzVEdlBWcV9RcndCVHBqVERjQXdaRE1NX0g2N2E4OE5tSGVFNmloXzdfWnhSdGNOSzk2WWZXUGVFNUdvUWFteXBVVVlXYzZrcHVRaC00dGt3UmVPRFJJdGU1Sk5XZHJEZWpweWgyeEVxRXJmOWdhMmRUa3FsX1hKcjFGZ0VVNnJyaVhsN2VPVld0OHJvcDJldDF5V0tLQkZQUWNmd1RTSEk1Ujc3NnhpODZreUx5UWxLRkNtd2ZhMFNYRHBlNUQ1SGd3SjJabXBnclFrRWg0R1lod2JXT0ZpOU9fWUJpczU4U1ZWV2l4eDJqUdIBhAJBVV95cUxPaldIXzdNSGE4NEEyWUZGVTkycnlPdTFuTkpUVjJ5aWE2dzlDQVlQMHpIaGFvZUtlc29ScnpaZktYUE1OYzNJUHEwTUNnTUFZbWJ6aXpTMFlGeXhJWnF4c3YzZjc2bExKU2tNSVJ0T3hFaEt5YWdXM3dWYXV4RnBkZTdNcU55amQxQ3ZTdXN4MVowSUdfdGV6UUMxNU5zRGRJVHJEMlJhYzNfWHR2SENkQzhSbXU5dFM0SkhSMEVGLXJ6YWl0bjVVSmRybEZqOWdkUmtGNjV6UE9aNjVNcFpteU9nTWd4TGh6T1ZsdFJqNjdhVjhqV2JGdzlPN3dPaXdsaXJzYg?oc=5",
-   "source": "The Hindu",
-   "date": "2026-11-12T11:35:59.000Z",
-   "tags": [
-    "R&D"
-   ]
-  },
-  {
-   "title": "Discovery and development of antimicrobial polymers",
-   "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBzZTFrdFhfUDNsZ2RRLU1pZ2ZVbnp0MkI0ZUJuQXVQUU9oOFlXYTZFS1NET0llYjE3cVNZbTd1R0dPRS1JMUNLZlJKUDlTZlJQalQ1VVF5aTNBTHhBN29J?oc=5",
-   "source": "Nature",
-   "date": "2026-11-12T10:28:37.000Z",
-   "tags": [
-    "R&D"
-   ]
-  },
-  {
-   "title": "Klebsiella pneumoniae Evolved In-Host Resistance During Antibiotic Treatment in Single Patient",
-   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOUjN6V3g4SFBVLXdRbUFuY2hOVlVveHgzRDJSVEFDRTBFaTlRdkJGN1RfNy1ZLWozQlJxVERqM2g5cXFSRVh6TkttQlk0ZHc2MHZjVXNJc200aEtlaHk3RFNOdzR2bDl5UXVqeEpxcmJNYnJ2QzBzZ3RFenBmbUFoOXVCaWU5R2Zuc1VkWWEyQm1GTVUteW4tVXBSeGQxWHItQzdwNnNRRUhqU3FvZEdzTVMtRV9hTDNxN0JN?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T08:43:12.000Z",
-   "tags": []
-  },
-  {
-   "title": "Enzyme Pocket Expansion Drives Heightened Ceftazidime Resistance in CTX-M-55 Beta-Lactamase",
-   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxON2k4c3BVX09VNU9VaEFvUUNGSlNibUozNExoVzA0UGVEX2NRM1d1UTl3aW9MbW5QOFBfbzhJZm5MaU9OLVJKU09YSkFhVUtpYVNGSEhMclFNLThkSjQ2QlRsMU80cDJpa0pLY3RKcEh0dGN2N1RVTGtuOWxJdlV0Tm1uSDhsTkFfZDU2TTkxUG00YmxINHVVR2hKSnpGTFc2MFdHZ3pmUFViWVlxNjA2OVF4bVFqYlE?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T08:38:12.000Z",
-   "tags": []
-  },
-  {
-   "title": "Molecular Biophysics Uncovers New Vulnerabilities and Resistance Mechanisms Across Pathogenic Microbes",
-   "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOUDZLYWxFazBOMWhLRF9PR0lIOGYzRWhtLUtiUHdlS0tnV0pCNU81b1BMYU9tcFZ4azNOVzFtWXNuaktLbU1LMXJlQWpmUW9hQnl5bkVSbWI0YXppNk1ZNEJQM1A1TkJhUzN2XzRsbExBem1jdjZVZEVFYkwyUU96Ry1RM0pzTEpMbnN0S3JzVkhNbE5ESEhkOXdiUGJtZ1dEazJtWVlvb2tPTnJKaVJnYXc0LVBNRXVhRXBzRkFHNzdyNzR1YXc?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T08:03:11.000Z",
-   "tags": []
-  },
-  {
-   "title": "Commentary Urges Methodological Validation for Somali Intensive Care Pathogen Resistance Data",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPTGVjT1JEbnFFV2x5MW5KNnM1OGFXNUVXSG9YVjh6Z0hqa0tqWWc5eDVzSWl1WWgycHRHUVRQVlR0Y0RaeldxT2xkZElZZkxzVXA4WUFmZ2NZbWJTaG1pSHVVcm1pYTZvV3RJTWtUaVMtdlRodlFMTTBZdFZfLTZCd0wtTkNjQWhFcXVCbWtfb0VJMDd1SnJoX1VQR24yM3E0Z3FlSEc4WDFOYkYtbXp6N2Z2eWJDY1BuX0E?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T04:58:02.000Z",
-   "tags": [
-    "Surveillance"
-   ]
-  },
-  {
-   "title": "Study Finds Over Half of Tested Antananarivo Women Had Genital Infections",
-   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPZUdjdmw5UThxWmxrMTJwSXZBRmV1MTRneDJ0ZHQwQ0FDTlVTNERLSmFGQVhxbUNxR0FrYTBNbzJBS09QUUV2aVdwTXlDcWU3T2tQc1FJQVBBZUFac1VVdUsxYzJMdFN2NVZlQU11NUlnMGtmVXNJOHg5V1U3TVlfaXYyUWM3Zm0wRzVCT1ZBaU9ueW9OS0trNUljc09KdEE?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-12T04:18:02.000Z",
-   "tags": []
-  },
-  {
-   "title": "Sharp rise in life-threatening antibiotic-resistant infections",
-   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOenRlUHZEUUhkVElqUXR2Tk1JVFY3ME5SSk95dWZBRjJrdVZwYmJNX2VVWUFMRnRJZERGYVppaGRPOXJCOFNlOEZxV0RobXFjcjFxdVpHNXVUYW1BVzZoRW91RHJnOWh2WGczZjg1S2h6dzFwSHRFOUZ5c2FnR2hVOEZ1QTcwUjBJNjZZeVhoUHNFdEI0U3RlU3FEZVl2aDA?oc=5",
-   "source": "Sky News",
-   "date": "2026-11-12T03:42:24.000Z",
-   "tags": []
-  },
-  {
-   "title": "Tribune reporter wins first prize in Nigeria AMR Media Awards",
-   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQUDJTQl9NcEUyeTlmNjl5cTBrbUFwOGlZV3JPUDBNOXR5eUowaVVoNkNKVWY5REtXb29pMmFXY1N3X0cyLTY1TjJoTGNSSmYzRnBnSnU0X0ZOLXdBTmJfTzhCQldYYmZCTGF5Q1RlUDJzTTNfWW5aakVLemtJZFRpSGgtWHBwRFg0TlZiWDQ0WnpNdnMx?oc=5",
-   "source": "Tribune Online",
-   "date": "2026-11-12T02:20:00.000Z",
-   "tags": [
-    "Surveillance"
-   ]
-  },
-  {
-   "title": "Hospital Sinks Harbor Antibiotic Resistance Genes and Pathogens in Spatial Gradients",
-   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPWi1HM09oS0l6V3Bud1huTGZ2SHYwcU1lM04xMkR2WDRLaWl4N3VnX3NFc2l2MWdyZi1seWIzb2VPVF9XNFFFVzJfUVVrcnpmd01fUWN1Vm9HVzNRY2NXUXN6QmRtbnIyWUJHVXZ0cTJIM0VvdWx6ZU5ZeWxkdGhHZVBEazhpS3dqcGRXS3ZDcWpqY2dqWHdkQ1ZEcFp2TnpNdjVINm9mSEJvTUZ3b2c?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-11T23:37:54.000Z",
-   "tags": []
-  },
-  {
-   "title": "Cornell gets $7.5M to improve antibiotic tracking in animals",
-   "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxONEVqSV9ya2luZnZWQjBsal85cUZBNHhiamc1Qm14T3d5MWJzTm5wcVNuTkZuc2ZJQ1VKbHJULTV1bTZaR040VXN0cWRFS1dVSXdHcVZhY1lvYjg0QWh0cURfVUp1WU5DS1U4N2tEQ0ZyeGJJcnpEU2UxMXpQLUhsVG93UWFoRldjXzhoVHpSTF9oYWhhX0gydGc3bmFkaFdsbWc?oc=5",
-   "source": "Fingerlakes1.com",
-   "date": "2026-11-11T21:00:49.000Z",
-   "tags": [
-    "One Health"
-   ]
-  },
-  {
-   "title": "CDC Updates Report on Antimicrobial Resistance",
-   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQLXNYaDU5eUZRY3JWdGVpUWJ5MjRrdnc1cnU1LW5sREh2LXk0c3hrZHFuYm5scnNpaGhFQWRhSS1LVnY1TkMteVdoX3hqSjVmWG1nYXNxem5kSWNVOEctSWdLWnNhYURJU1ctLW1PX21CVE5RV3ZoWmVCaWxXZ1R5SHI4OFptcXYz?oc=5",
-   "source": "Contagion Live",
-   "date": "2026-11-11T16:55:28.000Z",
-   "tags": [
-    "Surveillance"
-   ]
-  },
-  {
-   "title": "Indonesia targets 80% hospital coverage for antimicrobial resistance prevention programs",
-   "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPekpVRWoySmdOZ0E4S0tTdnRiMVVtLUdtcFZlU2kxVG9LeFp0bFB0dFdKaDY2ckF6WVlwWDVORlNNYXljemZlSTdINFhxdlhFX1h6ZHFDT0k2eVVBWGptN2xFUHJUQ1F5RlY3Vmx4NWxIU0tlNWkzZWFoazJJS3BKTGFEbHhDS0p3bUgzQ3RRcDNPakxCbWNRd0g2QlFPRFk4aFgtOE5GaW95NEEwbzFkRlRmQ2VGSGt4dDJ5bjBkaVBRN05TbUpfVDRuQkRsTUpwX2c?oc=5",
-   "source": "The Peninsula Qatar",
-   "date": "2026-11-11T16:36:10.000Z",
-   "tags": []
-  },
-  {
-   "title": "Fighting superbugs with better antibiotic monitoring",
-   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOYXM2VnR6TWZCUDdiUER5VEFWR09ycVZlUW04NDZZdVJ5OXBEVzFPYzQwb2ZfVXNfa1ZuRXFZZlpMR3dmVTFWUGxEX243ckFqSi1iRUdENmpQcktsYXJTZ0RubmtyYjIta0JuVm9CRFdCSXlVMWxLUU5ueW1udldPM0k3ZUpqQmJiaDZYMEQtdU9kQQ?oc=5",
-   "source": "Cornell Chronicle",
-   "date": "2026-11-11T15:35:38.000Z",
+   "title": "WHO recommends 29 ways to stop surgical infections and avoid superbugs",
+   "link": "https://www.who.int/news/item/03-11-2016-who-recommends-29-ways-to-stop-surgical-infections-and-avoid-superbugs",
+   "source": "WHO news",
+   "date": "2018-06-02T02:19:44.000Z",
    "tags": []
   }
  ]
