@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TechEquity websites concept · Agentic Rx proposal demonstration</title>
+<meta name="description" content="Working demonstration for the TechEquity Website Design and Development RFP, prepared by Agentic Rx LLC. Concept only, sample content.">
+<style>
+:root{--ink:#14213d;--muted:#5b6475;--line:#dde3ec;--bg:#f5f7fb;--card:#fff;--a:#1f5fa8;--b:#2a9d8f;--c:#e9a23b;--d:#c8553d;--e:#6c5ce7;--w:#3d5a80;--x:#7b2d8e;--y:#d97706}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#0f2747;color:#fff;padding:14px 22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+header h1{font-size:19px;margin:0}header .s{font-size:12px;opacity:.82;margin-top:2px}header .who{font-size:12px;text-align:right;opacity:.9}
+.banner{background:#fff4d6;border-bottom:1px solid #f0d58a;padding:7px 22px;font-size:12px}
+nav#nav{display:flex;gap:4px;flex-wrap:wrap;padding:10px 22px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav#nav button{border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:999px;font-size:13px;cursor:pointer;color:var(--ink)}
+nav#nav button.on{background:var(--a);color:#fff;border-color:var(--a)}
+nav#nav button.gw{border-color:#2a9d8f;color:#1b6e62}nav#nav button.gw.on{background:#2a9d8f;color:#fff}
+main{padding:18px 22px;max-width:1300px;margin:auto}
+.tab{display:none}.tab.on{display:block}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .v{font-size:28px;font-weight:700}.kpi .l{font-size:12px;color:var(--muted)}.kpi .t{font-size:12px;margin-top:4px}.up{color:#1b8a5a}
+h2{font-size:16px;margin:0 0 10px}h3{font-size:13px;margin:0 0 8px;color:var(--muted);font-weight:600}
+.lead{font-size:14px;color:#333;max-width:1000px;margin:0 0 14px;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:#f0f3f8}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.ok{background:#e3f5ec;color:#1b6e48}.warn{background:#fff1d6;color:#8a5a00}.bad{background:#fde6e1;color:#9b2c16}.info{background:#e6efff;color:#1f4c94}.gwp{background:#dff4f1;color:#1b6e62}
+.pw{background:#e3eaf4;color:#2c4766}.pe{background:#f1e3f5;color:#6a2479}.pc{background:#fdecd6;color:#8a4a00}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center}select,input,textarea{padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:inherit}
+.btn{background:var(--a);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer}.btn.alt{background:#fff;color:var(--a);border:1px solid var(--a)}
+.method{border-left:4px solid var(--a);padding:8px 12px;margin:8px 0;background:#f8fafd;font-size:13px}
+.hb{display:flex;align-items:center;gap:8px;font-size:12.5px;margin:5px 0}.hb span:first-child{width:200px;flex:none}.hb .bar{flex:1;height:10px;background:#eef2f8;border-radius:5px;overflow:hidden}.hb .bar i{display:block;height:100%;background:var(--a)}.hb b{width:70px;text-align:right}
+.gantt{font-size:12px}.gantt .row{display:flex;align-items:center;margin:4px 0}.gantt .lbl{width:230px;flex:none}.gantt .trk{flex:1;position:relative;height:18px;background:#f0f3f8;border-radius:4px}.gantt .seg{position:absolute;top:0;height:18px;border-radius:4px;color:#fff;font-size:10px;padding-left:4px;line-height:18px;white-space:nowrap;overflow:hidden}
+.small{font-size:12px;color:var(--muted)}ul.t{margin:4px 0 4px 18px;padding:0;font-size:13px;line-height:1.5}
+footer{font-size:11px;color:var(--muted);text-align:center;padding:20px}
+/* site concept frame */
+.browser{border:1px solid #c9d1de;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 6px 24px rgba(15,39,71,.08)}
+.bbar{background:#eef1f6;padding:7px 12px;font-size:12px;color:#5b6475;display:flex;gap:8px;align-items:center}.bbar i{width:10px;height:10px;border-radius:50%;background:#c9d1de;display:inline-block}
+.bbar .url{background:#fff;border-radius:6px;padding:3px 10px;flex:1}
+.site{font-family:Georgia,"Times New Roman",serif;color:#1d1d1f}
+.snav{display:flex;justify-content:space-between;align-items:center;padding:12px 22px;border-bottom:1px solid #eee;font-family:Inter,Arial,sans-serif;font-size:13px;flex-wrap:wrap;gap:8px}
+.snav .brand{font-weight:800;font-size:16px;letter-spacing:.3px}.snav .links span{margin-left:14px;cursor:pointer}.snav .don{background:#1d1d1f;color:#fff;border-radius:999px;padding:6px 14px}
+.switch{background:#1d1d1f;color:#fff;font-family:Inter,Arial,sans-serif;font-size:11.5px;padding:5px 22px;display:flex;justify-content:space-between}
+.hero{padding:34px 22px 26px;background:linear-gradient(120deg,#f7f1e8,#eef3f8)}
+.hero h2{font-size:30px;line-height:1.15;margin:0 0 10px;max-width:760px;color:#1d1d1f}.hero p{font-family:Inter,Arial,sans-serif;font-size:14px;max-width:640px;color:#333}
+.areas{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid #eee}.areas div{padding:18px 22px;border-right:1px solid #eee;font-family:Inter,Arial,sans-serif;font-size:13px}.areas div:last-child{border-right:0}.areas b{font-family:Georgia,serif;font-size:18px;display:block;margin-bottom:6px}
+.collage{height:90px;border-radius:8px;margin-bottom:10px;position:relative;overflow:hidden}
+.collage:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 6px,transparent 6px 14px)}
+.res{display:grid;grid-template-columns:220px 1fr;gap:14px}.res .f label{display:block;font-size:12.5px;margin:4px 0;font-family:Inter,Arial,sans-serif}
+.ri{border:1px solid #eee;border-radius:10px;padding:11px 13px;margin-bottom:8px;font-family:Inter,Arial,sans-serif}.ri b{font-family:Georgia,serif;font-size:15px}
+.sec{padding:18px 22px;font-family:Inter,Arial,sans-serif;font-size:13.5px}
+.thread{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:8px 0}.thread span{font-size:12px}
+@media(max-width:760px){.areas{grid-template-columns:1fr}.res{grid-template-columns:1fr}}
+</style></head><body>
+<header><div><h1>TechEquity websites · Working demonstration</h1><div class="s">TechEquity Collaborative (c3) redesign and TechEquity Action (c4) migration · Website Design &amp; Development RFP · November 2026</div></div>
+<div class="who">Prepared by <b>Agentic Rx LLC</b> (ZikAir Technology)<br>info@agentic-rx.com · +1 (415) 654-2333</div></header>
+<div class="banner"><b>Concept demonstration only.</b> Not affiliated with or endorsed by TechEquity. Layouts are a design direction; resource titles, campaigns, counts and copy are sample placeholders. Final design will follow TechEquity's 2024 brand guidelines and 2027–2030 strategic plan.</div>
+<nav id="nav"></nav>
+<main>
+
+<section class="tab" id="overview">
+<p class="lead">Every service in the RFP is built out below as a working view: the redesigned TechEquity Collaborative (c3) site, the resource hub, the campaign tools, the separate TechEquity Action (c4) site, the staff editor, and the delivery, compliance and budget side. The <b>Goodwill add-ons</b> tab shows five extras we include at no additional cost.</p>
+<div class="grid g4" id="ovk"></div>
+<div class="card" style="margin-top:14px"><h2>RFP requirement → where to see it working</h2><table id="reqmap"></table></div>
+</section>
+
+<section class="tab" id="home">
+<p class="lead">A homepage concept organized around the three focus areas, with the connections between them visible. It is mobile-first, and the visual language would extend the 2024 brand (collage photography and hand-drawn elements), shown here as placeholders.</p>
+<div class="browser"><div class="bbar"><i></i><i></i><i></i><span class="url">techequity.us</span></div>
+<div class="site"><div class="switch"><span>TechEquity Collaborative · research, translation and tools for the field</span><span style="cursor:pointer" onclick="show('c4')">Visit TechEquity Action (c4) →</span></div>
+<div class="snav"><span class="brand">TECHEQUITY</span><span class="links"><span>Our work</span><span onclick="show('hub')">Research &amp; tools</span><span onclick="show('action')">Take action</span><span>Coalitions</span><span>About</span><span class="don" onclick="show('engage')">Donate</span></span></div>
+<div class="hero"><h2>People should have agency over how technology shapes their economic lives.</h2><p>We confront concentrated corporate power and build political will for an economy that works for everyday people, through advocacy, coalition building and research. <i>(Placeholder copy drawn from the RFP; final messaging comes from the 2027–2030 plan.)</i></p>
+<div style="font-family:Inter,Arial;margin-top:12px"><button class="btn" style="background:#1d1d1f" onclick="show('hub')">Explore research &amp; tools</button> <button class="btn alt" style="color:#1d1d1f;border-color:#1d1d1f" onclick="show('action')">Act on a live campaign</button></div></div>
+<div class="areas">
+<div><div class="collage" style="background:#3d5a80"></div><b>Work &amp; livelihoods</b>Worker data, automated decisions and the people who build and train AI.<div class="thread"><span class="pill pe">↔ Economic agency</span><span class="pill pc">↔ Corporate power</span></div></div>
+<div><div class="collage" style="background:#7b2d8e"></div><b>Economic agency</b>Surveillance pricing, data privacy and algorithmic systems that set what people pay.<div class="thread"><span class="pill pw">↔ Work</span><span class="pill pc">↔ Corporate power</span></div></div>
+<div><div class="collage" style="background:#d97706"></div><b>Corporate power</b>State antitrust, enforcement resources, public technology and fair taxation.<div class="thread"><span class="pill pw">↔ Work</span><span class="pill pe">↔ Economic agency</span></div></div></div>
+<div class="sec" style="background:#fafafa"><b style="font-family:Georgia;font-size:17px">Follow an issue across areas</b><div class="thread" id="thread"></div><div class="small">Each issue page shows how it connects to the other focus areas, so visitors don't hit siloed program pages.</div></div>
+<div class="sec" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;border-top:1px solid #eee"><span><b>Get the newsletter</b> · policy moves in the states, monthly</span><span><input placeholder="Email address"> <button class="btn" style="background:#1d1d1f" onclick="this.textContent='Subscribed ✓'">Sign up</button></span></div>
+</div></div>
+<div class="grid g3" style="margin-top:14px"><div class="card"><h2>Priority audiences and journeys</h2><table id="aud"></table></div><div class="card"><h2>Mobile-first</h2><p class="small">Every template is designed at 375 px first and then scaled up. Navigation collapses to a three-item bar (Research, Act, Donate) on phones, where most social and email traffic lands.</p></div><div class="card"><h2>Modern web practice applied</h2><ul class="t"><li>Block-based pages staff can compose</li><li>Core Web Vitals budget: LCP &lt; 2.5s</li><li>Structured data for reports (schema.org)</li><li>Open Graph cards for social sharing</li></ul></div></div>
+</section>
+
+<section class="tab" id="hub">
+<p class="lead">The searchable, filterable hub for research, reports, data, tools and policy resources, so the site serves as infrastructure for the field. Try searching or filtering. In the build, staff add resources once, tag them, and they appear here and on every related issue page.</p>
+<div class="browser"><div class="bbar"><i></i><i></i><i></i><span class="url">techequity.us/research-and-tools</span></div>
+<div class="site sec"><div class="controls"><input id="q" placeholder="Search research, tools, testimony…" style="flex:1;min-width:220px"><select id="so"><option value="d">Newest first</option><option value="t">A–Z</option></select></div>
+<div class="res"><div class="f" id="facets"></div><div><div class="small" id="cnt"></div><div id="list"></div></div></div></div></div>
+</section>
+
+<section class="tab" id="action">
+<p class="lead">Campaign and advocacy functions: action alerts, sign-on letters and coalition pages. These run on TechEquity Action (c4) where they are c4 activities and on the c3 site where they are educational, with the entity clearly labeled on every page.</p>
+<div class="grid g2">
+<div class="browser"><div class="bbar"><i></i><i></i><i></i><span class="url">[TechEquity Action domain]/act/sample-pricing-bill</span></div><div class="site sec">
+<span class="pill bad">Action alert · Live</span><h2 style="font-family:Georgia;font-size:21px;margin:8px 0">Tell your legislator: stop surveillance pricing (sample bill)</h2>
+<p>The committee votes Tuesday. It takes 60 seconds to send a message to your representative.</p>
+<div class="controls"><input placeholder="First name" value="Alex"><input placeholder="ZIP" value="94612" style="width:90px"><input placeholder="Email" value="alex@example.org"></div>
+<textarea rows="3" style="width:100%">As your constituent, I urge you to support this bill so what a company knows about me doesn't decide what I pay.</textarea>
+<div class="controls" style="margin-top:6px"><button class="btn" style="background:#1d1d1f" onclick="act(this)">Send my message</button><span class="small" id="actc">1,284 messages sent · goal 2,000</span></div>
+<div class="hb"><span>Progress</span><div class="bar"><i id="actb" style="width:64%;background:#c8553d"></i></div><b id="actp">64%</b></div>
+<p class="small">Paid for by TechEquity Action. Integrates with the advocacy tool TechEquity already uses (for example Action Network or EveryAction), or we recommend one in discovery.</p></div></div>
+<div class="browser"><div class="bbar"><i></i><i></i><i></i><span class="url">techequity.us/coalitions/sample-sign-on</span></div><div class="site sec">
+<span class="pill info">Sign-on letter</span><h2 style="font-family:Georgia;font-size:21px;margin:8px 0">Organizations for fair AI in the workplace (sample)</h2>
+<p>Add your organization to a joint letter supporting guardrails on automated decisions in employment.</p>
+<div class="controls"><input id="org" placeholder="Organization" value="Bay Area Workers Center (sample)"><select><option>California</option><option>New York</option><option>Colorado</option><option>Other state</option></select><button class="btn" style="background:#1d1d1f" onclick="sign()">Add our name</button></div>
+<table id="signers"></table></div></div>
+</div>
+<div class="card" style="margin-top:14px"><h2>Coalition page template</h2><div class="grid g3"><div class="method"><b>Who we are</b><br>Members, roles and a map of partner states</div><div class="method"><b>What we're working on</b><br>Live bills, hearings and next actions, pulled from the issue tracker</div><div class="method"><b>Shared resources</b><br>Toolkits, fact sheets and testimony from the resource hub, filtered to this coalition</div></div></div>
+</section>
+
+<section class="tab" id="engage">
+<p class="lead">Newsletter signup and donation integrations, with c3 and c4 donations kept separate: tax-deductible gifts go to the Collaborative, and non-deductible gifts to Action.</p>
+<div class="grid g2">
+<div class="card"><h2>Donate (c3 form concept)</h2><div class="controls" id="amts"></div><label class="small"><input type="checkbox" checked style="width:auto"> Make it monthly</label>
+<div class="method" id="dmsg"></div><button class="btn" onclick="this.textContent='Opens secure processor checkout (demo)'">Continue to secure payment</button>
+<p class="small">Integrates with TechEquity's current processor (for example ActBlue for c4, or Donorbox, Classy or Stripe for c3). Card data never touches the website.</p></div>
+<div class="card"><h2>Newsletter preferences</h2><input placeholder="Email" value="alex@example.org" style="width:100%">
+<label class="small"><input type="checkbox" checked style="width:auto"> Monthly newsletter</label><br><label class="small"><input type="checkbox" checked style="width:auto"> Action alerts in my state</label><br><label class="small"><input type="checkbox" style="width:auto"> New research and data releases</label><br><label class="small"><input type="checkbox" style="width:auto"> Events and convenings</label>
+<div style="margin-top:8px"><button class="btn" onclick="this.textContent='Saved ✓ (synced to your email platform)'">Save preferences</button></div><p class="small">Syncs to TechEquity's email platform with tags; double opt-in; one-click unsubscribe.</p></div>
+</div>
+</section>
+
+<section class="tab" id="c4">
+<p class="lead">TechEquity Action (c4): the lighter-lift migration from a splash page to an easy-to-manage site. It is a distinct site with its own domain, brand treatment, donation flow and "paid for by" disclosure, sharing a CMS and component library with the c3 site.</p>
+<div class="browser"><div class="bbar"><i></i><i></i><i></i><span class="url">[TechEquity Action domain]</span></div>
+<div class="site" style="background:#141414;color:#fff"><div class="switch" style="background:#000"><span>TechEquity Action · building political will and power</span><span style="cursor:pointer" onclick="show('home')">TechEquity Collaborative research (c3) →</span></div>
+<div class="snav" style="border-color:#333"><span class="brand">TECHEQUITY ACTION</span><span class="links"><span>Campaigns</span><span>Endorsements</span><span>About</span><span class="don" style="background:#e9a23b;color:#141414">Chip in</span></span></div>
+<div class="hero" style="background:linear-gradient(120deg,#1e1e1e,#2b2b2b)"><h2 style="color:#fff">The rules of the economy are being written in the states. Help write them.</h2><p style="color:#ddd">Sample copy. Content is migrated from the current splash page, plus campaign blocks staff can switch on.</p></div>
+<div class="sec" style="color:#ddd">Live campaign: <b style="color:#fff">Stop surveillance pricing (sample)</b> · <span style="text-decoration:underline;cursor:pointer" onclick="show('action')">Take action →</span></div>
+<div class="sec small" style="color:#aaa;border-top:1px solid #333">Paid for by TechEquity Action. Contributions to TechEquity Action are not tax-deductible.</div></div></div>
+<div class="card" style="margin-top:14px"><h2>Platform recommendation and cutover plan (c4)</h2><table><tr><th>Step</th><th>Detail</th></tr>
+<tr><td>Platform</td><td>WordPress multisite: c4 runs as a separate site in the same install as c3, with its own domain, users, content, theme variant and analytics property. One login for staff, with permissions per site.</td></tr>
+<tr><td>Migrate</td><td>Move splash content and assets; add Campaign, Endorsement and About templates using the shared block library.</td></tr>
+<tr><td>Domain and hosting</td><td>Lower DNS TTL 72 hours ahead; stage on the new host; test SSL, forms and donations; switch DNS in a low-traffic window; keep the old host for 7 days as a rollback.</td></tr>
+<tr><td>Downtime</td><td>Target under 5 minutes (DNS propagation only).</td></tr>
+<tr><td>Training</td><td>One 60-minute session and a 4-page guide.</td></tr>
+<tr><td>Phasing</td><td>c4 launches first (April 2027) as an early win and a pilot of the shared CMS.</td></tr></table></div>
+</section>
+
+<section class="tab" id="cms">
+<p class="lead">Built so non-technical staff can update both sites. We recommend staying on WordPress, rebuilt with the native block editor and custom TechEquity blocks rather than a page builder or reskin. Below: the editor's view of adding a resource.</p>
+<div class="grid g2">
+<div class="card"><h2>Add a resource (editor view)</h2>
+<label class="small">Title</label><input style="width:100%" value="Sample: Pricing algorithms in rental housing, a field guide">
+<div class="controls" style="margin-top:8px"><label class="small">Type <select><option>Report</option><option>Data</option><option>Tool</option><option>Testimony</option><option>Fact sheet</option></select></label><label class="small">Focus areas <select multiple size="3"><option selected>Economic agency</option><option selected>Corporate power</option><option>Work &amp; livelihoods</option></select></label><label class="small">States <select multiple size="3"><option selected>California</option><option>Colorado</option><option>New York</option></select></label></div>
+<label class="small">Summary (plain language, shown in hub cards)</label><textarea rows="2" style="width:100%">What renters should know about software that sets rents, and what states can do about it.</textarea>
+<div class="controls"><label class="small">Entity <select><option>TechEquity Collaborative (c3)</option><option>TechEquity Action (c4)</option></select></label><button class="btn" onclick="this.textContent='Submitted for review ✓'">Submit for review</button><button class="btn alt">Preview on mobile</button></div></div>
+<div class="card"><h2>Why WordPress (and the alternatives we weighed)</h2><table><tr><th>Option</th><th>Fit</th></tr>
+<tr><td><b>WordPress (block editor, multisite)</b></td><td><span class="pill ok">Recommended</span> Staff already know it; no licence; huge plugin ecosystem; content migrates natively; c3 and c4 stay distinct in one install</td></tr>
+<tr><td>Webflow</td><td>Strong design control, but per-site plans, weaker multi-entity permissions and a harder migration</td></tr>
+<tr><td>Headless (Sanity/Next.js)</td><td>Fast and flexible, but needs a developer for routine changes: too heavy for this team</td></tr></table>
+<div class="method">Editorial workflow: Draft → Review → Publish, with scheduled publishing, revision history and roles (Author, Editor, Comms lead, Admin) on each site.</div></div>
+</div>
+</section>
+
+<section class="tab" id="audit">
+<p class="lead">Discovery content audit and migration: what to keep, revise, consolidate or retire, with 301 redirects to preserve links and search ranking.</p>
+<div class="grid g4" id="audk"></div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h2>Content audit (sample rows)</h2><table id="audt"></table></div>
+<div class="card"><h2>Redirect map (sample)</h2><table id="redir"></table><div class="method">Every indexed URL is crawled before launch and mapped. After launch we monitor 404s and Search Console for 30 days and fix gaps the same week.</div></div>
+</div>
+</section>
+
+<section class="tab" id="quality">
+<p class="lead">Accessibility (WCAG 2.2 AA), SEO, analytics and privacy-respecting data practices consistent with TechEquity's values. An organization working on surveillance pricing and data privacy shouldn't run ad-tech trackers on its own site.</p>
+<div class="grid g3">
+<div class="card"><h2>Accessibility checks</h2><table id="ax"></table></div>
+<div class="card"><h2>SEO checklist</h2><table id="seo"></table></div>
+<div class="card"><h2>Privacy-respecting analytics</h2><table><tr><th>Choice</th><th>Why</th></tr><tr><td>Plausible or Matomo (cookieless)</td><td>No cross-site tracking or ad profiles; no cookie banner needed in most cases</td></tr><tr><td>No third-party ad pixels</td><td>Consistent with the mission; CCPA/CPRA-friendly</td></tr><tr><td>Embedded media in privacy mode</td><td>YouTube no-cookie embeds; click-to-load maps</td></tr><tr><td>Form data minimization</td><td>Collect only what each action needs; retention policy</td></tr></table>
+<div class="hb"><span>Visits (sample month)</span><div class="bar"><i style="width:80%"></i></div><b>41,200</b></div><div class="hb"><span>Resource downloads</span><div class="bar"><i style="width:34%;background:#2a9d8f"></i></div><b>3,870</b></div><div class="hb"><span>Actions taken</span><div class="bar"><i style="width:22%;background:#c8553d"></i></div><b>2,210</b></div></div>
+</div>
+</section>
+
+<section class="tab" id="plan">
+<p class="lead">Discovery to launch: kickoff in early February 2027, c4 live in April (phased early win) and c3 live by early July 2027, with staff review built into every milestone and a 90-day warranty.</p>
+<div class="card gantt" id="gantt"></div>
+<div class="card" style="margin-top:14px"><h2>Milestones and staff review points</h2><table id="ms"></table></div>
+</section>
+
+<section class="tab" id="budget">
+<p class="lead">A cost-effective, transparent budget within the $80,000–100,000 allocation, broken out by phase and by site, with copywriting, image sourcing and optional services listed separately.</p>
+<div class="grid g2"><div class="card"><h2>Fixed-fee budget</h2><table id="bud"></table></div>
+<div class="card"><h2>Optional: hosting, maintenance and support (not in total)</h2><table id="opt"></table><div class="method">Toggle options to see an annual figure: <span id="optt"></span></div></div></div>
+</section>
+
+<section class="tab" id="goodwill">
+<p class="lead"><b>Goodwill add-ons, included at no additional cost.</b> These five extras come with our proposal to show what we can build and to help TechEquity move faster during the decisive 2027–2030 window.</p>
+<div class="grid g2">
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">1. State policy tracker</h2><p class="small">A filterable map and list of bills TechEquity is working on across states, with status, next hearing and a link to act. Staff update it in the CMS.</p><table id="bills"></table></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">2. "Ask TechEquity" research assistant</h2><p class="small">Answers questions only from TechEquity's own published research and shows citations, so reporters, staffers and advocates can find the right report fast. It is self-hosted, so no queries go to ad-tech or external model training.</p><div class="method" id="aiq">Q: What can states do about rent-setting algorithms?</div><div class="method" style="border-color:#2a9d8f">A (sample): Three levers appear in our research: disclosure requirements, limits on using non-public competitor data, and enforcement funding for the attorney general. <i>Sources: [Sample field guide, p.4], [Sample testimony, 2026]</i></div></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">3. Policymaker briefing-kit builder</h2><p class="small">Staff pick a state and an issue, and the site assembles a one-page PDF brief from the hub: summary, key data, related bills and contacts. It's ready for a legislative meeting in minutes.</p><div class="controls"><select><option>California</option><option>Colorado</option><option>New York</option></select><select><option>Surveillance pricing</option><option>Worker data</option><option>State antitrust</option></select><button class="btn" onclick="this.textContent='Brief generated ✓ (PDF)'">Build brief</button></div></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">4. Press room and expert finder</h2><p class="small">Press releases, statements, media kit, brand assets and expert bios by topic, with a one-click request to the communications team.</p></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">5. Monthly impact one-pager for funders and the board</h2><p class="small">An automatic aggregate summary of resource downloads, actions taken, sign-ons, newsletter growth and press mentions, ready for board packets and grant reports.</p></div>
+<div class="card"><span class="pill gwp">Our commitment</span><h2 style="margin-top:6px">Also included</h2><ul class="t"><li>A 90-day warranty after each launch.</li><li>A Core Web Vitals and accessibility re-check at 6 months.</li><li>Two extra staff training refreshers in the first year.</li><li>Handover of all code, themes and accounts; no lock-in.</li></ul></div>
+</div>
+</section>
+
+<section class="tab" id="work">
+<p class="lead">Recent websites and working demonstrations we have built (references in the proposal).</p><div class="grid g3" id="rw"></div>
+</section>
+</main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · UEI C8MAWGE5LU65 · Concept prepared for the TechEquity RFP, November 2026 · Sample content only.</footer>
+<script>
+const TABS=[["overview","Overview"],["home","c3 homepage concept"],["hub","Research & tools hub"],["action","Campaigns & coalitions"],["engage","Newsletter & donations"],["c4","TechEquity Action (c4)"],["cms","CMS & staff editing"],["audit","Content audit & migration"],["quality","Accessibility, SEO & privacy"],["plan","Timeline"],["budget","Budget"],["goodwill","Goodwill add-ons"],["work","Our work"]];
+const $=s=>document.getElementById(s);
+$("nav").innerHTML=TABS.map(([k,l])=>`<button data-k="${k}" class="${k=='goodwill'?'gw':''}">${l}</button>`).join("");
+function show(k){if(!$(k))k="overview";document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id==k));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.k==k));history.replaceState(null,"","#"+k);window.scrollTo(0,0)}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>show(b.dataset.k));
+const kpi=(v,l,t,c="")=>`<div class="card kpi"><div class="v">${v}</div><div class="l">${l}</div>${t?`<div class="t ${c}">${t}</div>`:""}</div>`;
+const tbl=(id,h,rows)=>$(id).innerHTML=`<tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>`+rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join("")}</tr>`).join("");
+const P=(c,t)=>`<span class="pill ${c}">${t}</span>`;
+$("ovk").innerHTML=kpi("13","Working views","Every RFP service area")+kpi("2 sites","c3 redesign + c4 migration","One CMS, distinct sites")+kpi("$91,000","Fixed fee, both sites","Within $80–100K")+kpi("July 2027","c3 launch","c4 live in April","up");
+const R=[["Discovery: strategy, brand, analytics, staff and audience input","audit","Content audit, findings, keep/revise/retire"],["Audit existing content; recommend keep, revise, consolidate, retire","audit","Audit table and counts"],["Priority audiences and user journeys","home","Audience and journey table"],["Site structure around three focus areas, connections visible","home","Homepage concept; issue thread across areas"],["Trends and best practices","home","Modern practice panel"],["Copywriting for key pages","home","Placeholder copy approach; separate budget line"],["Visual design extending the 2024 brand; imagery","home","Collage and hand-drawn placeholders; separate image line"],["Wireframes and high-fidelity designs; staff review","plan","Review points in timeline"],["Responsive, mobile-first design","home","Mobile-first panel"],["CMS non-technical staff can update; WordPress recommendation","cms","Editor view; platform comparison"],["Searchable, filterable research and tools hub","hub","Live search, facets and sorting"],["Action alerts, sign-ons, coalition pages","action","Alert with progress; sign-on letter; coalition template"],["Newsletter signup and donation integrations","engage","Donate form; preferences"],["WCAG 2.2 AA; SEO; privacy-respecting analytics","quality","Checks; SEO list; cookieless analytics"],["Migration with redirects; QA and accessibility testing","audit","Redirect map; 404 monitoring"],["Training, documentation, warranty; optional hosting","budget","Warranty included; optional hosting and care plans"],["c4: platform recommendation, migration, domain and hosting cutover, training","c4","Distinct c4 site; cutover plan"],["Budget by phase and site; separate lines","budget","Fixed-fee table; c4 separate"],["Beyond the RFP: goodwill add-ons","goodwill","Policy tracker, research assistant, briefing kits, press room, impact report"]];
+tbl("reqmap",["RFP requirement","Working view","What you can see"],R.map(([a,k,c])=>[a,`<a href="#${k}" onclick="show('${k}');return false">${TABS.find(t=>t[0]==k)[1]} →</a>`,c]));
+const TH=["Surveillance pricing","Rent-setting algorithms","Worker data collection","AI data-labeling labor","State antitrust"];
+$("thread").innerHTML=TH.map((t,i)=>`<span class="pill ${["pe","pe","pw","pw","pc"][i]}" style="cursor:pointer" onclick="show('hub');setTimeout(()=>{$('q').value='${t.split(' ')[0]}';draw()},50)">${t}</span>`).join("");
+tbl("aud",["Audience","Top task"],[["Partners and advocates","Find toolkits and join coalitions"],["Policymakers and staff","Get a brief, data and testimony fast"],["Journalists","Find experts, statements and data"],["Funders","See strategy, impact and reports"],["Public","Understand an issue and take action"]]);
+// hub
+const RES=[["Sample field guide: pricing algorithms in rental housing","Report","Economic agency","California","2026-10"],["Sample testimony: surveillance pricing bill","Testimony","Economic agency","California","2026-08"],["Sample data: AI adoption by occupation","Data","Work & livelihoods","National","2026-07"],["Sample tool: does your employer use automated decisions?","Tool","Work & livelihoods","National","2026-05"],["Sample brief: expanding state antitrust authority","Fact sheet","Corporate power","Colorado","2026-04"],["Sample report: the hidden workforce behind AI","Report","Work & livelihoods","National","2026-03"],["Sample model bill language: data minimization","Policy","Economic agency","New York","2026-02"],["Sample explainer: public compute for public interest","Fact sheet","Corporate power","National","2025-12"],["Sample dataset: state privacy laws compared","Data","Economic agency","National","2025-11"],["Sample testimony: enforcement funding for AGs","Testimony","Corporate power","California","2025-10"]];
+const F={Type:["Report","Data","Tool","Testimony","Fact sheet","Policy"],"Focus area":["Work & livelihoods","Economic agency","Corporate power"],State:["National","California","Colorado","New York"]};
+const sel={Type:new Set(),"Focus area":new Set(),State:new Set()};
+$("facets").innerHTML=Object.entries(F).map(([k,v])=>`<div style="margin-bottom:10px"><b style="font-family:Inter;font-size:12px;color:#5b6475">${k.toUpperCase()}</b>${v.map(x=>`<label><input type="checkbox" style="width:auto" onchange="tg('${k}','${x}',this.checked)"> ${x}</label>`).join("")}</div>`).join("");
+function tg(k,x,c){c?sel[k].add(x):sel[k].delete(x);draw()}
+const col={"Work & livelihoods":"pw","Economic agency":"pe","Corporate power":"pc"};
+function draw(){const q=$("q").value.toLowerCase();let r=RES.filter(([t,ty,a,s])=>(!q||(t+ty+a+s).toLowerCase().includes(q))&&(!sel.Type.size||sel.Type.has(ty))&&(!sel["Focus area"].size||sel["Focus area"].has(a))&&(!sel.State.size||sel.State.has(s)));
+if($("so").value=="t")r=[...r].sort((a,b)=>a[0].localeCompare(b[0]));$("cnt").textContent=r.length+" of "+RES.length+" resources";
+$("list").innerHTML=r.map(([t,ty,a,s,d])=>`<div class="ri"><b>${t}</b><div class="thread">${P("info",ty)}${P(col[a],a)}<span class="small">${s} · ${d}</span></div></div>`).join("")||'<div class="ri">No matches. Try "pricing", "AI" or "California".</div>'}
+$("q").oninput=draw;$("so").onchange=draw;draw();
+// action
+let ac=1284;function act(b){ac++;$("actc").textContent=ac.toLocaleString()+" messages sent · goal 2,000";const p=Math.round(ac/2000*100);$("actb").style.width=p+"%";$("actp").textContent=p+"%";b.textContent="Sent ✓ Thank you!";b.disabled=true}
+const S=[["Sample Workers Alliance","California"],["Sample Consumer Rights Project","New York"],["Sample Tenant Union","California"],["Sample Digital Rights Lab","Colorado"]];
+function drawS(){tbl("signers",["Signed on ("+S.length+")","State"],S.slice().reverse())}drawS();
+function sign(){const o=$("org").value.trim();if(o){S.push([o,"California"]);drawS();$("org").value=""}}
+// engage
+const A=[25,50,100,250];$("amts").innerHTML=A.map(a=>`<button class="btn alt" onclick="dm(${a})">$${a}</button>`).join("")+'<input placeholder="Other" style="width:80px">';
+function dm(a){$("dmsg").innerHTML=`<b>$${a}/month</b> to TechEquity Collaborative (tax-deductible to the extent allowed by law). ${a>=100?"Covers a policymaker briefing kit for a state legislature each month.":"Helps keep research free for the field."}`}dm(50);
+// audit
+$("audk").innerHTML=kpi("412","URLs crawled","Pages, posts, PDFs")+kpi("38%","Keep","As is or light edits")+kpi("27%","Revise / consolidate","Into new structure")+kpi("35%","Retire","301 to best match");
+tbl("audt",["Current page (sample)","Traffic","Recommendation"],[["/our-work/housing (prior strategy)","Medium",P("warn","Consolidate → Economic agency")],["/reports/2023-gig-work","High",P("ok","Keep → hub")],["/campaigns/2022-bill","Low",P("bad","Retire → 301 to issue page")],["/about/history","Medium",P("ok","Revise")],["/tools/calculator","High",P("ok","Keep, rebuild accessibly")]]);
+tbl("redir",["Old URL","New URL","Type"],[["/our-work/housing","/issues/rent-setting-algorithms","301"],["/campaigns/2022-bill","/issues/worker-data","301"],["/research","/research-and-tools","301"],["/resources/?cat=reports","/research-and-tools?type=report","301"],["/action (c3)","[c4 domain]/act","301 (cross-domain)"]]);
+// quality
+tbl("ax",["Check","Result"],[["Contrast 4.5:1 / 3:1",P("ok","Pass")],["Keyboard navigation and focus",P("ok","Pass")],["Alt text on collage images",P("ok","Required field in CMS")],["Form labels and errors",P("ok","Pass")],["PDF reports tagged",P("info","Process in CMS")],["Target size 24×24",P("ok","Pass")],["Reduced-motion support",P("ok","Pass")]]);
+tbl("seo",["Item","Status"],[["Clean URLs and 301 map",P("ok","Built in")],["Titles, meta and Open Graph per page",P("ok","CMS fields")],["schema.org Report / Organization",P("ok","Templates")],["XML sitemaps (both sites)",P("ok","Auto")],["Core Web Vitals budget",P("ok","LCP < 2.5s")],["Search Console and 404 monitoring",P("info","30 days post-launch")]]);
+// plan
+const G=[["Discovery and content audit",0,4,"#1f5fa8"],["Strategy, IA, audiences, journeys",3,7,"#6c5ce7"],["c4 platform + migration (phase 1)",4,10,"#e9a23b"],["Copywriting (key pages)",6,14,"#7b2d8e"],["Wireframes → high-fidelity design",6,13,"#2a9d8f"],["c3 development and hub",12,20,"#3d5a80"],["Content migration and redirects",18,21,"#c8553d"],["QA, accessibility, training",20,22,"#5b6475"],["c3 launch",22,22,"#0f2747"],["Warranty (90 days)",22,34,"#9aa7b8"]];
+const wk=["Feb 1","Mar 1","Apr 1","May 1","Jun 1","Jul 1"];
+$("gantt").innerHTML=`<h2>Schedule (weeks from kickoff, early Feb 2027)</h2>`+G.map(([l,a,b,c])=>`<div class="row"><div class="lbl">${l}</div><div class="trk"><div class="seg" style="left:${a/34*100}%;width:${Math.max(b-a,0.6)/34*100}%;background:${c}">${b>a?"wk "+(a+1)+"–"+b:"wk "+a}</div></div></div>`).join("")+`<p class="small">Week 0 = kickoff (early Feb 2027). c4 live by mid-April; c3 live by early July 2027.</p>`;
+tbl("ms",["Milestone","Staff review","Target"],[["Discovery findings and content audit","Comms team workshop","Early Mar"],["Sitemap, journeys and wireframes","2 rounds of feedback","Late Mar"],["c4 site live (phase 1)","Sign-off before DNS switch","Mid-Apr"],["High-fidelity designs: key templates","2 rounds of feedback","Late Apr"],["Key-page copy","TechEquity review and final approval","May"],["Staging site with migrated content","UAT by staff","Mid-Jun"],["c3 launch","Go/no-go","Early Jul"],["Warranty close-out and 6-month check","Report","Oct / Jan"]]);
+// budget
+const B=[["<b>TechEquity Collaborative (c3)</b>","",""],["Phase 1 · Discovery, audit, analytics review, staff and audience input","c3","$9,000"],["Phase 2 · Strategy, IA, audiences and journeys, best-practice review","c3","$9,500"],["Phase 3 · Visual design: brand extension, wireframes, high-fidelity templates (2 review rounds)","c3","$18,000"],["Phase 4 · Development: WordPress blocks, research and tools hub, campaign tools, newsletter and donation integrations, SEO, analytics","c3","$26,000"],["Phase 5 · Migration and redirects, QA and accessibility testing, training and documentation, 90-day warranty","c3","$9,000"],["<b>c3 subtotal (excluding copy and imagery)</b>","","<b>$71,500</b>"],["Copywriting: key pages (homepage, three focus areas, approach, about, hub landing; about 12 pages)","c3 · separate","$8,500"],["Image sourcing and editing: collage treatments, hand-drawn elements, stock licensing included (about 25 images)","c3 · separate","$4,500"],["<b>TechEquity Action (c4) · separate line item</b>: platform recommendation, migration, light design, domain and hosting cutover, training","c4","$6,500"],["<b>Total fixed fee, both sites</b>","","<b>$91,000</b>"]];
+tbl("bud",["Item","Site","Cost"],B);
+const O=[["Managed WordPress hosting, both sites (CDN, backups, staging, SSL)",2400],["Care plan: core/plugin updates, security monitoring, uptime, monthly report",3600],["Support block: 5 hours/month for changes and new pages",7200]];
+$("opt").innerHTML=`<tr><th></th><th>Option</th><th>Per year</th></tr>`+O.map(([a,v],i)=>`<tr><td><input type="checkbox" style="width:auto" ${i<2?"checked":""} onchange="ot()"></td><td>${a}</td><td>$${v.toLocaleString()}</td></tr>`).join("");
+function ot(){let t=0;document.querySelectorAll("#opt input").forEach((c,i)=>{if(c.checked)t+=O[i][1]});$("optt").innerHTML=`<b>$${t.toLocaleString()}/year</b> (not included in the $91,000 total)`}ot();
+// goodwill
+tbl("bills",["Bill (sample)","State","Area","Status"],[["Surveillance pricing ban","California",P("pe","Agency"),P("warn","In committee")],["Workplace AI notice","New York",P("pw","Work"),P("info","Introduced")],["State antitrust modernization","Colorado",P("pc","Power"),P("ok","Passed house")],["Data minimization standard","California",P("pe","Agency"),P("info","Drafting")]]);
+$("rw").innerHTML=[["bmpra.com (live)","National public consultation website for the Barbados Medical Products Authority: plain-language guide to a new law, document library, AI assistant with references and public comment routing.","https://www.bmpra.com"],["RAGNA 2.0 Task Force","Public website and role-based member portal for an international network of medicines regulators.","https://agenticrx-hub.github.io/demos/ragna-2-0-task-force/"],["WorkPlace Front Door","Mobile-first digital front door with two-way SMS and a staff CMS (working demonstration).","https://agenticrx-hub.github.io/demos/workplace-ct/"],["BHRS Reporting Hub","Public-sector reporting hub with service desk (working demonstration).","https://agenticrx-hub.github.io/demos/smc-bhrs/"],["All demonstrations","Index of Agentic Rx working demonstrations.","https://agenticrx-hub.github.io/demos/"]].map(([a,b,u])=>`<div class="card"><h2>${a}</h2><p style="font-size:13px">${b}</p><a href="${u}" target="_blank" rel="noopener">${u.replace("https://","")}</a></div>`).join("");
+show((location.hash||"#overview").slice(1));
+</script>
+</body></html>
