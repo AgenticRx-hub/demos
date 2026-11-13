@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kits de higiene UNICEF RD · Demostración Agentic Rx</title>
+<meta name="description" content="Demostración operativa para LRFQ-2026-9206829, UNICEF República Dominicana. Agentic Rx Inc. Datos de ejemplo.">
+<style>
+:root{--ink:#14213d;--muted:#5b6475;--line:#dde3ec;--bg:#f5f7fb;--card:#fff;--a:#1cabe2;--a2:#1f5fa8;--b:#2a9d8f;--c:#e9a23b;--d:#c8553d}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#0f2747;color:#fff;padding:14px 22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+header h1{font-size:19px;margin:0}header .s{font-size:12px;opacity:.82;margin-top:2px}header .who{font-size:12px;text-align:right;opacity:.9}
+.banner{background:#fff4d6;border-bottom:1px solid #f0d58a;padding:7px 22px;font-size:12px}
+nav#nav{display:flex;gap:4px;flex-wrap:wrap;padding:10px 22px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav#nav button{border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:999px;font-size:13px;cursor:pointer;color:var(--ink)}
+nav#nav button.on{background:var(--a2);color:#fff;border-color:var(--a2)}
+nav#nav button.gw{border-color:#2a9d8f;color:#1b6e62}nav#nav button.gw.on{background:#2a9d8f;color:#fff}
+main{padding:18px 22px;max-width:1300px;margin:auto}.tab{display:none}.tab.on{display:block}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .v{font-size:28px;font-weight:700}.kpi .l{font-size:12px;color:var(--muted)}.kpi .t{font-size:12px;margin-top:4px}.up{color:#1b8a5a}
+h2{font-size:16px;margin:0 0 10px}.lead{font-size:14px;color:#333;max-width:1000px;margin:0 0 14px;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:#f0f3f8}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.ok{background:#e3f5ec;color:#1b6e48}.warn{background:#fff1d6;color:#8a5a00}.bad{background:#fde6e1;color:#9b2c16}.info{background:#e6efff;color:#1f4c94}.gwp{background:#dff4f1;color:#1b6e62}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center}select,input{padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px}
+.btn{background:var(--a2);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer}
+.method{border-left:4px solid var(--a);padding:8px 12px;margin:8px 0;background:#f8fafd;font-size:13px}
+.hb{display:flex;align-items:center;gap:8px;font-size:12.5px;margin:5px 0}.hb span:first-child{width:190px;flex:none}.hb .bar{flex:1;height:10px;background:#eef2f8;border-radius:5px;overflow:hidden}.hb .bar i{display:block;height:100%;background:var(--a)}.hb b{width:80px;text-align:right}
+.kit{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.kit span{background:#eef7fc;border:1px solid #bfe3f3;border-radius:8px;padding:5px 8px;font-size:12px}
+.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}.flow .n{flex:1;min-width:140px;background:#f8fafd;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:12.5px}.flow .n b{display:block;margin-bottom:3px}.arrow{align-self:center;color:var(--muted)}
+.gantt{font-size:12px}.gantt .row{display:flex;align-items:center;margin:4px 0}.gantt .lbl{width:230px;flex:none}.gantt .trk{flex:1;position:relative;height:18px;background:#f0f3f8;border-radius:4px}.gantt .seg{position:absolute;top:0;height:18px;border-radius:4px;color:#fff;font-size:10px;padding-left:4px;line-height:18px;white-space:nowrap;overflow:hidden}
+.small{font-size:12px;color:var(--muted)}ul.t{margin:4px 0 4px 18px;padding:0;font-size:13px;line-height:1.5}
+.label{border:2px dashed #0f2747;border-radius:10px;padding:12px;font-family:monospace;font-size:12.5px;background:#fff;max-width:420px}
+footer{font-size:11px;color:var(--muted);text-align:center;padding:20px}
+</style></head><body>
+<header><div><h1>Kits de higiene · Centros de migración · Demostración operativa</h1><div class="s">UNICEF República Dominicana · LRFQ-2026-9206829 · 2,000 kits · entrega en Haina y Santiago</div></div>
+<div class="who">Ofertante: <b>Agentic Rx Inc.</b> (UNGM 1301087)<br>Ibrahim D. Hinds · info@agentic-rx.com · +1 (415) 654-2333</div></header>
+<div class="banner"><b>Solo demostración.</b> Datos de ejemplo. No afiliado ni respaldado por UNICEF. Marcas, cantidades por caja y fechas se confirman en la oferta técnica y en la ejecución.</div>
+<nav id="nav"></nav>
+<main>
+<section class="tab" id="resumen">
+<p class="lead">Cada requisito de los TDR tiene una vista funcional: composición de los tres kits, abastecimiento, ensamblaje y control de calidad, cajas y etiquetado, logística a Haina y Santiago, muestras, trazabilidad y reportes a UNICEF. La pestaña <b>Valor agregado</b> muestra cinco aportes sin costo.</p>
+<div class="grid g4" id="ovk"></div>
+<div class="card" style="margin-top:14px"><h2>Requisito de los TDR → dónde verlo</h2><table id="req"></table></div>
+</section>
+<section class="tab" id="kits">
+<p class="lead">Los tres kits según los TDR. Seleccione un kit para ver su contenido, especificación y estado de cumplimiento.</p>
+<div class="controls"><select id="ksel"></select><span class="small" id="kinfo"></span></div>
+<div class="card"><table id="ktab"></table></div>
+</section>
+<section class="tab" id="abast">
+<p class="lead">Abastecimiento: marcas reconocidas disponibles en RD, con respaldo de distribuidores de EE. UU. para artículos de marca. Cada insumo tiene proveedor principal, alternativo y país de origen.</p>
+<div class="grid g2"><div class="card"><h2>Matriz de proveedores (ejemplo)</h2><table id="sup"></table></div>
+<div class="card"><h2>Roles</h2><table><tr><th>Quién</th><th>Responsabilidad</th></tr>
+<tr><td><b>Agentic Rx Inc.</b> (Barbados) · Ibrahim D. Hinds</td><td>Ofertante y contratista; contrato, calidad, documentación, facturación y reporte a UNICEF</td></tr>
+<tr><td>Equipo local de Agentic Rx en RD (Santo Domingo)</td><td>Compras locales, fotos reales, muestras, almacén, ensamblaje y entrega en Haina y Santiago</td></tr>
+<tr><td>Distribuidor de EE. UU. (respaldo)</td><td>Artículos de marca (toallas sanitarias, toallitas, gel, pasta y cepillo dental) si hay quiebre local</td></tr></table>
+<div class="method">Política: ninguna sustitución de marca sin aprobación escrita de UNICEF; reemplazo sin costo de cualquier insumo no conforme.</div></div></div>
+</section>
+<section class="tab" id="qa">
+<p class="lead">Ensamblaje en línea con control de calidad por lote: verificación de contenido, vencimiento (mínimo 6 meses, objetivo 18+) y empaque, con registro fotográfico.</p>
+<div class="card"><h2>Línea de ensamblaje</h2><div class="flow">
+<div class="n"><b>1. Recepción</b>Conteo, lote y vencimiento de cada insumo</div><div class="arrow">→</div>
+<div class="n"><b>2. Inspección</b>Muestreo AQL 2.5 por lote; rechazo y reemplazo</div><div class="arrow">→</div>
+<div class="n"><b>3. Armado</b>Estaciones por kit; lista de verificación por bolsa</div><div class="arrow">→</div>
+<div class="n"><b>4. Doble chequeo</b>Pesaje de cada kit vs peso patrón (±5%)</div><div class="arrow">→</div>
+<div class="n"><b>5. Embalaje</b>Cajas nuevas etiquetadas; foto por paleta</div></div></div>
+<div class="grid g2" style="margin-top:14px"><div class="card"><h2>Lista de verificación (kit de higiene menstrual)</h2><table id="chk"></table></div>
+<div class="card"><h2>Control de vencimientos (ejemplo)</h2><table id="exp"></table></div></div>
+</section>
+<section class="tab" id="cajas">
+<p class="lead">Cajas secundarias nuevas, identificadas con tipo de kit, cantidad, contenido, número de PO y destino, como piden los TDR.</p>
+<div class="grid g2"><div class="card"><h2>Configuración de cajas</h2><table id="box"></table></div>
+<div class="card"><h2>Etiqueta de caja (ejemplo)</h2><div class="label">UNICEF RD · PO [N.º PO]<br>KIT DE HIGIENE MENSTRUAL<br>Cantidad: 10 kits · Caja 12 de 70<br>Contenido: toallas sanitarias x10, ropa interior M x3, jabón 100 g, toallitas x80, toalla, gel 250 ml, champú, desodorante, pasta dental, cepillo, bolsa UNICEF, folleto<br>Destino: HAINA<br>Proveedor: Agentic Rx Inc. · Lote AR-MH-0412<br>[código QR de trazabilidad]</div></div></div>
+</section>
+<section class="tab" id="log">
+<p class="lead">Entrega única y completa en 30 días o menos: 1,200 kits en Haina y 800 en Santiago, con citas coordinadas y acta de recepción firmada.</p>
+<div class="grid g4" id="lk"></div>
+<div class="card gantt" style="margin-top:14px" id="gantt"></div>
+<div class="card" style="margin-top:14px"><h2>Plan de entrega por sitio</h2><table id="dlv"></table></div>
+</section>
+<section class="tab" id="muestras">
+<p class="lead">Muestras físicas de los tres kits dentro de los 5 días hábiles posteriores a la solicitud de UNICEF, armadas con las mismas marcas ofertadas.</p>
+<div class="card"><table><tr><th>Día</th><th>Acción</th><th>Responsable</th></tr>
+<tr><td>0</td><td>Solicitud de UNICEF recibida; confirmación en 24 h</td><td>Agentic Rx</td></tr>
+<tr><td>1–2</td><td>Compra de una unidad de cada insumo con la marca ofertada</td><td>Equipo local Agentic Rx (RD)</td></tr>
+<tr><td>3</td><td>Armado de 1 kit de cada tipo; fotos y lista de contenido</td><td>Equipo local Agentic Rx (RD)</td></tr>
+<tr><td>4–5</td><td>Entrega en la oficina de UNICEF con acta de entrega</td><td>Agentic Rx</td></tr></table></div>
+</section>
+<section class="tab" id="traza">
+<p class="lead">Trazabilidad de cada caja: lote, contenido, vencimientos, foto y destino. UNICEF puede consultar el estado de su pedido.</p>
+<div class="controls"><input id="tq" placeholder="Buscar caja o lote (ej. AR-MH-0412)" style="min-width:280px"></div>
+<div class="card"><table id="trz"></table></div>
+</section>
+<section class="tab" id="rep">
+<p class="lead">Reportes a UNICEF: avance semanal, acta de recepción y reporte final con fotos, lotes y vencimientos.</p>
+<div class="grid g4" id="rk"></div>
+<div class="grid g2" style="margin-top:14px"><div class="card"><h2>Avance del pedido (ejemplo, día 18)</h2><div id="prog"></div></div>
+<div class="card"><h2>Contenido del reporte final</h2><ul class="t"><li>Actas de recepción firmadas (Haina y Santiago)</li><li>Cantidad entregada por tipo de kit y destino</li><li>Lotes y vencimientos de cada insumo</li><li>Fotos de kits, cajas y paletas</li><li>No conformidades y reemplazos</li></ul></div></div>
+</section>
+<section class="tab" id="valor">
+<p class="lead"><b>Valor agregado sin costo para UNICEF.</b> Aportes incluidos en la oferta, sin cargo adicional.</p>
+<div class="grid g2">
+<div class="card"><span class="pill gwp">Incluido · sin costo</span><h2 style="margin-top:6px">1. Tarjeta de uso en español y kreyòl ayisyen</h2><p class="small">Tarjeta ilustrada con pictogramas que explica el uso de cada artículo, en español y criollo haitiano, para la población de los centros de migración. Contenido sujeto a aprobación de UNICEF.</p></div>
+<div class="card"><span class="pill gwp">Incluido · sin costo</span><h2 style="margin-top:6px">2. Tablero de seguimiento del pedido</h2><p class="small">Acceso en línea para UNICEF al avance de compras, ensamblaje y entrega, con fotos y actas.</p></div>
+<div class="card"><span class="pill gwp">Incluido · sin costo</span><h2 style="margin-top:6px">3. Reporte fotográfico por paleta y destino</h2><p class="small">Evidencia visual de cada paleta antes de la salida y al recibir, vinculada a la etiqueta de cada caja.</p></div>
+<div class="card"><span class="pill gwp">Incluido · sin costo</span><h2 style="margin-top:6px">4. Encuesta de satisfacción posdistribución (QR)</h2><p class="small">Encuesta anónima y breve por código QR para conocer la utilidad de los kits; resultados agregados para UNICEF y DGM/CONANI.</p></div>
+<div class="card"><span class="pill gwp">Incluido · sin costo</span><h2 style="margin-top:6px">5. Reemplazo inmediato</h2><p class="small">Cualquier kit o insumo con defecto se reemplaza en un máximo de 5 días hábiles, sin costo, durante el período de garantía.</p></div>
+</div>
+</section>
+</main>
+<footer>Agentic Rx Inc. · 41B Blue Waters, Rockley, Christ Church, Barbados · UNGM 1301087 · Demostración preparada para LRFQ-2026-9206829 · Datos de ejemplo.</footer>
+<script>
+const TABS=[["resumen","Resumen"],["kits","Composición de kits"],["abast","Abastecimiento"],["qa","Ensamblaje y calidad"],["cajas","Cajas y etiquetado"],["log","Logística y cronograma"],["muestras","Muestras (5 días)"],["traza","Trazabilidad"],["rep","Reportes a UNICEF"],["valor","Valor agregado"]];
+const $=s=>document.getElementById(s);
+$("nav").innerHTML=TABS.map(([k,l])=>`<button data-k="${k}" class="${k=='valor'?'gw':''}">${l}</button>`).join("");
+function show(k){if(!$(k))k="resumen";document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id==k));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.k==k));history.replaceState(null,"","#"+k);window.scrollTo(0,0)}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>show(b.dataset.k));
+const kpi=(v,l,t,c="")=>`<div class="card kpi"><div class="v">${v}</div><div class="l">${l}</div>${t?`<div class="t ${c}">${t}</div>`:""}</div>`;
+const tbl=(id,h,r)=>$(id).innerHTML=`<tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>`+r.map(x=>`<tr>${x.map(y=>`<td>${y}</td>`).join("")}</tr>`).join("");
+const P=(c,t)=>`<span class="pill ${c}">${t}</span>`;
+$("ovk").innerHTML=kpi("2,000","Kits","700 menstrual · 300 bebé · 1,000 general")+kpi("≤30 días","Entrega única completa","Haina 1,200 · Santiago 800")+kpi("5 días","Muestras","Mismas marcas ofertadas")+kpi("5","Aportes sin costo","Valor agregado","up");
+const R=[["Composición y especificaciones de los 3 kits","kits"],["Marcas reales, país de origen y proveedores","abast"],["Kits armados, vencimiento ≥ 6 meses","qa"],["Cajas nuevas identificadas (tipo, cantidad, contenido, PO)","cajas"],["Entrega en Haina y Santiago, plazo máximo 30 días","log"],["Muestras en 5 días","muestras"],["Garantía y reemplazo de no conformes","valor"],["Documentación y reporte de entrega","rep"],["Trazabilidad por lote y caja","traza"]];
+tbl("req",["Requisito","Vista"],R.map(([a,k])=>[a,`<a href="#${k}" onclick="show('${k}');return false">${TABS.find(t=>t[0]==k)[1]} →</a>`]));
+const K={"Kit de higiene menstrual (700)":[["Toallas sanitarias con alas x10","Núcleo SAP, 240–280 mm"],["Ropa interior talla M x3","Algodón y elastano"],["Jabón en barra 100 g","Neutro, piel sensible"],["Toallitas húmedas x80","Sin alcohol ni fragancia"],["Toalla de algodón 60x80","100% algodón"],["Gel antibacterial 250 ml","Alcohol ≥60%, EN 1500"],["Champú 8 oz","Sin parabenos"],["Desodorante en crema 2 oz","Sin alcohol"],["Pasta dental Colgate 100 ml","Con flúor"],["Cepillo dental adulto","Cerdas medias"],["Bolsa impermeable logo UNICEF","Poliéster PU, 30x25 cm, azul"],["Folleto de higiene menstrual","Suministrado por UNICEF"]],
+"Kit de higiene para bebés (300)":[["Pañales recién nacido x20","Talla P/#1, hipoalergénicos"],["Toallitas bebé 60–80","Sin alcohol ni fragancia"],["Jabón tipo Castilla 227 g","Hipoalergénico"],["Vaselina 80–100 g","Envase resellable"],["Toalla de algodón 60x80","100% algodón"],["Manta recién nacido","Aprox. 50x75 cm"],["Gorros x2","Algodón 100%"],["Mamelucos x2","50–60 cm, broches"],["Medias x2 pares","Algodón"],["Set cepillo y peine","Libre de BPA"],["Fundas basura 13 gal x10–15","Resistentes"],["Bolsa impermeable logo UNICEF","Poliéster PU"]],
+"Kit de higiene general (1,000)":[["Jabón en barra 100 g","Neutro"],["Champú 8 oz","Sin parabenos"],["Desodorante en crema 2 oz","Sin alcohol"],["Pasta dental Colgate 100 ml","Con flúor"],["Cepillo dental adulto","Cerdas medias"],["Toallitas húmedas x80","Sin alcohol"],["Toalla de algodón 60x80","100% algodón"],["Gel antibacterial 250 ml","Alcohol ≥60%"],["Papel higiénico doble hoja","≥200 hojas dobles"],["Bolsa impermeable logo UNICEF","Poliéster PU"]]};
+$("ksel").innerHTML=Object.keys(K).map(k=>`<option>${k}</option>`).join("");
+function dk(){const k=$("ksel").value;$("kinfo").textContent=K[k].length+" componentes";tbl("ktab",["#","Componente","Especificación TDR","Marca ofertada","Estado"],K[k].map((r,i)=>[i+1,r[0],r[1],"Según oferta técnica",P("ok","Cumple")]))}
+$("ksel").onchange=dk;dk();
+tbl("sup",["Insumo","Principal","Alternativo","Origen"],[["Toallas sanitarias","Distribuidor local (RD)","Distribuidor EE. UU.","Según marca"],["Pañales y toallitas","Distribuidor local (RD)","Distribuidor EE. UU.","Según marca"],["Higiene personal (jabón, champú, desodorante, pasta, cepillo, gel)","Mayorista local (RD)","Distribuidor EE. UU.","Según marca"],["Textiles (ropa interior, toallas, manta, gorros, mamelucos, medias)","Taller/mayorista local (RD)","Importador local","RD / importado"],["Bolsas con logo UNICEF","Imprenta local (RD)","Proveedor regional","RD"],["Papel higiénico, fundas, cepillo/peine bebé","Mayorista local (RD)","—","RD / importado"]]);
+tbl("chk",["Verificación","Estado"],[["12 componentes presentes",P("ok","OK")],["Marca igual a la ofertada",P("ok","OK")],["Vencimiento ≥ 6 meses",P("ok","OK")],["Bolsa sellada, logo visible",P("ok","OK")],["Folleto UNICEF incluido",P("ok","OK")],["Peso dentro de ±5%",P("ok","OK")]]);
+tbl("exp",["Insumo","Lote","Vence","Meses a entrega"],[["Gel antibacterial 250 ml","GL-2611","2028-09",P("ok","22")],["Pasta dental Colgate","CP-2610","2028-04",P("ok","17")],["Toallitas húmedas","TW-2609","2027-12",P("ok","13")],["Champú 8 oz","CH-2608","2028-08",P("ok","21")],["Vaselina bebé","VB-2605","2027-06",P("warn","7")]]);
+tbl("box",["Kit","Kits por caja","Cajas Haina","Cajas Santiago","Total cajas"],[["Higiene menstrual","10","40","30","70"],["Bebés","8","25","13","38"],["General","12","50","34","84"]]);
+$("lk").innerHTML=kpi("1,200","Kits a Haina","3 tipos")+kpi("800","Kits a Santiago","3 tipos")+kpi("192","Cajas","Etiquetadas")+kpi("≤30","Días","Entrega única");
+const G=[["Orden de compra y confirmación",1,2,"#1f5fa8"],["Compra de insumos y bolsas UNICEF",2,14,"#1cabe2"],["Recepción e inspección",8,16,"#6c5ce7"],["Ensamblaje y control de calidad",12,22,"#2a9d8f"],["Embalaje y etiquetado",18,24,"#e9a23b"],["Entrega Haina y Santiago",25,28,"#0f2747"],["Reporte final a UNICEF",28,30,"#5b6475"]];
+$("gantt").innerHTML=`<h2>Cronograma (días calendario desde la orden de compra)</h2>`+G.map(([l,a,b,c])=>`<div class="row"><div class="lbl">${l}</div><div class="trk"><div class="seg" style="left:${(a-1)/30*100}%;width:${(b-a+1)/30*100}%;background:${c}">día ${a}–${b}</div></div></div>`).join("");
+tbl("dlv",["Destino","Menstrual","Bebés","General","Total","Recepción"],[["Haina","400","200","600","1,200","Cita coordinada; acta firmada"],["Santiago","300","100","400","800","Cita coordinada; acta firmada"]]);
+const TR=[["AR-MH-0412","Menstrual","10","Haina","Embalada",P("ok","Lista")],["AR-MH-0413","Menstrual","10","Santiago","Embalada",P("ok","Lista")],["AR-BB-0207","Bebés","8","Haina","En QA",P("warn","Inspección")],["AR-GN-0815","General","12","Haina","Armando",P("info","En proceso")],["AR-GN-0816","General","12","Santiago","Armando",P("info","En proceso")]];
+function dt(){const q=$("tq").value.toLowerCase();tbl("trz",["Caja / lote","Kit","Kits","Destino","Etapa","Estado"],TR.filter(r=>!q||r.join(" ").toLowerCase().includes(q)))}$("tq").oninput=dt;dt();
+$("rk").innerHTML=kpi("100%","Insumos comprados","Día 14")+kpi("1,460","Kits armados","de 2,000")+kpi("0","No conformidades abiertas","","up")+kpi("2","Actas de recepción","Al cierre");
+$("prog").innerHTML=[["Menstrual (700)",560,700],["Bebés (300)",240,300],["General (1,000)",660,1000]].map(([a,v,m])=>`<div class="hb"><span>${a}</span><div class="bar"><i style="width:${v/m*100}%"></i></div><b>${v}/${m}</b></div>`).join("");
+show((location.hash||"#resumen").slice(1));
+</script>
+</body></html>
