@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Front Door prototype · Agentic Rx proposal for The WorkPlace</title>
+<meta name="description" content="Clickable prototype of a mobile-first digital workforce front door, prepared by Agentic Rx LLC for The WorkPlace Mobile App RFP. Sample data only.">
+<style>
+:root{--ink:#16233a;--muted:#5b6880;--line:#dfe4ec;--bg:#f3f5f9;--card:#fff;--brand:#0b5cad;--brand2:#0a7c6b;--warn:#b5520b;--soft:#e9f1fb;--fs:16px}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#d9dee8;color:var(--ink);font-size:var(--fs)}
+body.hc{--ink:#000;--muted:#222;--line:#000;--bg:#fff;--card:#fff;--brand:#00336e;--brand2:#004d40;--soft:#fff}
+body.hc .card,body.hc .tile{border:2px solid #000}
+.banner{background:#16233a;color:#fff;padding:10px 16px;font-size:13px;text-align:center}
+.banner b{color:#ffd166}
+.wrap{display:flex;gap:28px;justify-content:center;align-items:flex-start;padding:24px 16px;flex-wrap:wrap}
+.side{max-width:360px;font-size:14px;line-height:1.5}
+.side h1{font-size:22px;margin:0 0 8px}
+.side h2{font-size:15px;margin:18px 0 6px}
+.side ul{padding-left:18px;margin:6px 0}
+.side .tabs button{display:block;width:100%;text-align:left;margin:4px 0;padding:8px 10px;border:1px solid #b9c3d3;background:#fff;border-radius:8px;cursor:pointer;font-size:14px}
+.side .tabs button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.phone{width:390px;max-width:100%;height:800px;background:var(--bg);border-radius:36px;border:10px solid #111;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.25);position:relative}
+.top{background:var(--brand);color:#fff;padding:14px 16px 12px}
+.top .row{display:flex;justify-content:space-between;align-items:center}
+.top .name{font-weight:700;font-size:1.05em}
+.top .tools button{background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:6px;padding:5px 8px;margin-left:4px;font-size:.78em;cursor:pointer}
+.screen{flex:1;overflow:auto;padding:14px}
+.nav{display:flex;border-top:1px solid var(--line);background:var(--card)}
+.nav button{flex:1;border:0;background:none;padding:9px 2px 11px;font-size:.72em;color:var(--muted);cursor:pointer}
+.nav button.on{color:var(--brand);font-weight:700}
+.nav .ic{display:block;font-size:1.4em;line-height:1.1}
+h3{margin:4px 0 10px;font-size:1.15em}
+.hello{font-size:1.25em;font-weight:700;margin:6px 0 2px}
+.sub{color:var(--muted);font-size:.9em;margin-bottom:12px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:var(--card);border-radius:14px;padding:14px;border:1px solid var(--line);cursor:pointer;text-align:left;font-size:.95em;color:var(--ink)}
+.tile .em{font-size:1.6em;display:block;margin-bottom:6px}
+.tile b{display:block}
+.tile span{color:var(--muted);font-size:.82em}
+.card{background:var(--card);border-radius:14px;border:1px solid var(--line);padding:12px 14px;margin-bottom:10px}
+.card .t{font-weight:700}
+.card .m{color:var(--muted);font-size:.85em;margin-top:2px}
+.pill{display:inline-block;font-size:.72em;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--brand);margin:6px 4px 0 0}
+.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-size:.92em;cursor:pointer;margin:6px 6px 0 0}
+.btn.alt{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+.btn.g{background:var(--brand2)}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:.95em;margin:4px 0 10px;background:#fff;color:var(--ink)}
+label{font-size:.85em;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 10px;font-size:.8em;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.toast{position:absolute;left:16px;right:16px;bottom:74px;background:#16233a;color:#fff;padding:12px 14px;border-radius:12px;font-size:.88em;display:none;z-index:5}
+.sms{background:#eef0f4;border-radius:14px;padding:10px;margin-top:8px}
+.bub{background:#fff;border-radius:12px;padding:8px 10px;margin:6px 0;font-size:.85em;max-width:85%}
+.bub.me{background:var(--brand);color:#fff;margin-left:auto;width:fit-content}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpi div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
+.kpi b{font-size:1.3em;display:block}
+.kpi span{font-size:.75em;color:var(--muted)}
+.bar{height:8px;background:var(--soft);border-radius:4px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--brand2)}
+.back{background:none;border:0;color:var(--brand);font-size:.9em;padding:0;margin-bottom:8px;cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:.8em}
+td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
+.foot{font-size:12px;color:#445;max-width:820px;margin:0 auto 30px;text-align:center;padding:0 16px}
+body.embed{background:transparent}body.embed .banner,body.embed .side,body.embed .foot{display:none}body.embed .wrap{padding:6px}
+@media (max-width:820px){.phone{height:720px}}
+</style>
+</head>
+<body>
+<div class="banner"><b>Proposal prototype.</b> Prepared by Agentic Rx LLC for The WorkPlace Mobile App and Digital Workforce Front Door RFP (Nov 2026). Sample data only, not affiliated with or endorsed by The WorkPlace.</div>
+<div class="wrap">
+ <div class="side">
+  <h1>Digital Workforce Front Door</h1>
+  <div>A clickable prototype of the base solution in our proposal: one cross-platform app organised around what people need, not program names, with consent-based two-way SMS and a staff console.</div>
+  <h2>Try these journeys</h2>
+  <div class="tabs" id="journeys">
+   <button data-go="home">1. Start from "What do you need?"</button>
+   <button data-go="training">2. Find free training near you</button>
+   <button data-go="event">3. Register for a hiring event, add to calendar</button>
+   <button data-go="help">4. Ask for help and book a counselor</button>
+   <button data-go="texts">5. Text consent, preferences and two-way SMS</button>
+   <button data-go="employer">6. Employer pathway: hiring help</button>
+   <button data-go="staff">7. Staff console: content, SMS, analytics</button>
+  </div>
+  <h2>Built in, on every screen</h2>
+  <ul>
+   <li>English / Español toggle (more languages by configuration)</li>
+   <li>Larger text and high-contrast mode (WCAG 2.2 AA target)</li>
+   <li>Plain language; every screen offers a human next step</li>
+  </ul>
+ </div>
+ <div class="phone" id="phone">
+  <div class="top"><div class="row"><div class="name" id="appname">WorkPlace Front Door</div>
+   <div class="tools"><button id="lang" aria-label="Switch language">ES</button><button id="big" aria-label="Larger text">A+</button><button id="hc" aria-label="High contrast">◐</button></div></div></div>
+  <div class="screen" id="screen" aria-live="polite"></div>
+  <div class="toast" id="toast" role="status"></div>
+  <nav class="nav" id="nav">
+   <button data-go="home"><span class="ic">⌂</span><span data-t="nHome">Home</span></button>
+   <button data-go="explore"><span class="ic">⌕</span><span data-t="nExplore">Explore</span></button>
+   <button data-go="saved"><span class="ic">♡</span><span data-t="nSaved">Saved</span></button>
+   <button data-go="texts"><span class="ic">✉</span><span data-t="nTexts">Texts</span></button>
+   <button data-go="staff"><span class="ic">⚙</span><span data-t="nStaff">Staff</span></button>
+  </nav>
+ </div>
+</div>
+<div class="foot">Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · info@agentic-rx.com · +1 (415) 654-2333. Program names, events and counts are illustrative. In delivery, content comes from workplace.org, The WorkPlace's calendar and approved partner sources.</div>
+<script>
+if(location.search.includes("embed"))document.body.classList.add("embed");
+const T={en:{nHome:"Home",nExplore:"Explore",nSaved:"Saved",nTexts:"Texts",nStaff:"Staff",hi:"Hi! What do you need today?",hisub:"Pick one. We'll show you the next step.",job:"I need a job",jobs:"Search jobs, résumé help",train:"I want training",trains:"Free and funded courses",career:"I need career help",careers:"Talk to a counselor",young:"I'm 16–24",youngs:"Youth jobs and programs",emp:"I'm an employer",emps:"Hire, train, post jobs",other:"Something else",others:"Housing, transport, benefits",up:"Coming up",save:"Save",saved:"Saved",reg:"Register",cal:"Add to calendar",help:"Request help",book:"Book appointment"},
+es:{nHome:"Inicio",nExplore:"Explorar",nSaved:"Guardado",nTexts:"Mensajes",nStaff:"Personal",hi:"¡Hola! ¿Qué necesita hoy?",hisub:"Elija una opción. Le mostramos el siguiente paso.",job:"Necesito trabajo",jobs:"Buscar empleo, ayuda con currículum",train:"Quiero capacitación",trains:"Cursos gratuitos y financiados",career:"Necesito orientación",careers:"Hablar con un consejero",young:"Tengo 16–24 años",youngs:"Empleos y programas juveniles",emp:"Soy empleador",emps:"Contratar, capacitar, publicar",other:"Otra cosa",others:"Vivienda, transporte, beneficios",up:"Próximamente",save:"Guardar",saved:"Guardado",reg:"Inscribirse",cal:"Agregar al calendario",help:"Pedir ayuda",book:"Reservar cita"}};
+let L="en";const t=k=>T[L][k]||k;
+const S={saved:new Set(),sms:{opt:false,topics:new Set(["Hiring events"])},thread:[{me:false,x:"The WorkPlace: Hi Maria, this is Dana, your career counselor. Your appointment is Tue 11/17 at 10:00am, Bridgeport American Job Center. Reply C to confirm, R to reschedule. Msg&data rates may apply. Reply STOP to opt out."}]};
+const training=[
+ {id:"t1",n:"Certified Nursing Assistant (CNA)",c:"Healthcare",w:"Bridgeport",d:"8 weeks · evenings",f:"Free if eligible (WIOA)"},
+ {id:"t2",n:"CDL Class A",c:"Transportation",w:"Stamford",d:"6 weeks · full time",f:"Funding available"},
+ {id:"t3",n:"IT Support (CompTIA A+)",c:"Technology",w:"Online",d:"12 weeks · self-paced + coaching",f:"Free if eligible"},
+ {id:"t4",n:"Advanced Manufacturing / CNC",c:"Manufacturing",w:"Norwalk",d:"10 weeks · days",f:"Paid while you train"},
+ {id:"t5",n:"Pharmacy Technician",c:"Healthcare",w:"Danbury",d:"14 weeks · hybrid",f:"Funding available"}];
+const events=[
+ {id:"e1",n:"Healthcare Hiring Fair",d:"Thu Nov 19 · 10am–1pm",w:"American Job Center, Bridgeport",tag:"Hiring event"},
+ {id:"e2",n:"Résumé Clinic (walk-in)",d:"Every Tuesday · 2–4pm",w:"Stamford AJC + Zoom",tag:"Workshop"},
+ {id:"e3",n:"Youth Summer Jobs Info Night",d:"Wed Dec 2 · 5:30pm",w:"Norwalk Public Library",tag:"Young adults"}];
+const $=s=>document.querySelector(s),scr=$("#screen");
+function toast(m){const e=$("#toast");e.textContent=m;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",2600)}
+function saveBtn(id){return `<button class="btn alt" onclick="tog('${id}')">${S.saved.has(id)?"♥ "+t("saved"):"♡ "+t("save")}</button>`}
+function tog(id){S.saved.has(id)?S.saved.delete(id):S.saved.add(id);toast(S.saved.has(id)?"Saved. We'll text you if dates change (if you opt in).":"Removed from Saved");go(cur)}
+let cur="home";
+const V={
+home:()=>`<div class="hello">${t("hi")}</div><div class="sub">${t("hisub")}</div>
+ <div class="tiles">
+ <button class="tile" onclick="go('jobs')"><span class="em">💼</span><b>${t("job")}</b><span>${t("jobs")}</span></button>
+ <button class="tile" onclick="go('training')"><span class="em">🎓</span><b>${t("train")}</b><span>${t("trains")}</span></button>
+ <button class="tile" onclick="go('help')"><span class="em">🤝</span><b>${t("career")}</b><span>${t("careers")}</span></button>
+ <button class="tile" onclick="go('youth')"><span class="em">🚀</span><b>${t("young")}</b><span>${t("youngs")}</span></button>
+ <button class="tile" onclick="go('employer')"><span class="em">🏢</span><b>${t("emp")}</b><span>${t("emps")}</span></button>
+ <button class="tile" onclick="go('other')"><span class="em">🧭</span><b>${t("other")}</b><span>${t("others")}</span></button></div>
+ <h3 style="margin-top:16px">${t("up")}</h3>${events.slice(0,2).map(ev=>`<div class="card" onclick="go('event')" style="cursor:pointer"><div class="t">${ev.n}</div><div class="m">${ev.d} · ${ev.w}</div><span class="pill">${ev.tag}</span></div>`).join("")}`,
+explore:()=>`<h3>Explore</h3><input placeholder="Search jobs, training, events…" oninput="srch(this.value)"><div id="res">${allCards("")}</div>`,
+training:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Training near you</h3>
+ <div class="chips">${["All","Healthcare","Technology","Manufacturing","Transportation"].map(c=>`<button class="chip ${c==fil?'on':''}" onclick="fil='${c}';go('training')">${c}</button>`).join("")}</div>
+ <label>Near</label><select><option>Bridgeport (06604)</option><option>Stamford</option><option>Norwalk</option><option>Online only</option></select>
+ ${training.filter(x=>fil=="All"||x.c==fil).map(x=>`<div class="card"><div class="t">${x.n}</div><div class="m">${x.w} · ${x.d}</div><span class="pill">${x.f}</span><span class="pill">${x.c}</span><div>${saveBtn(x.id)}<button class="btn" onclick="go('help')">Am I eligible?</button></div></div>`).join("")}
+ <div class="card" style="background:var(--soft)"><div class="t">Not sure which course?</div><div class="m">A counselor can help you choose and check funding.</div><button class="btn g" onclick="go('help')">${t("help")}</button></div>`,
+event:()=>{const ev=events[0];return `<button class="back" onclick="go('home')">‹ Back</button><h3>${ev.n}</h3><div class="card"><div class="m">📅 ${ev.d}<br>📍 ${ev.w}<br>🧑‍⚕️ 14 employers hiring CNAs, MAs, patient access, EVS</div>
+ <p style="font-size:.9em">Bring copies of your résumé. Free résumé review 9:30–10am. Interpreters available on request.</p>
+ <button class="btn" onclick="toast('You are registered. Confirmation sent by text and email.')">${t("reg")}</button><button class="btn alt" onclick="toast('Added: .ics file for Apple, Google and Outlook calendars')">${t("cal")}</button>${saveBtn(ev.id)}</div>
+ <div class="card"><div class="t">Get a reminder</div><div class="m">Text me the day before (needs your OK to text).</div><button class="btn g" onclick="go('texts')">Set up texts</button></div>`},
+help:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Talk to a career counselor</h3>
+ <div class="card"><label>What can we help with?</label><select><option>Finding a job</option><option>Choosing training / funding</option><option>Résumé or interview</option><option>Young adult programs</option><option>Other</option></select>
+ <label>Your first name</label><input value="Maria"><label>Mobile number</label><input value="(203) 555-0147">
+ <label>How should we contact you?</label><div class="chips"><button class="chip on">Text</button><button class="chip">Call</button><button class="chip">Email</button></div>
+ <label>Preferred language</label><select><option>English</option><option>Español</option><option>Português</option><option>Kreyòl ayisyen</option></select>
+ <label>Résumé (optional)</label><input type="file" aria-label="Upload résumé">
+ <button class="btn" onclick="toast('Request sent to the Bridgeport AJC team. Reference WP-24817.')">${t("help")}</button></div>
+ <div class="card"><div class="t">Or book a time now</div><div class="chips">${["Mon 11/16 1:30pm","Tue 11/17 10:00am","Tue 11/17 3:00pm","Wed 11/18 9:00am","Virtual"].map(s=>`<button class="chip" onclick="this.parentNode.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">${s}</button>`).join("")}</div>
+ <button class="btn g" onclick="toast('Booked. Reminder texts 24h and 2h before (with your consent).')">${t("book")}</button></div>`,
+texts:()=>`<h3>Text messages</h3>
+ <div class="card"><div class="t">Text me updates from The WorkPlace</div><div class="m">Appointment and event reminders, next steps, and updates on topics you choose. Up to 6 msgs/month. Msg & data rates may apply. Reply STOP to opt out, HELP for help.</div>
+ <label style="display:flex;gap:8px;align-items:center;margin-top:8px"><input type="checkbox" style="width:auto" ${S.sms.opt?"checked":""} onchange="S.sms.opt=this.checked;toast(this.checked?'Consent recorded with time, number and wording version v1.2':'You are opted out. No texts will be sent.')"> I agree to receive texts</label>
+ <label>Topics</label><div class="chips">${["Hiring events","Training starts","Youth programs","Workshops","Employer services"].map(x=>`<button class="chip ${S.sms.topics.has(x)?'on':''}" onclick="S.sms.topics.has('${x}')?S.sms.topics.delete('${x}'):S.sms.topics.add('${x}');go('texts')">${x}</button>`).join("")}</div>
+ <label>Quiet hours</label><select><option>No texts 8pm–8am</option><option>No texts 6pm–9am</option></select></div>
+ <div class="t" style="font-weight:700">Conversation with your counselor</div>
+ <div class="sms">${S.thread.map(m=>`<div class="bub ${m.me?'me':''}">${m.x}</div>`).join("")}</div>
+ <input id="rep" placeholder="Reply (try C or R)"><button class="btn" onclick="reply()">Send</button>`,
+employer:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Employer services</h3>
+ ${[["Hiring help","Recruit through hiring events and job matching"],["Train your workers","Incumbent-worker and apprenticeship funding"],["Post a job","Share openings with our counselors and job seekers"],["On-the-job training","Wage reimbursement for eligible new hires"]].map(([a,b])=>`<div class="card"><div class="t">${a}</div><div class="m">${b}</div></div>`).join("")}
+ <div class="card"><label>Company</label><input value="Harbor Health Partners"><label>Roles you're hiring</label><input value="CNA (6), Patient access rep (3)"><label>Contact</label><input value="hr@example.org"><button class="btn" onclick="toast('Sent to the Business Services team. A specialist replies within 1 business day.')">Request hiring help</button></div>`,
+jobs:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Jobs</h3><div class="card"><div class="m">Job listings come from CTHires and partner feeds where access is approved (see integration plan). Shown here as examples.</div></div>
+ ${[["Patient Access Representative","Bridgeport · $21–24/hr"],["Warehouse Associate","Stratford · $19/hr"],["Help Desk Technician","Stamford · $26–30/hr"]].map(([a,b],i)=>`<div class="card"><div class="t">${a}</div><div class="m">${b}</div>${saveBtn('j'+i)}<button class="btn" onclick="go('help')">Get help applying</button></div>`).join("")}`,
+youth:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>For ages 16–24</h3>${[["Summer Youth Employment","Paid summer jobs in your town"],["Career pathways","Explore careers and earn credentials"],["Get a first job","Work-readiness and job matching"]].map(([a,b])=>`<div class="card"><div class="t">${a}</div><div class="m">${b}</div><button class="btn" onclick="go('help')">I'm interested</button></div>`).join("")}<div class="card" onclick="go('event')" style="cursor:pointer"><div class="t">${events[2].n}</div><div class="m">${events[2].d} · ${events[2].w}</div></div>`,
+other:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Other help</h3>${["Transportation to work or training","Childcare while you train","Benefits and unemployment questions","Housing and basic needs (via 211)"].map(x=>`<div class="card"><div class="t">${x}</div><div class="m">We connect you with partner services.</div><button class="btn alt" onclick="go('help')">Ask a counselor</button></div>`).join("")}`,
+saved:()=>`<h3>Saved</h3>${S.saved.size?[...training,...events].filter(x=>S.saved.has(x.id)).map(x=>`<div class="card"><div class="t">${x.n}</div><div class="m">${x.w||""} ${x.d||""}</div>${saveBtn(x.id)}</div>`).join(""):'<div class="card"><div class="m">Nothing saved yet. Tap ♡ on training, jobs or events.</div></div>'}`,
+staff:()=>`<h3>Staff console <span class="pill">role: Content editor + SMS sender</span></h3>
+ <div class="kpi"><div><b>3,412</b><span>Active users (30 days)</span></div><div><b>612</b><span>Help requests</span></div><div><b>71%</b><span>Requests contacted &lt; 2 days</span></div><div><b>2,048</b><span>Opted-in for texts</span></div></div>
+ <div class="card" style="margin-top:10px"><div class="t">Top needs chosen</div>${[["I want training",38],["I need a job",31],["I need career help",17],["I'm 16–24",9],["Employer",5]].map(([a,v])=>`<div class="m">${a} · ${v}%</div><div class="bar"><i style="width:${v*2.4}%"></i></div>`).join("")}</div>
+ <div class="card"><div class="t">Compose a text</div><label>Audience</label><select><option>Opted in · topic: Hiring events · Bridgeport area (1,106)</option><option>Opted in · topic: Training starts (842)</option></select>
+ <textarea rows="3">The WorkPlace: Healthcare Hiring Fair Thu 11/19, 10am–1pm, Bridgeport AJC. 14 employers hiring. Register in the app. Reply STOP to opt out.</textarea>
+ <div class="m">1 segment · est. cost $13.27 · quiet hours respected · needs 2nd approver</div><button class="btn" onclick="toast('Scheduled for Mon 11/16 10:00am. Sent for approval to the Communications lead.')">Schedule</button></div>
+ <div class="card"><div class="t">Content</div><table><tr><th>Item</th><th>Status</th><th>Lang</th></tr><tr><td>Healthcare Hiring Fair</td><td>Published</td><td>EN/ES</td></tr><tr><td>CNA cohort Jan 2027</td><td>Awaiting approval</td><td>EN</td></tr><tr><td>Youth Info Night</td><td>Draft</td><td>EN/ES</td></tr></table><button class="btn alt" onclick="toast('Editor opens with preview, approval and audit trail')">New content</button></div>
+ <div class="card"><div class="t">Audit log</div><div class="m">10:14 D. Rivera published "Healthcare Hiring Fair" · 09:52 consent v1.2 recorded for +1203***0147 · 09:40 J. Okafor exported monthly report (no PII)</div></div>`};
+let fil="All";
+function allCards(q){q=q.toLowerCase();return [...training.map(x=>({...x,k:"Training"})),...events.map(x=>({...x,k:"Event"}))].filter(x=>!q||(x.n+x.c+x.w+x.k).toLowerCase().includes(q)).map(x=>`<div class="card"><div class="t">${x.n}</div><div class="m">${x.k} · ${x.w}</div>${saveBtn(x.id)}</div>`).join("")||'<div class="card"><div class="m">No matches. Try "CNA", "online" or "Stamford", or ask a counselor.</div></div>'}
+function srch(v){$("#res").innerHTML=allCards(v)}
+function reply(){const v=($("#rep").value||"").trim();if(!v)return;S.thread.push({me:true,x:v});const u=v.toUpperCase();S.thread.push({me:false,x:u=="C"?"Thanks, you're confirmed for Tue 11/17 at 10:00am. See you then!":u=="R"?"No problem. Reply 1 for Wed 11/18 9:00am, 2 for Thu 11/19 2:00pm, or 3 to have Dana call you.":u=="STOP"?"You're unsubscribed from The WorkPlace texts. Reply START to resubscribe.":"Thanks, Dana will reply during office hours (Mon–Fri 8:30–4:30)."});if(u=="STOP")S.sms.opt=false;go("texts")}
+function go(v){cur=v;scr.innerHTML=V[v]();scr.scrollTop=0;document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==v));document.querySelectorAll("#journeys button").forEach(b=>b.classList.toggle("on",b.dataset.go==v));document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));if(!document.body.classList.contains("embed"))location.hash=v}
+document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+$("#lang").onclick=()=>{L=L=="en"?"es":"en";$("#lang").textContent=L=="en"?"ES":"EN";document.documentElement.lang=L;go(cur)};
+$("#big").onclick=()=>{const c=parseFloat(getComputedStyle(document.body).getPropertyValue("--fs"));document.body.style.setProperty("--fs",(c>=20?16:c+2)+"px")};
+$("#hc").onclick=()=>document.body.classList.toggle("hc");
+go((location.hash||"#home").slice(1) in V?(location.hash||"#home").slice(1):"home");
+</script>
+</body>
+</html>

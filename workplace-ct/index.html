@@ -1,193 +1,323 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Front Door prototype · Agentic Rx proposal for The WorkPlace</title>
-<meta name="description" content="Clickable prototype of a mobile-first digital workforce front door, prepared by Agentic Rx LLC for The WorkPlace Mobile App RFP. Sample data only.">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WorkPlace Front Door · Agentic Rx proposal demonstration</title>
+<meta name="description" content="Working demonstration for The WorkPlace Mobile App and Digital Workforce Front Door RFP, prepared by Agentic Rx LLC. Sample data only.">
 <style>
-:root{--ink:#16233a;--muted:#5b6880;--line:#dfe4ec;--bg:#f3f5f9;--card:#fff;--brand:#0b5cad;--brand2:#0a7c6b;--warn:#b5520b;--soft:#e9f1fb;--fs:16px}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#d9dee8;color:var(--ink);font-size:var(--fs)}
-body.hc{--ink:#000;--muted:#222;--line:#000;--bg:#fff;--card:#fff;--brand:#00336e;--brand2:#004d40;--soft:#fff}
-body.hc .card,body.hc .tile{border:2px solid #000}
-.banner{background:#16233a;color:#fff;padding:10px 16px;font-size:13px;text-align:center}
-.banner b{color:#ffd166}
-.wrap{display:flex;gap:28px;justify-content:center;align-items:flex-start;padding:24px 16px;flex-wrap:wrap}
-.side{max-width:360px;font-size:14px;line-height:1.5}
-.side h1{font-size:22px;margin:0 0 8px}
-.side h2{font-size:15px;margin:18px 0 6px}
-.side ul{padding-left:18px;margin:6px 0}
-.side .tabs button{display:block;width:100%;text-align:left;margin:4px 0;padding:8px 10px;border:1px solid #b9c3d3;background:#fff;border-radius:8px;cursor:pointer;font-size:14px}
-.side .tabs button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
-.phone{width:390px;max-width:100%;height:800px;background:var(--bg);border-radius:36px;border:10px solid #111;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.25);position:relative}
-.top{background:var(--brand);color:#fff;padding:14px 16px 12px}
-.top .row{display:flex;justify-content:space-between;align-items:center}
-.top .name{font-weight:700;font-size:1.05em}
-.top .tools button{background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:6px;padding:5px 8px;margin-left:4px;font-size:.78em;cursor:pointer}
-.screen{flex:1;overflow:auto;padding:14px}
-.nav{display:flex;border-top:1px solid var(--line);background:var(--card)}
-.nav button{flex:1;border:0;background:none;padding:9px 2px 11px;font-size:.72em;color:var(--muted);cursor:pointer}
-.nav button.on{color:var(--brand);font-weight:700}
-.nav .ic{display:block;font-size:1.4em;line-height:1.1}
-h3{margin:4px 0 10px;font-size:1.15em}
-.hello{font-size:1.25em;font-weight:700;margin:6px 0 2px}
-.sub{color:var(--muted);font-size:.9em;margin-bottom:12px}
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tile{background:var(--card);border-radius:14px;padding:14px;border:1px solid var(--line);cursor:pointer;text-align:left;font-size:.95em;color:var(--ink)}
-.tile .em{font-size:1.6em;display:block;margin-bottom:6px}
-.tile b{display:block}
-.tile span{color:var(--muted);font-size:.82em}
-.card{background:var(--card);border-radius:14px;border:1px solid var(--line);padding:12px 14px;margin-bottom:10px}
-.card .t{font-weight:700}
-.card .m{color:var(--muted);font-size:.85em;margin-top:2px}
-.pill{display:inline-block;font-size:.72em;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--brand);margin:6px 4px 0 0}
-.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-size:.92em;cursor:pointer;margin:6px 6px 0 0}
-.btn.alt{background:#fff;color:var(--brand);border:1px solid var(--brand)}
-.btn.g{background:var(--brand2)}
-input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:.95em;margin:4px 0 10px;background:#fff;color:var(--ink)}
-label{font-size:.85em;color:var(--muted)}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 10px;font-size:.8em;cursor:pointer;color:var(--ink)}
-.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
-.toast{position:absolute;left:16px;right:16px;bottom:74px;background:#16233a;color:#fff;padding:12px 14px;border-radius:12px;font-size:.88em;display:none;z-index:5}
-.sms{background:#eef0f4;border-radius:14px;padding:10px;margin-top:8px}
-.bub{background:#fff;border-radius:12px;padding:8px 10px;margin:6px 0;font-size:.85em;max-width:85%}
-.bub.me{background:var(--brand);color:#fff;margin-left:auto;width:fit-content}
-.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.kpi div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
-.kpi b{font-size:1.3em;display:block}
-.kpi span{font-size:.75em;color:var(--muted)}
-.bar{height:8px;background:var(--soft);border-radius:4px;overflow:hidden;margin-top:4px}
-.bar i{display:block;height:100%;background:var(--brand2)}
-.back{background:none;border:0;color:var(--brand);font-size:.9em;padding:0;margin-bottom:8px;cursor:pointer}
-table{width:100%;border-collapse:collapse;font-size:.8em}
-td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
-.foot{font-size:12px;color:#445;max-width:820px;margin:0 auto 30px;text-align:center;padding:0 16px}
-@media (max-width:820px){.phone{height:720px}}
-</style>
-</head>
-<body>
-<div class="banner"><b>Proposal prototype.</b> Prepared by Agentic Rx LLC for The WorkPlace Mobile App and Digital Workforce Front Door RFP (Nov 2026). Sample data only, not affiliated with or endorsed by The WorkPlace.</div>
-<div class="wrap">
- <div class="side">
-  <h1>Digital Workforce Front Door</h1>
-  <div>A clickable prototype of the base solution in our proposal: one cross-platform app organised around what people need, not program names, with consent-based two-way SMS and a staff console.</div>
-  <h2>Try these journeys</h2>
-  <div class="tabs" id="journeys">
-   <button data-go="home">1. Start from "What do you need?"</button>
-   <button data-go="training">2. Find free training near you</button>
-   <button data-go="event">3. Register for a hiring event, add to calendar</button>
-   <button data-go="help">4. Ask for help and book a counselor</button>
-   <button data-go="texts">5. Text consent, preferences and two-way SMS</button>
-   <button data-go="employer">6. Employer pathway: hiring help</button>
-   <button data-go="staff">7. Staff console: content, SMS, analytics</button>
-  </div>
-  <h2>Built in, on every screen</h2>
-  <ul>
-   <li>English / Español toggle (more languages by configuration)</li>
-   <li>Larger text and high-contrast mode (WCAG 2.2 AA target)</li>
-   <li>Plain language; every screen offers a human next step</li>
-  </ul>
- </div>
- <div class="phone" id="phone">
-  <div class="top"><div class="row"><div class="name" id="appname">WorkPlace Front Door</div>
-   <div class="tools"><button id="lang" aria-label="Switch language">ES</button><button id="big" aria-label="Larger text">A+</button><button id="hc" aria-label="High contrast">◐</button></div></div></div>
-  <div class="screen" id="screen" aria-live="polite"></div>
-  <div class="toast" id="toast" role="status"></div>
-  <nav class="nav" id="nav">
-   <button data-go="home"><span class="ic">⌂</span><span data-t="nHome">Home</span></button>
-   <button data-go="explore"><span class="ic">⌕</span><span data-t="nExplore">Explore</span></button>
-   <button data-go="saved"><span class="ic">♡</span><span data-t="nSaved">Saved</span></button>
-   <button data-go="texts"><span class="ic">✉</span><span data-t="nTexts">Texts</span></button>
-   <button data-go="staff"><span class="ic">⚙</span><span data-t="nStaff">Staff</span></button>
-  </nav>
- </div>
+:root{--ink:#14213d;--muted:#5b6475;--line:#dde3ec;--bg:#f5f7fb;--card:#fff;--a:#1f5fa8;--b:#2a9d8f;--c:#e9a23b;--d:#c8553d;--e:#6c5ce7}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#0f2747;color:#fff;padding:14px 22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+header h1{font-size:19px;margin:0}header .s{font-size:12px;opacity:.82;margin-top:2px}header .who{font-size:12px;text-align:right;opacity:.9}
+.banner{background:#fff4d6;border-bottom:1px solid #f0d58a;padding:7px 22px;font-size:12px}
+nav{display:flex;gap:4px;flex-wrap:wrap;padding:10px 22px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav button{border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:999px;font-size:13px;cursor:pointer;color:var(--ink)}
+nav button.on{background:var(--a);color:#fff;border-color:var(--a)}
+nav button.gw{border-color:#2a9d8f;color:#1b6e62}nav button.gw.on{background:#2a9d8f;color:#fff}
+main{padding:18px 22px;max-width:1300px;margin:auto}
+.tab{display:none}.tab.on{display:block}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .v{font-size:28px;font-weight:700}.kpi .l{font-size:12px;color:var(--muted)}.kpi .t{font-size:12px;margin-top:4px}
+.up{color:#1b8a5a}.dn{color:#c8553d}
+h2{font-size:16px;margin:0 0 10px}h3{font-size:13px;margin:0 0 8px;color:var(--muted);font-weight:600}
+.lead{font-size:14px;color:#333;max-width:980px;margin:0 0 14px;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:#f0f3f8}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.ok{background:#e3f5ec;color:#1b6e48}.warn{background:#fff1d6;color:#8a5a00}.bad{background:#fde6e1;color:#9b2c16}.info{background:#e6efff;color:#1f4c94}.gwp{background:#dff4f1;color:#1b6e62}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center}select,input,textarea{padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:inherit}
+.btn{background:var(--a);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer}.btn.alt{background:#fff;color:var(--a);border:1px solid var(--a)}
+.method{border-left:4px solid var(--a);padding:8px 12px;margin:8px 0;background:#f8fafd;font-size:13px}
+.bar{height:10px;background:#eef2f8;border-radius:5px;overflow:hidden}.bar i{display:block;height:100%;background:var(--a)}
+.hb{display:flex;align-items:center;gap:8px;font-size:12.5px;margin:5px 0}.hb span:first-child{width:170px;flex:none}.hb .bar{flex:1}.hb b{width:48px;text-align:right}
+.gantt{font-size:12px}.gantt .row{display:flex;align-items:center;margin:4px 0}.gantt .lbl{width:210px;flex:none}.gantt .trk{flex:1;position:relative;height:18px;background:#f0f3f8;border-radius:4px}.gantt .seg{position:absolute;top:0;height:18px;border-radius:4px;color:#fff;font-size:10px;padding-left:4px;line-height:18px;white-space:nowrap;overflow:hidden}
+.flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}.flow .n{flex:1;min-width:150px;background:#f8fafd;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:12.5px}.flow .n b{display:block;margin-bottom:3px}.arrow{align-self:center;color:var(--muted);font-size:18px}
+.chat{background:#f3f5f9;border-radius:10px;padding:10px;max-height:300px;overflow:auto}.bub{background:#fff;border-radius:10px;padding:7px 10px;margin:6px 0;font-size:12.5px;max-width:80%}.bub.me{background:var(--a);color:#fff;margin-left:auto;width:fit-content}
+iframe{border:0;width:100%;height:860px;border-radius:12px;background:transparent}
+.req a{color:var(--a)}
+footer{font-size:11px;color:var(--muted);text-align:center;padding:20px}
+.small{font-size:12px;color:var(--muted)}
+ul.t{margin:4px 0 4px 18px;padding:0;font-size:13px;line-height:1.5}
+</style></head><body>
+<header><div><h1>WorkPlace Front Door · Working demonstration</h1><div class="s">The WorkPlace (Southwestern CT Regional Workforce Development Board) · Mobile App and Digital Workforce Front Door RFP · November 2026</div></div>
+<div class="who">Prepared by <b>Agentic Rx LLC</b><br>info@agentic-rx.com · +1 (415) 654-2333</div></header>
+<div class="banner"><b>Demonstration only.</b> Synthetic sample data. Not affiliated with or endorsed by The WorkPlace. Program names, events, counts and costs are illustrative; in delivery, content comes from The WorkPlace and approved partner sources.</div>
+<nav id="nav"></nav>
+<main>
+
+<section class="tab" id="overview">
+<p class="lead">Every service in the RFP is built out below as a working view, so the evaluation team can see how we will deliver it, not just read about it. The <b>App prototype</b> tab is the clickable jobseeker and employer experience. The other tabs show the staff, technical and delivery side. The <b>Goodwill add-ons</b> tab shows five extras we include at no additional cost.</p>
+<div class="grid g4" id="ovk"></div>
+<div class="card" style="margin-top:14px"><h2>RFP requirement → where to see it working</h2><table class="req" id="reqmap"></table></div>
+</section>
+
+<section class="tab" id="app">
+<div class="grid" style="grid-template-columns:minmax(300px,1fr) 430px;align-items:start">
+<div class="card"><h2>Clickable app prototype (iOS, Android and mobile web from one codebase)</h2>
+<p class="lead" style="font-size:13px">Try these journeys on the phone, which works with a mouse or touch:</p>
+<ol class="t"><li>Start from <b>"What do you need today?"</b>: six plain-language doors, no program names.</li><li><b>I want training</b>: filter by field and location, save, and check eligibility.</li><li>Open the <b>Healthcare Hiring Fair</b>: register, add to calendar, get a text reminder.</li><li><b>I need career help</b>: request help, upload a résumé and book a counselor time.</li><li><b>Texts</b>: opt in, choose topics and quiet hours, then reply <b>R</b> to reschedule or <b>STOP</b> to opt out.</li><li><b>I'm an employer</b>: request hiring help.</li><li>Use <b>ES</b> for Spanish, <b>A+</b> for larger text and <b>◐</b> for high contrast.</li></ol>
+<p class="small">The same journeys run as a progressive web app linked from workplace.org for people who don't install apps. A standalone full-screen version is at <a href="app.html">app.html</a>.</p></div>
+<iframe src="app.html?embed" title="App prototype"></iframe></div>
+</section>
+
+<section class="tab" id="ux">
+<p class="lead">RFP Section II.A: discovery, user research and experience design. We design around user needs and test with real people before building. Below are the personas, the need-based information architecture and a sample usability-test readout from our prototype method.</p>
+<div class="grid g4" id="personas"></div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h2>Information architecture: needs, not program names</h2><div id="ia"></div></div>
+<div class="card"><h2>Usability testing readout (sample, round 1, 12 participants)</h2><table id="ut"></table><div class="method">Method: moderated tests (in person at AJCs and remote) with jobseekers, young adults, employers, Spanish speakers and screen-reader users. Changes are made and re-tested within the same sprint.</div></div>
 </div>
-<div class="foot">Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · info@agentic-rx.com · +1 (415) 654-2333. Program names, events and counts are illustrative. In delivery, content comes from workplace.org, The WorkPlace's calendar and approved partner sources.</div>
+<div class="card" style="margin-top:14px"><h2>Discovery plan (weeks 1–4)</h2><table><tr><th>Activity</th><th>With whom</th><th>Output</th></tr>
+<tr><td>Kickoff and goals workshop</td><td>Leadership, project manager</td><td>Success measures, constraints, decision log</td></tr>
+<tr><td>Service mapping workshops (3)</td><td>Program staff: adult, youth, Business Services</td><td>Service catalogue in plain language; referral and next-step flows</td></tr>
+<tr><td>User interviews and intercepts (20–25)</td><td>Jobseekers at AJCs, young adults, employers, partners</td><td>Needs, barriers, device and language patterns</td></tr>
+<tr><td>Content, forms and systems audit</td><td>Web team, IT, data owners</td><td>Content plan; integration plan with access and approval status</td></tr>
+<tr><td>Requirements summary and sign-off</td><td>Project manager</td><td>Requirements, risks, assumptions and WorkPlace decisions</td></tr></table></div>
+</section>
+
+<section class="tab" id="sms">
+<p class="lead">RFP Section II.C: text messaging is part of the core proposal. It covers consent-first two-way SMS with STOP/HELP handling, topics and quiet hours, staff tools with second-person approval for bulk sends, delivery reporting and costs that are clear before anything is sent.</p>
+<div class="grid g4" id="smsk"></div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h2>Campaign builder</h2>
+<div class="controls"><label>Audience <select id="aud"><option value="1106">Opted in · Hiring events · Bridgeport area (1,106)</option><option value="842">Opted in · Training starts (842)</option><option value="388">Opted in · Youth programs · 16–24 (388)</option><option value="214">Employers · Business Services updates (214)</option></select></label></div>
+<textarea id="msg" rows="3" style="width:100%">The WorkPlace: Healthcare Hiring Fair Thu 11/19, 10am-1pm, Bridgeport AJC. 14 employers hiring. Register in the app. Reply STOP to opt out.</textarea>
+<div class="controls" style="margin-top:8px"><label>Send <select><option>Mon 11/16 10:00am</option><option>Now</option></select></label><label>Language <select><option>English + Spanish (by preference)</option></select></label></div>
+<div class="method" id="cost"></div>
+<button class="btn" onclick="this.textContent='Sent for approval ✓ (Communications lead)'">Request approval</button></div>
+<div class="card"><h2>Two-way inbox (counselor queue: Bridgeport)</h2><div class="chat" id="chat"></div>
+<div class="controls" style="margin-top:8px"><input id="rp" placeholder="Type a reply as staff…" style="flex:1"><button class="btn" onclick="staffReply()">Send</button></div>
+<p class="small">Replies are routed by keyword (C, R, STOP, HELP) or to the assigned counselor. Every message is logged against the consent record.</p></div>
+</div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h2>Consent ledger (most recent)</h2><table><tr><th>Time</th><th>Number</th><th>Event</th><th>Source</th><th>Wording</th></tr>
+<tr><td>11/13 09:52</td><td>+1 203 ***0147</td><td><span class="pill ok">Opt-in</span></td><td>App · Texts screen</td><td>v1.2 EN</td></tr>
+<tr><td>11/13 09:31</td><td>+1 475 ***2208</td><td><span class="pill ok">Opt-in</span></td><td>Keyword JOBS to long code</td><td>v1.2 ES</td></tr>
+<tr><td>11/13 08:57</td><td>+1 203 ***9931</td><td><span class="pill bad">STOP</span></td><td>SMS reply</td><td>All campaigns suppressed</td></tr>
+<tr><td>11/12 16:20</td><td>+1 203 ***5514</td><td><span class="pill info">Topics changed</span></td><td>App</td><td>+Training starts</td></tr>
+<tr><td>11/12 14:02</td><td>+1 203 ***7720</td><td><span class="pill ok">Opt-in</span></td><td>AJC kiosk (QR)</td><td>v1.2 EN</td></tr></table>
+<p class="small">Records are retained for at least 4 years. STOP applies across all campaigns immediately, quiet hours are enforced at send time, and records can be exported for audit.</p></div>
+<div class="card"><h2>When we use push vs SMS</h2><table><tr><th>Message</th><th>Channel</th><th>Why</th></tr>
+<tr><td>Appointment reminder (24h, 2h)</td><td>SMS</td><td>Time-sensitive; works without the app</td></tr>
+<tr><td>Referral follow-up and next steps</td><td>SMS (two-way)</td><td>Needs a reply, routed to staff</td></tr>
+<tr><td>Event reminder for registrants</td><td>SMS + push</td><td>High value; push is free for app users</td></tr>
+<tr><td>New training in a saved field</td><td>Push</td><td>Informational; avoids SMS cost and fatigue</td></tr>
+<tr><td>General news</td><td>In-app feed</td><td>No interruption</td></tr></table>
+<div class="method">Carrier compliance: A2P 10DLC brand and campaign registration in The WorkPlace's name (started in week 6; approval takes 2–4 weeks), with opt-in language, sample messages and HELP/STOP replies on file.</div></div>
+</div>
+</section>
+
+<section class="tab" id="cms">
+<p class="lead">RFP Sections I.B and II.B: authorized staff update content, events, links and notifications without developer support. Every change is versioned, previewed in English and Spanish, approved and logged.</p>
+<div class="grid g2">
+<div class="card"><h2>Content queue</h2><table id="cq"></table></div>
+<div class="card"><h2>Roles and permissions</h2><table><tr><th>Role</th><th>Can do</th><th>MFA</th></tr>
+<tr><td>Content editor</td><td>Draft and edit content and events; submit for approval</td><td>Yes</td></tr>
+<tr><td>Approver</td><td>Approve and publish; schedule; unpublish</td><td>Yes</td></tr>
+<tr><td>SMS sender</td><td>Compose and schedule texts to opted-in segments; send to individuals they serve</td><td>Yes</td></tr>
+<tr><td>Communications lead</td><td>Second approval on bulk texts; manage templates</td><td>Yes</td></tr>
+<tr><td>Analyst</td><td>View dashboards and export aggregate reports (no personal data)</td><td>Yes</td></tr>
+<tr><td>Administrator</td><td>Users, roles, settings, audit log</td><td>Yes</td></tr></table></div>
+</div>
+<div class="card" style="margin-top:14px"><h2>Audit log</h2><table><tr><th>Time</th><th>User</th><th>Action</th></tr>
+<tr><td>11/13 10:14</td><td>D. Rivera (Approver)</td><td>Published "Healthcare Hiring Fair" (EN, ES)</td></tr>
+<tr><td>11/13 09:58</td><td>K. Patel (Editor)</td><td>Submitted "CNA cohort, January 2027" for approval</td></tr>
+<tr><td>11/13 09:40</td><td>J. Okafor (Analyst)</td><td>Exported October monthly report (aggregate, no PII)</td></tr>
+<tr><td>11/12 17:05</td><td>M. Santos (Comms lead)</td><td>Approved bulk text "Youth Info Night" to 388 opted-in contacts</td></tr>
+<tr><td>11/12 15:22</td><td>Admin</td><td>Added user L. Chen as Content editor (MFA enrolled)</td></tr></table></div>
+</section>
+
+<section class="tab" id="int">
+<p class="lead">RFP Section II.E: integrations and data. For each one we show whether it works out of the box, needs configuration or custom work, or depends on third-party approval. We assume no access to confidential participant records or state systems without written authorization.</p>
+<div class="card"><h2>Data flow</h2><div class="flow">
+<div class="n"><b>Sources</b>workplace.org (WordPress API / RSS) · Events calendar · CareerOneStop API (training, jobs) · Scheduling tool · Partner resources</div><div class="arrow">→</div>
+<div class="n"><b>Integration layer</b>Scheduled sync, caching and retries; source failures never break the app</div><div class="arrow">→</div>
+<div class="n"><b>Front Door API + CMS</b>Content, events, forms, saved items, consent records, audit</div><div class="arrow">→</div>
+<div class="n"><b>Channels</b>iOS and Android app · PWA · SMS (Twilio) · Push (FCM/APNs)</div><div class="arrow">→</div>
+<div class="n"><b>Staff destinations</b>Program inboxes · CRM or case-management (when approved) · Counselor queues</div></div></div>
+<div class="card" style="margin-top:14px"><h2>Integration register</h2><table id="ir"></table></div>
+</section>
+
+<section class="tab" id="arch">
+<p class="lead">RFP Sections II.D and II.F: one shared Flutter codebase for iOS, Android and the web (PWA), an open-source CMS and secure cloud services. There is no proprietary platform licence and no lock-in, and The WorkPlace owns the code, data and developer accounts.</p>
+<div class="grid g2">
+<div class="card"><h2>Architecture</h2><table><tr><th>Layer</th><th>Technology</th></tr>
+<tr><td>App and web</td><td>Flutter (iOS 16+, Android 10+, PWA), about 95% shared code</td></tr>
+<tr><td>Staff console / CMS</td><td>Strapi (open source), role-based, approval workflow, EN/ES</td></tr>
+<tr><td>API</td><td>Node.js (TypeScript) behind API gateway + WAF, rate limits</td></tr>
+<tr><td>Data</td><td>Managed PostgreSQL, AES-256 at rest, PITR, 35-day backups</td></tr>
+<tr><td>Hosting</td><td>AWS US-East; dev / test / prod; Terraform; can move to a WorkPlace account</td></tr>
+<tr><td>Messaging</td><td>Twilio A2P 10DLC; Firebase Cloud Messaging / Apple Push</td></tr>
+<tr><td>Observability</td><td>Uptime, error reporting, alerts; privacy-safe analytics</td></tr></table>
+<div class="method">Targets: 99.5% monthly availability · RPO ≤ 24h · RTO ≤ 8h · recovery tested before launch.</div></div>
+<div class="card"><h2>Security and privacy controls</h2><table id="sec"></table></div>
+</div>
+<div class="card" style="margin-top:14px"><h2>Data we keep, and for how long</h2><table><tr><th>Data</th><th>Why</th><th>Retention (proposed)</th></tr>
+<tr><td>Browsing, search and saved items (no account)</td><td>Make the app useful</td><td>On device only</td></tr>
+<tr><td>Help, referral and employer requests</td><td>Route to staff</td><td>24 months unless transferred to a WorkPlace system</td></tr>
+<tr><td>Résumé uploads</td><td>Counselor review</td><td>90 days, then deleted</td></tr>
+<tr><td>Phone number, consent records, topics</td><td>Lawful texting</td><td>4 years after opt-out</td></tr>
+<tr><td>Analytics events</td><td>Improve the service</td><td>No personal data; 25 months</td></tr></table>
+<p class="small">No Social Security numbers, case notes or state system records are stored. Users can ask for their data to be deleted.</p></div>
+</section>
+
+<section class="tab" id="a11y">
+<p class="lead">RFP Section II.F: accessibility and language access. We target WCAG 2.2 AA and Section 508, test with assistive technology and real users, and launch in English and Spanish.</p>
+<div class="grid g2">
+<div class="card"><h2>Accessibility checks (prototype, automated + manual)</h2><table id="ax"></table></div>
+<div class="card"><h2>Language access</h2>
+<div class="controls"><button class="btn" onclick="lang('en')">English</button><button class="btn alt" onclick="lang('es')">Español</button></div>
+<div class="method" id="lx"></div>
+<table><tr><th>Language</th><th>At launch</th><th>How</th></tr><tr><td>English</td><td><span class="pill ok">Included</span></td><td>Plain-language copy, grade 6–8</td></tr><tr><td>Spanish</td><td><span class="pill ok">Included</span></td><td>Professional translation + staff review in CMS</td></tr><tr><td>Portuguese, Haitian Creole</td><td><span class="pill info">Optional</span></td><td>Configuration + translation ($3,500 per language)</td></tr></table></div>
+</div>
+</section>
+
+<section class="tab" id="test">
+<p class="lead">RFP Section II.G: testing, launch and app-store publication. Nothing launches with a critical defect open, and The WorkPlace owns its Apple and Google developer accounts.</p>
+<div class="grid g4" id="tk"></div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h2>Test plan status (example at week 21)</h2><table id="tp"></table></div>
+<div class="card"><h2>Device matrix (top devices in Fairfield County)</h2><table id="dm"></table></div>
+</div>
+<div class="card" style="margin-top:14px"><h2>Launch checklist</h2><table id="lc"></table></div>
+</section>
+
+<section class="tab" id="support">
+<p class="lead">RFP Section II.G: training, documentation and ongoing support, with clear service levels and a monthly service report.</p>
+<div class="grid g2">
+<div class="card"><h2>Service levels</h2><table><tr><th>Priority</th><th>Example</th><th>Response</th><th>Resolution / workaround</th></tr>
+<tr><td><span class="pill bad">Critical</span></td><td>App down; data at risk</td><td>1 hour, 24/7</td><td>Workaround in 4 hours</td></tr>
+<tr><td><span class="pill warn">High</span></td><td>Forms or texts failing</td><td>4 business hours</td><td>2 business days</td></tr>
+<tr><td><span class="pill info">Normal</span></td><td>Display issue; question</td><td>1 business day</td><td>Next release</td></tr></table>
+<div class="method">Help desk Mon–Fri 8am–6pm ET (email, phone, ticket portal). OS updates are tested before public iOS and Android releases. Critical security patches are applied within 7 days.</div></div>
+<div class="card"><h2>Service desk (sample month)</h2><table id="sd"></table></div>
+</div>
+<div class="card" style="margin-top:14px"><h2>Training plan</h2><table><tr><th>Audience</th><th>Format</th><th>Covers</th></tr>
+<tr><td>Content editors and approvers</td><td>2 × 90-min live sessions + recorded videos</td><td>Content, events, translation, approvals, scheduling</td></tr>
+<tr><td>SMS senders and Communications lead</td><td>90-min session + quick guide</td><td>Consent rules, segments, templates, approvals, two-way inbox</td></tr>
+<tr><td>Counselors and front-line staff</td><td>45-min session + AJC lobby one-pager</td><td>Helping customers install, use and opt in; handling requests</td></tr>
+<tr><td>IT and administrator</td><td>Technical handover</td><td>Architecture, accounts, monitoring, backups, runbooks</td></tr></table></div>
+</section>
+
+<section class="tab" id="analytics">
+<p class="lead">RFP Sections II.G and V.A: measurement and reporting. Staff see adoption, engagement and service-navigation outcomes live, using aggregate data only.</p>
+<div class="grid g4" id="ak"></div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h2>Monthly active users (sample, first 6 months)</h2><svg id="mau" viewBox="0 0 520 200" style="width:100%"></svg></div>
+<div class="card"><h2>Front-door needs chosen</h2><div id="needs"></div></div>
+<div class="card"><h2>Service-navigation funnel (last 30 days)</h2><div id="fun"></div></div>
+<div class="card"><h2>Searches with no results (fix list)</h2><table><tr><th>Search</th><th>Count</th><th>Action</th></tr><tr><td>"forklift"</td><td>64</td><td><span class="pill warn">Add partner course</span></td></tr><tr><td>"childcare help"</td><td>41</td><td><span class="pill ok">Synonym added</span></td></tr><tr><td>"GED"</td><td>37</td><td><span class="pill ok">Linked adult-ed partners</span></td></tr><tr><td>"trabajo de limpieza"</td><td>22</td><td><span class="pill warn">Spanish synonym</span></td></tr></table></div>
+</div>
+</section>
+
+<section class="tab" id="plan">
+<p class="lead">RFP Section III: implementation and deliverables, with a 24-week build to launch followed by 12 weeks of hypercare and a post-launch review.</p>
+<div class="card gantt" id="gantt"></div>
+<div class="card" style="margin-top:14px"><h2>Deliverables, acceptance and payment milestones</h2><table id="dl"></table></div>
+</section>
+
+<section class="tab" id="cost">
+<p class="lead">RFP Section V.B: total cost of ownership and transparent pricing. Move the sliders to see how SMS volume changes the recurring cost; everything else is fixed.</p>
+<div class="grid g2">
+<div class="card"><h2>Three-year cost calculator</h2>
+<div class="controls"><label>SMS segments per month: <b id="sv">25,000</b></label><input type="range" id="ss" min="5000" max="100000" step="5000" value="25000" style="flex:1"></div>
+<table id="tco"></table><p class="small">SMS is billed at cost with no mark-up (about $0.0118 per segment including carrier fees, plus registration and number fees). Hosting, maintenance and support rise by 3% a year.</p></div>
+<div class="card"><h2>One-time fee breakdown ($148,000, fixed)</h2><div id="otb"></div></div>
+</div>
+</section>
+
+<section class="tab" id="goodwill">
+<p class="lead"><b>Goodwill add-ons, included at no additional cost.</b> These five extras come with our base proposal to show what we can build and to help The WorkPlace reach more people from day one. They are built on the same platform, so they add no licence fees.</p>
+<div class="grid g2">
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">1. "Ask WorkPlace" assistant (Year 1 pilot)</h2>
+<p class="small">An assistant inside the app that answers questions only from content The WorkPlace has approved, shows its source and hands off to a person. It stores no personal data and gives no eligibility decisions.</p>
+<div class="chat" id="ai"></div><div class="controls" style="margin-top:8px"><select id="aq"><option>Is CNA training free?</option><option>¿Dónde está el centro de empleo en Stamford?</option><option>How do I get help with my résumé?</option><option>Can you tell me if I qualify for unemployment?</option></select><button class="btn" onclick="ask()">Ask</button></div></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">2. AJC lobby kiosk and QR check-in</h2>
+<p class="small">A tablet kiosk mode for American Job Center lobbies, plus printable QR posters. Visitors check in, choose why they came, opt in to texts and get a ticket number. Staff see the queue.</p>
+<table><tr><th>Ticket</th><th>Reason</th><th>Language</th><th>Waiting</th></tr><tr><td>B-014</td><td>Career help</td><td>EN</td><td>6 min</td></tr><tr><td>B-015</td><td>Unemployment question</td><td>ES</td><td>4 min</td></tr><tr><td>B-016</td><td>Training funding</td><td>EN</td><td>1 min</td></tr></table></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">3. Hiring-event check-in and employer leads</h2>
+<p class="small">At hiring fairs, jobseekers check in by QR and employers scan candidates to request follow-up. Business Services gets an attendance and leads report the same day.</p>
+<div class="grid g3" style="gap:8px"><div class="kpi"><div class="v">212</div><div class="l">Checked in</div></div><div class="kpi"><div class="v">14</div><div class="l">Employers</div></div><div class="kpi"><div class="v">96</div><div class="l">Follow-up requests</div></div></div></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">4. Résumé starter</h2>
+<p class="small">A short guided form on a phone produces a clean one-page résumé (PDF) that the user can share with their counselor. It is saved on the device unless the user chooses to send it.</p>
+<div class="method"><b>Maria R.</b> · Bridgeport, CT · (203) 555-0147<br><b>Experience:</b> Home Health Aide, 2023–2026: assisted 6 clients with daily living; recorded vitals.<br><b>Training:</b> CNA (in progress, 2027) · CPR/First Aid<br><b>Languages:</b> English, Spanish</div></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">5. Monthly impact one-pager for the board and funders</h2>
+<p class="small">An automatic one-page PDF each month with adoption, requests, appointments, events and SMS outcomes, using aggregate data only, ready for board packets and funder reports.</p>
+<table><tr><th>October (sample)</th><th>Value</th></tr><tr><td>Monthly active users</td><td>3,412</td></tr><tr><td>Help and referral requests</td><td>612 (71% contacted in 2 days)</td></tr><tr><td>Appointments booked / kept</td><td>284 / 231 (81%)</td></tr><tr><td>Event registrations</td><td>540</td></tr></table></div>
+<div class="card"><span class="pill gwp">Our commitment</span><h2 style="margin-top:6px">Also included</h2><ul class="t"><li>Spanish launch content translated by us (no extra fee).</li><li>Help drafting plain-language copy for every service.</li><li>QR posters and an AJC staff one-pager for launch.</li><li>A quarterly product review with The WorkPlace at no charge.</li></ul></div>
+</div>
+</section>
+
+<section class="tab" id="work">
+<p class="lead">Related working demonstrations of our public-service and mobile work, all with sample data.</p>
+<div class="grid g3" id="rw"></div>
+</section>
+</main>
+<footer>Agentic Rx LLC · 8409 N Jones Ave, Tampa, FL 33604 · UEI C8MAWGE5LU65 · Demonstration prepared for The WorkPlace RFP, November 2026 · Synthetic data only.</footer>
 <script>
-const T={en:{nHome:"Home",nExplore:"Explore",nSaved:"Saved",nTexts:"Texts",nStaff:"Staff",hi:"Hi! What do you need today?",hisub:"Pick one. We'll show you the next step.",job:"I need a job",jobs:"Search jobs, résumé help",train:"I want training",trains:"Free and funded courses",career:"I need career help",careers:"Talk to a counselor",young:"I'm 16–24",youngs:"Youth jobs and programs",emp:"I'm an employer",emps:"Hire, train, post jobs",other:"Something else",others:"Housing, transport, benefits",up:"Coming up",save:"Save",saved:"Saved",reg:"Register",cal:"Add to calendar",help:"Request help",book:"Book appointment"},
-es:{nHome:"Inicio",nExplore:"Explorar",nSaved:"Guardado",nTexts:"Mensajes",nStaff:"Personal",hi:"¡Hola! ¿Qué necesita hoy?",hisub:"Elija una opción. Le mostramos el siguiente paso.",job:"Necesito trabajo",jobs:"Buscar empleo, ayuda con currículum",train:"Quiero capacitación",trains:"Cursos gratuitos y financiados",career:"Necesito orientación",careers:"Hablar con un consejero",young:"Tengo 16–24 años",youngs:"Empleos y programas juveniles",emp:"Soy empleador",emps:"Contratar, capacitar, publicar",other:"Otra cosa",others:"Vivienda, transporte, beneficios",up:"Próximamente",save:"Guardar",saved:"Guardado",reg:"Inscribirse",cal:"Agregar al calendario",help:"Pedir ayuda",book:"Reservar cita"}};
-let L="en";const t=k=>T[L][k]||k;
-const S={saved:new Set(),sms:{opt:false,topics:new Set(["Hiring events"])},thread:[{me:false,x:"The WorkPlace: Hi Maria, this is Dana, your career counselor. Your appointment is Tue 11/17 at 10:00am, Bridgeport American Job Center. Reply C to confirm, R to reschedule. Msg&data rates may apply. Reply STOP to opt out."}]};
-const training=[
- {id:"t1",n:"Certified Nursing Assistant (CNA)",c:"Healthcare",w:"Bridgeport",d:"8 weeks · evenings",f:"Free if eligible (WIOA)"},
- {id:"t2",n:"CDL Class A",c:"Transportation",w:"Stamford",d:"6 weeks · full time",f:"Funding available"},
- {id:"t3",n:"IT Support (CompTIA A+)",c:"Technology",w:"Online",d:"12 weeks · self-paced + coaching",f:"Free if eligible"},
- {id:"t4",n:"Advanced Manufacturing / CNC",c:"Manufacturing",w:"Norwalk",d:"10 weeks · days",f:"Paid while you train"},
- {id:"t5",n:"Pharmacy Technician",c:"Healthcare",w:"Danbury",d:"14 weeks · hybrid",f:"Funding available"}];
-const events=[
- {id:"e1",n:"Healthcare Hiring Fair",d:"Thu Nov 19 · 10am–1pm",w:"American Job Center, Bridgeport",tag:"Hiring event"},
- {id:"e2",n:"Résumé Clinic (walk-in)",d:"Every Tuesday · 2–4pm",w:"Stamford AJC + Zoom",tag:"Workshop"},
- {id:"e3",n:"Youth Summer Jobs Info Night",d:"Wed Dec 2 · 5:30pm",w:"Norwalk Public Library",tag:"Young adults"}];
-const $=s=>document.querySelector(s),scr=$("#screen");
-function toast(m){const e=$("#toast");e.textContent=m;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",2600)}
-function saveBtn(id){return `<button class="btn alt" onclick="tog('${id}')">${S.saved.has(id)?"♥ "+t("saved"):"♡ "+t("save")}</button>`}
-function tog(id){S.saved.has(id)?S.saved.delete(id):S.saved.add(id);toast(S.saved.has(id)?"Saved. We'll text you if dates change (if you opt in).":"Removed from Saved");go(cur)}
-let cur="home";
-const V={
-home:()=>`<div class="hello">${t("hi")}</div><div class="sub">${t("hisub")}</div>
- <div class="tiles">
- <button class="tile" onclick="go('jobs')"><span class="em">💼</span><b>${t("job")}</b><span>${t("jobs")}</span></button>
- <button class="tile" onclick="go('training')"><span class="em">🎓</span><b>${t("train")}</b><span>${t("trains")}</span></button>
- <button class="tile" onclick="go('help')"><span class="em">🤝</span><b>${t("career")}</b><span>${t("careers")}</span></button>
- <button class="tile" onclick="go('youth')"><span class="em">🚀</span><b>${t("young")}</b><span>${t("youngs")}</span></button>
- <button class="tile" onclick="go('employer')"><span class="em">🏢</span><b>${t("emp")}</b><span>${t("emps")}</span></button>
- <button class="tile" onclick="go('other')"><span class="em">🧭</span><b>${t("other")}</b><span>${t("others")}</span></button></div>
- <h3 style="margin-top:16px">${t("up")}</h3>${events.slice(0,2).map(ev=>`<div class="card" onclick="go('event')" style="cursor:pointer"><div class="t">${ev.n}</div><div class="m">${ev.d} · ${ev.w}</div><span class="pill">${ev.tag}</span></div>`).join("")}`,
-explore:()=>`<h3>Explore</h3><input placeholder="Search jobs, training, events…" oninput="srch(this.value)"><div id="res">${allCards("")}</div>`,
-training:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Training near you</h3>
- <div class="chips">${["All","Healthcare","Technology","Manufacturing","Transportation"].map(c=>`<button class="chip ${c==fil?'on':''}" onclick="fil='${c}';go('training')">${c}</button>`).join("")}</div>
- <label>Near</label><select><option>Bridgeport (06604)</option><option>Stamford</option><option>Norwalk</option><option>Online only</option></select>
- ${training.filter(x=>fil=="All"||x.c==fil).map(x=>`<div class="card"><div class="t">${x.n}</div><div class="m">${x.w} · ${x.d}</div><span class="pill">${x.f}</span><span class="pill">${x.c}</span><div>${saveBtn(x.id)}<button class="btn" onclick="go('help')">Am I eligible?</button></div></div>`).join("")}
- <div class="card" style="background:var(--soft)"><div class="t">Not sure which course?</div><div class="m">A counselor can help you choose and check funding.</div><button class="btn g" onclick="go('help')">${t("help")}</button></div>`,
-event:()=>{const ev=events[0];return `<button class="back" onclick="go('home')">‹ Back</button><h3>${ev.n}</h3><div class="card"><div class="m">📅 ${ev.d}<br>📍 ${ev.w}<br>🧑‍⚕️ 14 employers hiring CNAs, MAs, patient access, EVS</div>
- <p style="font-size:.9em">Bring copies of your résumé. Free résumé review 9:30–10am. Interpreters available on request.</p>
- <button class="btn" onclick="toast('You are registered. Confirmation sent by text and email.')">${t("reg")}</button><button class="btn alt" onclick="toast('Added: .ics file for Apple, Google and Outlook calendars')">${t("cal")}</button>${saveBtn(ev.id)}</div>
- <div class="card"><div class="t">Get a reminder</div><div class="m">Text me the day before (needs your OK to text).</div><button class="btn g" onclick="go('texts')">Set up texts</button></div>`},
-help:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Talk to a career counselor</h3>
- <div class="card"><label>What can we help with?</label><select><option>Finding a job</option><option>Choosing training / funding</option><option>Résumé or interview</option><option>Young adult programs</option><option>Other</option></select>
- <label>Your first name</label><input value="Maria"><label>Mobile number</label><input value="(203) 555-0147">
- <label>How should we contact you?</label><div class="chips"><button class="chip on">Text</button><button class="chip">Call</button><button class="chip">Email</button></div>
- <label>Preferred language</label><select><option>English</option><option>Español</option><option>Português</option><option>Kreyòl ayisyen</option></select>
- <label>Résumé (optional)</label><input type="file" aria-label="Upload résumé">
- <button class="btn" onclick="toast('Request sent to the Bridgeport AJC team. Reference WP-24817.')">${t("help")}</button></div>
- <div class="card"><div class="t">Or book a time now</div><div class="chips">${["Mon 11/16 1:30pm","Tue 11/17 10:00am","Tue 11/17 3:00pm","Wed 11/18 9:00am","Virtual"].map(s=>`<button class="chip" onclick="this.parentNode.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">${s}</button>`).join("")}</div>
- <button class="btn g" onclick="toast('Booked. Reminder texts 24h and 2h before (with your consent).')">${t("book")}</button></div>`,
-texts:()=>`<h3>Text messages</h3>
- <div class="card"><div class="t">Text me updates from The WorkPlace</div><div class="m">Appointment and event reminders, next steps, and updates on topics you choose. Up to 6 msgs/month. Msg & data rates may apply. Reply STOP to opt out, HELP for help.</div>
- <label style="display:flex;gap:8px;align-items:center;margin-top:8px"><input type="checkbox" style="width:auto" ${S.sms.opt?"checked":""} onchange="S.sms.opt=this.checked;toast(this.checked?'Consent recorded with time, number and wording version v1.2':'You are opted out. No texts will be sent.')"> I agree to receive texts</label>
- <label>Topics</label><div class="chips">${["Hiring events","Training starts","Youth programs","Workshops","Employer services"].map(x=>`<button class="chip ${S.sms.topics.has(x)?'on':''}" onclick="S.sms.topics.has('${x}')?S.sms.topics.delete('${x}'):S.sms.topics.add('${x}');go('texts')">${x}</button>`).join("")}</div>
- <label>Quiet hours</label><select><option>No texts 8pm–8am</option><option>No texts 6pm–9am</option></select></div>
- <div class="t" style="font-weight:700">Conversation with your counselor</div>
- <div class="sms">${S.thread.map(m=>`<div class="bub ${m.me?'me':''}">${m.x}</div>`).join("")}</div>
- <input id="rep" placeholder="Reply (try C or R)"><button class="btn" onclick="reply()">Send</button>`,
-employer:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Employer services</h3>
- ${[["Hiring help","Recruit through hiring events and job matching"],["Train your workers","Incumbent-worker and apprenticeship funding"],["Post a job","Share openings with our counselors and job seekers"],["On-the-job training","Wage reimbursement for eligible new hires"]].map(([a,b])=>`<div class="card"><div class="t">${a}</div><div class="m">${b}</div></div>`).join("")}
- <div class="card"><label>Company</label><input value="Harbor Health Partners"><label>Roles you're hiring</label><input value="CNA (6), Patient access rep (3)"><label>Contact</label><input value="hr@example.org"><button class="btn" onclick="toast('Sent to the Business Services team. A specialist replies within 1 business day.')">Request hiring help</button></div>`,
-jobs:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Jobs</h3><div class="card"><div class="m">Job listings come from CTHires and partner feeds where access is approved (see integration plan). Shown here as examples.</div></div>
- ${[["Patient Access Representative","Bridgeport · $21–24/hr"],["Warehouse Associate","Stratford · $19/hr"],["Help Desk Technician","Stamford · $26–30/hr"]].map(([a,b],i)=>`<div class="card"><div class="t">${a}</div><div class="m">${b}</div>${saveBtn('j'+i)}<button class="btn" onclick="go('help')">Get help applying</button></div>`).join("")}`,
-youth:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>For ages 16–24</h3>${[["Summer Youth Employment","Paid summer jobs in your town"],["Career pathways","Explore careers and earn credentials"],["Get a first job","Work-readiness and job matching"]].map(([a,b])=>`<div class="card"><div class="t">${a}</div><div class="m">${b}</div><button class="btn" onclick="go('help')">I'm interested</button></div>`).join("")}<div class="card" onclick="go('event')" style="cursor:pointer"><div class="t">${events[2].n}</div><div class="m">${events[2].d} · ${events[2].w}</div></div>`,
-other:()=>`<button class="back" onclick="go('home')">‹ Back</button><h3>Other help</h3>${["Transportation to work or training","Childcare while you train","Benefits and unemployment questions","Housing and basic needs (via 211)"].map(x=>`<div class="card"><div class="t">${x}</div><div class="m">We connect you with partner services.</div><button class="btn alt" onclick="go('help')">Ask a counselor</button></div>`).join("")}`,
-saved:()=>`<h3>Saved</h3>${S.saved.size?[...training,...events].filter(x=>S.saved.has(x.id)).map(x=>`<div class="card"><div class="t">${x.n}</div><div class="m">${x.w||""} ${x.d||""}</div>${saveBtn(x.id)}</div>`).join(""):'<div class="card"><div class="m">Nothing saved yet. Tap ♡ on training, jobs or events.</div></div>'}`,
-staff:()=>`<h3>Staff console <span class="pill">role: Content editor + SMS sender</span></h3>
- <div class="kpi"><div><b>3,412</b><span>Active users (30 days)</span></div><div><b>612</b><span>Help requests</span></div><div><b>71%</b><span>Requests contacted &lt; 2 days</span></div><div><b>2,048</b><span>Opted-in for texts</span></div></div>
- <div class="card" style="margin-top:10px"><div class="t">Top needs chosen</div>${[["I want training",38],["I need a job",31],["I need career help",17],["I'm 16–24",9],["Employer",5]].map(([a,v])=>`<div class="m">${a} · ${v}%</div><div class="bar"><i style="width:${v*2.4}%"></i></div>`).join("")}</div>
- <div class="card"><div class="t">Compose a text</div><label>Audience</label><select><option>Opted in · topic: Hiring events · Bridgeport area (1,106)</option><option>Opted in · topic: Training starts (842)</option></select>
- <textarea rows="3">The WorkPlace: Healthcare Hiring Fair Thu 11/19, 10am–1pm, Bridgeport AJC. 14 employers hiring. Register in the app. Reply STOP to opt out.</textarea>
- <div class="m">1 segment · est. cost $13.27 · quiet hours respected · needs 2nd approver</div><button class="btn" onclick="toast('Scheduled for Mon 11/16 10:00am. Sent for approval to the Communications lead.')">Schedule</button></div>
- <div class="card"><div class="t">Content</div><table><tr><th>Item</th><th>Status</th><th>Lang</th></tr><tr><td>Healthcare Hiring Fair</td><td>Published</td><td>EN/ES</td></tr><tr><td>CNA cohort Jan 2027</td><td>Awaiting approval</td><td>EN</td></tr><tr><td>Youth Info Night</td><td>Draft</td><td>EN/ES</td></tr></table><button class="btn alt" onclick="toast('Editor opens with preview, approval and audit trail')">New content</button></div>
- <div class="card"><div class="t">Audit log</div><div class="m">10:14 D. Rivera published "Healthcare Hiring Fair" · 09:52 consent v1.2 recorded for +1203***0147 · 09:40 J. Okafor exported monthly report (no PII)</div></div>`};
-let fil="All";
-function allCards(q){q=q.toLowerCase();return [...training.map(x=>({...x,k:"Training"})),...events.map(x=>({...x,k:"Event"}))].filter(x=>!q||(x.n+x.c+x.w+x.k).toLowerCase().includes(q)).map(x=>`<div class="card"><div class="t">${x.n}</div><div class="m">${x.k} · ${x.w}</div>${saveBtn(x.id)}</div>`).join("")||'<div class="card"><div class="m">No matches. Try "CNA", "online" or "Stamford", or ask a counselor.</div></div>'}
-function srch(v){$("#res").innerHTML=allCards(v)}
-function reply(){const v=($("#rep").value||"").trim();if(!v)return;S.thread.push({me:true,x:v});const u=v.toUpperCase();S.thread.push({me:false,x:u=="C"?"Thanks, you're confirmed for Tue 11/17 at 10:00am. See you then!":u=="R"?"No problem. Reply 1 for Wed 11/18 9:00am, 2 for Thu 11/19 2:00pm, or 3 to have Dana call you.":u=="STOP"?"You're unsubscribed from The WorkPlace texts. Reply START to resubscribe.":"Thanks, Dana will reply during office hours (Mon–Fri 8:30–4:30)."});if(u=="STOP")S.sms.opt=false;go("texts")}
-function go(v){cur=v;scr.innerHTML=V[v]();scr.scrollTop=0;document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==v));document.querySelectorAll("#journeys button").forEach(b=>b.classList.toggle("on",b.dataset.go==v));document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));location.hash=v}
-document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
-$("#lang").onclick=()=>{L=L=="en"?"es":"en";$("#lang").textContent=L=="en"?"ES":"EN";document.documentElement.lang=L;go(cur)};
-$("#big").onclick=()=>{const c=parseFloat(getComputedStyle(document.body).getPropertyValue("--fs"));document.body.style.setProperty("--fs",(c>=20?16:c+2)+"px")};
-$("#hc").onclick=()=>document.body.classList.toggle("hc");
-go((location.hash||"#home").slice(1) in V?(location.hash||"#home").slice(1):"home");
+const TABS=[["overview","Overview"],["app","App prototype"],["ux","Discovery & UX"],["sms","SMS & notifications"],["cms","Staff console & content"],["int","Integrations & data"],["arch","Architecture & security"],["a11y","Accessibility & language"],["test","Testing & launch"],["support","Training & support"],["analytics","Analytics & outcomes"],["plan","Implementation plan"],["cost","Cost & TCO"],["goodwill","Goodwill add-ons"],["work","Related work"]];
+const $=s=>document.getElementById(s);
+$("nav").innerHTML=TABS.map(([k,l])=>`<button data-k="${k}" class="${k=='goodwill'?'gw':''}">${l}</button>`).join("");
+function show(k){if(!$(k))k="overview";document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id==k));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.k==k));history.replaceState(null,"","#"+k);window.scrollTo(0,0)}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.k));
+const kpi=(v,l,t,c="")=>`<div class="card kpi"><div class="v">${v}</div><div class="l">${l}</div>${t?`<div class="t ${c}">${t}</div>`:""}</div>`;
+const tbl=(id,h,rows)=>$(id).innerHTML=`<tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>`+rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join("")}</tr>`).join("");
+const P=(c,t)=>`<span class="pill ${c}">${t}</span>`;
+const hbar=(l,v,max,suf="%",col)=>`<div class="hb"><span>${l}</span><div class="bar"><i style="width:${v/max*100}%;${col?'background:'+col:''}"></i></div><b>${v.toLocaleString()}${suf}</b></div>`;
+// overview
+$("ovk").innerHTML=kpi("15","Working views","Every RFP service area")+kpi("24 wks","Build to app-store launch","+12 weeks hypercare")+kpi("$231,285","3-year core cost","$148K one-time, fixed")+kpi("5","Goodwill add-ons","Included at no cost","up");
+const R=[["II.A Discovery, user research, experience design","ux","Personas, IA, usability readout, discovery plan"],["II.B Need-based navigation and discovery","app","Six plain-language doors; search and filters"],["II.B Calls to action, referral and interest forms, counselor contact","app","Request help, upload résumé, book a time"],["II.B Events, registration and calendar","app","Hiring Fair: register, .ics, reminder"],["II.B Saved items and personalized suggestions","app","Saved tab; topic-based suggestions"],["II.B Employer pathways","app","Hiring help, training funds, OJT, job openings"],["II.B Content management without developers","cms","Content queue, roles, approvals, audit"],["II.C Two-way SMS, consent, opt-out, preferences","sms","Campaign builder, inbox, consent ledger"],["II.C Push vs SMS, volumes and costs","sms","Channel rules; cost before send"],["II.D Cross-platform architecture, hosting, DR","arch","Flutter + PWA; AWS; RPO/RTO"],["II.E Integrations and data responsibilities","int","Data flow; integration register"],["II.F Accessibility (WCAG 2.2 AA) and language","a11y","Checks; EN/ES at launch"],["II.F Privacy, security, retention","arch","Controls; data we keep and for how long"],["II.G Testing, app-store release, launch","test","Test plan, device matrix, launch checklist"],["II.G Training, documentation, support, SLAs","support","SLA table; service desk; training plan"],["II.G / V.A Measurement and reporting","analytics","Adoption, needs, funnel, no-result searches"],["III Implementation schedule and deliverables","plan","Gantt; acceptance; payment milestones"],["V.B Pricing, TCO and usage-based costs","cost","Interactive 3-year calculator"],["Beyond the RFP: goodwill add-ons","goodwill","AI assistant, kiosk, event check-in, résumé, impact report"]];
+tbl("reqmap",["RFP requirement","Working view","What you can see"],R.map(([a,k,c])=>[a,`<a href="#${k}" onclick="show('${k}');return false">${TABS.find(t=>t[0]==k)[1]} →</a>`,c]));
+// ux
+$("personas").innerHTML=[["Maria, 34","Home health aide, Bridgeport","Wants CNA training she can afford; phone only; prefers Spanish for forms","I want training"],["Jaylen, 19","Out of school, Norwalk","Needs a first job and a path; ignores email, answers texts","I'm 16–24"],["Robert, 58","Laid off from manufacturing, Stamford","Low confidence online; needs large text and a person to call","I need career help"],["Dana, HR lead","Regional health system","Needs 20 CNAs fast; wants one contact and hiring events","I'm an employer"]].map(([n,a,b,d])=>`<div class="card"><h2>${n}</h2><div class="small">${a}</div><p style="font-size:13px">${b}</p>${P("info","Door: "+d)}</div>`).join("");
+$("ia").innerHTML=[["I need a job","Search jobs · Résumé help · Hiring events · Talk to someone"],["I want training","Find training · Funding and eligibility · Apprenticeships"],["I need career help","Book a counselor · Workshops · Request help"],["I'm 16–24","Youth jobs · Summer employment · Career pathways"],["I'm an employer","Hiring help · Training funds · On-the-job training · Share openings"],["Something else","Transport · Childcare · Benefits questions · 211 partners"]].map(([a,b])=>`<div class="method"><b>${a}</b><br>${b}</div>`).join("");
+tbl("ut",["Task","Success","Finding → change"],[["Find a free training course","11/12",P("ok","Good")+" Added 'Free if eligible' badge"],["Book a counselor time","10/12",P("warn","Fix")+" Times shown as chips, not a dropdown"],["Opt in to texts","12/12",P("ok","Good")+" Plain wording tested in EN/ES"],["Employer: request hiring help","9/12",P("warn","Fix")+" Renamed 'Business Services' → 'Hiring help'"],["Screen reader: register for event","4/4",P("ok","Good")+" Focus order fixed on calendar button"]]);
+// sms
+$("smsk").innerHTML=kpi("2,048","Opted-in contacts","+212 this month","up")+kpi("98.7%","Delivery rate","Carrier-confirmed")+kpi("1.3%","Opt-out rate (30 days)","Target < 2%","up")+kpi("81%","Reminder → kept appointment","vs 64% before reminders","up");
+function cost(){const n=+$("aud").value,len=$("msg").value.length,seg=len<=160?1:Math.ceil(len/153);$("cost").innerHTML=`<b>${n.toLocaleString()} recipients × ${seg} segment${seg>1?"s":""}</b> · ${len} characters · est. cost <b>$${(n*seg*0.0118).toFixed(2)}</b> · quiet hours respected · Spanish version sent to Spanish-preference contacts · needs second approver`}
+$("aud").onchange=cost;$("msg").oninput=cost;cost();
+const CH=[[0,"The WorkPlace: Hi Jaylen, it's Ms. Torres. Your youth intake is Wed 11/18 at 3:30pm, Norwalk AJC. Reply C to confirm, R to reschedule."],[1,"R"],[0,"No problem. Reply 1 for Thu 11/19 4:00pm, 2 for Fri 11/20 10:00am, or 3 for a call."],[1,"2"],[0,"You're set for Fri 11/20 10:00am. We'll text you the day before. Reply STOP to opt out."],[1,"do i need to bring anything"]];
+function drawChat(){$("chat").innerHTML=CH.map(([m,x])=>`<div class="bub ${m?'':'me'}">${x}</div>`).join("")}drawChat();
+function staffReply(){const v=$("rp").value.trim();if(!v)return;CH.push([0,v]);$("rp").value="";drawChat();$("chat").scrollTop=1e4}
+$("rp").value="Bring a photo ID and your résumé if you have one. If not, we'll help you make one!";
+// cms
+tbl("cq",["Item","Type","Lang","Status","Owner"],[["Healthcare Hiring Fair","Event","EN/ES",P("ok","Published"),"D. Rivera"],["CNA cohort, January 2027","Training","EN",P("warn","Awaiting approval"),"K. Patel"],["Youth Info Night","Event","EN/ES",P("info","Scheduled 11/16"),"M. Santos"],["Holiday hours notice","Alert","EN/ES",P("info","Draft"),"K. Patel"],["Employer: OJT wage reimbursement","Service page","EN",P("ok","Published"),"B. Morales"]]);
+// int
+tbl("ir",["Integration","Approach","Type","Responsible","Status"],[["workplace.org news, pages, events","WordPress REST API / RSS","Configuration","Agentic Rx; WorkPlace web admin gives access",P("ok","Base")],["Referral, interest and help forms","To program inboxes, form tool or CRM; secure upload","Configuration","Agentic Rx",P("ok","Base")],["Appointment scheduling","Existing scheduler (e.g. Microsoft Bookings, Calendly) or built-in request-a-time","Configuration / light custom","Agentic Rx; WorkPlace account",P("ok","Base")],["Training programs, credentials, jobs","US DOL CareerOneStop Web API; CT eligible training provider list where available","Custom","Agentic Rx; free API key",P("ok","Base")],["CTHires / state job bank","Deep links at launch; data feed only with CT DOL written authorization","Third-party approval","WorkPlace requests; Agentic Rx builds",P("warn","Optional")],["Case management / CRM","Push referrals into WorkPlace CRM when API access is approved","Third-party approval","System owner + Agentic Rx",P("warn","Optional")],["SMS","Twilio Programmable Messaging, A2P 10DLC","Out of the box + config","Agentic Rx",P("ok","Base")],["Push notifications","Firebase Cloud Messaging / Apple Push","Out of the box + config","Agentic Rx",P("ok","Base")]]);
+// arch
+tbl("sec",["Control","Status"],[["TLS 1.2+ in transit; AES-256 at rest",P("ok","Built in")],["Secure on-device storage (Keychain/Keystore)",P("ok","Built in")],["Staff SSO/MFA and role-based access",P("ok","Built in")],["Audit log of content, texts, exports and admin actions",P("ok","Built in")],["OWASP MASVS / Mobile Top 10 checks in CI",P("ok","Every build")],["Dependency and code scanning",P("ok","Every build")],["Independent penetration test",P("info","Before launch")],["No critical/high findings open at go-live",P("info","Launch gate")],["Incident notification within 72 hours",P("ok","Contractual")],["Data export and deletion on request",P("ok","Built in")]]);
+// a11y
+tbl("ax",["Check (WCAG 2.2 AA)","Result"],[["Text contrast 4.5:1 (normal) / 3:1 (large)",P("ok","Pass")],["Text resizes to 200% without loss (A+ control + OS size)",P("ok","Pass")],["Screen reader labels (VoiceOver, TalkBack)",P("ok","Pass")],["Focus order and visible focus",P("ok","Pass")],["Target size ≥ 24×24 px",P("ok","Pass")],["High-contrast mode",P("ok","Pass")],["Plain language: reading grade",P("ok","Grade 6.8")],["Captions on video guides",P("info","At content load")]]);
+const LX={en:"<b>I want training</b><br>Free and funded courses near you. Not sure which one? A counselor can help you choose and check funding.",es:"<b>Quiero capacitación</b><br>Cursos gratuitos y financiados cerca de usted. ¿No sabe cuál elegir? Un consejero puede ayudarle a decidir y verificar el financiamiento."};
+function lang(l){$("lx").innerHTML=LX[l]}lang("en");
+// test
+$("tk").innerHTML=kpi("412","Automated tests","98.8% passing")+kpi("0","Critical defects open","Launch gate met","up")+kpi("20","Devices tested","iOS + Android")+kpi("2","App stores","Submitted wk 22");
+tbl("tp",["Test type","Scope","Status"],[["Functional","All journeys, forms, CMS, SMS",P("ok","Complete")],["Device","20 devices, 3 OS versions each",P("ok","Complete")],["Accessibility","Independent WCAG 2.2 AA audit",P("ok","2 minor fixed")],["Usability","2 rounds, 24 participants",P("ok","Complete")],["Security","Pen test + OWASP MASVS",P("ok","0 high/critical")],["Load","5× expected peak (launch campaign)",P("ok","p95 < 900 ms")],["UAT","WorkPlace staff sign-off",P("info","In progress")]]);
+tbl("dm",["Device","OS","Status"],[["iPhone 13 / 14 / 15","iOS 16–18",P("ok","Pass")],["iPhone SE (small screen)","iOS 17",P("ok","Pass")],["Samsung Galaxy A14 / A15","Android 13–14",P("ok","Pass")],["Moto G Play","Android 12",P("ok","Pass")],["Samsung Galaxy S23","Android 14",P("ok","Pass")],["iPad (kiosk mode)","iPadOS 17",P("ok","Pass")],["Chrome / Safari / Edge (PWA)","Desktop + mobile",P("ok","Pass")]]);
+tbl("lc",["Item","Owner","Status"],[["Apple Developer and Google Play accounts in The WorkPlace's name","WorkPlace + Agentic Rx",P("ok","Done")],["Store listings, screenshots, privacy labels (EN/ES)","Agentic Rx",P("ok","Done")],["10DLC brand and campaign approved","Agentic Rx",P("ok","Approved")],["Content loaded and approved","WorkPlace content owners",P("ok","Done")],["Staff training complete","Agentic Rx",P("info","Week 23")],["PWA link and QR codes on workplace.org and in AJCs","WorkPlace web team",P("info","Week 24")],["Launch announcement (opted-in text, social, email)","WorkPlace comms",P("info","Week 24")]]);
+// support
+tbl("sd",["Ticket","Type","Priority","Opened","Resolved"],[["WP-118","Event time shows in UTC on one Android device",P("warn","High"),"Oct 3","Oct 4"],["WP-121","Add new partner logo to resources",P("info","Normal"),"Oct 9","Oct 10"],["WP-126","Bulk text stuck awaiting approval (approver on leave)",P("warn","High"),"Oct 15","Oct 15"],["WP-130","How to unpublish an expired event?",P("info","Normal"),"Oct 22","Oct 22"],["WP-133","iOS 18.1 compatibility check",P("info","Normal"),"Oct 28","Oct 29"]]);
+// analytics
+$("ak").innerHTML=kpi("3,412","Monthly active users","+18% vs last month","up")+kpi("74%","Sessions reaching a next step","Target 70%","up")+kpi("71%","Requests contacted < 2 days","Target 80%","dn")+kpi("4.7★","App rating","312 ratings","up");
+(function(){const d=[620,1240,1910,2480,2890,3412],m=["Wk 4","Mo 2","Mo 3","Mo 4","Mo 5","Mo 6"];let s="";const X=i=>60+i*88,Y=v=>170-v/3600*150;
+for(let g=0;g<=3;g++){const v=g*1200;s+=`<line x1="50" x2="510" y1="${Y(v)}" y2="${Y(v)}" stroke="#e3e8f0"/><text x="44" y="${Y(v)+4}" font-size="10" text-anchor="end" fill="#5b6475">${v.toLocaleString()}</text>`}
+s+=`<polyline fill="none" stroke="#1f5fa8" stroke-width="3" points="${d.map((v,i)=>X(i)+","+Y(v)).join(" ")}"/>`+d.map((v,i)=>`<circle cx="${X(i)}" cy="${Y(v)}" r="4" fill="#1f5fa8"/><text x="${X(i)}" y="190" font-size="10" text-anchor="middle" fill="#5b6475">${m[i]}</text>`).join("");$("mau").innerHTML=s})();
+$("needs").innerHTML=[["I want training",38],["I need a job",31],["I need career help",17],["I'm 16–24",9],["I'm an employer",5]].map(([a,v])=>hbar(a,v,40)).join("");
+$("fun").innerHTML=[["Opened app",10000],["Chose a need",8100],["Viewed a service",6700],["Took a next step",3840],["Contacted by staff",2730]].map(([a,v])=>hbar(a,v,10000,"","#2a9d8f")).join("");
+// plan
+const G=[["Discovery and requirements",1,4,"#1f5fa8"],["IA, wireframes, prototype, user tests",5,8,"#6c5ce7"],["10DLC registration",6,10,"#e9a23b"],["Build sprints 1–5",9,18,"#2a9d8f"],["Testing (functional, a11y, security, UAT)",17,21,"#c8553d"],["Content setup, training, store submission",20,23,"#e9a23b"],["Launch",24,24,"#0f2747"],["Hypercare and post-launch review",25,36,"#5b6475"]];
+$("gantt").innerHTML=`<h2>Schedule (weeks 1–36)</h2>`+G.map(([l,a,b,c])=>`<div class="row"><div class="lbl">${l}</div><div class="trk"><div class="seg" style="left:${(a-1)/36*100}%;width:${(b-a+1)/36*100}%;background:${c}">wk ${a}${b>a?"–"+b:""}</div></div></div>`).join("");
+tbl("dl",["Milestone","Deliverables","Acceptance","Payment"],[["1. Discovery (wk 4)","Requirements summary, integration plan, risk log","WorkPlace PM sign-off","15% · $22,200"],["2. Prototype (wk 8)","Architecture, user journeys, clickable prototype, design system","Prototype approved after user testing","20% · $29,600"],["3. UAT (wk 21)","Complete app, CMS, SMS, integrations; test results; no critical defects","UAT sign-off","30% · $44,400"],["4. Launch (wk 24)","Production release; store approval; training; documentation","Production acceptance","25% · $37,000"],["5. Review (wk 36)","Post-launch review and initial performance report","Report accepted","10% · $14,800"]]);
+// cost
+function tco(){const s=+$("ss").value;$("sv").textContent=s.toLocaleString();const sms=Math.round(s*12*0.0118+660);const y=[[4800,9600,7200,1200,124],[4944,9888,7416,1200,99],[5092,10185,7638,1200,99]].map(a=>a.reduce((x,z)=>x+z,0)+sms);const tot=148000+y[0]+y[1]+y[2];
+tbl("tco",["","Year 1","Year 2","Year 3"],[["Hosting, maintenance, support, third-party, store fees","$22,924","$23,547","$24,214"],["SMS at cost","$"+sms.toLocaleString(),"$"+sms.toLocaleString(),"$"+sms.toLocaleString()],["<b>Recurring total</b>",...y.map(v=>"<b>$"+v.toLocaleString()+"</b>")],["<b>One-time (fixed)</b>","<b>$148,000</b>","",""],["<b>Three-year total</b>",`<b>$${tot.toLocaleString()}</b>`,"",""]])}
+$("ss").oninput=tco;tco();
+$("otb").innerHTML=[["App development and configuration",62000],["UX and interface design",22000],["Integrations and data",18000],["Testing, launch, app stores",16000],["Discovery and requirements",12000],["SMS setup and compliance",8000],["Training and documentation",6000],["Accessibility audit + pen test",4000]].map(([a,v])=>hbar(a,v,62000,"","#1f5fa8").replace(`${v.toLocaleString()}`,"$"+v.toLocaleString())).join("");
+// goodwill AI
+const AI={"Is CNA training free?":"CNA training can be free if you're eligible for WIOA funding. Next cohort: Bridgeport, January 2027, evenings. Source: Training › Healthcare › CNA (updated 11/10). Want me to connect you with a counselor to check eligibility?","¿Dónde está el centro de empleo en Stamford?":"El American Job Center de Stamford atiende de lunes a viernes, 8:30am–4:30pm. Fuente: Ubicaciones › Stamford. ¿Desea reservar una cita?","How do I get help with my résumé?":"Two ways: walk in to the Résumé Clinic (Tuesdays 2–4pm, Stamford AJC or Zoom), or use Résumé starter in the app and send it to a counselor. Source: Events › Résumé Clinic.","Can you tell me if I qualify for unemployment?":"I can't make eligibility decisions. Unemployment benefits are handled by the CT Department of Labor; I can share the official link, or a counselor can help you with next steps. Want me to request a call?"};
+const AH=[[0,"Hi! I answer from The WorkPlace's approved information and always show my source. For anything personal, I'll connect you with a person."]];
+function drawAI(){$("ai").innerHTML=AH.map(([m,x])=>`<div class="bub ${m?'me':''}">${x}</div>`).join("")}drawAI();
+function ask(){const q=$("aq").value;AH.push([1,q]);AH.push([0,AI[q]]);drawAI();$("ai").scrollTop=1e4}
+// related work
+$("rw").innerHTML=[["NIS Mobile (Barbados NISSS)","Full national self-service app prototype: payments, benefits estimator, claims, notifications","https://agenticrx-hub.github.io/nisss-mobile-app/"],["BHRS Reporting Hub (San Mateo County)","Public behavioral-health reporting hub with EHR data model and service desk","https://agenticrx-hub.github.io/demos/smc-bhrs/"],["RAGNA 2.0 Task Force portal","Role-based member portal and secure collaboration platform","https://agenticrx-hub.github.io/demos/ragna-2-0-task-force/"],["bmpra.com","Live national public consultation portal with AI assistant and public comment routing","https://www.bmpra.com"],["All Agentic Rx demonstrations","Index of working bid demonstrations","https://agenticrx-hub.github.io/demos/"]].map(([a,b,u])=>`<div class="card"><h2>${a}</h2><p style="font-size:13px">${b}</p><a href="${u}" target="_blank" rel="noopener">${u.replace("https://","")}</a></div>`).join("");
+show((location.hash||"#overview").slice(1));
 </script>
-</body>
-</html>
+</body></html>
