@@ -1,0 +1,149 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VISN 9 Pharmacy Inventory Console · Agentic Rx demonstration</title><style>
+:root{--ink:#14213d;--muted:#5b6475;--line:#dde3ec;--bg:#f5f7fb;--card:#fff;--a:#1f5fa8;--b:#2a9d8f;--c:#e9a23b;--d:#c8553d;--e:#6c5ce7;--w:#3d5a80;--x:#7b2d8e;--y:#d97706}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#0f2747;color:#fff;padding:14px 22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+header h1{font-size:19px;margin:0}header .s{font-size:12px;opacity:.82;margin-top:2px}header .who{font-size:12px;text-align:right;opacity:.9}
+.banner{background:#fff4d6;border-bottom:1px solid #f0d58a;padding:7px 22px;font-size:12px}
+nav#nav{display:flex;gap:4px;flex-wrap:wrap;padding:10px 22px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav#nav button{border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:999px;font-size:13px;cursor:pointer;color:var(--ink)}
+nav#nav button.on{background:var(--a);color:#fff;border-color:var(--a)}
+nav#nav button.gw{border-color:#2a9d8f;color:#1b6e62}nav#nav button.gw.on{background:#2a9d8f;color:#fff}
+main{padding:18px 22px;max-width:1300px;margin:auto}
+.tab{display:none}.tab.on{display:block}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .v{font-size:28px;font-weight:700}.kpi .l{font-size:12px;color:var(--muted)}.kpi .t{font-size:12px;margin-top:4px}.up{color:#1b8a5a}
+h2{font-size:16px;margin:0 0 10px}h3{font-size:13px;margin:0 0 8px;color:var(--muted);font-weight:600}
+.lead{font-size:14px;color:#333;max-width:1000px;margin:0 0 14px;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:#f0f3f8}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.ok{background:#e3f5ec;color:#1b6e48}.warn{background:#fff1d6;color:#8a5a00}.bad{background:#fde6e1;color:#9b2c16}.info{background:#e6efff;color:#1f4c94}.gwp{background:#dff4f1;color:#1b6e62}
+.pw{background:#e3eaf4;color:#2c4766}.pe{background:#f1e3f5;color:#6a2479}.pc{background:#fdecd6;color:#8a4a00}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center}select,input,textarea{padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:inherit}
+.btn{background:var(--a);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer}.btn.alt{background:#fff;color:var(--a);border:1px solid var(--a)}
+.method{border-left:4px solid var(--a);padding:8px 12px;margin:8px 0;background:#f8fafd;font-size:13px}
+.hb{display:flex;align-items:center;gap:8px;font-size:12.5px;margin:5px 0}.hb span:first-child{width:200px;flex:none}.hb .bar{flex:1;height:10px;background:#eef2f8;border-radius:5px;overflow:hidden}.hb .bar i{display:block;height:100%;background:var(--a)}.hb b{width:70px;text-align:right}
+.gantt{font-size:12px}.gantt .row{display:flex;align-items:center;margin:4px 0}.gantt .lbl{width:230px;flex:none}.gantt .trk{flex:1;position:relative;height:18px;background:#f0f3f8;border-radius:4px}.gantt .seg{position:absolute;top:0;height:18px;border-radius:4px;color:#fff;font-size:10px;padding-left:4px;line-height:18px;white-space:nowrap;overflow:hidden}
+.small{font-size:12px;color:var(--muted)}ul.t{margin:4px 0 4px 18px;padding:0;font-size:13px;line-height:1.5}
+footer{font-size:11px;color:var(--muted);text-align:center;padding:20px}
+</style></head><body>
+<header><div><h1>VISN 9 Pharmacy Wall-to-Wall Inventory Console</h1><div class="s">Working demonstration for VA solicitation 36C24927Q0021 · 6 VA medical centers · 12 pharmacy inventories a year</div></div><div class="who">Agentic Rx LLC · UEI C8MAWGE5LU65 · CAGE 20S95<br>Small business · Tampa, FL</div></header>
+<div class="banner">Demonstration only. All items, quantities and prices below are <b>sample data</b>, not VA data. No PHI is used. Controlled substances are counted by VA Pharmacy staff and imported read-only, as the SOW requires.</div>
+<nav id="nav"></nav>
+<main>
+
+<section class="tab" id="overview">
+<p class="lead">One place for the VA Pharmacy representative, the Contracting Officer's team and our crew to see each inventory as it happens: the schedule for all six campuses, section control, live counts with NDC and McKesson identification, discrepancies, QC checks, and the final Excel-ready report due within 7 days.</p>
+<div class="grid g4" id="kpis"></div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h2>Base-year progress (sample)</h2><div id="prog"></div></div>
+<div class="card"><h2>How a count day runs</h2><ul class="t">
+<li><b>07:30</b> Entrance meeting with the VA Pharmacy representative; confirm areas and VA-furnished data (prime-vendor price file, direct-purchase costs, automation data, CS data).</li>
+<li><b>08:00</b> Count starts. Each section is tagged with a start and end marker and assigned to one specialist.</li>
+<li><b>During</b> Section printouts reviewed with VA staff; recounts done on the spot.</li>
+<li><b>Close</b> Facility walkthrough, markers removed, closeout sheet signed.</li>
+<li><b>Day 1–5</b> QC checks, pricing validation, CS and automation data merged.</li>
+<li><b>≤ Day 7</b> Final report delivered (XLSX + PDF summary).</li></ul></div>
+</div></section>
+
+<section class="tab" id="schedule">
+<p class="lead">Proposed base-year schedule. Two crews work in parallel on weekends so all 12 inventories finish by <b>24 January 2027</b>, leaving the weekend of 30–31 January as a reserve. That meets both the 28 February deadline and the stricter 31 January date in SOW §4. Reports are due 7 calendar days after each count.</p>
+<div class="card"><table id="sched"></table></div>
+<div class="card" style="margin-top:14px"><h2>Timeline</h2><div class="gantt" id="gantt"></div></div>
+</section>
+
+<section class="tab" id="sections">
+<p class="lead">Section control (SOW §13): every section has a start and end marker, one responsible specialist and a status, so no shelf is counted twice or missed when several specialists work at once. VA staff can see at a glance what is finished.</p>
+<div class="controls"><select id="secSite"></select><span class="small">Click a section to cycle its status.</span></div>
+<div class="grid g4" id="secGrid"></div>
+</section>
+
+<section class="tab" id="count">
+<p class="lead">Count entry. A specialist scans the barcode or types the NDC; the system matches it to the McKesson item number and the VA-furnished price file, records the quantity (partial containers to the nearest 0.1, or whole units for high-cost items) and the section.</p>
+<div class="grid g2">
+<div class="card"><h2>Scan or enter an item</h2>
+<div class="controls"><input id="ndc" placeholder="NDC, e.g. 00093-7180-56" style="width:230px"><input id="qty" type="number" step="0.1" value="1" style="width:90px"><select id="sec"></select><button class="btn" onclick="addCount()">Record</button></div>
+<div id="match" class="method">Try 00093-7180-56, 0409-4888-02 or 00006-0749-31.</div></div>
+<div class="card"><h2>Partial-container rule (SOW §12)</h2><ul class="t"><li>Opened bottles: estimated to 0.1 of a bottle.</li><li>High-cost items (package price ≥ $500, sample threshold): counted in whole units.</li><li>Compounding stock: excluded from 0.1 estimation per SOW.</li><li>The method is documented in the report header and applied the same way at every site.</li></ul></div>
+</div>
+<div class="card" style="margin-top:14px"><h2>Recorded lines (sample)</h2><table id="lines"></table></div>
+</section>
+
+<section class="tab" id="auto">
+<p class="lead">Automated dispensing and packaging equipment (SOW §9–10). VA Pharmacy provides each system's on-hand export; we map it to NDC and McKesson numbers and merge it into the report without recounting.</p>
+<div class="card"><table id="autoT"></table></div>
+<div class="card" style="margin-top:14px"><h2>Controlled substances (SOW §11)</h2><p class="small">Counted only by authorised VA Pharmacy personnel. Our crew does not count, handle, move or reconcile CS. The VA-provided CS count file is imported read-only, kept in its own report section, and included in the facility total.</p><table id="csT"></table></div>
+</section>
+
+<section class="tab" id="disc">
+<p class="lead">Discrepancies are logged, never silently fixed. Contractor-caused errors are corrected at no cost; anything that looks wrong in VA-furnished data is documented and clarified with VA Pharmacy before any change (SOW §14).</p>
+<div class="card"><table id="discT"></table></div>
+</section>
+
+<section class="tab" id="qc">
+<p class="lead">Automatic quality-control checks run before any report leaves our hands (SOW §21–22).</p>
+<div class="card"><table id="qcT"></table></div>
+</section>
+
+<section class="tab" id="report">
+<p class="lead">Final inventory report, one per pharmacy, with every SOW §20 field. Each item is a separate record, numbers stay numeric, NDCs keep leading zeros, and the extended cost always equals quantity × unit price.</p>
+<div class="controls"><button class="btn" onclick="dl()">Download sample report (CSV for Excel)</button><span class="small" id="tot"></span></div>
+<div class="card"><table id="repT"></table></div>
+</section>
+
+<section class="tab" id="map">
+<p class="lead">Where each SOW requirement is shown in this demonstration.</p>
+<div class="card"><table id="mapT"></table></div>
+</section>
+
+<section class="tab" id="goodwill">
+<p class="lead">Extras we include at no added cost to VISN 9. None of them change the required scope or price; they use the count data VA already gets.</p>
+<div class="grid g3">
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">1. Short-dated and expired stock flag</h2><p class="small">When an expiry date is visible, specialists can tag it during the count. Each pharmacy gets a list of items expiring within 90 days, to support returns and credits.</p><table id="expT"></table></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">2. Year-over-year variance</h2><p class="small">From option year 1 onward, each report compares this year with last year by item and by section, highlighting the largest changes in value.</p><div id="yoy"></div></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">3. Slow-moving stock indicator</h2><p class="small">If VA shares usage data, we flag items with more than 180 days on hand so pharmacy managers can review par levels.</p></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">4. Price-file exception list</h2><p class="small">Items in the count with no price in the VA price file, or whose prime-vendor price changed by more than 20% from last year, are listed for VA review. We never change VA data ourselves.</p></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">5. VISN roll-up dashboard</h2><p class="small">A one-page VISN 9 summary of all 12 inventories (value by campus, inpatient vs outpatient, top 25 items by value) for finance and the VISN Pharmacy Executive.</p></div>
+<div class="card"><span class="pill gwp">Our commitment</span><h2 style="margin-top:6px">Also included</h2><ul class="t"><li>A 30-minute walkthrough of each report with the pharmacy.</li><li>Corrections within 3 business days, often sooner.</li><li>A lessons-learned note after each cycle to make next year's count faster.</li></ul></div>
+</div></section>
+</main>
+<footer>Agentic Rx LLC · Demonstration for VA NCO 9 solicitation 36C24927Q0021 · Sample data only · info@agentic-rx.com · agentic-rx.com</footer>
+<script>
+const $=id=>document.getElementById(id);
+const TABS=[["overview","Overview"],["schedule","Schedule"],["sections","Section control"],["count","Count entry"],["auto","Automation & CS data"],["disc","Discrepancies"],["qc","QC checks"],["report","Final report"],["map","Requirement → view"],["goodwill","Goodwill add-ons"]];
+function tbl(id,h,rows){$(id).innerHTML="<tr>"+h.map(x=>`<th>${x}</th>`).join("")+"</tr>"+rows.map(r=>"<tr>"+r.map(c=>`<td>${c}</td>`).join("")+"</tr>").join("")}
+const money=v=>"$"+v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const SITES=[["Memphis VAMC","Memphis, TN","Crew 1","Sat 9 Jan","Sun 10 Jan"],["James H. Quillen VAMC","Mountain Home, TN","Crew 2","Sat 9 Jan","Sun 10 Jan"],["TVHS Nashville","Nashville, TN","Crew 1","Sat 16 Jan","Sun 17 Jan"],["Lexington VAMC","Lexington, KY","Crew 2","Sat 16 Jan","Sun 17 Jan"],["TVHS Alvin C. York","Murfreesboro, TN","Crew 1","Sat 23 Jan","Sun 24 Jan"],["Robley Rex VAMC","Louisville, KY","Crew 2","Sat 23 Jan","Sun 24 Jan"]];
+const rep=d=>{const n=parseInt(d.match(/\d+/)[0])+7;return n+" Jan"};
+tbl("sched",["Campus","Location","Crew","Inpatient count (08:00)","Outpatient count (08:00)","Reports due","Status"],SITES.map(s=>[s[0],s[1],s[2],s[3],s[4],`IP ${rep(s[3])} · OP ${rep(s[4])}`,'<span class="pill info">Proposed</span>']));
+$("gantt").innerHTML=SITES.map((s,i)=>{const d=parseInt(s[3].match(/\d+/)[0]);const l=(d-4)/28*100;return `<div class="row"><div class="lbl">${s[0]}</div><div class="trk"><div class="seg" style="left:${l}%;width:7%;background:${s[2]=='Crew 1'?'#1f5fa8':'#2a9d8f'}">count</div><div class="seg" style="left:${l+7}%;width:25%;background:#e9a23b">report ≤7d</div></div></div>`}).join("")+'<div class="small">Scale: 4 Jan to 1 Feb 2027. Reserve weekend 30–31 Jan.</div>';
+const ITEMS=[["00093-7180-56","Atorvastatin 40 mg tab","90 ct bottle","1563201",12.84],["0409-4888-02","Sodium chloride 0.9% 1000 mL","1000 mL bag","2108733",2.31],["00006-0749-31","Sitagliptin 100 mg tab","30 ct bottle","3456120",498.12],["00071-0155-23","Atorvastatin 10 mg tab (brand)","90 ct bottle","1022455",311.40],["00173-0715-20","Fluticasone/salmeterol 250/50 inh","60 dose","1789940",289.55],["50242-0040-62","Pertuzumab 420 mg/14 mL","1 vial","3998812",4123.66],["00378-0018-01","Metoprolol tartrate 25 mg tab","100 ct bottle","1110021",3.95],["63323-0262-01","Heparin 5,000 U/mL","1 mL vial x25","2234501",38.70]];
+let LINES=[["IP-A03","00093-7180-56",14],["IP-A03","00378-0018-01",22.4],["IP-B01","0409-4888-02",240],["IP-C02","50242-0040-62",3],["OP-F11","00006-0749-31",41],["OP-F11","00173-0715-20",18.5],["OP-G04","00071-0155-23",6],["IP-B02","63323-0262-01",12]];
+const SECS=["IP-A01","IP-A02","IP-A03","IP-B01","IP-B02","IP-C01","IP-C02","IV-01","OP-F10","OP-F11","OP-G04","OP-WILL"];
+$("sec").innerHTML=SECS.map(s=>`<option>${s}</option>`).join("");
+$("secSite").innerHTML=SITES.map(s=>`<option>${s[0]}</option>`).join("");
+const ST=[["Not started","pw"],["In progress","warn"],["Counted","info"],["Verified with VA","ok"]];let secState=SECS.map((_,i)=>[3,3,2,3,1,0,2,3,2,1,0,0][i]);
+const who=["J. Ortiz","K. Lee","M. Brown","A. Patel","S. Davis","T. Nguyen"];
+function drawSec(){$("secGrid").innerHTML=SECS.map((s,i)=>`<div class="card" style="cursor:pointer" onclick="secState[${i}]=(secState[${i}]+1)%4;drawSec()"><b>${s}</b><div class="small">Start tag ${s}-S · End tag ${s}-E<br>Specialist: ${who[i%6]}</div><span class="pill ${ST[secState[i]][1]}">${ST[secState[i]][0]}</span></div>`).join("")}drawSec();
+const find=n=>ITEMS.find(x=>x[0]==n.trim());
+function drawLines(){tbl("lines",["Section","NDC","Item","McKesson #","Qty","Unit price","Extended"],LINES.map(([s,n,q])=>{const it=find(n);return [s,n,it[1],it[3],q,money(it[4]),money(q*it[4])]}));drawRep()}
+function addCount(){const n=$("ndc").value,q=parseFloat($("qty").value)||0,it=find(n);if(!it){$("match").innerHTML='<span class="pill bad">No match</span> NDC not in the sample price file. It would be logged as a price-file exception for VA review.';return}
+let qq=it[4]>=500?Math.round(q):Math.round(q*10)/10;LINES.unshift([$("sec").value,n,qq]);$("match").innerHTML=`<span class="pill ok">Matched</span> ${it[1]} · ${it[2]} · McKesson ${it[3]} · ${money(it[4])}${it[4]>=500?' · high-cost: whole units':''}`;drawLines()}
+function repRows(){return LINES.map(([s,n,q])=>{const it=find(n);return ["Memphis VAMC",s.startsWith("OP")?"Outpatient":"Inpatient",s,it[1],it[2],n,it[3],q,it[4],+(q*it[4]).toFixed(2)]})}
+function drawRep(){const r=repRows();tbl("repT",["Facility","Pharmacy","Section","Item and strength","Package","NDC","McKesson #","Qty","Package price","Extended cost"],r.map(x=>[...x.slice(0,8),money(x[8]),money(x[9])]));const t=r.reduce((a,x)=>a+x[9],0)+18240.55+412377.10;$("tot").textContent="Facility total incl. sample automation + CS data: "+money(t)}
+function dl(){const h="Facility,Pharmacy,Section,Item,Package,NDC,McKesson,Qty,PackagePrice,ExtendedCost\n";const b=repRows().map(x=>x.map((c,i)=>i==5?`="${c}"`:`"${c}"`).join(",")).join("\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([h+b],{type:"text/csv"}));a.download="VISN9_sample_inventory_report.csv";a.click()}
+drawLines();
+tbl("autoT",["System","Pharmacy","Source","Lines","Matched to NDC","Value (sample)","Status"],[["Omnicell cabinets (14)","Inpatient","VA export","1,284","1,279","$212,409.18",'<span class="pill ok">Merged</span>'],["ATC unit-dose packager","Inpatient","VA export","212","212","$18,240.55",'<span class="pill ok">Merged</span>'],["ScriptPro SP 200","Outpatient","VA export","188","186","$41,902.33",'<span class="pill warn">2 lines to clarify</span>'],["Optifill","Outpatient","VA export","—","—","—",'<span class="pill pw">Awaiting file</span>']]);
+tbl("csT",["Schedule","Counted by","Lines","Value (sample)","In report"],[["C-II","VA Pharmacy (2 pharmacists)","96","$58,210.44","Separate section, read-only"],["C-III to C-V","VA Pharmacy","141","$12,906.80","Separate section, read-only"]]);
+tbl("discT",["#","Section","Issue","Cause","Action","Status"],[[1,"IP-C02","Pertuzumab: shelf label shows 2, count 3","Count vs label","Recounted with VA pharmacist: 3 confirmed","<span class='pill ok'>Closed</span>"],[2,"OP-F11","NDC 00006-0749-31 price differs from shelf label","VA-furnished price file","Documented; VA Pharmacy to confirm which price applies. No change made by us.","<span class='pill warn'>With VA</span>"],[3,"IV-01","Section count entered twice by two specialists","Contractor","Duplicate removed before departure","<span class='pill ok'>Closed</span>"],[4,"OP-WILL","Will-call bags (patient-dispensed)","Scope","Excluded per SOW §8","<span class='pill ok'>Closed</span>"]]);
+tbl("qcT",["Check","Result","Detail"],[["Duplicate records","<span class='pill ok'>Pass</span>","0 duplicates after section merge"],["Missing NDC / UPC / UPN","<span class='pill ok'>Pass</span>","All lines identified"],["Missing quantity or price","<span class='pill warn'>1 open</span>","1 item with no VA price: listed for VA review"],["NDC format (11-digit, leading zeros kept)","<span class='pill ok'>Pass</span>","Stored as text"],["Extended cost = qty × price","<span class='pill ok'>Pass</span>","Recalculated for every line"],["Every section counted","<span class='pill ok'>Pass</span>","Matches closeout sheet"],["Totals reconcile to item lines","<span class='pill ok'>Pass</span>","Facility and pharmacy totals tie out"],["CS and automation data included","<span class='pill ok'>Pass</span>","Imported, read-only"]]);
+tbl("mapT",["SOW requirement","Where to see it"],[["§5 One-day count from 08:00, weekend preferred","Schedule"],["§13 Section identification and control","Section control"],["§12 Partial containers","Count entry"],["§14 NDC/UPC/UPN and McKesson identification; current pricing","Count entry, Final report"],["§9–10 Automated dispensing and packaging data","Automation & CS data"],["§11 Controlled substances counted by VA staff","Automation & CS data"],["§14 Discrepancies documented, VA data not altered","Discrepancies"],["§18–19 Section verification and facility closeout","Section control, Overview"],["§20–21 Report fields and Excel format","Final report"],["§22 Quality control","QC checks"],["§25 Implementation plan and schedule","Schedule"]]);
+tbl("expT",["Item","Expires","Value"],[["Heparin 5,000 U/mL","Feb 2027","$464.40"],["Fluticasone/salmeterol","Mar 2027","$868.65"]]);
+$("yoy").innerHTML=[["Oncology biologics",38],["IV solutions",-6],["Diabetes (oral)",12],["Inhalers",4]].map(([l,v])=>`<div class="hb"><span>${l}</span><div class="bar"><i style="width:${Math.abs(v)*2}%;background:${v<0?'#c8553d':'#1f5fa8'}"></i></div><b>${v>0?'+':''}${v}%</b></div>`).join("");
+$("kpis").innerHTML=[["12","Pharmacy inventories per year","6 campuses × inpatient + outpatient"],["2","Parallel crews","Finish by 24 Jan, reserve 30–31 Jan"],["≤ 7 days","Report turnaround","XLSX + PDF summary"],["3 days","Correction turnaround","Contractor errors fixed at no cost"]].map(k=>`<div class="card kpi"><div class="v">${k[0]}</div><div class="l">${k[1]}</div><div class="t">${k[2]}</div></div>`).join("");
+$("prog").innerHTML=SITES.map((s,i)=>`<div class="hb"><span>${s[0]}</span><div class="bar"><i style="width:${[100,100,60,40,0,0][i]}%"></i></div><b>${[100,100,60,40,0,0][i]}%</b></div>`).join("");
+$("nav").innerHTML=TABS.map(([k,l])=>`<button data-k="${k}" class="${k=='goodwill'?'gw':''}">${l}</button>`).join("");
+function show(k){if(!$(k))k="overview";document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id==k));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.k==k));history.replaceState(null,"","#"+k);window.scrollTo(0,0)}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>show(b.dataset.k));show(location.hash.slice(1));
+</script>
+</body></html>
