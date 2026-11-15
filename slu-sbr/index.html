@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Saint Lucia SBR Upgrade Console · Agentic Rx demonstration</title><style>
+:root{--ink:#14213d;--muted:#5b6475;--line:#dde3ec;--bg:#f5f7fb;--card:#fff;--a:#1f5fa8;--b:#2a9d8f;--c:#e9a23b;--d:#c8553d;--e:#6c5ce7;--w:#3d5a80;--x:#7b2d8e;--y:#d97706}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#0f2747;color:#fff;padding:14px 22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+header h1{font-size:19px;margin:0}header .s{font-size:12px;opacity:.82;margin-top:2px}header .who{font-size:12px;text-align:right;opacity:.9}
+.banner{background:#fff4d6;border-bottom:1px solid #f0d58a;padding:7px 22px;font-size:12px}
+nav#nav{display:flex;gap:4px;flex-wrap:wrap;padding:10px 22px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav#nav button{border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:999px;font-size:13px;cursor:pointer;color:var(--ink)}
+nav#nav button.on{background:var(--a);color:#fff;border-color:var(--a)}
+nav#nav button.gw{border-color:#2a9d8f;color:#1b6e62}nav#nav button.gw.on{background:#2a9d8f;color:#fff}
+main{padding:18px 22px;max-width:1300px;margin:auto}
+.tab{display:none}.tab.on{display:block}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .v{font-size:28px;font-weight:700}.kpi .l{font-size:12px;color:var(--muted)}.kpi .t{font-size:12px;margin-top:4px}.up{color:#1b8a5a}
+h2{font-size:16px;margin:0 0 10px}h3{font-size:13px;margin:0 0 8px;color:var(--muted);font-weight:600}
+.lead{font-size:14px;color:#333;max-width:1000px;margin:0 0 14px;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:#f0f3f8}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.ok{background:#e3f5ec;color:#1b6e48}.warn{background:#fff1d6;color:#8a5a00}.bad{background:#fde6e1;color:#9b2c16}.info{background:#e6efff;color:#1f4c94}.gwp{background:#dff4f1;color:#1b6e62}
+.pw{background:#e3eaf4;color:#2c4766}.pe{background:#f1e3f5;color:#6a2479}.pc{background:#fdecd6;color:#8a4a00}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center}select,input,textarea{padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:inherit}
+.btn{background:var(--a);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer}.btn.alt{background:#fff;color:var(--a);border:1px solid var(--a)}
+.method{border-left:4px solid var(--a);padding:8px 12px;margin:8px 0;background:#f8fafd;font-size:13px}
+.hb{display:flex;align-items:center;gap:8px;font-size:12.5px;margin:5px 0}.hb span:first-child{width:200px;flex:none}.hb .bar{flex:1;height:10px;background:#eef2f8;border-radius:5px;overflow:hidden}.hb .bar i{display:block;height:100%;background:var(--a)}.hb b{width:70px;text-align:right}
+.gantt{font-size:12px}.gantt .row{display:flex;align-items:center;margin:4px 0}.gantt .lbl{width:230px;flex:none}.gantt .trk{flex:1;position:relative;height:18px;background:#f0f3f8;border-radius:4px}.gantt .seg{position:absolute;top:0;height:18px;border-radius:4px;color:#fff;font-size:10px;padding-left:4px;line-height:18px;white-space:nowrap;overflow:hidden}
+.small{font-size:12px;color:var(--muted)}ul.t{margin:4px 0 4px 18px;padding:0;font-size:13px;line-height:1.5}
+footer{font-size:11px;color:var(--muted);text-align:center;padding:20px}
+</style></head><body>
+<header><div><h1>Saint Lucia Statistical Business Register: Upgrade Console</h1><div class="s">Working demonstration for the EOI · SLU-DDM-TECADVISR-CSO-QCBS-26 · OECS Data for Decision Making Project (P174986)</div></div><div class="who">Agentic Rx Inc. · Barbados<br>info@agentic-rx.com</div></header>
+<div class="banner">Demonstration only. Every business, number and record below is <b>invented sample data</b>, not CSO or administrative data.</div>
+<nav id="nav"></nav>
+<main>
+<section class="tab" id="overview">
+<p class="lead">How an upgraded SBR could look for the Central Statistics Office: one register of enterprises and establishments fed by administrative sources, consistent ISIC coding, quality checks, survey frames and business demography, built on the CSO's existing SQL relational database.</p>
+<div class="grid g4" id="kpis"></div>
+<div class="grid g2" style="margin-top:14px">
+<div class="card"><h2>Coverage by source (sample)</h2><div id="cov"></div></div>
+<div class="card"><h2>Six-month delivery path</h2><div class="gantt" id="gantt"></div></div>
+</div></section>
+
+<section class="tab" id="maturity">
+<p class="lead">Situational analysis using the UN Maturity Model for Statistical Business Registers. Each dimension gets a current level, a target level and the actions that close the gap. Together these form the SBR Improvement Plan.</p>
+<div class="card"><table id="matT"></table></div></section>
+
+<section class="tab" id="register">
+<p class="lead">Register browser: enterprises, legal units and establishments with status, ISIC code, size class and the administrative sources that confirm them.</p>
+<div class="controls"><input id="srch" placeholder="Search name or ID" oninput="drawReg()"><select id="fIsic" onchange="drawReg()"><option value="">All ISIC sections</option></select><select id="fSt" onchange="drawReg()"><option value="">All statuses</option><option>Active</option><option>Dormant</option><option>Ceased</option></select></div>
+<div class="card"><table id="regT"></table></div></section>
+
+<section class="tab" id="sources">
+<p class="lead">Administrative data integration: each custodian's file is loaded, standardised and matched to the register (exact ID match first, then probabilistic name and address matching), and unmatched records go to a review queue.</p>
+<div class="card"><table id="srcT"></table></div>
+<div class="card" style="margin-top:14px"><h2>Match review queue (sample)</h2><table id="mrqT"></table></div></section>
+
+<section class="tab" id="isic">
+<p class="lead">Classification consistency and the ISIC Rev.4 → Rev.5 migration plan: correspondence, one-to-many splits flagged for review, and the share of units affected.</p>
+<div class="card"><table id="isicT"></table></div></section>
+
+<section class="tab" id="quality">
+<p class="lead">Quality assurance against the UN National Quality Assurance Framework: automated checks on every load, with results the CSO can track over time.</p>
+<div class="card"><table id="qaT"></table></div></section>
+
+<section class="tab" id="frames">
+<p class="lead">Survey sampling frames and business demography: extract a frame by sector and size, and see births, deaths and survival from the register.</p>
+<div class="grid g2"><div class="card"><h2>Frame extract</h2><div class="controls"><select><option>Annual Business Survey 2027</option><option>Quarterly Tourism Survey</option></select><select><option>All sizes</option><option>10+ employees</option></select><button class="btn" onclick="this.textContent='Frame extracted ✓ (sample: 1,284 units)'">Extract frame</button></div><p class="small">Frames are versioned and frozen, so every survey can be traced back to the exact register snapshot it used.</p></div>
+<div class="card"><h2>Business demography (sample)</h2><table id="demT"></table></div></div></section>
+
+<section class="tab" id="handover">
+<p class="lead">Deployment, documentation and knowledge transfer (TOR deliverables).</p>
+<div class="card"><table id="delT"></table></div></section>
+
+<section class="tab" id="map"><p class="lead">Where each TOR area is shown in this demonstration.</p><div class="card"><table id="mapT"></table></div></section>
+
+<section class="tab" id="goodwill"><p class="lead">Extras we would include at no added cost.</p>
+<div class="grid g3">
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">1. Public business statistics page</h2><p class="small">An open, aggregate-only page (no unit data) with counts of businesses by sector and parish, plus births and deaths, for users and policymakers.</p></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">2. Custodian data-sharing scorecard</h2><p class="small">A quarterly view of how timely and complete each administrative source is, to support data-sharing agreements.</p></div>
+<div class="card"><span class="pill gwp">Included · no cost</span><h2 style="margin-top:6px">3. OECS-ready template</h2><p class="small">The data model and code are documented so other OECS member states could reuse them.</p></div>
+<div class="card"><span class="pill gwp">Our commitment</span><h2 style="margin-top:6px">Also included</h2><ul class="t"><li>Three months of post-go-live support.</li><li>Recorded training videos for new CSO staff.</li><li>Source code and documentation handed over in full; no lock-in.</li></ul></div>
+</div></section>
+</main>
+<footer>Agentic Rx Inc. · Demonstration for SLU-DDM-TECADVISR-CSO-QCBS-26 · Sample data only</footer>
+<script>
+const $=id=>document.getElementById(id);
+const TABS=[["overview","Overview"],["maturity","Maturity & plan"],["register","Register"],["sources","Admin data"],["isic","ISIC 5 migration"],["quality","Quality checks"],["frames","Frames & demography"],["handover","Deployment & training"],["map","TOR → view"],["goodwill","Goodwill add-ons"]];
+function tbl(id,h,rows){$(id).innerHTML="<tr>"+h.map(x=>`<th>${x}</th>`).join("")+"</tr>"+rows.map(r=>"<tr>"+r.map(c=>`<td>${c}</td>`).join("")+"</tr>").join("")}
+const P=(c,t)=>`<span class="pill ${c}">${t}</span>`;
+$("kpis").innerHTML=[["6,412","Active enterprises (sample)","+9% after admin-data integration"],["5","Administrative sources linked","Companies, IRD, NIC, licences, census"],["96%","Units with valid ISIC code","Target 98%"],["6 months","Upgrade timeline","Jan–Jun 2027"]].map(k=>`<div class="card kpi"><div class="v">${k[0]}</div><div class="l">${k[1]}</div><div class="t">${k[2]}</div></div>`).join("");
+$("cov").innerHTML=[["Enterprise Census",100],["Inland Revenue (tax)",88],["NIC (employment)",81],["Registry of Companies",74],["Trade licences",52]].map(([l,v])=>`<div class="hb"><span>${l}</span><div class="bar"><i style="width:${v}%"></i></div><b>${v}%</b></div>`).join("");
+$("gantt").innerHTML=[["Inception & work plan",0,8,"#1f5fa8"],["Situational analysis & plan",8,25,"#1f5fa8"],["SBR system upgrade",25,60,"#2a9d8f"],["ISIC 5 migration plan",40,65,"#e9a23b"],["Testing & go-live",60,85,"#2a9d8f"],["Workshops & handover",70,100,"#6c5ce7"]].map(([l,a,b,c])=>`<div class="row"><div class="lbl">${l}</div><div class="trk"><div class="seg" style="left:${a}%;width:${b-a}%;background:${c}"></div></div></div>`).join("")+'<div class="small">Jan → Jun 2027</div>';
+tbl("matT",["Dimension","Current (sample)","Target","Key actions"],[["Legal & institutional",P("warn","Level 2"),"Level 3","Data-sharing MoUs with IRD, NIC and Registry; update protocols"],["Coverage",P("warn","Level 2"),"Level 4","Integrate admin sources; annual census reconciliation"],["Units & characteristics",P("info","Level 3"),"Level 4","Enterprise / legal unit / establishment model"],["Classifications",P("warn","Level 2"),"Level 3","ISIC coding rules; Rev.5 correspondence"],["IT & data management",P("warn","Level 2"),"Level 4","Upgrade SQL schema, ETL, audit trail, backups"],["Quality",P("bad","Level 1"),"Level 3","Automated checks aligned with UN NQAF"],["Use for statistics",P("info","Level 3"),"Level 4","Versioned frames; business demography outputs"]]);
+const NAMES=["Pointe Seraphine Traders Ltd","Soufrière Dive Co.","Castries Hardware Ltd","Gros Islet Villas Inc.","Vieux Fort Bakery","Anse La Raye Fisheries Co-op","Rodney Bay Pharmacy Ltd","Micoud Agro Processors","Dennery Auto Repairs","Laborie Craft Studio","Marigot Bay Marina Ltd","Babonneau Poultry Farm"];
+const ISIC=[["G","Wholesale & retail"],["I","Accommodation & food"],["A","Agriculture & fishing"],["C","Manufacturing"],["N","Admin & support"],["Q","Health"]];
+$("fIsic").innerHTML+=ISIC.map(i=>`<option value="${i[0]}">${i[0]} ${i[1]}</option>`).join("");
+const REG=NAMES.map((n,i)=>({id:"SLU-E"+(10231+i*7),n,isic:ISIC[i%6][0],st:["Active","Active","Active","Dormant","Active","Ceased"][i%6],emp:[3,12,45,8,2,26,9,15,4,1,38,6][i],src:[["Census","IRD","NIC"],["IRD","NIC"],["Census","IRD","NIC","Registry"],["Registry"],["Census","IRD"],["Census"]][i%6]}));
+function drawReg(){const s=$("srch").value.toLowerCase(),f=$("fIsic").value,t=$("fSt").value;tbl("regT",["Enterprise ID","Name","ISIC","Status","Employees","Size class","Confirmed by"],REG.filter(r=>(!s||(r.n+r.id).toLowerCase().includes(s))&&(!f||r.isic==f)&&(!t||r.st==t)).map(r=>[r.id,r.n,r.isic,P(r.st=="Active"?"ok":r.st=="Dormant"?"warn":"bad",r.st),r.emp,r.emp<10?"Micro":r.emp<50?"Small":"Medium",r.src.join(", ")]))}drawReg();
+tbl("srcT",["Custodian","File","Records","Matched by ID","Matched probabilistically","To review","Status"],[["Inland Revenue Department","Taxpayer register","7,904","6,012","1,108","784",P("ok","Loaded")],["National Insurance Corporation","Employer register","5,231","4,410","512","309",P("ok","Loaded")],["Registry of Companies","Company register","9,118","5,870","1,440","1,808",P("warn","In review")],["Trade licences (municipal)","Licence list","3,402","—","2,011","1,391",P("warn","In review")],["Enterprise Census","Census frame","6,050","6,050","—","—",P("ok","Baseline")]]);
+tbl("mrqT",["Admin record","Best register match","Score","Decision"],[["CASTRIES HARDWARE LIMITED, Bridge St","Castries Hardware Ltd (SLU-E10245)","0.97",P("ok","Auto-linked")],["Rodney Bay Pharm, Gros Islet","Rodney Bay Pharmacy Ltd (SLU-E10273)","0.84",P("warn","Analyst review")],["M. Joseph Fish Vending","No match",'—',P("info","New unit candidate")]]);
+tbl("isicT",["ISIC Rev.4","ISIC Rev.5","Relationship","Units affected (sample)","Action"],[["4791 Retail via mail order or Internet","4791 split into new online-intermediation classes","1 → many","38",P("warn","Manual review")],["5520 Camping grounds","5520","1 → 1","4",P("ok","Auto-recode")],["6201 Computer programming","6201 / 6202","1 → many","22",P("warn","Manual review")],["0311 Marine fishing","0311","1 → 1","96",P("ok","Auto-recode")]]);
+tbl("qaT",["Check","Result","Detail"],[["Duplicate enterprises",P("ok","Pass"),"0 duplicates after match rules"],["Missing or invalid ISIC",P("warn","4%"),"256 units for coding"],["Status conflicts between sources",P("warn","61"),"Active in IRD, ceased in Registry"],["Size class vs NIC employment",P("ok","Pass"),"Within tolerance"],["Address geocoded to parish",P("ok","93%"),"Remaining sent to field check"],["Load reconciliation",P("ok","Pass"),"Counts tie out to source files"]]);
+tbl("demT",["Year","Births","Deaths","Active","1-yr survival"],[["2024","612","401","6,105","78%"],["2025","655","388","6,372","80%"],["2026","690","650","6,412","79%"]]);
+tbl("delT",["Deliverable","Content","Timing"],[["Inception report & work plan","Methodology, schedule, risk plan","Month 1"],["Situational Analysis Report","Maturity assessment, SBR Improvement Plan, ISIC improvement & migration plan, proposed uses","Month 2"],["Functioning, tested SBR","Upgraded SQL schema, ETL, matching, QA, frames","Month 4"],["Go-live SBR","Deployment, systems documentation, SLA, maintenance manual, user guide","Month 5"],["Workshops (≥2)","Consultation, training and sensitisation for CSO and custodians","Months 2 and 5"],["Final Summary Report","Work performed and all deliverables","Month 6"]]);
+tbl("mapT",["TOR area","Where to see it"],[["Assessment & improvement planning","Maturity & plan"],["SBR system upgrade & admin data integration","Register, Admin data"],["Classification consistency & ISIC 5 migration","ISIC 5 migration"],["Business statistics & quality assurance","Quality checks, Frames & demography"],["Deployment, documentation, knowledge transfer","Deployment & training"]]);
+$("nav").innerHTML=TABS.map(([k,l])=>`<button data-k="${k}" class="${k=='goodwill'?'gw':''}">${l}</button>`).join("");
+function show(k){if(!$(k))k="overview";document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id==k));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.k==k));history.replaceState(null,"","#"+k);window.scrollTo(0,0)}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>show(b.dataset.k));show(location.hash.slice(1));
+</script>
+</body></html>
