@@ -1,7 +1,49 @@
 {
- "updated": "2026-11-15T18:55:49.906Z",
- "digest": "30 AMR headlines in the last two weeks; most about surveillance (3), one health (2), r&d (1).",
+ "updated": "2026-11-16T06:41:27.891Z",
+ "digest": "30 AMR headlines in the last two weeks; most about one health (3), surveillance (3), regulation (1).",
  "items": [
+  {
+   "title": "Free-Living Amoebae May Act as Reservoirs and Amplifiers of Antibiotic Resistance",
+   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOY0drSFlrLXgzMWY2T0FZWFR5R01FV2Z1VDF5QklMTndkVnZQQzVGb25OQ1d0QjdOWUlKYjhWUHB4UGNicno3N1RlcFh2UmdXZWRERUhBMU8yYkdJU0N1V2ZDckxYc0xRaVhHSjdnLXBPYkFSSXQtU0lnbTVHcmZRNTdzWFNVa0xDeld6Q2tyMHpHMjRCazJKM25WNEF4MjlhWl90WVZ2TkdQUQ?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-16T03:35:24.000Z",
+   "tags": []
+  },
+  {
+   "title": "Cornell Receives $7.5 Million FDA Grant to Track Antibiotic Use in Animals and Fight Drug Resistance",
+   "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNSzJEY1lxQVlUeGtfbHUxeThSVjlFWWRpN0IyOFlja2pPOGFkWmFwOFZLVzFKSldnbjVOZWpYTHZOLUhiMTBxTEtqNWpGaDZGT29weFZHQkhhdHBLdG5ubEJ5VDJtSEJUcURPUnBISUdiS0dPRkt6T1RYYXR6ZmtiTGc1aFFXd1ZIVUpOZnBkdFc2cVFNRV91ODBXV1BLUlBaU0xUV1gtZlpTbndFMDVYbjMtTUxFaHgzT0VUN00yMXVfTFFhOTc0aEtmWjZzaEtRQVpEbnZsbVk?oc=5",
+   "source": "Vet Candy",
+   "date": "2026-11-16T00:48:18.000Z",
+   "tags": [
+    "Regulation",
+    "One Health"
+   ]
+  },
+  {
+   "title": "Targeting Microbial Quorum Sensing Provides Alternative Strategies Against Growing Drug Resistance",
+   "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQLTZRRkw5TGtkd2dycUNURnNnam5yVmhiRVRYQURtWW1hTnlMYmJad1cxNFl1dlFpNC1ZcnN6b1NCb01yMDRJeGhjQ0tXOUtjSEVObmZGcnZnMWxwMjRIdjlQZUw3UnpjSUc5MzE3aTlpa2pEQTdieHBNY08tSVZrOFdzd1VnVi1zNFUweTh3dmxMMi1fTE51VEtiZDdDR0ZoT05Td2IxR0hybVF0Tk1sNHgtTHgyNkF1NkMtOW9MMmg?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-15T23:25:55.000Z",
+   "tags": []
+  },
+  {
+   "title": "AI Frameworks Advance Predictive Resistome Surveillance and AMR Risk Assessment",
+   "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPVGFIcUJ2YUJmZXZNbXhBdGQ1RFNLVHNNNGpUVG5Gc2gxZjdCakFZMkJWYVB0YVRqcUFFY09pQ0liZjlxUmhvdXoyWXVJX0pHMU5CYVpDZmNyTU1WeGliWS1VZllOOTJmcjN1S2VUX2JDeWd2U09NajRISVVyV2lYNTVfSkJ6ai1MYmYyUnZLYTNsekNnNk5PUHhPR0IzaF9rd1NYV052aw?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-15T23:25:55.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
+  {
+   "title": "New veterinary lecturer has much to celebrate at USask Fall Convocation",
+   "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPTDlGZy1TU3NWNEVOcm5JaXpsaGc0U1hEX2NsdEZ3YWsxZVY2NFIxWVNPQkVIcnYtTUtsdGtZcnpsc2thV2pqaTJVaHpEeC1JX29rcHY2cEh6aDBfemRJTy1qemVoYTk3eXI5N3ZKclRhNExqak9sU1NEbUQxSEJLcTJ4RHJpc2gwcERPQ3o1ekthZkdfb3VHblFPTy1IeFNhNXhJNXpPc1I3NjZfTThyT1JxRXdyV3BqSnVSNWE1M0RIdld5cGVDSHNYXzR4ZW52QUE?oc=5",
+   "source": "SaskToday.ca",
+   "date": "2026-11-15T20:22:38.000Z",
+   "tags": [
+    "One Health"
+   ]
+  },
   {
    "title": "WHO urges concrete action on antimicrobial resistance worldwide",
    "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPYmoyckhGVXR1NUNEYTBRLUJIbDhhVDF6MjJERWhnbG01QldiRW5JSDM4RVhIMDBWRWo3ZGhSallDLWRORzV0RnRjZ3VfLWR1RHRQN1VuZlpJZzNUa2l6TUlxWjBnS0pFRm9ES3NkM0hONlhPbUhoZG5vaXBRWmFYZHNRSGhFZ21ZRlRVQ2ZHZ29mMWFVNUZaLUQ5WmxBbzRCZndvQ0lXZTJBWFJCZEx4YTI3bHk5NkwwX2RuSw?oc=5",
@@ -11,9 +53,9 @@
   },
   {
    "title": "Eritrea: Call for judicious use of medicines",
-   "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQeWxZemhCcmpLUDBHMnppQnhzQVVkTkZMakpwZ0FQRlRDZi1mYTdjSFZyVk1rOGU2Z0VtNi1UbWtoNWtDTlFvQUZlblNBUHBDZ1JMVUF6Y0dDWFZhLXZydnRrM0ttZTZaa3RreFFycS04OGJOTW1PV0pXLXZ0eWJGc29OVGVLS012dkHSAYoBQVVfeXFMUHlsWXpoQnJqS1AwRzJ6aUJ4c0FVZE5GTGpKcGdBUEZUQ2YtZmE3Y0hWclZNazhlNmdFbTYtVG1raDVrQ05Rb0FGZW5TQVBwQ2dSTFVBemNHQ1hWYS12cnZ0azNLbWU2Wmt0a3hRcnEtODhiTk1tT1dKVy12dHliRnNvTlRlS0tNdnZB?oc=5",
-   "source": "Social News XYZ",
-   "date": "2026-11-15T17:31:54.000Z",
+   "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBOQWhmSFUtWDhfVjJERzN3ZjVSLWMxVUluYktuN0s5ekZoTzZaYV9sVXpUaHpfNE94cHlBMG1FcUpETVpDcmtDdDVRdEExTkNXMkxPLWRjMmlYaC1yUlRlcF8wSi1QZDRkbUotZVZCbWZsOHZO?oc=5",
+   "source": "Africa.com",
+   "date": "2026-11-15T16:45:22.000Z",
    "tags": []
   },
   {
@@ -52,13 +94,6 @@
    "tags": []
   },
   {
-   "title": "Staphylococcus Isolates in Human Mastitis Show High Virulence and Drug Resistance",
-   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOUmJPYm91TXY5a1FFUWlNdHdrY0ZvUXNaZ0VRLVdFRWhFUUJEOHl6b0ZrSVRfZzZyeWcydUE1bTdMQkotaEhGU3kyY0p3NDlrY05MNXF3eW9XaXQyb3M0WW5yVV81ZjNqeU1hWUpCQVlVdVFEcUxIM3FMWjFRbk9tSkRSTWMtWjZZNkJfZk1kTzUzRUFrLTBudktwVEdZV3pTNzE2T3pfNk0xZw?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-14T21:10:13.000Z",
-   "tags": []
-  },
-  {
    "title": "Pharmacy Council of India calls for coordinated action to tackle antimicrobial resistance",
    "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPa01wTVNKRGthYkpLUTRfLTJkLWtDenM0c3RjblpoR2hyUTJISHUzbHRZaFZ3LVBUNjd6OEkxYjdlX2wxaVJPZU9sVUMyemZ4ZGVuc0tBclhjR2gwdTMycTU4eHJFdTRzQThGaE00T1gxZ3dxWGM0NXAzMmFZNVIyVlRJVXd0SlY0bXRyd2JRYy16MHpBb0JZalJsZEJNUTRpaTlTWU8tQnFRMFdMdUZpako3SEpwUVJqSk4yakdrZ3p1N0RVSjNHY1JQOHFnUURsZWcwVFZ4YmU?oc=5",
    "source": "Prop News Time",
@@ -89,6 +124,13 @@
    "tags": []
   },
   {
+   "title": "Caribbean Study Detects High Bacterial Loads and Antimicrobial Resistance on Culinary Herb",
+   "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNY3IxMGcwOThsMTdfZlc3eTBRSW01aDJXSmU2Q2gtWXBRd2RwSmZVUUF3VzR2ZDZjbVhyazFZYW44TWZEbjF1WVNmTVZDYjhCcjNJdzRxUDQyWHJBSWFNdXNETXFRY29mTUkybm9BM293Rm83eXFPTWl2QzNQd25TTUQ5TGExQ09pYk5jNmpPR0VwT043Z2I3Tl9rY1NTVzUzWkNBWVhtTHoxSzhlX2ljTXZpNHBiUQ?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-14T00:11:55.000Z",
+   "tags": []
+  },
+  {
    "title": "Genomic Machine Learning Shows High Accuracy but Limited Validation in Global Surveillance",
    "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPMjVyYWQtTUpFdEsxdUZtYlVOdjByV092YlA0dGhxaUEtYUMyZ1JXUE1KZDhTd25NNndHcU1aVm9xbGxOa3hmWGRLV3hpdE5iUk11Q1MtcnI5S0F4UmUzdHduZTNMVTMtZUR0akxDQ0JXRnlOXy0yQ0RLZFdYdW9HdDNIWGl6WGgtcU0xMENUQkVTbGxYMkFYRFRLbGZEVkdNTVk4N1FGdGJ0bDN2Yk95VEhiaUxRUQ?oc=5",
    "source": "Bioengineer.org",
@@ -96,22 +138,6 @@
    "tags": [
     "Surveillance"
    ]
-  },
-  {
-   "title": "Shared E. coli Lineages Link Human, Poultry, and Environmental Resistance",
-   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOWEpFVXVHbzBZMWdjOTBmN1gwX3FvUWhRcXA2Q1hBTDhpZGNqaDc1dEJZQV9TMGo5eERkNl95clBkOElXTWU1RW96Y2h2Q0VGT3pIdWJzbjAyS3F2ZjMzZlppUVRESHVVQkRvOUpXNGxfakpkejBYZmQ2SlNHVm4ybzdONjNXX3lLemNaV1ladjE4Z2k1ZTBoeHY5UQ?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-14T00:02:40.000Z",
-   "tags": [
-    "One Health"
-   ]
-  },
-  {
-   "title": "Drug-resistant germs are 'growing threat' to US, causing more than 50,000 deaths annually: CDC",
-   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPZ0o2cFplaXlYYjFjOXZyczV0eXphY3hPVW81dTRRNlhCSTgxTloxT0tEVkRCX1kxT01vYkRPLW0xbTFMR1QyX0xETnBtTmFac1dKUHhCZkJRTll0ODB6SG45MzhpQ2N0MzZJU214OVRzZjhLTkhHWTM3WUttT3k0a0k3UV9iV0pKMFRwMEtRSXZCX1A1d09qVVdXdVdOSGvSAaQBQVVfeXFMUExheC1kN3pRM0VMYjN4RzE5OXlCMlB4d0NKSVhVcGplZkcxLXZCUTZ2OWF6Yzc1YnBmLTNLdkEwck5WZ2piZTBJMERnYU1qOXRxNTZGUDBjWEIwWTdIaEpVYXBxd0RHOE9tekxsRTR1TzNIWmxNX1BuVUlIUUZjR3JDcWxHTk1jdmtTTk41X3dWY1JxQUlIVTVabkVEMUVEVVhRVGo?oc=5",
-   "source": "ABC News - Breaking News, Latest News and Videos",
-   "date": "2026-11-13T23:37:07.000Z",
-   "tags": []
   },
   {
    "title": "Wild Roe Deer Harbor Enterococci Carrying Virulence and Antibiotic Resistance Genes",
@@ -144,7 +170,7 @@
   {
    "title": "Antimicrobial resistance is a health security threat. Europe can lead global action",
    "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPXzRpWGtWNkRuSUZtaTMwYXVqVE5feHNxczJpc2pMVDZZb0VQaFFlVXJaZ1VubW1wMlVXNDBvUWdaS2paSnJNdmpxR01mZDhGTkU0aXFFUW1mdVpkSldSY3ZFUFRnenhkTFV1VDk3OWwwSG9INDdDX1R5N3prMC1obFVwOVdFVjdEaVkwNzNJdmhnUDh2NzlTemJtSHRxRnRrWnduclNCbWJsVUt3U0VJQW1tRXo5RHo3M2c?oc=5",
-   "source": "Euronews.com",
+   "source": "Euronews",
    "date": "2026-11-13T16:05:31.000Z",
    "tags": []
   },
@@ -163,13 +189,6 @@
    "tags": []
   },
   {
-   "title": "GP antibiotic prescribing drops further but drug resistance still rising",
-   "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQOVk3bGJUWEV4TVQzMXVFRFFub1hFcVVaWk5KbFBqOUEtUndZS2dVWlVUWGQzUGNRNnZXc0piTWF3bG1rUGlySWRwbEZteWdjRFpGTnY2Sk16WUFOSUpJWFJIaElyNmlrMWphQm1jRU80ZFhCVXNmUk1sdEMwcUU0VkEzR0N6TkI3SF8xVTVMVzc0c3pvaGMzZ1B4Q0tDZ1k5ZkJkR2I0VGdMRXphRzhPT1NwQWZYTWhVOUFUWlY1OEp4eW5TbW1sWkx2Rklod3M?oc=5",
-   "source": "Pulse Today",
-   "date": "2026-11-13T11:39:52.000Z",
-   "tags": []
-  },
-  {
    "title": "Health alert on resistance to key antibiotics in cases of childhood impetigo",
    "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQX1FBUm9FQ0lxRzVhSVlGWjRHWHdSX2o2OU01UFhtQ1hKOTU3UEZSZHBDNXcwUGFHU1lxSW9KdlV6TFhnNHpjZXZONU12am9HelMwTmItbDZ2a2gzc0R3RFNqbjYwZ2VmaW9GazFZOG9FTEZleW5nbUUxN21IVG9yOXp6OVd1M1V2MC12Nkhyei02SEJyYUxqR2JzVDVCaV9yMGdpN1Y5QU8xeEJuNy1nUkZaX05LaUXSAbcBQVVfeXFMUF9RQVJvRUNJcUc1YUlZRlo0R1h3Ul9qNjlNNVBYbUNYSjk1N1BGUmRwQzV3MFBhR1NZcUlvSnZVekxYZzR6Y2V2TjVNdmpvR3pTME5iLWw2dmtoM3NEd0RTam42MGdlZmlvRmsxWThvRUxGZXluZ21FMTdtSFRvcjl6ejlXdTNVdjAtdjZIcnotNkhCcmFMakdic1Q1QmlfcjBnaTdWOUFPMXhCbjctZ1JGWl9OS2lF?oc=5",
    "source": "Demócrata",
@@ -184,15 +203,6 @@
    "tags": []
   },
   {
-   "title": "INQUIRER.net’s Mayon bacteria report wins 3rd place in global awards",
-   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPSk91VzMtR3JERjNZUHotLU1CQWpBa0d6bmJCTmh4ZGw1cDhDUm5mbXZ2ODhWVTNJa2lORUVyc0lZZFVJel81cFF1Y2VlaERGQ28wMEpvRV9EWksxWHJNQTJoaFRaR21NcndYXzRTZHBJc0VSVXd6M2Vqcm9EcS10NTEwX3NJeUVoVnNfQ01XT1NHdFpHc3hlVWJDM3o5MnE3U1E2V1NodHJTWDhh0gGyAUFVX3lxTE5yeVl2VUxucXhNX0FpWlhpc05YQkxqUjgtQzRMN1pCMXhReWs1Nm5GZmlsMTkyR2tJc0FsQ1NaeER4U3BKRHZNajAxV29BMGxRWmVydjNRQTUxdjVSRGN1a05uUFdSb3NpQTBwVU40a0hqdmZRb2Ytenp3bnY4cC15Q04teUlVVXQxUmw4cTZ2WmVFaXRIaExhWGJZUkJJVHNKR0NHMndocHRwMHRtcmgya2c?oc=5",
-   "source": "Inquirer.net",
-   "date": "2026-11-13T04:40:00.000Z",
-   "tags": [
-    "Surveillance"
-   ]
-  },
-  {
    "title": "ESPAUR report 2025 to 2026: Chapter 2. Antimicrobial resistance (AMR)",
    "link": "https://news.google.com/rss/articles/CBMimwJBVV95cUxQeHlzMHp0bUpRUW4ycnFOVlpwWUFoNnZGcHlvcFZyZDlyM0YzVHkzTlI5NTdwVlN5ZkZUR2Y1Q1ZORU1iQVVxYVhzanIyak5fSGxaZjZPNVl1TTNYZ2JBOS1xYnljTWhweW4yWXVMbk11YUJGQ3dLejh4aC1fMG94VjVEbFdpUTJBZTVmY0FHOXdULWtqb2FGQ3JxbzctZzlRdnRyTmcyX1F3MmZtQ0FWV01qa0ppNXR5UmMwWkNVWm5sS0k1b3hCMXM1WDNMXzlELXBSSmVOemJ5T2t1aklXVFF6WEF5UWdFZ3cyV2tOckdONFZSTW5TTUFCRERlWmlmaGFmRlYxdWV6eVhfQnpPWVBsY0JDdkJ3VzZ3?oc=5",
    "source": "GOV.UK",
@@ -200,13 +210,6 @@
    "tags": [
     "Surveillance"
    ]
-  },
-  {
-   "title": "Clinical Klebsiella Isolates in Togo Carry Silent Antimicrobial Resistance Genes",
-   "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNWHZxVzZuUXRZV09aXzRERGxvbXJ4TjBGR0wzNEtZNG5DeFhQR0lVb2VEcGFiMnBGc3RSTUJhZjZuS0ZoMzh0NkNkczg3Zm4yck85ZXRfU18xQ1lrb0JXX3ppYmg3c3ZJLTZDZGQ2Q2xUVDFxVUhzWGlYUHk2LW1rb2MySDRJeDJWUEF3YU9zV2ExSTZ1OEw4VUxVV09sQ3dRVHpsNVRWZjQ?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-13T01:27:16.000Z",
-   "tags": []
   },
   {
    "title": "Professor awarded medal for research into antimicrobial resistance",
