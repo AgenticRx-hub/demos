@@ -1,10 +1,84 @@
 {
- "updated": "2026-11-20T07:25:39.081Z",
- "digest": "30 AMR headlines in the last two weeks; most about one health (2), surveillance (2), regulation (1).",
+ "updated": "2026-11-20T20:28:15.238Z",
+ "digest": "30 AMR headlines in the last two weeks; most about surveillance (4), one health (2), policy (1).",
  "items": [
   {
+   "title": "Chinese Intensive Care Study Reveals Divergent Bacterial Resistance Trends in Children and Adults",
+   "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQVTNUMlhlcVJqanN4aXZKOFdncGpkS09MXzBsLUNxVkFWaFVKMnduSlZEdnpzN29Ud3NTMHpvbnF4Zk9NRXMzaWdCVHQtUlZ6TlktVllGZVFKd0lPbHdaWWcwTkhzZ01aay01WlZaTy1RWWlqYWNRYU5mdWZZb01YaUJiS2FVUXFMN2MtZ0o2ZXpXUWptd284SFBVanJXUmloQUFOdDlfWHcxblFRak1lX2pWb3VEX1BMMVN5WG9UNA?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-20T18:19:29.000Z",
+   "tags": []
+  },
+  {
+   "title": "MSDH Helps Fight Antimicrobial Resistance During Antibiotic Awareness Week",
+   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQUU01VTZHV3FBcnVaU0F3VFdNazU3NmFiNFR6MWQxQnI5MWxwUExmVmZSYzZHc1lIalJGeGN5U0tldnVNb3FNWXBNMTNuUEdOOWQwQUhwT3FnbThCeWItVnZZZ21wTVBVaXB2S1pLa3BFTU84ZXB3MlE4bTcwNXV5WEpybHk2eUhlNDRndkFFeHhIbkJDLUE0cEN3Q0Q2LUZ0a0dxUWhELWl6UQ?oc=5",
+   "source": "tallahatchienews.ms",
+   "date": "2026-11-20T17:45:08.000Z",
+   "tags": []
+  },
+  {
+   "title": "Webinar: Expanding treatment options for gonorrhoea and strengthening global gonococcal antimicrobial resistance surveillance",
+   "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxPOHdxM0ZraXYyRnpGemdWRC1wZ09fZWVIOHA1Wkk5ejd3TDAxbnotUV84TkpzaVdFY1VncVhPWld1LS00YzhSZkxxaUZsM1Q4X3NLWmFuWnFfZmkzelhQemJ4c1BmZ3NOOElKRHp4U05JMnhHUlpYSjNlS251NUdhT2FUNEdabXBPbERNcWlLR3dsdllFNkctNk1IQWJBenhUZWZ5ampDVUdkTHdlLU85aWhYellTN2VPejJFVXhlaVFXRzRoTml6U0s5eEhIbEk0bUxjbW1TZG1FbldieFJDY2NQVzlfZW5vUmhBaElPV2pDc3hvaEJfbENHS04?oc=5",
+   "source": "World Health Organization (WHO)",
+   "date": "2026-11-20T16:44:02.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
+  {
+   "title": "Evidence Synthesis Challenges Universal Antibiotic Exposure Rules for Gram-Negative Resistance",
+   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNNnRCdURMRkU2T1Q0a0JSLW1BOE1USnpxcE9vWERreHVBdDI2TWExRGdiTV85dXJoblZXd0hhaWthM010azkyMlhUYmxxTzNCRkQ5LU9JMzRFcXRrV3NsUDloeUNMV3RnQmRSU0J1VzhoTFo1WXdRb2ZZQzdaLUZOTzE0X1BNazR5VmlWVjRyT0FEWmZZYTdSSThMZEZ3LV9DRXJLOHNOb0FDYVVkQlhvaFE1SDdfUUdwUGg4?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-20T15:28:10.000Z",
+   "tags": []
+  },
+  {
+   "title": "ITC Savlon Launches #WeLoveAntibiotics Campaign to Raise Awareness About Antimicrobial Resistance",
+   "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPbF9QSlNiTUU1bUZENXpld3JZeFJQZlZvTlRpdkdSWmFjYko4MDZxTUZEdmVFOFRERWxmR25hTGJDMmhrcGpiMkNlNTVhUlVSSUJEZ2cxTXhUYTRrR3lxeS1vRUZWYWU2RmEtM2tNTTMtSjBpRjFwTVZFenV3OXRhajJBTHZsQkk3X0JMTzA3WUk3R3dWNnhIM3RybG80X0JmUXAyalJSMEwwNGdDeGdoanVFMng2aTdTOGNmQV9XcWtiTDlJTlBLQmtyZw?oc=5",
+   "source": "The Indian Practitioner",
+   "date": "2026-11-20T12:53:28.000Z",
+   "tags": []
+  },
+  {
+   "title": "Gram-Negative Pathogens Dominate Neonatal Sepsis Cases at Northern Ethiopian Hospital",
+   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOWHlKaVVCQm9GLS0zakhTTTVuNUI4Nnk0MHpuSVphVmRzc3pTNlo5MDVDMXhZMHpiMlpyZUNodzB4SjNpYjVzOHlaYnlWSXdpYndiTXJqOU5NN2tnbEdTd1l0a25QWTRydERONEotQlhGTkVHRFY5bWx1SG8ySW5pU3RYbElwWmtzMUMwdG9HdVdwVzBwRVpUZnJaeDNuTFhkamYxS2lzS0kydlczVWJV?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-20T12:41:27.000Z",
+   "tags": []
+  },
+  {
+   "title": "Enterococci from Chinese Pet Dogs and Cats Harbor Critical Oxazolidinone Resistance Genes",
+   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPRURQTklZcEp6dGFLRGlOSzhoOWl6SzVYS0FIUXZiRmE3M2x0a2p5RFQxYkRCal9rbFgyMkluOS10eXRCZHlURUd1WXhKQ3BuNS1mZmZqTXoxM1gtaVJpYnk3WlltdXNPaXZLQjRZajFBd0hOcld2Zkk0N09QX2JyX2JQeWRrblgwNExOX3JneDhxVF9sUXVCVnZDazBvaTdqV2hMNnFjZHBNeGFuWjY3cFJ0amI?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-20T12:06:25.000Z",
+   "tags": []
+  },
+  {
+   "title": "Nepal marks World AMR Awareness Week 2026, calls for stronger One Health action now",
+   "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQY01mSTIyMkZ3SlpCRTcwdVExZnFNUnh1ZFVpQ015cDFVMnRGbUpGeDA0U09pejJ0S3daaVRUVVRjT0J6UF9sNEx0cVpHMU44RThqYmhIMllEVnVXd0pJZTVNUXltTjN6cnZURVRybko5aFRyX2hkdVl0UGd6R19Janpnd0xqZ2Zxd2VmYzBjeHZlM21iTC1NTS0xYmpnS0tlVWM3TmU4ay01QnFubF9sdEt3QUlTczdLREZlTU04Vlo0QlJFd3UtenhGT3k?oc=5",
+   "source": "World Health Organization (WHO)",
+   "date": "2026-11-20T11:47:22.000Z",
+   "tags": [
+    "One Health"
+   ]
+  },
+  {
+   "title": "Karnataka launches five-year plan to tackle antibiotic resistance",
+   "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQWGhwZFZLRTdZeXJJR3pNYTRhXzVQZGJpMnJsbjgxbWptMkxERXd4YUp3Qlg2bE9fSm45QmJvR2FTMVdmYUFacVA4ZHN1UFQwcUNDc200ZDB2TDM3ZUpPM0VaQndjSi0tNWhiRDFRcWRIc18zZ1M3LV93TFd0MGtEUnBhdTRlcHpOUllMRmRzMmdrLVljd3NOYjRBakpYUjBDTlk5YTFQUUlGMnA0cE10aUhTV0Zlb0FldUI2X0ZMek00WnEteEIzM1VKcGY2aW1uNmlGYXRlZWUxZ9IB3wFBVV95cUxOTHFHQmltTjdDam9IMG9MSmlXMDFaTlViTDlBUHNFa05NQmRYYUVuQWNfSElfYmIza201SW00UGdXMmtNSDRyYkhSWXYtaHZLQ1dDRzVJcEo4UDA2NlFvaEVUMmw1Q1oyMUxXU0lHLWpDQnFyVjN2eFE3NDkyN3JSLW5vQ0FMeHkzWmlvVU9pdGJhM3VKaWllSDdpeWRmUTltU1hEWG1fUk5pV3lIYzhJaGFXc2RwOEVxcnZ2cHFudXFNUzJoX2R4Z2UyLTdReDZMdGJ5ZWlkdk5sZDVaamlr?oc=5",
+   "source": "The Times of India",
+   "date": "2026-11-20T08:47:00.000Z",
+   "tags": []
+  },
+  {
+   "title": "Antimicrobial resistance requires serious, joint action: Health minister",
+   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPSkJnX1F0aUdFWkFVaGVoUFV0U3ZmbVdrLTFtWDF3ZjlHQkF2WkF2bU9VdllBUGx5OTgwOFlTYXlWYmxhWXlIckU4VlE0bjZ1eUllTVRhWlB5T3FQLVV0S3JiR2R6Q3Z3a3NCUGhsSk9scUxyb0E3cmJsVFFia1V3MF9PNVdVMUE4MWpyR3RNQzVIazI5cXRKUXpmRk1tUktYdGtvRGxqNFAtUTZybGxBSzRNS2FGajjSAbsBQVVfeXFMTkwtdGRwZ25sN3NGeER2SXZpekVTTXoyaXhkWllGT1BLNDFjMTREYUZQSVlqLVpSWFpyelpIVFpmQnRDenREQVpSY3BwY1hUVlhBZFJvTnpOMTBHODlKNjh2NE5TdXl4VHR2aE9DRzhHa05qbjRCZHdMUlU2QThCSG5MX1lDZG9xb0ZkLVRVQ1VxbE94V2htUE9nTHlWeGxmT182QmZFZUZIcVhkemdDckl2LTAtcW1pMldYTQ?oc=5",
+   "source": "Kuwait Times",
+   "date": "2026-11-20T07:15:16.000Z",
+   "tags": []
+  },
+  {
    "title": "Medical professionals sound alarm over antibiotic misuse, warn of rising drug resistance",
-   "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxNR091ekxTQjFYOWR5d3RybVZneDI2MVVlMWprTTlFTExXbGJFTWFSZkxJU2xiU2lhM1pkQlh4UWxVZ0FhQ2JsM1Y0LXI3dE1kSUdYRi1WbEdMcjQtRWd0U2RuQlNITGdlMVEzOHFUakhJbjQ3Skp4TnZ6Y3REZXZTMkc0cG0teWF2eGxUUTlHSjFpRm5GV2w1OTBvZmVmajY5bnUwR29uNVhmaFJvYmc2V3JfWkx0b0hMbkhsb2Y4WlhzVXktNnlRZEY5Yy1GUi1UV1F2VGowb0lvOHZqZXBHQW1FVnY0Y1FEUVh1dDVUbklWUFlxeHJwb01naw?oc=5",
+   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPRWo0ZjdXeE83eEZMdlNTUEE5MjRjMGhQam9feVg3blBUaXZibG40Y2hDYTRIeXpVVXlLbVpEWUtoWTdBRl9OcmVrZk91UUZTblk0UlFLcVVJS08zN0F5MFRaNWk5cTV2dHE4b1I1T0tYMEREQTJfajI1aUI1aW9MS01EX3V2RUctZDZTckxueWJfMDYzTFpwbkh3YkFUQjdFRExoMFNlVV9oa0FIMEVXMG51QQ?oc=5",
    "source": "Capital FM Africa",
    "date": "2026-11-20T06:33:14.000Z",
    "tags": []
@@ -29,14 +103,23 @@
    "title": "Streptococcal Mobile DNA Elements Follow Distinct Chromosomal Insertion and Resistance Patterns",
    "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNZW83NG5ldGIycExnakx4YUNhX2JlXzllRC16RnRGdEdQMzF5SVJFb2I1aEJHODZWQS1Ia0pLcnpkQWJXWmVwY1dzQ3ZPdHJ4VkFlX05mc3k0VWhCUXFXRDloMnFNWklZNEtLNHRGWEpqNERQVXh6ZXRQTDRJM01Yd0Z2U0g5UlZub01TV05Zd0QtYkhCR18zeG1OTzd1VzlSM3hGZHZvODdyQnpadUQ5cURVNFlIVVhmcVB3Uw?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-20T06:11:55.000Z",
+   "date": "2026-11-20T06:16:06.000Z",
    "tags": []
+  },
+  {
+   "title": "Central Asia Needs a Coordinated Antimicrobial Resistance Surveillance System",
+   "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOUVJ0ZUdPeDUzMjJZaXBZWDA1LVMxem11MmdqbkJtZWVuVjRTNzJDWXlvaXJvOGxHVmkzeDUtay1xLWdJakFxaWk5ektYYUZXRkpmcEhLRkE2dHA5aUJCV3hReU9YSDN6ZGI5TnJVNzlIQ2ttREJmV0tXa2JLTGdpeFdtT0hjQ3FaSXQ0WUhrVURmMUdjRWt5WDdQakhfUnV4N0RYRjA3bw?oc=5",
+   "source": "UzDaily.uz",
+   "date": "2026-11-20T03:45:00.000Z",
+   "tags": [
+    "Surveillance"
+   ]
   },
   {
    "title": "China Surveillance Data Reveals Dynamic Shifts in Bacterial Antimicrobial Resistance Patterns",
    "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPSkFTd3IzM184QjM4T0FlU2NCOEJCcVhvLXQyTF9mTmVyVmVzTUNMMHhXcXljRndBM3VSUmZ4Yzk4SFUycVdSbDYwOE1uT0tHRTNqWU9PRDB3YjBjejNBVm5YU3d5WUdkZUVadWJ5SEQ3UVJzMXhNUTZpZ3NuNHQ0ODRGWWFBMEZMcTdaWEIxOVRKeGtQNjhDTG8yTVBBZzk0QU9tNHB6VTdXNkZrRm1lUTVrSlRyemZpN3c?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-20T02:31:25.000Z",
+   "date": "2026-11-20T02:41:05.000Z",
    "tags": [
     "Surveillance"
    ]
@@ -76,20 +159,6 @@
    "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNbEJoVEFDcl9YRFV6TUU3WTNFdUE2aE5FUzZDWlhYa0hLV2ZNOW9Sckl4QlJOR3pJejRKdDBpNGtuQTdqMW9MaWtveWxfQnJPS1hZcHZGWm9DcWM5MDVqc1B1c29kWGNIeTJ1aG1samF1VXh6dkJld2JzVlNsdnFQOENGMWlVY19hbVB6cV9nTHNjX0hOLUhoejZMazhQTjhOT29UcFBfUkM0VWxm?oc=5",
    "source": "Bioengineer.org",
    "date": "2026-11-19T20:52:35.000Z",
-   "tags": []
-  },
-  {
-   "title": "World AMR Awareness Week: 10 ways McMaster is fighting back against drug resistance",
-   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQQWN6ZGIyRURQbWk1ek9jMzdQMV9OWFl1UXRmOVQ4d20wUXNsNUwwNzJReE5NMFhTYzR5eURWdEoyM2NDUEVfTFFGd1ZNZFNNMXc0NmlzT2RBOVpleW5VdFBfazZndW9ybVl2Ym1KaTRTem13RFc2bzVvQ3BwQzhhSDM0b2pIZC0xTE1ZcWJaV0lPQTR5RnFjN2o1YThXbzE1Vm02NlBpRXdYQ0Zh?oc=5",
-   "source": "McMaster News",
-   "date": "2026-11-19T20:47:34.000Z",
-   "tags": []
-  },
-  {
-   "title": "CCRH Organises National Campaign On Antimicrobial Resistance To Promote Responsible Antimicrobial Use.",
-   "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOZFZyQnR6d21yQkJwemx1Rzc0ZmNyQm1DR0h1T29tdXpsSGhfbEZtQ1BNclZXWmpSNjVNN3lEb2lHNi1HeGpTZERqXzd6Y3drZm9rVXBneWZXVHdUbVEtLXduRGNTYzFaSmNYTlRSOVpHa2VIWTJRZTZfTkVoXzBnb210WXhvYnpjTnN5QnFMV0swNnE4X1FHeXR1VTZrRTBGNlduZUtBZ0pnRU9Xa3h2UzBSejlfQklFelQwUkx4T1dNMVU2SjlwNUhYdkVaT3c?oc=5",
-   "source": "TRIPURA STAR NEWS",
-   "date": "2026-11-19T19:33:31.000Z",
    "tags": []
   },
   {
@@ -151,78 +220,11 @@
    "tags": []
   },
   {
-   "title": "Metagenomic Analysis Detects Antimicrobial Resistance Genes and Mobile Elements in Malaysian Seawater",
-   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQbXVPRVF5enVjSmhWdlYwbEFQcUpBWGhzVGZ0YlViMUtqSXRLT2hNS25nY202RXNkenNNaUFCTDJYbXU3SG51TE1qVjhOZU4xbjYtVk1PM3pOV0gxaV9XYzRtQmptenFqOG1NNE1vdkR6VlN0R0xvanp3RnRCSDIwNUlBaFg4RVU5cVpoUGlRbDN1bEpHX1VnMjc5TGN2SW1vVXgyVHhWWi1fbm1ibGxzY29EVmtzWWZtUUl3cnFrS0Yzd1hj?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-19T14:00:03.000Z",
-   "tags": []
-  },
-  {
    "title": "Community Action Key to Tackling Antimicrobial Resistance",
    "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFA1bzZGVXFJdTFPU0NmdjFUZTUwRWhBbU5NQ1FXWmVqRVlCcVJIcER1VkR6Z24zakFMTXl4aF9oRWxwTzB1LVgzUzBTZk1nRkZMQmFaQXNSSFRsb1lJM01yUU95bFVEb2M2U2ltTUgxT2NOekV0M0E?oc=5",
    "source": "Pharmacy Business",
    "date": "2026-11-19T13:47:17.000Z",
    "tags": []
-  },
-  {
-   "title": "CCRH Launches National Campaign Against Antimicrobial Resistance",
-   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPZVFaand3NUQ4VXBaSFpzdlNwUnh2UWdjeThvV2VfYklTcUE5T3g2N3ZIdHZKQlNDLXF4NTltSVJDRC1BTHQ0bHpYM0V3Q0RXOWFtQnJZRFpyUVNrcVVXY3MyOHgzTUFnNXdLdVRITWtqSXpEMktWYzNsMnVIZk1VTjRkMjl5SGZPS0JRX05oQXNrbXN5OUQw?oc=5",
-   "source": "Voice of Healthcare",
-   "date": "2026-11-19T13:10:00.000Z",
-   "tags": []
-  },
-  {
-   "title": "Uzbekistan Estimates Cost of Combating Antibiotic Resistance at $860,000",
-   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPVnRERmQzNGxLVDJ0LTZaVk9LRTNLZk04WlpsakhDeTFZZTJNRWdjaU9MYTZHZFBjVVJGVG4yQ19wbGphX2tjYk9ZVTVGLWJKVW5RUWZkODRvenp5YlQ3dkF4cEY2dVc5OUFyWlpCNmZNaURjOHppYXkzdmV3b1JXNmhjMl9JMzE3alFfbTFrdEVlWGFaM1ZQTEg5R1I0QQ?oc=5",
-   "source": "UzDaily.uz",
-   "date": "2026-11-19T13:00:12.000Z",
-   "tags": []
-  },
-  {
-   "title": "AMR Awareness Week: Prevention begins where antibiotics are used",
-   "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOZHJnMF82X3VSakg3bGhZb3QtdFNmNGNJYjlPS2xvZHQ1T2swUmtsV2xnT2xJRUpjVERNejM1Y0pRLUZ2SWxVM2ppODBJeHM5YVEwcU9ycjljTktYZHF1d3VOTDFHNHJ2LVVYZnh1TDJONjZlRDhzRlpPZTd5aGI1NmFlLWo2ZTlKV1ZRdjVUZ2JGdklhTEJhODlRcTRaRXNmNUNV0gGwAUFVX3lxTE5zbjR6dWJDOGVVV0FfSUliREZNN2JRZmhaSUJ3NTFxMFBiRGtpekhMSTY5NlJrV0MzLTFHRTF1WGc0Qi1yLXBGWlVIb2h0SmNPN1JJR1d4WHp2enRIaTUxVk93RHpET0dsc29wclI0bGRObG1WZUVta29fcjhWUlJpS0RESFZDRWRyQ3BKQkIxNDlVdzRuUHpUZW8tbjI0WDdEVzVINmsza0JkejlpaG52?oc=5",
-   "source": "Down To Earth",
-   "date": "2026-11-19T12:45:53.000Z",
-   "tags": []
-  },
-  {
-   "title": "Common Bacteria Becoming Highly Resistant To 'last-resort' Antibiotics: WHO",
-   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNakdCVXVicjVlMHNCX3JKSENHRk9nakNjSkFGVDNwVllzX3A2LVV0RWVKU2N1M20wRGhnakNrUThmVnFLb2x5UUxKR1ZVSmJxbnlVTlBmV2MzLUV3UGljbDdQcnBkZFlJVDBwLXVWMzZVdmxIbFdCU0lJNG80cnV2UTV4cWRPNVY4WGJoemFMaVFUNlRZMm96TUo5QmpPOG5qeW5Jdlg3aWtER19DM2ppQ21TUQ?oc=5",
-   "source": "RTTNews",
-   "date": "2026-11-19T12:10:00.000Z",
-   "tags": []
-  },
-  {
-   "title": "Climate Stressors Accelerate Antimicrobial Resistance Dissemination Across Global Livestock Production Systems",
-   "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOTVBUYVZwcjg3WFVfNF9EcmhjWTN2VHBHSXFyVU5DZjQwWm1KWGVtc3VDT1lEaXByNWJHUGFEaElhMV9ZWG9ncmQya3huVGg0VmhMbHNmclAzREZIampxbGRtS1JaVkNVWWJNNlhLWkM1bDVLRkV5X0l1Vnhmdk5NRHJGYU5kLUhNMzBoYjdKNkg5MzJVcGFYb0xfS3J1V01XTGo4Sk9PNEp5U08wY1FacEdPekFHWG94dWdpbkhZVmxzU01MVVJBSnB0UU5SQ25l?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-19T11:10:01.000Z",
-   "tags": [
-    "One Health"
-   ]
-  },
-  {
-   "title": "Antibiotic resistance in Europe's waterways adds to escalating health crisis",
-   "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOVVNVWnZPS05oM0VKWjhOOXFSc2NBRlRLS0RQR3ZUc21YSHA5WnZJUHBQRnNORTZnTHBWNm9zY01EenQ0cmFlSXpfX01aR2FQQUpzUG1IdXE5MUY0cW1KWTVoeGVQbHY5SWkzUzJSQ2dlbHdwQnhBbXpTZnZka2lrNkZMRUJNUTM2R0FiT216V0Z6VUFlYVdCaXVkdTJwaXAtNE43XzVoVHNwYmYxRmNaMW5tMUpoalZ2M0FuSEkxMURZZw?oc=5",
-   "source": "The Brussels Times",
-   "date": "2026-11-19T10:40:04.000Z",
-   "tags": []
-  },
-  {
-   "title": "Philippine Farmed Crustacean Vibrio Bacteria Show High Rifampicin and Ampicillin Resistance",
-   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQclRoUUM2N1NhcVlhR0dndXJ5c1hFVUNoTGhEU2NacVY5Q1ZkMzBQMXByVFRzcXRXRWZyMDcwYXppcUdWbjNhS0VRSERtVXAwczRBRUVFbV9aellKYkh3YTRDcjZNSm1CSi1ScVFBQ3JrbHFuckJPRUZfZUViOTZWcXdFU1VueTYzZFUzSnlUdFlWakl2RjNDWDlqLWhFMFB6MnNuaTJzVjRnMnpkN0ZVQXRDZFNTRTA?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-19T10:35:01.000Z",
-   "tags": []
-  },
-  {
-   "title": "Centre proposes changes to drug rules to bring antimicrobials under regulatory oversight",
-   "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQVzFRM1Vzd1lYcmg2SF9sRU9NejRwUUpOWWg0bkd4emZjSDNGNFdwVG9lRkk5ZG1RMElhcHBSaEExd2djSjZCdGhyMUFVdkF4eGh3NTNwZ3ViOEY0WVJzd18zOU80cGZQZjNRXzhyYUFBc0V0dzJQaWkxZFFWSWZTY0VBa0IyZDJ0cDRBR01felM2emlvRXg1WThFRXR1VU1GMDNSMkZuVXZ0RmRKZ3Z0MDZJekh2VVNtZVpTclVPUGoxNDJpUVZmNUc5b1lwU0RsSE92RkpR0gHjAUFVX3lxTFBqeEZ0V3VHckJMZVkzMXBELTRQY3lkQ2F5aUFOcUJFQnBNeTdVX3VJaDVuckZoN1JvdmwxMHlQRHF4bktiYVhCbFVjMnlXb0VPLTNBVktSTVJueHVvYlEzSW9RNDR5QjVJN3VsRUQyV09FLWxXbkF0MkhfVnZSUHJSV2hWR3oyREhzX3Q4bTNWMkllcThyVkkzQ1pVNkxIUDFHSXVSS044aFFZYTJmdkxZTF8zbzZOWXVrSjBzT2ZzaldiN0o0REQ4dkFrMGNPYkt5X0Z2b3RMTWFOc290YzJlNm5R?oc=5",
-   "source": "The New Indian Express",
-   "date": "2026-11-19T10:05:48.000Z",
-   "tags": [
-    "Regulation"
-   ]
   }
  ]
 }
