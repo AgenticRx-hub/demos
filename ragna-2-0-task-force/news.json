@@ -1,7 +1,37 @@
 {
- "updated": "2026-11-20T20:28:15.238Z",
- "digest": "30 AMR headlines in the last two weeks; most about surveillance (4), one health (2), policy (1).",
+ "updated": "2026-11-21T07:19:07.538Z",
+ "digest": "30 AMR headlines in the last two weeks; most about surveillance (5), one health (2), policy (1).",
  "items": [
+  {
+   "title": "Antimicrobial resistance explained: What it is and why it matters",
+   "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPWDBQUTdkaEJ1cGFCcmpkbkFCTUppQUNNTE9DemN2ckwwWTU3eXNsQU81dzVnZHhHQmFXR3Q4azZQUkJkdG5JQUVabGxQeEEzaERncUg4RGctb0xCc1JmWWw4aVFUMU5vRGhROU5aZk1UU0RJOGZvVWtXWmNRcjlwSEFxQkh3S3BuckRpbW9rOVRhazE3YXNPX09sS2RyVmlfYWpBYw?oc=5",
+   "source": "Inquirer.net",
+   "date": "2026-11-21T01:31:01.000Z",
+   "tags": []
+  },
+  {
+   "title": "Clinical Flavobacteriales isolates show widespread carbapenem resistance despite divergent molecular profiles",
+   "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPYUlsVGR3TUs0TVFfSGJWZnEwSXNyWVNUT0JhZmpPRmFOdllrUEdlemRuWmZ1R0pGd2tKUkZuaG9MUUJOYlRaVUZtREk2SlVKUzgwY1lnMmdJbUNPQkFpdm9ZUFhuc3ljcGh0dW5PWUFpSVk3STlpSTl4cDQ1ZXhaUUVoTXVoVU1XQVlQdUwzU3lhNlE1VmNsREFwN0Y5SDNPX3hUY2FuNEJnZXVCYmlLV3BBWFF5eWp3RXl5eDVLcV9LQWdqVGJWRWdnal9jVVU?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-20T22:06:08.000Z",
+   "tags": []
+  },
+  {
+   "title": "World AMR Awareness Week: What Drives Unnecessary Antibiotic Prescribing for Respiratory Infections?",
+   "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQMGkzMThWR1lDT3NaanJ2T0pSTWtMZnhyWFdyYW1PZHc4R1dnTmJxTzBJRGJsZzQyXzZnSDBwRThSUXJPd3JETC1kZ2NPbXdOZkx1MFNSOGxvSkdaN0E2THdSbWhoZFp3OVp0VU42YXdlTDhWQmxlbERkeUVsdExJY0tsek42aE1UdGtHMkFOOHJWNWpvSldrc0djTGVTRUNOUFpUZExZa0JDaENqcGduYjFyVmc1ZDNnNGxRMlJ4WnhZMENuZXNmOWk4b1NKb0NHekhRNw?oc=5",
+   "source": "Infection Control Today",
+   "date": "2026-11-20T19:25:20.000Z",
+   "tags": []
+  },
+  {
+   "title": "Machine Learning Predicts Antimicrobial Resistance Patterns in Zimbabwe Hospital Surveillance Study",
+   "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQS3EwejhMUjZwckFZLWhSVVY3WjFKTHMzUXFRWFhYOEFhVUZJZDY2VEw1dmpVRnVwQ1JiVXVSMXpJcGZtSmRWWUdpdTdSc0FERTlSV3M1Uy1KY2tVaUdrWHAwbC1lWlhSdVNUZFZZaXF3Sk54bHRNQThkNUJoMmdoT21iUVpnZk9qMGNTWnpRQ0ZfX3ZTSHhyaHVxRFdvbHU0MFVySzkycjNSMi1Yd0J6dTZEeS1lc2JjWHhNUTdRaTYwUQ?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-20T19:22:51.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
   {
    "title": "Chinese Intensive Care Study Reveals Divergent Bacterial Resistance Trends in Children and Adults",
    "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQVTNUMlhlcVJqanN4aXZKOFdncGpkS09MXzBsLUNxVkFWaFVKMnduSlZEdnpzN29Ud3NTMHpvbnF4Zk9NRXMzaWdCVHQtUlZ6TlktVllGZVFKd0lPbHdaWWcwTkhzZ01aay01WlZaTy1RWWlqYWNRYU5mdWZZb01YaUJiS2FVUXFMN2MtZ0o2ZXpXUWptd284SFBVanJXUmloQUFOdDlfWHcxblFRak1lX2pWb3VEX1BMMVN5WG9UNA?oc=5",
@@ -17,6 +47,13 @@
    "tags": []
   },
   {
+   "title": "Editorial: Superbugs on the rise",
+   "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE96cm5hb1ZwVGcyekFjUlRaN01rbGk1LTl3NDFueU5CaWEyc1ZYM2NNcEctZDIxdDJ1WHpFVl92c1FRYThORlBrSEFtRVk3WGs2QlJ1TjRobnZPSmJQemN2aGU0d3c0d3hxM2c?oc=5",
+   "source": "Telangana Today",
+   "date": "2026-11-20T17:41:50.000Z",
+   "tags": []
+  },
+  {
    "title": "Webinar: Expanding treatment options for gonorrhoea and strengthening global gonococcal antimicrobial resistance surveillance",
    "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxPOHdxM0ZraXYyRnpGemdWRC1wZ09fZWVIOHA1Wkk5ejd3TDAxbnotUV84TkpzaVdFY1VncVhPWld1LS00YzhSZkxxaUZsM1Q4X3NLWmFuWnFfZmkzelhQemJ4c1BmZ3NOOElKRHp4U05JMnhHUlpYSjNlS251NUdhT2FUNEdabXBPbERNcWlLR3dsdllFNkctNk1IQWJBenhUZWZ5ampDVUdkTHdlLU85aWhYellTN2VPejJFVXhlaVFXRzRoTml6U0s5eEhIbEk0bUxjbW1TZG1FbldieFJDY2NQVzlfZW5vUmhBaElPV2pDc3hvaEJfbENHS04?oc=5",
    "source": "World Health Organization (WHO)",
@@ -29,7 +66,7 @@
    "title": "Evidence Synthesis Challenges Universal Antibiotic Exposure Rules for Gram-Negative Resistance",
    "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNNnRCdURMRkU2T1Q0a0JSLW1BOE1USnpxcE9vWERreHVBdDI2TWExRGdiTV85dXJoblZXd0hhaWthM010azkyMlhUYmxxTzNCRkQ5LU9JMzRFcXRrV3NsUDloeUNMV3RnQmRSU0J1VzhoTFo1WXdRb2ZZQzdaLUZOTzE0X1BNazR5VmlWVjRyT0FEWmZZYTdSSThMZEZ3LV9DRXJLOHNOb0FDYVVkQlhvaFE1SDdfUUdwUGg4?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-20T15:28:10.000Z",
+   "date": "2026-11-20T15:32:29.000Z",
    "tags": []
   },
   {
@@ -93,13 +130,6 @@
    ]
   },
   {
-   "title": "Clinical Mycobacterium wolinskyi Genome Highlights Diverse Accessory Repertoire and Antimicrobial Resistance",
-   "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPaE5CVlhDRXE3NmF1ZHV1QUw3MjF2bGxqX25menZHdmNiamhjU2s4N2NFV04zbXNJT0ZlOXp3WDZqck9Xa0IzNEtiZFhoN1pRNU01MzZ1ZHdkNlJzeUl6RDJMZHpjb2pYbERoQkpCWXJuLXBoeWpQQVJKeXZPMXJxSWszLWh0dUZVTG9hbTA3Qk1MaERVSWxBd0xWVXlqajJLNHdzZWo1VG5pSkJzNTAzRlp2NTNEZEFxa25OV1lKY2dZVERmT1NUN1JPdjdSQQ?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-20T06:21:06.000Z",
-   "tags": []
-  },
-  {
    "title": "Streptococcal Mobile DNA Elements Follow Distinct Chromosomal Insertion and Resistance Patterns",
    "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNZW83NG5ldGIycExnakx4YUNhX2JlXzllRC16RnRGdEdQMzF5SVJFb2I1aEJHODZWQS1Ia0pLcnpkQWJXWmVwY1dzQ3ZPdHJ4VkFlX05mc3k0VWhCUXFXRDloMnFNWklZNEtLNHRGWEpqNERQVXh6ZXRQTDRJM01Yd0Z2U0g5UlZub01TV05Zd0QtYkhCR18zeG1OTzd1VzlSM3hGZHZvODdyQnpadUQ5cURVNFlIVVhmcVB3Uw?oc=5",
    "source": "Bioengineer.org",
@@ -125,20 +155,6 @@
    ]
   },
   {
-   "title": "Drug-resistant infections could cost Ghana $435m a year, pharmacists warn",
-   "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNdXQ2RjdnUl9SUXpfWGt5b19qMG1kLUNPbnl3WlFSMlk3VEY2LXdvTmJDMWkzQWp6TndJNVFvNHphWmI5YmZMMTFCTWdXQUhGNW1XZW5qcW1BaExLenJjU1U5UUthbW5QVGRubldwWDRlSWhGV1JOSnl3bTJpMXItSTVB?oc=5",
-   "source": "3News",
-   "date": "2026-11-19T22:10:25.000Z",
-   "tags": []
-  },
-  {
-   "title": "Campylobacter jejuni in Ethiopian Beef and Raw Milk Shows High Multidrug Resistance",
-   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQWldRRTJkTlNNa0lRaWNJVmdRRUFuaExrVHI1MnZBZmdMR0Mwa3NpRE1WRVVqVkJvcTN3V2ZwTmlMLUU4YW0yM3BwSS1LM3hQTlprbFRIWGhqZnpQcy1Wd3JOYnRJR2RxWl9Ua2dNWjc2cG8xblh0UVBNdEVPQjVBVnpsdS1iRklhQll6QjVMTEw3RDVoRHNEemw1RVBUMlYxSEdqSUloRUx2VVpN?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-19T21:55:47.000Z",
-   "tags": []
-  },
-  {
    "title": "PAHO reports rising resistance to last-resort antibiotics in Latin America, Caribbean",
    "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQN3U5d01NOTRQdGpkaC1qdEcwNGNVOEd2M3V1WXlneG8wN2hUVnk3d201SmFjNjRWTVVRRmZOSTYzblcyLWJMekluOFlfLUZfTkU3UHQ3b0hBOUlNb2pNYXV3X01rQkJGTHh4QnZmejhkenZZaE4zdEl4WTdzNUFVMjZzRDhULWFCSkJ6NHdacmlpY21hcUZscGEyVEJFMFVsYmM4Yk5iQ3pTMXloQ1VDdmU4OGU0UFVnSi11MTB3?oc=5",
    "source": "CIDRAP",
@@ -155,13 +171,6 @@
    "tags": []
   },
   {
-   "title": "Multidrug-Resistant Providencia hangzhouensis Strain Identified in Laying Hen Feces",
-   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNbEJoVEFDcl9YRFV6TUU3WTNFdUE2aE5FUzZDWlhYa0hLV2ZNOW9Sckl4QlJOR3pJejRKdDBpNGtuQTdqMW9MaWtveWxfQnJPS1hZcHZGWm9DcWM5MDVqc1B1c29kWGNIeTJ1aG1samF1VXh6dkJld2JzVlNsdnFQOENGMWlVY19hbVB6cV9nTHNjX0hOLUhoejZMazhQTjhOT29UcFBfUkM0VWxm?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-19T20:52:35.000Z",
-   "tags": []
-  },
-  {
    "title": "Karnataka launches State action plan for containment of antimicrobial resistance",
    "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQY21iaDBoRzlCNFdjdlc5WkNuNmdubDNpLThiaVZSYlQ1Yk1VcG05b3JkcU9HeWxHdHZLYUhpbWoxQTFGQnV3VW1UZy12Vm9RclRaTmZ4Mm1NWkFnaVc5MTJYSzhySGJsWFVoRHZQZWtFUWRsU1E2UjNxVEtva19tR1JfY0RmTlo3bkU4LUxzOWNZcHNjV0JOLXRqN3FkUk5aQ3g2Q3pxSUR2cmE3VmNpb1N2aFdRS0NyUjJ3WkdMY3dyOE1LZldrbk9LRUxod050X1ZwOXJHOHFjejFmVzhsQWhYZ9IB6gFBVV95cUxPd0JDd3FZY3hNVU5BeVkwMFpsSk1JUHYzYXNBU0w0WG1kaVVsT1dBQ1lFeTBDNGljaUpueWZXUkhwVGdfUXJkTVVDRmZaQ3pwNHZVTUtmMzc5YUtNcGYtY3lYLWkzRVNzczVnRkI5UkRHVzFpWjRaZGN6aENoeEdIR1dYZDROTURTQ0w3WHplbU1kNTM5R3JHUFV0VzU2RHZucFFEMHhXcHB2bUlLVDl6cmtIRlVNMUp4RlAteGFKbkcwLWJvZHZFMVE2SEVZb0hOOGE2dGxCMk5iNUFJUDJJZ3JlbHZMZWhvc1E?oc=5",
    "source": "The Hindu",
@@ -171,17 +180,10 @@
    ]
   },
   {
-   "title": "Gut Microbial Lineages and Annotation Overlaps Shape Resistance Profiles",
-   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPeTR5SDJXaDUyUldSMmdmY1lmX3AzQmg2SzFGZkUwa01DN2p5RjhkYWVjem9YUGI2VXVQRkdxV3ZMRFd0QmhLSEloLVN2elZDMFhITGc4SFZiaTI0S0k3WEF3eHJmMU5XQWtWNkJkelZQSkZETWNtMnlrVmd6TUpWRGR3ZDhGNU43emtfNmUybUkxa3ZwUnFiQVF2b01FQQ?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-19T17:25:13.000Z",
-   "tags": []
-  },
-  {
-   "title": "Bridging the gaps: Scaling local innovations for global action against antimicrobial resistance",
-   "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQWEMyUjlUVDBuaWtvUUJKeExaQkZaZ3prVnZXcHFqYVhoai1OVFVzUlVpbFZKd01Pc1JYdzZHN0I1elBBN25WNlBKWG5lN01yazNESGswamFVbjRXTk5nRzRZczZOTzUzYkFuYTBIM2tCR2tXcUdncV9jUUQyWGhXaF8yNlFfeTl3dmttVkktdU9hZlI5czI4LUFmbk9maHNWUTVpa0lVbnVtbzNpWmlQTFN0RGYwV0E4dFpCZGh5Q1A?oc=5",
-   "source": "IDRC - International Development Research Centre",
-   "date": "2026-11-19T17:00:00.000Z",
+   "title": "'Drug resistance rises among common pathogens'",
+   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOWGp5aHZUYjN3V0ljN1daN1YyMWR6Z2d0aGZ4T3pEdWtFNXRwc3pLY1dsMjVPMm04SnZlS3pxSG5PcUd6ZDVIUTRHV05GWmhXd0dHbW4tZEtXRGx4bFkxQnp4VFktaDRfTlJyMUVBM0NGeGN0eTRMb3RScy05eHRVcGVFanVWMTBQRzBuUnJYZzE2ODdfMnc?oc=5",
+   "source": "The Daily Star",
+   "date": "2026-11-19T17:30:41.000Z",
    "tags": []
   },
   {
