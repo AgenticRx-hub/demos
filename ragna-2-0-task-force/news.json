@@ -1,7 +1,62 @@
 {
- "updated": "2026-11-25T21:46:58.310Z",
- "digest": "30 AMR headlines in the last two weeks; most about surveillance (3), one health (2), regulation (1).",
+ "updated": "2026-11-26T08:30:30.174Z",
+ "digest": "30 AMR headlines in the last two weeks; most about regulation (3), one health (3), r&d (3).",
  "items": [
+  {
+   "title": "UKHSA reviews antimicrobial resistance of Listeria",
+   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQY25BaHBKMk1Td3lUV3prd3hBZTkyOEpZREpJMExEbEQwT2NSbmthZHE1Q2VSQUlXc3JQU1Uyd2NVMnRLbHNKalpFamU4bjNhU0t4Mlo0bHg0RHBwQ2UtY2dQQjNvQUx4NmJoRndlWVR0TVBndVA0TVpIS2MxNFpTRjUxM0tiSFJia3huWTVRcW5wWi1L?oc=5",
+   "source": "Food Safety News",
+   "date": "2026-11-26T05:05:36.000Z",
+   "tags": []
+  },
+  {
+   "title": "Molecular Diagnostics With Stewardship Are Associated With Lower Bloodstream Infection Mortality",
+   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNSXlnU0Rnc1BKYnZvcG1OLTJiSVJzZEVtSnctMTRZdDF0Q2RLMUU3MGU0czFTbEwxc3R0dkEwdU5Oc2d3Ml9FNE92UGtXY0FNNUhRVVpmVVkyRzR5d19HZW5zQTRkSzJoNTdQM2N0RjJObWFXOWwxNmdrcEtlUUN4VHdXU3RHdDhPVS1fbkNKajZ2SHJoZFBvZG1kWDRGVVh2QWdtbV9zUXlDTWpKVk85TlAzQk5hMmRRNWlEdG9B?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-26T04:14:34.000Z",
+   "tags": [
+    "R&D"
+   ]
+  },
+  {
+   "title": "WHO Recommends New Oral Antibiotic For Gonorrhoea Amid Rising Resistance",
+   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOWDBTVzZkWUVtY05zbXJQLUtwcENSX19VNDAyYkJ3NUJ2clRuT0prTDd4V2NKQTZJMWF6MWt6NlRTS1dscEhVdVpKWlNNemVaeE5fVDBhSS1PM0ZKaDBqN2Q5aDBXeEJJODJnWEUzR1hfdTRPV2NnZDV5ZzJRZnUzc2ZiOThoQVRlYlFfZ3Vhd0oxWHpPNExjQVF4em9pYkZEUF9yZXNwbVpGU1pHYnVFb0dTNDRaZ3c2YVZpZTVIcXRvODhKWExleGRn?oc=5",
+   "source": "Health and Me",
+   "date": "2026-11-26T02:59:37.000Z",
+   "tags": []
+  },
+  {
+   "title": "WHO recommends new oral treatment option for gonorrhoea and reports new data on antimicrobial resistance",
+   "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxORU5nd1NyWGJHd282ckVkeHhzWmluTGNfX24xT3I1QmNnOVN4Q3ZGd2JQcU80NWVpaVFCOFhsLTJoUUhfYlp5NkN0VW94X28xU3paSXhqOTZtaU9BVG9FbFU0Wm5CYl8yMjhQOGhuSTFBZW5IQzNXODl1QklIT3RVYjVuVXlDeUZicFpyVDFUTnRtRWpFZUZDTFZKWlpXMUVkelMyU0JGN280ZGt2cmkxbGdsQUFoSjNmeE1XekVPUTVmT1UzRFlQME5VVFVTOGVr?oc=5",
+   "source": "European AIDS Treatment Group",
+   "date": "2026-11-26T02:51:30.000Z",
+   "tags": [
+    "Surveillance"
+   ]
+  },
+  {
+   "title": "Bacterial Communities and Environmental Reservoirs Interconnect to Drive Antibiotic Resistance",
+   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPOEJZb1A5dHdJS1hHMHp0VzY2ZFFVdnpwclp3TXBnVlhtZXNfdGZhMi1KRHlpQXh2a21XcWtGc0lCU1N0WG1sd25pby1ZbXg2aVFqcnU0bkxQTThXMXJ1QzZuZS1vUVRUTWpNSGtmWjIxNEhFdlV1OVlkcVZDN2pLV0Z4NndwT25rYk5NejBPOXQtaFBYaFFncnJuT1VpTWtWYkhpdm94QmtoSkl3Qk1lcmMyT3VEQ1hBeWUw?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-25T23:12:55.000Z",
+   "tags": [
+    "One Health"
+   ]
+  },
+  {
+   "title": "Nanomaterial Strategies Offer Multimodal Mechanisms to Circumvent Pathogen Antimicrobial Resistance",
+   "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPMUpxX1c1bXdlTjN6OEdCWEc2SUFSWEVTeDN3cG05ckNnUFREWjE3enk1MjNWNGJ3ZUZQend6cDRkTUxDdmpibUtHeFFiSl9EcWZrc3lkTmlLNlc4TEdUTGV2SHdrU2hEN1o0cElTeFFIaXgyYTF6bFZsMmJJbHBOeUEzb2dkMVc4NGlEUzlId1ZGZWY2Z0N2S1VnQVdwaWo3WGd0LXNmRWhjUkxzN2ZuTDdDZjZiQy1tUGM0Q2hDOGhIUQ?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-25T22:47:50.000Z",
+   "tags": []
+  },
+  {
+   "title": "HOSA Future Health Professionals at Rock Ridge help teach other kids about antimicrobial resistance",
+   "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNdWJHWFFOdmw0dk95TFRVaC1Tc1JEOWNnTUpNTkI2LW1OdFBTZm95T041Q0ZTWFJwRk56RzB0TGZCZ1hOUUV3c1JQY3cyWWJkTGpjNWJxaVBTSURIbU1MQ1R3TmpIV2tzUk1VbGFiSVN6MEF4MEZVeXhOQ0lNRjByeG90X2xFMzdxNjQ4UEV4VXdHWEk5VHN5d0ZaRUdDdGRBbktyT2xPTkM1N2w3c0pYYVZvSjNMc0hkSmJmYmNLZkg0eGtsTVhwdElIRUR5QQ?oc=5",
+   "source": "WDIO.com",
+   "date": "2026-11-25T21:19:53.000Z",
+   "tags": []
+  },
   {
    "title": "Fatal COVID-19 Cases Show Higher Expressed Resistance Burden and Microbial Diversity",
    "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQeWRzb1hTZURnejlzdzVNc0R1ZGd4bTJnaWNiTEdSR2ZBMHFYNWxsci1wWTJ5YS1KZlFoQ3BfN2oweHl0endUR2JHdXBtLVlGMTNxQVpoNEtJZ1dKc0ZzQ09TVXRtRnVUNVBpUU5HOU9kbHVVQzBWVDkyZVB3dkRTOW9jSU1YdkxTbmREVXVkdVlsWC1WNjh0clNyTVh1eE9BSkY0djZNMEVtVmRpMkE?oc=5",
@@ -13,14 +68,14 @@
    "title": "Hospital Study in South Punjab Reveals Broad Antimicrobial Resistance in Clinical Isolates",
    "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOOWNjQnlsel9Za0s3NFRQRUVUbHVERVdacjJZM0xiTjU5ZUtaZmY1NXl2ejZsdEFsUVpNbVRZQUpXMi10WGxVN1dDV01Pd08tWkYwVXA3a3I4c1IzdlBXQWhFbG5LbUM5ZlpnUDdRbFdSakpRdUR5bVB5QWVRNm1ZZ3VabUZjdFBFeW5QdG1JR2thd29fNHJKM2p4YVNhRVVGd241NFRxRGRkVjJ3MU14UUpnWFVWZw?oc=5",
    "source": "Bioengineer.org",
-   "date": "2026-11-25T21:11:15.000Z",
+   "date": "2026-11-25T21:12:28.000Z",
    "tags": []
   },
   {
-   "title": "HOSA Future Health Professionals at Rock Ridge help teach other kids about antimicrobial resistance",
-   "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNdWJHWFFOdmw0dk95TFRVaC1Tc1JEOWNnTUpNTkI2LW1OdFBTZm95T041Q0ZTWFJwRk56RzB0TGZCZ1hOUUV3c1JQY3cyWWJkTGpjNWJxaVBTSURIbU1MQ1R3TmpIV2tzUk1VbGFiSVN6MEF4MEZVeXhOQ0lNRjByeG90X2xFMzdxNjQ4UEV4VXdHWEk5VHN5d0ZaRUdDdGRBbktyT2xPTkM1N2w3c0pYYVZvSjNMc0hkSmJmYmNLZkg0eGtsTVhwdElIRUR5QQ?oc=5",
-   "source": "WDIO News",
-   "date": "2026-11-25T21:06:09.000Z",
+   "title": ") Receives WHO Recommendation as Alternative Treatment for Uncomplicated Urogenital Gonorrhea",
+   "link": "https://news.google.com/rss/articles/CBMiggJBVV95cUxQNmJNa0NQOGJaWWg0N2dpTHRHbnZsUVhuVmJQX2Z2Q0tXQ2FjSEFWM2VXNWNjUjhuZHV2b0xIc0JMUjVpX2NiOTJDb3psS2Y4ckhLNHQ1dE9lRlpMSFFWNGYxQVZCY1JMd3VLU3I3a1dVMVYxSEJySmdvdUxuUTZMZE04LWVUWFNZM3c3cE1ybTVDWlBZd0hzYlpsVzJkSUM2c3JnZFBkNzljS295Y0ZDemRnNER2NkR5aWxIUEduamJkSFZGcG82TG80N3NEUE5Tampzam1SNVJiaGJ5QjhCMjhXZlA1R0V5d3FBZEJxZjhYRUpIMVdBdnhTS2gyazNvSGc?oc=5",
+   "source": "Business Wire",
+   "date": "2026-11-25T21:05:45.000Z",
    "tags": []
   },
   {
@@ -45,13 +100,20 @@
    "tags": []
   },
   {
-   "title": "WHO recommends new oral treatment option for gonorrhoea and reports new data on antimicrobial resistance",
-   "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxPRHJWaXVEYXdjRTNNelNjeFhtR2l1NUNBNWlPcE1OX3F0QzRTZ1RUeVBFV2c1a1MwV3lkWERZT3ZsNlQwRWt3YlI4VlBBRmFrNjdLZ1ZBd3pMNktxRWtfV3dDSW54M2JSa1RuOUtGY1lkYlVoLUJibXZGRWk2R1U0clM0SHR0Rm4wMmRCbFRrMmJhZlpweGJCU2FCV3pHSERwUDFpVDlTck5EOUVTWGs1SUh2U3dHYlo4dVdqVGVJS2RNbVVncURqekFZX1BLMGNTdHFkS3AwaUh3SXZ4Vm04aUJFaDJvQVJQaVNfSlNiNl9ueWItTGUyN3dB?oc=5",
-   "source": "World Health Organization (WHO)",
-   "date": "2026-11-25T15:09:07.000Z",
+   "title": "WHO Issues New Oral Gonorrhoea Treatment Guideline and Reports Global AMR Surveillance Data",
+   "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQTDUzclZ1T3c0ZnhBS0VIWkwwQ0p0V3JfVjYyMC1iOF9qbkQySHRoMDVFaTB2VWdWT3h4SlJMbHZqb1pjV0x0TExSdHRSSVN4S2RnUFRpdUZVVTduamctS1JUcHJob0xQMnE2b3pBa1JaaTJEMnpHUjRZTnp6Y2kzcU1jNnhkOGtLX2Y2VlFMaUU?oc=5",
+   "source": "CASRAI",
+   "date": "2026-11-25T15:47:46.000Z",
    "tags": [
     "Surveillance"
    ]
+  },
+  {
+   "title": "Biocurious: Antimicrobial resistance ‘no longer a distant threat’",
+   "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPYzFmRndMZE9pWEFJX0dHQXlnMEFpbUo4UThya1o4MEhRVUxLa19URzR2S2ZwNjEtckZsYlAtLTZEdWU4SXlVRllVOFh3eEI5NW54MTdmSk9wT24zSmt2V1phR2d3XzhVdmRweS1QWXlMRmIycUUzWmh5TkFPa0hJc2lZUndEN2NteFFWQ2phRkRNWG56eHE0TGlmSkNFeGJQcl9naFVUZ0RtQ0NVbEhvb2s5ekhKX3JVMTZab2o0dkpSMGdMWjM3TFJkdHNUM1cydWJhX3VJS2k4SHhGQVFKTlB2VHdzR3VCZmR6UXRmbw?oc=5",
+   "source": "NT News",
+   "date": "2026-11-25T14:45:00.000Z",
+   "tags": []
   },
   {
    "title": "WHO’s 2026 antimicrobial-resistance campaign calls for action across human, animal and environmental health",
@@ -60,6 +122,15 @@
    "date": "2026-11-25T14:08:21.000Z",
    "tags": [
     "One Health"
+   ]
+  },
+  {
+   "title": "Govt overhauling drug regulator to fight antibiotic resistance",
+   "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1EbWMwN25ETy12Tm1ISFVhQkFscEc5MWtGYWd4ajlBcWpRTjlRVUdVc0xsU1BlT1o0SW1xZTNyNV9oaXFQcHAzb3pHR1hIT3dUaVg5M2JVbDhqZXZrX21rV2FVUW1LWmk4?oc=5",
+   "source": "Banglanews24",
+   "date": "2026-11-25T13:28:32.000Z",
+   "tags": [
+    "Regulation"
    ]
   },
   {
@@ -81,6 +152,13 @@
    "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQRFYxeGFsVFFlY0xXaFJwOVpiM3hJRXQwUXlWMWRvN3JjTnIxZjRib3NpZ0x6MDg2RUhRdXZRZGl5Ynp6MVlqWGdZMk1lTnNoZWNVaDR6eTFqQ1dvSXJuZkZac2dUM3lhblEzd2lRT3ItNEMzVlkyRzhjYkJacVVOaGNESWdmTVhJTmFjVXFqc0ZqcnpuRXdPbGxBcEQtVWNRNzBxczROZkVSWHV5NUt0MFVPam96bV8tT0U4bWhVVlk1bGVHTUFBczlYc3lMdw?oc=5",
    "source": "EMJ",
    "date": "2026-11-25T09:46:37.000Z",
+   "tags": []
+  },
+  {
+   "title": "Korle Bu records 66% compliance in antibiotic use",
+   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNV21wSUlpc3VQUUdXc2szWUY5Tl8yQnhHMi03MzhwdTJ4VGRMSmJPNjlZMjhRSTJudVRNSGtMTE5qRl83SjNPd0stRkJxMEVQd09IUy1iY0l1OWw3RVk2QUNDZDZ3V2xYNjhGcFRiZWFMd1VOVEd6Mi1mT1BMN1M2aFdKcHVKRFo2SU9vMGxYdzBlX1NR0gGTAUFVX3lxTE5vNm5KekRtUXVhM0h2R3BQbmFhS2stdWswUHNad0FVRFFvSDQ3elY1WDBFT2Fod1dudG1NdXNaOXpqT19XQ21FbVhiRGhTSHlZWFphSjZhS0xPcGlQNDFqaER6LXhMd284M29CS0t5ZV9pQ21VOWN4WUtvdUNXYUwzLU40U1dPLThJSFZDUGJrR3c1UQ?oc=5",
+   "source": "Modern Ghana",
+   "date": "2026-11-25T09:27:00.000Z",
    "tags": []
   },
   {
@@ -118,6 +196,16 @@
    ]
   },
   {
+   "title": "US FDA Approves First Antibiotic Paste To Prevent Infections After Colorectal Surgery: Trial Finds 60% Reduction",
+   "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQVnUzNmpvR3BfX0FLSmJPX1lMbW9wVHpYRjAzdHJGdUpMVUJadU1OTWY5bGNFS3R4VlNpYXFrRDI1UTJYb1pSZEMzYUVwY3M4SjFCM0ZFVWpaZDB4TjJUMmRNTFo0S3JGSzQ0cGV6Yk4zTFZhOU5scUdLSkVSWW9VeUh1eFp1Z2lPRW1nTE04WVpDcENNZnhtd05hWkJZXzlqbVpWYkl3RG5ra1JINmpNTzBMR255eXVXZ05PTnZOS1Vsa3JlQzJWVUJodXNjU0NHX3JoWV9CcHVZejFEdHk2dUhnUGNGVkZNbTZNWHFoeU9Edk5uTndoX0VrWFA?oc=5",
+   "source": "Health and Me",
+   "date": "2026-11-25T02:53:18.000Z",
+   "tags": [
+    "Regulation",
+    "R&D"
+   ]
+  },
+  {
    "title": "Biofilm Formation and Its Association With Antimicrobial Resistance in Pseudomonas aeruginosa Clinical Isolates in a Tertiary Care Hospital in Central India",
    "link": "https://news.google.com/rss/articles/CBMioAJBVV95cUxOR2NIR0NpSDM0Q3FES3hKaWxhSHBpTlRINUI0eUdGbHVBNDRZczVxRmdEVG5aWjlIT09vNG5vdnAwUm9aRWkwSjhPQklZNm45aFFLejhaeVJ3QXFfczhfS2NwcnMzQzNFX3J5d0EyQkVSbXltYkFSdWxrNFZ5MXVzQTRwVjFnb2lVU3o5eUlzZVdkdWsxaE1KaTBwTllKVlprZ2I0ZDNEdU1OdHVEVGp5SVppQ3lRaF9UOTQ4WDRxbWNrT3RBcjdIQmllX2s4cmhiTEtGbjc5SU91ZjdJdWg5Q3BCLUhWSElpMlo4TmNfb21TV1pmYnBha24xRkhtZjF5SzB1OW9lUmRleU9qQ3lZWndUQ1ota09fSjJ5bUJ4T3E?oc=5",
    "source": "Cureus",
@@ -140,90 +228,9 @@
   },
   {
    "title": "Pharmacy Directorate concludes Antimicrobial Resistance awareness campaign with call for responsible antibiotic use",
-   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPdEplMy1tN0lpMnlGOGRxUUYtNWpEcDJuQ3lVcU9tYVBOUWQ1NnFpa2YwM3QyQVYwczFQbTR1QVlqR0p2UVVlT2ctd2tuQVRWUnllM2lFa2xhbEFvN3BZR2pIdUo3UlJZa0NDbnRreXl0WHhQT21nYWlrbmd2T2xYNW1Hc1VSNXRGdWF4UzRsZDNtejJPRXZSaGlzd9IBmwFBVV95cUxPdEplMy1tN0lpMnlGOGRxUUYtNWpEcDJuQ3lVcU9tYVBOUWQ1NnFpa2YwM3QyQVYwczFQbTR1QVlqR0p2UVVlT2ctd2tuQVRWUnllM2lFa2xhbEFvN3BZR2pIdUo3UlJZa0NDbnRreXl0WHhQT21nYWlrbmd2T2xYNW1Hc1VSNXRGdWF4UzRsZDNtejJPRXZSaGlzdw?oc=5",
+   "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPSVBuUGw2cWM2dS1FeV9mM2NNNFA3ZEU3bzBzSTVXbENWUGVqb1VoYTZkWGJiRTYteDdTNl9CSUtsdk1sVDYxTDhmU2ljMWFkX2FjZEFXVjkxOVFZa1FfY3k3eGIwR2dCWFVBUzZPWnJrNllXTW1mcFBqQzM1OWpKc3d6RHA1SU1sR0EtUVdjU2JiX0dsaC1RVEZTSWLSAZsBQVVfeXFMT3RKZTMtbTdJaTJ5RjhkcVFGLTVqRHAybkN5VXFPbWFQTlFkNTZxaWtmMDN0MkFWMHMxUG00dUFZakdKdlFVZU9nLXdrbkFUVlJ5ZTNpRWtsYWxBbzdwWUdqSHVKN1JSWWtDQ250a3l5dFh4UE9tZ2Fpa25ndk9sWDVtR3NVUjV0RnVheFM0bGQzbXoyT0V2Umhpc3c?oc=5",
    "source": "Modern Ghana",
    "date": "2026-11-24T21:32:00.000Z",
-   "tags": []
-  },
-  {
-   "title": "Innovative approaches to AMR surveillance could lead to better patient care",
-   "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQQ0dNTDhJbU1HSUZUSERJY0tNdUctUmhQTTRpZy0yREIzOUtoVkZoVGMzZmU1a25kVU10a2tRYXdrd0RtUUczY09jaHdmVGdTMUlxRVRyQXhuSHpoNXlMM2dFY2llenZLOHFDdTV0WFpUZnEtMUF6Z05obDZET1E1RlpaU0FTdm9KU3prMnJLYl9tV195UGZRcTh2ZFR4cklnRS0wNQ?oc=5",
-   "source": "Liverpool School of Tropical Medicine",
-   "date": "2026-11-24T19:32:35.000Z",
-   "tags": [
-    "Surveillance"
-   ]
-  },
-  {
-   "title": "Webinar: Expanding treatment options for gonorrhoea and strengthening global gonococcal antimicrobial resistance surveillance",
-   "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxPOHdxM0ZraXYyRnpGemdWRC1wZ09fZWVIOHA1Wkk5ejd3TDAxbnotUV84TkpzaVdFY1VncVhPWld1LS00YzhSZkxxaUZsM1Q4X3NLWmFuWnFfZmkzelhQemJ4c1BmZ3NOOElKRHp4U05JMnhHUlpYSjNlS251NUdhT2FUNEdabXBPbERNcWlLR3dsdllFNkctNk1IQWJBenhUZWZ5ampDVUdkTHdlLU85aWhYellTN2VPejJFVXhlaVFXRzRoTml6U0s5eEhIbEk0bUxjbW1TZG1FbldieFJDY2NQVzlfZW5vUmhBaElPV2pDc3hvaEJfbENHS04?oc=5",
-   "source": "World Health Organization (WHO)",
-   "date": "2026-11-24T18:32:05.000Z",
-   "tags": [
-    "Surveillance"
-   ]
-  },
-  {
-   "title": "WHO Finds Major Gaps in Implementation of Antimicrobial Resistance Plans",
-   "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQUFhLd0h3UHBWbmxzWFJwN1EzT0NVa1RSLTdZN3dyMjl0eDFTQWl5dFdXeE8tRGhDcUkybmFhN3ptR1c2S0ppYVBzeDlWc2hnQXY5XzNTQi1QTXZpa2FTR0d0QWVnRTFmaGRlZDZwcEpqd3NsRmtDU2dpRWxjM1pKNHJENmw3S0hUQ2JrVXJJRmtLRlcxdHBYeS1QYUIwZ2VTSzRoMkpQUElvOVF1OEtORTlUVXFlRHR2YTFvUU5ucW5BbE1HV1Yyb1VNcWlfS1dtZUE?oc=5",
-   "source": "Infectious Disease Special Edition",
-   "date": "2026-11-24T18:19:35.000Z",
-   "tags": []
-  },
-  {
-   "title": "Direct-to-Consumer Antimicrobial Kits Threaten Patient Safety and Fuel Drug Resistance",
-   "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNTUMxM3FUaXJKT3J5d3lhbTJ4Ym1kZ0taeGxWVU5GX29mQXd6b0lRamFfR2VOZFhKMzdqSDNMR1J5cXZUckpZMmJfLU9BZTQ3MlBEU0pob1B2VEVqdC1wbEt4UjlnaTB1U3BlYUpybmZ1aHNUc1BCX0s3MjlDNjRvSHlDSE9VcEVGZ0I1TGNpSDJ5QTFMeXhGUUxLZkdUYkFSWC1CVmJMNk9HTF9fbEZiOA?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-24T17:28:12.000Z",
-   "tags": []
-  },
-  {
-   "title": "Mail-order antibiotic kits pose safety, resistance risks, pharmacy expert warns",
-   "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOTk5VWDF4dU1xYmRNeVpnXzZQTm5saUtzYktscDdYbjJBZU9sUmIwZGNiY2VZajBNRHBZS3NJRGVfMEZHcl9UYTVPSDdycDJ3NXJtbVhLRkVkajR5ZWtLYmNjOE9taXB5aGROelhfTDhMdGZmaU1wOVZnSTR5QWFHakFR?oc=5",
-   "source": "Medical Xpress",
-   "date": "2026-11-24T17:00:06.000Z",
-   "tags": []
-  },
-  {
-   "title": "AMR Awareness Week: Look beyond hospitals to tackle antibiotic resistance",
-   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNdTFNdUtVMGpQRWRYanlPeklOcmRnQ2pRYm94Mk5mYTN3VnE4bGhGTERRWGFUaUxpdFc4THMyUFBvdXZNdDE1T0RuX3YtMC1CZjN6QkRMRUhyZEJ4RGhtQ3lMNkpsZ21KOXNsUkVGY1lGTG9QUHQ5YXU3MDZtRnZfU2tXUVpFRkd5bmRRUWNvZi1PQ2p0a2o5SmZWOWJ4a3hPWWk1Z3NoSkhVbDY3M3V30gG8AUFVX3lxTE1FWThaNXhybGxUMEk3ZHdaN0NzV3ROSXB4UVgwbDVyNXNlNE53VkFkUDNYNXFqTGZhSEQ1SU12VDItTXMtMm9zSzVsWlNmUFdlaFQ0V0JvOWZETEd6U05iVFZMdlg3WW5oeHE3LXpmakk4OFU1bmExNHhMRnpabmRJa2ZhenFmcmcxMXh6c2NYVk1aRUM2VVFCSjQ0ZG9Qb3cwdzVBOExrMTdyMW5mMVNESERnZGJRdHFTUXJ3?oc=5",
-   "source": "Down To Earth",
-   "date": "2026-11-24T16:28:27.000Z",
-   "tags": []
-  },
-  {
-   "title": "Marine Seaweeds Offer Sustainable Bioactive Compounds to Combat Multidrug-Resistant Pathogens",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxONzBHV2VxU1dXdEpMcjI0cF9zb3o1cUVBV2gwMGVOam1XX0VXTXI0Y19pcnBELUhlYXlBeHRTUkI4SFk0eDczcWNUTUxIdXUxV2h4TUdQTFdaU1J6N0l0VTJrdGFTNXlvN0Q2ajVOQmViSGYxRjhKenI2ZUVFTk9CbEY3aFpvbmdIdlZaNUFBQ0U2Zkp4RExDVVNaeWt2ejM1endVaTVFU3cyQXE1YlZhR3FiV21YUnFlc1E?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-24T12:06:05.000Z",
-   "tags": []
-  },
-  {
-   "title": "Odontogenic Facial Infections Show High Antibiotic Resistance to Penicillin and Clindamycin",
-   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOZDZHelBOSTBQMWxGODNWbVdXSmJNcTQzR0xSRFlDREdrbzRLT3N6M2puYms0WF9UVWkxNHpiNEdXRjdiaU9Jbml3d19KQ2JVMHZQbFJmSTBvM0IxbnYtdUVHeHFiRHNlUnZqS29CdnZQSTMyb3VJRmk1REFnV2ZhZVhLaTNiM3RNSG9ITW80N0J6eEdIQTNDdjJVWWp4Y3dPQkdXNm12Y19zWmVGV0VxMDk1S1BRSnM?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-24T10:22:41.000Z",
-   "tags": []
-  },
-  {
-   "title": "Türkiye joins global research call to combat drug-resistant microbes",
-   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQUUxBMzdxMUdWSkRnSlBhMmt4Rm9GWC11ZTg4enZ2ZFpHcFd5Z1lQcVNHTFAwMkQwakc3SnNLN05wVTg1bVh1b2NGTW1WbDlXdXY3Rnl0aWY3Y1JJUGdCY0tUaUFVSFdfOV9BbGxZMlZzV3hINXZtV1J6SDhFU1h5WVVMLTJQZEN4U0EyTlNPUGNhVllCMGQybTl6dzhBdXY3NTRJZXF1WE93cFFBOHc?oc=5",
-   "source": "Anadolu Ajansı",
-   "date": "2026-11-24T09:27:36.000Z",
-   "tags": []
-  },
-  {
-   "title": "Addressing antimicrobial resistance: Why innovation, access and responsible use must go hand in hand",
-   "link": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxQWWRSLTVoc0s5MWR6SE9NeEdSRS1ra0RJdUNrTU84NGE5cTAzdFJwR0ZYYjBNUkhmcmhhTXUwaGNnQk4ySnA4ckQtaXFoMk5QNHJsQ0ViME0yZHhHaGFQMWZ1VVZVYVNWejNRZ0FCYVVNSHFBZWcwTVNXdUN5ZFRVWVBKd1JMY1hnTmI2bFpyRVF5RmdOTHNfTFVfWm5zMHF2enVURWtLTUtNbzd3LWl1UmxPSmlCU2Jpemh0NlZBVmxJVllzRm9IaWVSeURYckxpR2NBRVY2LWhQd0dtZlhiZWVoaFVyajNJUW42TVdFOElsQkhWemk5SnRmWWtteVXSAf8BQVVfeXFMUFlkUi01aHNLOTFkekhPTXhHUkUta2tESXVDa01PODRhOXEwM3RScEdGWGIwTVJIZnJoYU11MGhjZ0JOMkpwOHJELWlxaDJOUDRybENFYjBNMmR4R2hhUDFmdVVWVWFTVnozUWdBQmFVTUhxQWVnME1TV3VDeWRUVVlQSndSTGNYZ05iNmxackVReUZnTkxzX0xVX1puczBxdnp1VEVrS01LTW83dy1pdVJsT0ppQlNiaXpodDZWQVZsSVZZc0ZvSGllUnlEWHJMaUdjQUVWNi1oUHdHbWZYYmVlaGhVcmozSVFuNk1XRThJbEJIVnppOUp0ZllrbXlV?oc=5",
-   "source": "ET HealthWorld",
-   "date": "2026-11-24T07:43:48.000Z",
-   "tags": []
-  },
-  {
-   "title": "Nepal strengthens antimicrobial stewardship across hospitals, laboratories and communities",
-   "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPVlhVU2lNa0tKbW83QklsbEpXVndZZV9qUEp5emU5dmw2aW5wZTRDMk1PQ3NfdUhOWGdpY2RMT2hsTVNiYTZ4MEZqSGQtRVFfQ1ZVSmc1RTh4ZlV4UExpUndyWE96dlhOY19ZRENUcmtYcTQ1cEFoVzhiVlZ0d3dYX0QxTTJ4c2xwSm03bklVWWEzN040R2R1dy1SQ1pXY2VmcnR4RmQxYTZQcnBaNUxlMkI1UGg5ZlNlV1NjbTFRM29uZjFma1lUUjJpc0daX1ZzdmRqSU5R?oc=5",
-   "source": "World Health Organization (WHO)",
-   "date": "2026-11-24T05:26:51.000Z",
    "tags": []
   }
  ]
