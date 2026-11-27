@@ -1,7 +1,35 @@
 {
- "updated": "2026-11-26T21:40:23.501Z",
- "digest": "30 AMR headlines in the last two weeks; most about regulation (3), one health (2), r&d (2).",
+ "updated": "2026-11-27T08:43:54.217Z",
+ "digest": "30 AMR headlines in the last two weeks; most about regulation (3), one health (2), surveillance (2).",
  "items": [
+  {
+   "title": "Orally delivered antibodies for prevention and treatment of enteric infectious diseases",
+   "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPM2NydVhlZWp1LTJPS1YtaWVZS0ZBN2wyNGl3c2duZVhnSG94UWprc0ptcEhzZTZOcXBpd1ZOZkZEbmhaMGFuajJjT1N3ZjBFeEpzcnNYSjJyNGJJNTQ4Slc0Ul9zeV8xVGxNWlVNdkFlTFZIS0oyZVNMeG5GVHpPQU0wdjNtbTlvWEV5eWdKQXNaQzJKT0tZcU9uMGVJeTV4S2xEMlo1b3I0bHpzdXRjSDhaVmtoWS14a3YwNjY2WmFZTjY4a3FuT0gtM28?oc=5",
+   "source": "Innovation News Network",
+   "date": "2026-11-27T07:51:23.000Z",
+   "tags": []
+  },
+  {
+   "title": "Plant Bark Extracts Combined With Pleurotus florida Boost Antimicrobial And Antioxidant Activity",
+   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOMXhUTXJFZ0RSOWMwOUJwWkt2SDZJU29fS19QZGt3bFc2YkhJaF81WmZBN183ZWliSFA3ZWtKOTlmeVVnWE0xSy1yM010MDZtR1JSNGNQNEZGMEdMa2ktYzlZMEk4aEdkb0hGV2tkeDV4eWNjRll5VFA3S2lSRUhJakRKemtxejA0c0dpRGpYVlMtV2FCR3NYVUpBeUlXY29mZk81aGtqQi1pMl9tdndVMFlOcGdIMzl2Rkpxa3J3?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-27T06:30:47.000Z",
+   "tags": []
+  },
+  {
+   "title": "Drug-resistant germs are 'growing threat' to US, causing more than 50,000 deaths annually: CDC",
+   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPZ0o2cFplaXlYYjFjOXZyczV0eXphY3hPVW81dTRRNlhCSTgxTloxT0tEVkRCX1kxT01vYkRPLW0xbTFMR1QyX0xETnBtTmFac1dKUHhCZkJRTll0ODB6SG45MzhpQ2N0MzZJU214OVRzZjhLTkhHWTM3WUttT3k0a0k3UV9iV0pKMFRwMEtRSXZCX1A1d09qVVdXdVdOSGvSAaQBQVVfeXFMUExheC1kN3pRM0VMYjN4RzE5OXlCMlB4d0NKSVhVcGplZkcxLXZCUTZ2OWF6Yzc1YnBmLTNLdkEwck5WZ2piZTBJMERnYU1qOXRxNTZGUDBjWEIwWTdIaEpVYXBxd0RHOE9tekxsRTR1TzNIWmxNX1BuVUlIUUZjR3JDcWxHTk1jdmtTTk41X3dWY1JxQUlIVTVabkVEMUVEVVhRVGo?oc=5",
+   "source": "ABC News - Breaking News, Latest News and Videos",
+   "date": "2026-11-26T20:20:41.000Z",
+   "tags": []
+  },
+  {
+   "title": "Trust features in global AMR documentary",
+   "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1TRlpJMkJndEhkNnpVYUp0QlNQVkZLSDI1OUtMc0VxLVhtbHBUejktUFZvemdXdlZrN1pEcHJOMWtsRW1qV1owMDRydXZKZDFUYUdUMmc1Q19pQm9kZ3UtS05mRjlla0ty?oc=5",
+   "source": "Imperial College Healthcare NHS Trust",
+   "date": "2026-11-26T15:37:00.000Z",
+   "tags": []
+  },
   {
    "title": "Surveillance Data Document Rising Carbapenem Resistance in Ukraine During Full-Scale War",
    "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQZEx0ZWVTVE1BTm1SSTRhal84ODMzc2RNODFvbTNjb3pTZkVXVU1zc293b1JLeE8wWlFWeGp5ZHBhbmN0ZE40S25wNHRlRkV4RG0yc2lVNE1wMTJ5c2Z3NXZLWHdpb2NIOGdlWlRfLVFMY0V1NFFNbjgxSDdvUXhNZ3oyZjRqNFBhUno3bkQ0Tl9kdjg5dzlPdzlKb1dhSndrWW1tNTY0Y3ljV1NhYWtkYVEwUQ?oc=5",
@@ -61,15 +89,6 @@
    "source": "Food Safety News",
    "date": "2026-11-26T05:05:36.000Z",
    "tags": []
-  },
-  {
-   "title": "Molecular Diagnostics With Stewardship Are Associated With Lower Bloodstream Infection Mortality",
-   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNSXlnU0Rnc1BKYnZvcG1OLTJiSVJzZEVtSnctMTRZdDF0Q2RLMUU3MGU0czFTbEwxc3R0dkEwdU5Oc2d3Ml9FNE92UGtXY0FNNUhRVVpmVVkyRzR5d19HZW5zQTRkSzJoNTdQM2N0RjJObWFXOWwxNmdrcEtlUUN4VHdXU3RHdDhPVS1fbkNKajZ2SHJoZFBvZG1kWDRGVVh2QWdtbV9zUXlDTWpKVk85TlAzQk5hMmRRNWlEdG9B?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-26T04:25:17.000Z",
-   "tags": [
-    "R&D"
-   ]
   },
   {
    "title": "WHO Recommends New Oral Antibiotic For Gonorrhoea Amid Rising Resistance",
@@ -153,13 +172,6 @@
    "tags": []
   },
   {
-   "title": "Biocurious: Antimicrobial resistance ‘no longer a distant threat’",
-   "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPYzFmRndMZE9pWEFJX0dHQXlnMEFpbUo4UThya1o4MEhRVUxLa19URzR2S2ZwNjEtckZsYlAtLTZEdWU4SXlVRllVOFh3eEI5NW54MTdmSk9wT24zSmt2V1phR2d3XzhVdmRweS1QWXlMRmIycUUzWmh5TkFPa0hJc2lZUndEN2NteFFWQ2phRkRNWG56eHE0TGlmSkNFeGJQcl9naFVUZ0RtQ0NVbEhvb2s5ekhKX3JVMTZab2o0dkpSMGdMWjM3TFJkdHNUM1cydWJhX3VJS2k4SHhGQVFKTlB2VHdzR3VCZmR6UXRmbw?oc=5",
-   "source": "NT News",
-   "date": "2026-11-25T14:45:00.000Z",
-   "tags": []
-  },
-  {
    "title": "WHO’s 2026 antimicrobial-resistance campaign calls for action across human, animal and environmental health",
    "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQN3UyRFFsSUFGd2N6ZmtNV0hTVV8zZUxSRGtsYmRxYVJScWFma1lJTElaekQ3YTlPQUpWVGZTOE1UVDBmZ2gzMTJUcU0zaVJvS3FPeFlBdDJGY0lLR1VQanI4VkFWRnRuX1F2UUlqNjJvaTlvTEo1NFlpMWRvZ25qTzEzX2lNWEFSQWFQVlR5b2xsX3FHbVc5b0ZjblI3N18zVjZPdEtvVlJMZWxLdEVDQ1k1d1phVFlVQVNjUFFHN21LSlA3UWpMLXc1d2RvRDBMdzlGT2dTV0llYkliVzdjblFTcw?oc=5",
    "source": "Dairy News Today",
@@ -212,22 +224,6 @@
    "date": "2026-11-25T08:54:56.000Z",
    "tags": [
     "Regulation"
-   ]
-  },
-  {
-   "title": "Brazilian Cashew Cheese Analogues Carry Low Pathogen Levels but Harbor Resistance Genes",
-   "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPdFJ3X2ZXRHh1M3BXQVpmTDlmNWtxX0xNeUNENzl3VHhMTkZaZWZ2a1hCbjZraGlwdnp6RXBuTFlIZlh3eHR5ZllHWXliRWxod1U5bmlXMXhxN1RlQ3QxU1JpbjJaR0x6bzV0V1RYcVQ3ZTdpMGxLRW0zOGlZMTdFcktuRWMwUzdiSU4xeGhRWTJiTGR5eEV2bXd5ZmhDeU5CM1dxOWJ4UHpRTHNHaVM2UHVn?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-25T04:39:18.000Z",
-   "tags": []
-  },
-  {
-   "title": "Scoping Review Links Advanced Resistance Diagnostics to Healthcare Workforce Stewardship Actions",
-   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNdG1wNnFkRkhCcWNIb0dDZWxfRHhvVGF5MDhKbExzbUNLcnVpRDFxbTVBSTEyYlJIYUF6OXlqOTg4OXdPdGM5QndqbWxhcnZzNzdoOWQtMkVMR1lSMXI1dTlBOS1BajdmVVdZbjV1enA0WkRFXzVvUVVLWmo3T2NlNXNZVVZIOUhSSjhjZGk0QkFiMmJYWTBCMGlqZ2dRYUNZeXVuako2a1NjOWdzN3Q3YS1WOGw3TEJ4dmU1Vnp3?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-25T03:39:12.000Z",
-   "tags": [
-    "R&D"
    ]
   }
  ]
