@@ -1,7 +1,14 @@
 {
- "updated": "2026-11-28T07:57:34.300Z",
- "digest": "30 AMR headlines in the last two weeks; most about one health (3), surveillance (3), policy (1).",
+ "updated": "2026-11-28T20:13:45.704Z",
+ "digest": "30 AMR headlines in the last two weeks; most about one health (3), surveillance (3), r&d (1).",
  "items": [
+  {
+   "title": "Westfield Health Bulletin: Antimicrobial resistance causes, risks, and what to do",
+   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNdUg3YXQzSktzZDlFX29vR29PLV9IcTZVaXc4bDZvYTNsMEFmbkpVbTZjeDBQUFc2LWVKNWRiZUF2ZmgtNGRJNGQ1N1lJSmpKcDNCZEZlbHRFSllWQU1tWVZqWi1UVG5qZWVGOGlzZnJQeUI2VkkwM3NselFWcVdheXpXUDNnWWl2NkFMS2xfZjc4dzR1Q1EzeWlEN1BxY1NIcGowRFYteE14X0tRUTVHWWRaV2EwQ0tUQWtxMFJzTXBUWVRXNE5naUln?oc=5",
+   "source": "MassLive",
+   "date": "2026-11-28T11:00:00.000Z",
+   "tags": []
+  },
   {
    "title": "Hospital Traffic-Light Prescribing System Associated With Significant Antimicrobial Resistance Reductions",
    "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNRnNOVFlleWthYk1rTFdvTFl2VzJGbXNlb2lxV3ZCeDNkNjVmY3lPeVR4VUN0Ui1BSUhIWHY2V3dOaC1xbnRndlNZYW0wTTc5QlR0aGRxRFptN054TmVVeVRZNzgzRS15YnpCRTVwdlVEWmNDYVc1UDNJa21CLWk2N1hIa2tZUzBvOFBPcU1JLWxmMm1QOU1BcU5yMFJuZlRQaDJlZ3pRLXRBWVdZY1p3R1BPX0ZOU2JSWXJ3NG5PT0psUmw4eTlWdkh3?oc=5",
@@ -74,20 +81,6 @@
    "tags": []
   },
   {
-   "title": "Hyphens Pharma licenses Seysara® for ASEAN countries",
-   "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9pLXZzLXhoNmVMbzNfSGl6azlNZmNZSzVqM01mVjBFdmVRWDlJUTBqSXR3X21Xak5adFVQRzVqVDVpSnVkdnpQTDVnTHZFcEU5ZjZJYUF4a0I2clFC?oc=5",
-   "source": "ACROFAN USA",
-   "date": "2026-11-26T22:41:54.000Z",
-   "tags": []
-  },
-  {
-   "title": "Eight more die amid measles outbreak in Bangladesh",
-   "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1LNXQ4dGdCUVJnWTVveVlIVWJidEhIUm9JMDY1aVYwcENkcDNGejNFRkJBVnAzLTR6akdVbTJHbDB0c0tOV0N4bU14X3ZpRC1EWk9nZUwxRG9udExqWFhwbDNHYmFyNlB5?oc=5",
-   "source": "Banglanews24",
-   "date": "2026-11-26T19:49:00.000Z",
-   "tags": []
-  },
-  {
    "title": "Trust features in global AMR documentary",
    "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1TRlpJMkJndEhkNnpVYUp0QlNQVkZLSDI1OUtMc0VxLVhtbHBUejktUFZvemdXdlZrN1pEcHJOMWtsRW1qV1owMDRydXZKZDFUYUdUMmc1Q19pQm9kZ3UtS05mRjlla0ty?oc=5",
    "source": "Imperial College Healthcare NHS Trust",
@@ -111,10 +104,10 @@
    "tags": []
   },
   {
-   "title": "Beyond Antibiotics: The Pharmaceutical Industry’s Role in Addressing AMR",
-   "link": "https://news.google.com/rss/articles/CBMingJBVV95cUxQbzVNNlpPUHRSMkxqS2ZjM1lRMnlCUXFoQTE5WldNcXpTSVNtUFFfeWs0M3Z1U2ZCc2J3TTNXeXdPbHVvb1BDeUtnSjBiS1lVU0hyS1cwcVlLbHVxZWhqMkFDaWl3cENxZVVuMlp6bmxXNWFubjRqb013UjBwcTBVVGJ2ZUh1aGhiQnBKbllwWVkzTEFyRzNvM1RWTlNsaGlQOHN1TFRqc3pxOS15VzhEQjNEWDVoU3l6QUFnTzVFcGRqb0VVX0s5eXlVMDQ4Y2VvWElfbURmYVFSTVdqaFdMT09RX09SVE5XdFlFUEtfdllRRnEyWktrZXhkZHJkNUhtQkF5c2tyc01HQWtpVFV0Y2pMUkVvNmZjOVN6RXFn0gHjAUFVX3lxTFBhQVg1MEdCcDYtMFNBc2s5VFBaMzU3dF9ncDlnTEF2eUxsN1hOaVFzU3lZX2V0SUhrRnNjdGh5VXpuNUhJZ3Uxa0JfZW1ZU3ZscFNMaDVhWlA5ZGlEMXM0VVMtcTA0Q0hfT3prSW5nQ2pPRnBGZTQxZFp0RHF6WGZPX3ZoZDJDNzdJS1pjdG9LeWRiSkR0WlNKaW5XVkNSSGVtbEw3NUxWVzhxNlMyQWVEMjFHRWxDYlVOY0JLXzY0UDVWU1RMdE55TllTZXAya2Fhd1ZJQTV0YkpSODZyZ0FsVkhv?oc=5",
-   "source": "ETPharma",
-   "date": "2026-11-26T12:42:59.000Z",
+   "title": "Captive Wild Boars in Brazil Harbor Highly Multidrug-Resistant Escherichia Coli",
+   "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNLTdiV2VWblVmV2tLNmVkUTUtRFFKa051UHY5d3p2dkd6MGxuTDhFWmpRbUwwc3g0cldsTVBVYmNZc21QMno5SmdNZU1zZVZub3Y3aG91Q09KdzJLdjRQZ21BRVhKTENQYzFEaGhyb2RUM0J1X3FHNnUtUmdWTUZqQWFfY3o0c3N6cFc4S1BJOEFHcUdQQWw3dWxvY21jR196VjNYbXdaaw?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-26T13:30:13.000Z",
    "tags": []
   },
   {
@@ -132,25 +125,20 @@
    "tags": []
   },
   {
-   "title": "High levels of salmonella found from largest US turkey producer",
-   "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQUTVub2NCZkFPT3BaTlBqelJQaWNRUy01UXRtYXRwTW9UQmkyNnc0Mk9RUW9udDdEaldKbzJtVE8yRDE0OTNPSGJmNEhfSHY5OWVZbk5SNVVSUkxyTHhEMFRMTlEzem5Mc1pmYjlVN2g3VGowWGo4MTBENU5FUmFPWldtTGJyY0lmMW9MQkZuMA?oc=5",
-   "source": "SourceMaterial",
-   "date": "2026-11-26T08:01:44.000Z",
-   "tags": []
-  },
-  {
-   "title": "Staphylococcus Caprae Isolates Reveal Divergent Host Colonization and Antibiotic Resistance Traits",
-   "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOdnJpbTd3VkVXZnNCR1hLdGk5aWtneWdiSDc2dG5QcnNCaXdGUHhyZW1mRmtnNjlYeElmNElBX3NOZXNNYkMtOEZUSW5VOHdOUmFqRzZjd2J1bVo5dXFMTy1fOEc0M21yZW9keWJHU0g4TEsyckNHTUxpMXQtV3JhaU0xRFl4bHRfSW9hc1pxMTI1c1NSSGNxY2dpamJQRkVyZGFUUVZxZ1BSZFFCUkRJbW9RZVJhMzltYWJEVGtndzI?oc=5",
-   "source": "Bioengineer.org",
-   "date": "2026-11-26T06:31:36.000Z",
-   "tags": []
-  },
-  {
    "title": "UKHSA reviews antimicrobial resistance of Listeria",
    "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQY25BaHBKMk1Td3lUV3prd3hBZTkyOEpZREpJMExEbEQwT2NSbmthZHE1Q2VSQUlXc3JQU1Uyd2NVMnRLbHNKalpFamU4bjNhU0t4Mlo0bHg0RHBwQ2UtY2dQQjNvQUx4NmJoRndlWVR0TVBndVA0TVpIS2MxNFpTRjUxM0tiSFJia3huWTVRcW5wWi1L?oc=5",
    "source": "Food Safety News",
    "date": "2026-11-26T05:05:36.000Z",
    "tags": []
+  },
+  {
+   "title": "Molecular Diagnostics With Stewardship Are Associated With Lower Bloodstream Infection Mortality",
+   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNSXlnU0Rnc1BKYnZvcG1OLTJiSVJzZEVtSnctMTRZdDF0Q2RLMUU3MGU0czFTbEwxc3R0dkEwdU5Oc2d3Ml9FNE92UGtXY0FNNUhRVVpmVVkyRzR5d19HZW5zQTRkSzJoNTdQM2N0RjJObWFXOWwxNmdrcEtlUUN4VHdXU3RHdDhPVS1fbkNKajZ2SHJoZFBvZG1kWDRGVVh2QWdtbV9zUXlDTWpKVk85TlAzQk5hMmRRNWlEdG9B?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-26T04:25:17.000Z",
+   "tags": [
+    "R&D"
+   ]
   },
   {
    "title": "WHO Recommends New Oral Antibiotic For Gonorrhoea Amid Rising Resistance",
@@ -167,13 +155,6 @@
    "tags": [
     "Surveillance"
    ]
-  },
-  {
-   "title": "World AMR Awareness Week 2026 Puts Prevention First as Drug-Resistant Infections Keep Rising",
-   "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOaW1Xa1B6aGQ3MTZoQm5fQWUtTmVnLUN5VlNSZW5qOWZweVRFVjBtUzVGM3pJRGRfUHJOS1k0YlRpY0J2N2JPUV9BdXNYc21hOU52aUxodGg3U1ZaRER3RjRYZVNNMXduZllvWi1ud2dmS2ZUU19mcGlCVl9SbUV6QmZRT1dqUEFNV0xYOV81cm90X3VuV21xVVNUbUxMQ2dLNGtiV1hENWoxV2hiSThzOE9RSWdDa3JxVVZ1TQ?oc=5",
-   "source": "GeneOnline",
-   "date": "2026-11-26T02:18:24.000Z",
-   "tags": []
   },
   {
    "title": "Bacterial Communities and Environmental Reservoirs Interconnect to Drive Antibiotic Resistance",
@@ -213,6 +194,13 @@
    "tags": []
   },
   {
+   "title": "DNA Hypomethylation Promotes Levofloxacin Resistance in Helicobacter pylori via ABC Transporters",
+   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNTjh3LTdub2lYZlhnTUczdkZ3QW5najF6T0Q3VGxTNWNVdFgxeXBfTGl4ZlI5cnZUa1BOdzRFWW5nS2cxaEt2WmZKVEJpMUNobjVHY3YxYkgzUTFaOEtwekVtbjNMdy16Tml1aWsyTUhPc0dkMkVfeS1jaFE2LW1HUUQ5LXI1SHlkSENWeERORkJROEdlZFV0cV9qM1RTRTJhSV9iRUxfWXR6Y1VhbFlIendzVFRuMEtSbXh5cjln?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-25T21:12:28.000Z",
+   "tags": []
+  },
+  {
    "title": ") Receives WHO Recommendation as Alternative Treatment for Uncomplicated Urogenital Gonorrhea",
    "link": "https://news.google.com/rss/articles/CBMiggJBVV95cUxQNmJNa0NQOGJaWWg0N2dpTHRHbnZsUVhuVmJQX2Z2Q0tXQ2FjSEFWM2VXNWNjUjhuZHV2b0xIc0JMUjVpX2NiOTJDb3psS2Y4ckhLNHQ1dE9lRlpMSFFWNGYxQVZCY1JMd3VLU3I3a1dVMVYxSEJySmdvdUxuUTZMZE04LWVUWFNZM3c3cE1ybTVDWlBZd0hzYlpsVzJkSUM2c3JnZFBkNzljS295Y0ZDemRnNER2NkR5aWxIUEduamJkSFZGcG82TG80N3NEUE5Tampzam1SNVJiaGJ5QjhCMjhXZlA1R0V5d3FBZEJxZjhYRUpIMVdBdnhTS2gyazNvSGc?oc=5",
    "source": "Business Wire",
@@ -224,6 +212,20 @@
    "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQZEZHV3Z4UTVqTWdwSzZGcC1PWUJqdGY2bmwwTWl1VXVrREpLcVo2bFd2dnUyN2VoM0h5VmxKdkF2VGM5YmdfUTBIelFuOGxZZDVtQXN1UHhRZ1FYeTY1ckcyTkVDVDlaRGVRZDNDUWpQUmQwY2pucUg5enZsbXVqcEVaMDFqX3EzZDJYR0lZODhwS09GVTRaNEZxVng1Rk8wUW94MFZ6WENkbEVsaS1DRXdYQjh6WEtzNl9xV2R3bUJTQXVMYkE?oc=5",
    "source": "Bioengineer.org",
    "date": "2026-11-25T19:36:55.000Z",
+   "tags": []
+  },
+  {
+   "title": "Nonantibiotic Farm Compounds Sustain Bacterial Resistance Across Global Food Systems",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNdUhSYlkyempicDIzcnpXY1AxZ2ZwNjU0SnN0NzRPaU5qaTZ0TWwwUkI1VVRMNEVGaDdIaThSdE1uYmxiT2NRT1J4QXA3VWd3ek5Najd5N0NsRlR1amhMcG96cFlaOFV0djl3U2VyZndhQ3NRLVc5MXAxYURGX0dNOTBwc2lFZlhhNnBDVkt3LXFJclVEZUpnUElkOEdOVDFiYi1ZY3ZWV1FETVJxblE?oc=5",
+   "source": "Bioengineer.org",
+   "date": "2026-11-25T19:21:55.000Z",
+   "tags": []
+  },
+  {
+   "title": "Biocurious: Antimicrobial resistance ‘no longer a distant threat’",
+   "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPYzFmRndMZE9pWEFJX0dHQXlnMEFpbUo4UThya1o4MEhRVUxLa19URzR2S2ZwNjEtckZsYlAtLTZEdWU4SXlVRllVOFh3eEI5NW54MTdmSk9wT24zSmt2V1phR2d3XzhVdmRweS1QWXlMRmIycUUzWmh5TkFPa0hJc2lZUndEN2NteFFWQ2phRkRNWG56eHE0TGlmSkNFeGJQcl9naFVUZ0RtQ0NVbEhvb2s5ekhKX3JVMTZab2o0dkpSMGdMWjM3TFJkdHNUM1cydWJhX3VJS2k4SHhGQVFKTlB2VHdzR3VCZmR6UXRmbw?oc=5",
+   "source": "NT News",
+   "date": "2026-11-25T14:45:00.000Z",
    "tags": []
   }
  ]
